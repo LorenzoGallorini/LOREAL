@@ -13,6 +13,8 @@ Una sezione riguardante il cast e i registi, sfruttando le API di WIKIPEDIA (htt
 L’utente potrà impostare dei preferiti oppure selezionare i film già visti, per poi ritrovarli facilmente uscendo e rientrando dall’app.
 Una funzionalità che tramite lo shaking propone un film all’utente.
 
+#Note
+Lingue in cui vogliamo implementare l'app
 
 #Link utili
 
