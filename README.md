@@ -14,7 +14,11 @@ L’utente potrà impostare dei preferiti oppure selezionare i film già visti, 
 Una funzionalità che tramite lo shaking propone un film all’utente.
 
 #Link utili
+
 https://material.io
+
 https://icons8.it
+
 https://www.genymotion.com
+
 https://balsamiq.com/wireframes/desktop/#
