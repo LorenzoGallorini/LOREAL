@@ -29,3 +29,7 @@ https://balsamiq.com/wireframes/desktop/#
 https://www.sketch.com
 
 https://developers.google.com/youtube/v3/quickstart/android
+
+https://it.wikipedia.org/api/rest_v1/#/Mobile/getSections
+
+https://it.wikipedia.org/api/rest_v1/page/mobile-sections-remaining/Quentin_Tarantino?redirect=false
