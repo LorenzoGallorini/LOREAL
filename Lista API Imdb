@@ -1,0 +1,22 @@
+GET Get Details
+GET Get Account States
+GET Get Alternative Titles
+GET Get Changes
+GET Get Credits
+GET Get External IDs
+GET Get Images
+GET Get Keywords
+GET Get Release Dates
+GET Get Videos
+GET Get Translations
+GET Get Recommendations
+GET Get Similar Movies
+GET Get Reviews
+GET Get Lists
+POST Rate Movie
+DELETE Delete Rating
+GET Get Latest
+GET Get Now Playing
+GET Get Popular
+GET Get Top Rated
+GET Get Upcoming

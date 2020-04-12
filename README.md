@@ -16,6 +16,10 @@ Una funzionalità che tramite lo shaking propone un film all’utente.
 # Note
 Lingue in cui vogliamo implementare l'app
 
+Possibilità di implementare il parental control IMDB ci restituisce se il film è vietato ai minori oppure no quindi sarebbe facile implementare il parental control.
+
+I registi ci sono anche su IMDB controllare la sezione PEOPLE!!!
+
 # Link utili
 
 https://material.io
