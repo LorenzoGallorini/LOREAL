@@ -1,3 +1,5 @@
+# MOVIE 
+
 GET Get Details
 GET Get Account States
 GET Get Alternative Titles
@@ -20,3 +22,17 @@ GET Get Now Playing
 GET Get Popular
 GET Get Top Rated
 GET Get Upcoming
+
+# PEOPLE
+
+GET Get Details
+GET Get Changes
+GET Get Movie Credits
+GET Get TV Credits
+GET Get Combined Credits
+GET Get External IDs
+GET Get Images
+GET Get Tagged Images
+GET Get Translations
+GET Get Latest
+GET Get Popular
