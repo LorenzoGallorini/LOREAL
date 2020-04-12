@@ -27,3 +27,5 @@ https://www.genymotion.com
 https://balsamiq.com/wireframes/desktop/#
 
 https://www.sketch.com
+
+https://developers.google.com/youtube/v3/quickstart/android
