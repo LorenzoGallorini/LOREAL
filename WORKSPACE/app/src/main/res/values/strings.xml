@@ -1,6 +1,10 @@
 <resources>
-    <string name="app_name">CinemHub</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="app_name" translatable="false">CinemHub</string>
+    <string name="title_home" translatable="false">CinemHub</string>
+    <string name="title_dashboard" translatable="false">Dashboard</string>
+    <string name="title_notifications" translatable="false">Notifications</string>
+    <string name="title_now_playing">Now playing</string>
+    <string name="title_favourite">Favourite</string>
+    <string name="title_coming_soon">Coming Soon</string>
+    <string name="title_shake" translatable="false">SHAKE!</string>
 </resources>

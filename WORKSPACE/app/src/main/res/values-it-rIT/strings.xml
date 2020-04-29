@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_now_playing">Al cinema</string>
+    <string name="title_favourite">Preferiti</string>
+    <string name="title_coming_soon">Prossimamente</string>
+</resources>
