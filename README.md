@@ -39,29 +39,29 @@ https://it.wikipedia.org/api/rest_v1/#/Mobile/getSections
 https://it.wikipedia.org/api/rest_v1/page/mobile-sections-remaining/Quentin_Tarantino?redirect=false
 # Modalità d'esame
 
-# a) Documento di design 
+a) Documento di design 
 Il documento deve riassumere quanto segue:
 le funzionalità offerte
 l’architettura della soluzione: componenti realizzate, loro responsabilità (cioè cosa fanno) alcune descrizioni significative (ad esempio a quali API vi interfacciate, e tutto quello che ritenete significativo da raccontare). Non va inserito codice a meno che uno non debba descrivere qualcosa di particolarmente significativo
-# b) Presentazione 
+b) Presentazione 
 Due slide: la prima cosa fa il sistema, la seconda l’architettura della soluzione
 
-# c) Demo
+c) Demo
 Una demo da fare live il giorno dell’esame
 
-# d) Codice sorgente disponibile
+d) Codice sorgente disponibile
 Aver il codice del progetto su Git.
 
 
 # Modalità di svolgimento:
 
-# Una settimana prima dell'esame e quindi entro il:
+Una settimana prima dell'esame e quindi entro il:
 18 Giugno alle 23.59, appello del 25 Giugno 2020
 16 Luglio alle 23.59, appello del 23 Giugno 2020
 10 Settembre alle 23.59, appello del 17 Settembre 2020
 dovete consegnare attraverso i controlli messi a disposizione su moodle, il documento di design (punto a)
 
-# All’esame:
+All’esame:
 Mostrate le due slide (punto b) che non occorre consegnare (2 minuti)
 Fate la demo live (10 minuti al massimo, quindi pensatela bene)
 A campione su Git guardiamo il codice (a cui quindi potete lavorare fino a 5 minuti dall’esame)
