@@ -43,6 +43,7 @@ a) Documento di design
 Il documento deve riassumere quanto segue:
 le funzionalità offerte
 l’architettura della soluzione: componenti realizzate, loro responsabilità (cioè cosa fanno) alcune descrizioni significative (ad esempio a quali API vi interfacciate, e tutto quello che ritenete significativo da raccontare). Non va inserito codice a meno che uno non debba descrivere qualcosa di particolarmente significativo
+
 b) Presentazione 
 Due slide: la prima cosa fa il sistema, la seconda l’architettura della soluzione
 
