@@ -22,4 +22,17 @@
         android:name="com.example.cinemhub.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+
+    <fragment
+        android:id="@+id/navigation_preferiti"
+        android:name="com.example.cinemhub.ui.preferiti.PreferitiFragment"
+        android:label="@string/title_preferiti"
+        tools:layout="@layout/preferiti_fragment" />
+
+    <fragment
+        android:id="@+id/navigation_shake"
+        android:name="com.example.cinemhub.ui.shake.ShakeFragment"
+        android:label="@string/title_shake"
+        tools:layout="@layout/shake_fragment" />
+
 </navigation>
