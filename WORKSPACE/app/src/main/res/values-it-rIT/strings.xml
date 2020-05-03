@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="title_now_playing">Al cinema</string>
-    <string name="title_favourite">Preferiti</string>
+    <string name="title_favourite">I miei preferiti</string>
     <string name="title_coming_soon">Prossimamente</string>
+    <string name="title_top_rated">I più valutati</string>
 </resources>
