@@ -13,7 +13,7 @@
 
     <item
         android:id="@+id/navigation_shake"
-        android:icon="@drawable/shake_with_hand"
+        android:icon="@drawable/shake_good"
         android:title="" />
     <item
         android:id="@+id/navigation_preferiti"
