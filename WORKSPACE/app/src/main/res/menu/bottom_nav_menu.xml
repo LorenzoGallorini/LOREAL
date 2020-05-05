@@ -6,10 +6,10 @@
         android:icon="@drawable/ic_home_black"
         android:title="" />
 
-    <item
+    <!--<item
         android:id="@+id/navigation_dashboard"
         android:icon="@drawable/ic_dashboard_black_24dp"
-        android:title="" />
+        android:title="" />-->
 
     <item
         android:id="@+id/navigation_shake"
@@ -20,9 +20,9 @@
         android:icon="@drawable/prefer"
         android:title="" />
 
-    <item
+   <!-- <item
         android:id="@+id/navigation_notifications"
         android:icon="@drawable/ic_notifications_black_24dp"
-        android:title="" />
+        android:title="" />-->
 
 </menu>

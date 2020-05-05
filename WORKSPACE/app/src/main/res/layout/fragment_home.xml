@@ -142,6 +142,7 @@
             app:layout_constraintTop_toBottomOf="@+id/horizontalScrollViewTopRated" />
 
         <HorizontalScrollView
+            android:id="@+id/horizontalScrollView"
             android:layout_width="406dp"
             android:layout_height="129dp"
             android:layout_marginTop="16dp"
@@ -182,6 +183,45 @@
                     android:src="@drawable/ic_launcher_background" />
             </LinearLayout>
         </HorizontalScrollView>
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/title_show_all"
+            android:textColor="@color/blueLink"
+            android:textSize="@dimen/label_show_all"
+            app:layout_constraintBottom_toTopOf="@+id/horizontalScrollViewTopRated"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/horizontalScrollViewNowPlaying"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/title_show_all"
+            android:textColor="@color/blueLink"
+            android:textSize="@dimen/label_show_all"
+            app:layout_constraintBottom_toTopOf="@+id/horizontalScrollView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/textView2"
+            app:layout_constraintTop_toBottomOf="@+id/horizontalScrollViewTopRated"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <Button
+            android:id="@+id/show_all_1"
+            android:layout_width="81dp"
+            android:layout_height="37dp"
+            android:text="@string/title_show_all"
+            app:layout_constraintBottom_toTopOf="@+id/horizontalScrollViewNowPlaying"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="314dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

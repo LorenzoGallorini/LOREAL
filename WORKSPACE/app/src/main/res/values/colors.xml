@@ -4,4 +4,5 @@
     <color name="colorPrimaryDark">#383838</color>
     <color name="colorAccent">#03DAC5</color>
     <color name="titleWhite">#FFFFFF</color>
+    <color name="blueLink">#FFFFFF</color>
 </resources>
