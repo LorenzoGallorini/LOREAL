@@ -1,4 +1,4 @@
-package com.example.cinemhub.ui.preferiti;
+package com.example.cinemhub.ui.nowplaying;
 
 import androidx.lifecycle.ViewModelProviders;
 
@@ -14,24 +14,24 @@ import android.view.ViewGroup;
 
 import com.example.cinemhub.R;
 
-public class PreferitiFragment extends Fragment {
+public class NowPlayingFragment extends Fragment {
 
-    private PreferitiViewModel mViewModel;
+    private NowPlayingViewModel mViewModel;
 
-    public static PreferitiFragment newInstance() {
-        return new PreferitiFragment();
+    public static NowPlayingFragment newInstance() {
+        return new NowPlayingFragment();
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_preferiti, container, false);
+        return inflater.inflate(R.layout.fragment_now_playing, container, false);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(PreferitiViewModel.class);
+        mViewModel = ViewModelProviders.of(this).get(NowPlayingViewModel.class);
         // TODO: Use the ViewModel
     }
 

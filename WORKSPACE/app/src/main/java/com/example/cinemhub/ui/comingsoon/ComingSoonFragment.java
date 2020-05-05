@@ -1,4 +1,4 @@
-package com.example.cinemhub.ui.preferiti;
+package com.example.cinemhub.ui.comingsoon;
 
 import androidx.lifecycle.ViewModelProviders;
 
@@ -14,24 +14,24 @@ import android.view.ViewGroup;
 
 import com.example.cinemhub.R;
 
-public class PreferitiFragment extends Fragment {
+public class ComingSoonFragment extends Fragment {
 
-    private PreferitiViewModel mViewModel;
+    private ComingSoonViewModel mViewModel;
 
-    public static PreferitiFragment newInstance() {
-        return new PreferitiFragment();
+    public static ComingSoonFragment newInstance() {
+        return new ComingSoonFragment();
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_preferiti, container, false);
+        return inflater.inflate(R.layout.fragment_coming_soon, container, false);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(PreferitiViewModel.class);
+        mViewModel = ViewModelProviders.of(this).get(ComingSoonViewModel.class);
         // TODO: Use the ViewModel
     }
 

@@ -24,15 +24,27 @@
         tools:layout="@layout/fragment_notifications" />
 
     <fragment
+        android:id="@+id/navigation_coming_soon"
+        android:name="com.example.cinemhub.ui.comingsoon.ComingSoonFragment"
+        android:label="@string/title_coming_soon"
+        tools:layout="@layout/fragment_coming_soon" />
+
+    <fragment
+        android:id="@+id/navigation_now_playing"
+        android:name="com.example.cinemhub.ui.nowplaying.NowPlayingFragment"
+        android:label="@string/title_now_playing"
+        tools:layout="@layout/fragment_now_playing" />
+
+    <fragment
         android:id="@+id/navigation_preferiti"
         android:name="com.example.cinemhub.ui.preferiti.PreferitiFragment"
         android:label="@string/title_preferiti"
-        tools:layout="@layout/preferiti_fragment" />
+        tools:layout="@layout/fragment_preferiti" />
 
     <fragment
         android:id="@+id/navigation_shake"
         android:name="com.example.cinemhub.ui.shake.ShakeFragment"
         android:label="@string/title_shake"
-        tools:layout="@layout/shake_fragment" />
+        tools:layout="@layout/fragment_shake" />
 
 </navigation>
