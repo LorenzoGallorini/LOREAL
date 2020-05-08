@@ -18,6 +18,10 @@ import com.example.cinemhub.ui.nowplaying.NowPlayingFragment;
 
 public class HomeFragment extends Fragment {
 
+    private Button NowPlayingButton;
+    private Button RatedButton;
+    private Button ComingSoonButton;
+
     private HomeViewModel homeViewModel;
     private final String TAG = "HomeFragment";
     //private OnFragmentInteractionListener mListener;
@@ -26,10 +30,16 @@ public class HomeFragment extends Fragment {
         homeViewModel =
                 ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
-        Button Show1 = root.findViewById(R.id.show_all_now_plaing);
-        Button Show2 = root.findViewById(R.id.show_all_rated);
-        Button Show3 = root.findViewById(R.id.show_all_coming_soon);
-        Show1.setOnClickListener(new View.OnClickListener() {
+
+
+        NowPlayingButton=root.findViewById(R.id.show_all_now_plaing);
+        RatedButton=root.findViewById(R.id.show_all_rated);
+        ComingSoonButton=root.findViewById(R.id.show_all_coming_soon);
+        //Button Show1 = root.findViewById(R.id.show_all_now_plaing);
+        //Button Show2 = root.findViewById(R.id.show_all_rated);
+        //Button Show3 = root.findViewById(R.id.show_all_coming_soon);
+
+        NowPlayingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "onClick: Button1");
@@ -40,7 +50,7 @@ public class HomeFragment extends Fragment {
                 transaction.commit();
             }
         });
-        Show2.setOnClickListener(new View.OnClickListener() {
+        RatedButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "onClick: Button1");
@@ -51,7 +61,7 @@ public class HomeFragment extends Fragment {
                 transaction.commit();
             }
         });
-        Show3.setOnClickListener(new View.OnClickListener() {
+        ComingSoonButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "onClick: Button1");

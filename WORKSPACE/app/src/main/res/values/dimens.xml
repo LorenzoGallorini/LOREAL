@@ -27,6 +27,6 @@
     -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
-    <dimen name="buttom_show_all">16dp</dimen>
+    <dimen name="buttom_show_all">16sp</dimen>
 
 </resources>
