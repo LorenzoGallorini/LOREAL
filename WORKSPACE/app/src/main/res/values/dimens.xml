@@ -1,5 +1,30 @@
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
+    <!--
+    px
+        Short for pixel.
+        One pixel corresponds to one onscreen pixel, no matter
+        what the display density is.
+        Because pixels do not scale appropriately with device
+        display density, their use is not recommended.
+
+    dp
+        Short for density-independent pixel and usually
+        pronounced “dip.” You typically use this for margins, pad‐
+        ding, or anything else for which you would otherwise specify
+        size with a pixel value. One dp is always 1/160 of an inch on
+        a device’s screen. You get the same size regardless of screen
+        density: When your display is a higher density, density-inde‐
+        pendent pixels will expand to fill a larger number of screen
+        pixels.
+
+    sp
+        Short for scale-independent pixel. Scale-indepen‐
+        dent pixels are density-independent pixels that also take into
+        account the user’s font size preference. You will almost al‐
+        ways use sp to set display text size
+
+    -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="buttom_show_all">16dp</dimen>
