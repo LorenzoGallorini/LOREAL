@@ -14,8 +14,6 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.cinemhub.R;
 import com.example.cinemhub.ui.comingsoon.ComingSoonFragment;
-import com.example.cinemhub.ui.dashboard.DashboardFragment;
-import com.example.cinemhub.ui.notifications.NotificationsFragment;
 import com.example.cinemhub.ui.nowplaying.NowPlayingFragment;
 
 public class HomeFragment extends Fragment {

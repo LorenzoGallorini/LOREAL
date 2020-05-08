@@ -12,18 +12,6 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.example.cinemhub.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
-
-    <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.example.cinemhub.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
-
-    <fragment
         android:id="@+id/navigation_coming_soon"
         android:name="com.example.cinemhub.ui.comingsoon.ComingSoonFragment"
         android:label="@string/title_coming_soon"
@@ -36,15 +24,22 @@
         tools:layout="@layout/fragment_now_playing" />
 
     <fragment
-        android:id="@+id/navigation_preferiti"
-        android:name="com.example.cinemhub.ui.preferiti.PreferitiFragment"
-        android:label="@string/title_preferiti"
-        tools:layout="@layout/fragment_preferiti" />
+        android:id="@+id/navigation_favorite"
+        android:name="com.example.cinemhub.ui.favorite.FavoriteFragment"
+        android:label="@string/title_favorite"
+        tools:layout="@layout/fragment_favorite" />
 
     <fragment
         android:id="@+id/navigation_shake"
         android:name="com.example.cinemhub.ui.shake.ShakeFragment"
         android:label="@string/title_shake"
         tools:layout="@layout/fragment_shake" />
+
+    <fragment
+        android:id="@+id/navigation_people_card"
+        android:name="com.example.cinemhub.ui.peoplecard.PeopleCardFragment"
+        android:label="@string/title_director_card"
+        tools:layout="@layout/fragment_people_card"
+        />
 
 </navigation>

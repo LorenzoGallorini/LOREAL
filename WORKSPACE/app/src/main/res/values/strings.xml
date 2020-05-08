@@ -4,10 +4,11 @@
     <string name="title_dashboard" translatable="false">Dashboard</string>
     <string name="title_notifications" translatable="false">Notifications</string>
     <string name="title_now_playing">Now playing</string>
-    <string name="title_favourite">Your\'s Favourite</string>
+    <string name="title_favorite">Your\'s Favorite</string>
     <string name="title_coming_soon">Coming Soon</string>
     <string name="title_shake" translatable="false">SHAKE!</string>
     <string name="title_top_rated">Top Rated</string>
-    <string name="title_preferiti" translatable="false">Preferiti</string>
     <string name="title_show_all">Show all</string>
+    <string name="title_actor_card">Actor card</string>
+    <string name="title_director_card">Director card</string>
 </resources>
