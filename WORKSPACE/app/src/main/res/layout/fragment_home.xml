@@ -182,7 +182,8 @@
             android:text="@string/title_show_all"
             android:textSize="@dimen/buttom_show_all"
             app:layout_constraintBottom_toTopOf="@+id/horizontalScrollView"
-            app:layout_constraintStart_toStartOf="@+id/textView2_showAll_TopRated" />
+            app:layout_constraintStart_toStartOf="@+id/textView2_showAll_TopRated"
+            android:textColor="@android:color/white"/>
 
         <HorizontalScrollView
             android:id="@+id/horizontalScrollView"
