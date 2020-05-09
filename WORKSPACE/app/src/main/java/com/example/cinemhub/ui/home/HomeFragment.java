@@ -13,6 +13,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.cinemhub.R;
+import com.example.cinemhub.databinding.FragmentHomeBinding;
 import com.example.cinemhub.ui.comingsoon.ComingSoonFragment;
 import com.example.cinemhub.ui.nowplaying.NowPlayingFragment;
 
@@ -22,24 +23,27 @@ public class HomeFragment extends Fragment {
     private Button RatedButton;
     private Button ComingSoonButton;
 
-    private HomeViewModel homeViewModel;
+  //  private HomeViewModel homeViewModel;
+    private FragmentHomeBinding binding;
     private final String TAG = "HomeFragment";
     //private OnFragmentInteractionListener mListener;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel =
-                ViewModelProviders.of(this).get(HomeViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_home, container, false);
+      //  homeViewModel =
+        //        ViewModelProviders.of(this).get(HomeViewModel.class);
+      //  View root = inflater.inflate(R.layout.fragment_home, container, false);
 
+        binding = FragmentHomeBinding.inflate(inflater, container, false);
+        View view = binding.getRoot();
 
-        NowPlayingButton=root.findViewById(R.id.show_all_now_plaing);
-        RatedButton=root.findViewById(R.id.show_all_rated);
-        ComingSoonButton=root.findViewById(R.id.show_all_coming_soon);
+       // NowPlayingButton=root.findViewById(R.id.show_all_now_plaing);
+      //  RatedButton=root.findViewById(R.id.show_all_rated);
+        //ComingSoonButton=root.findViewById(R.id.show_all_coming_soon);
         //Button Show1 = root.findViewById(R.id.show_all_now_plaing);
         //Button Show2 = root.findViewById(R.id.show_all_rated);
         //Button Show3 = root.findViewById(R.id.show_all_coming_soon);
 
-        NowPlayingButton.setOnClickListener(new View.OnClickListener() {
+        binding.showAllNowPlaying.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "onClick: Button1");
@@ -50,7 +54,7 @@ public class HomeFragment extends Fragment {
                 transaction.commit();
             }
         });
-        RatedButton.setOnClickListener(new View.OnClickListener() {
+        binding.showAllRated.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "onClick: Button1");
@@ -61,7 +65,7 @@ public class HomeFragment extends Fragment {
                 transaction.commit();
             }
         });
-        ComingSoonButton.setOnClickListener(new View.OnClickListener() {
+        binding.showAllComingSoon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "onClick: Button1");
@@ -72,6 +76,11 @@ public class HomeFragment extends Fragment {
                 transaction.commit();
             }
         });
-        return root;
+        return view;
+    }
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }
