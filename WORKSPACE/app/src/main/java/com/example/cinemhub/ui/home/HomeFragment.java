@@ -50,7 +50,7 @@ public class HomeFragment extends Fragment {
                 transaction.commit();
             }
         });
-        
+
         binding.textViewShowAllComingSoon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
