@@ -28,6 +28,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/textView_showAll_nowPlaying"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="180dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/title_show_all"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/buttom_show_all"
+            app:layout_constraintBottom_toTopOf="@+id/horizontalScrollViewNowPlaying"
+            app:layout_constraintStart_toEndOf="@+id/alCinema" />
+
         <HorizontalScrollView
             android:id="@+id/horizontalScrollViewNowPlaying"
             android:layout_width="420dp"
@@ -94,6 +106,17 @@
             app:layout_constraintStart_toStartOf="@+id/alCinema"
             app:layout_constraintTop_toBottomOf="@+id/horizontalScrollViewNowPlaying" />
 
+        <TextView
+            android:id="@+id/textView2_showAll_TopRated"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="@string/title_show_all"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/buttom_show_all"
+            app:layout_constraintBottom_toTopOf="@+id/horizontalScrollViewTopRated"
+            app:layout_constraintStart_toStartOf="@+id/textView_showAll_nowPlaying" />
+
         <HorizontalScrollView
             android:id="@+id/horizontalScrollViewTopRated"
             android:layout_width="409dp"
@@ -111,32 +134,32 @@
                     android:id="@+id/imageButton8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_launcher_background"
-                    android:contentDescription="@string/app_name"/>
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/ic_launcher_background" />
 
                 <ImageButton
                     android:id="@+id/imageButton9"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:src="@drawable/ic_launcher_background"
-                    android:contentDescription="@string/app_name"/>
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/ic_launcher_background" />
 
                 <ImageButton
                     android:id="@+id/imageButton10"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:src="@drawable/ic_launcher_background"
-                    android:contentDescription="@string/app_name"/>
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/ic_launcher_background" />
 
                 <ImageButton
                     android:id="@+id/imageButton11"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:src="@drawable/ic_launcher_background"
-                    android:contentDescription="@string/app_name"/>
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/ic_launcher_background" />
             </LinearLayout>
         </HorizontalScrollView>
 
@@ -150,6 +173,16 @@
             android:textSize="25sp"
             app:layout_constraintStart_toStartOf="@+id/TopRated"
             app:layout_constraintTop_toBottomOf="@+id/horizontalScrollViewTopRated" />
+
+        <TextView
+            android:id="@+id/textView_showAll_ComingSoon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="@string/title_show_all"
+            android:textSize="@dimen/buttom_show_all"
+            app:layout_constraintBottom_toTopOf="@+id/horizontalScrollView"
+            app:layout_constraintStart_toStartOf="@+id/textView2_showAll_TopRated" />
 
         <HorizontalScrollView
             android:id="@+id/horizontalScrollView"
@@ -197,48 +230,6 @@
                     android:contentDescription="@string/app_name"/>
             </LinearLayout>
         </HorizontalScrollView>
-
-        <Button
-            android:id="@+id/show_all_now_playing"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="24dp"
-            android:text="@string/title_show_all"
-            android:textSize="@dimen/buttom_show_all"
-            app:layout_constraintBottom_toTopOf="@+id/horizontalScrollViewNowPlaying"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.909"
-            app:layout_constraintStart_toEndOf="@+id/alCinema"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.551" />
-
-        <Button
-            android:id="@+id/show_all_rated"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="24dp"
-            android:text="@string/title_show_all"
-            android:textSize="@dimen/buttom_show_all"
-            app:layout_constraintBottom_toTopOf="@+id/horizontalScrollViewTopRated"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.914"
-            app:layout_constraintStart_toEndOf="@+id/TopRated"
-            app:layout_constraintTop_toBottomOf="@+id/horizontalScrollViewNowPlaying" />
-
-        <Button
-            android:id="@+id/show_all_coming_soon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/title_show_all"
-            android:textSize="@dimen/buttom_show_all"
-            app:layout_constraintBottom_toTopOf="@+id/horizontalScrollView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.854"
-            app:layout_constraintStart_toEndOf="@+id/ComingSoon"
-            app:layout_constraintTop_toBottomOf="@+id/horizontalScrollViewTopRated"
-            app:layout_constraintVertical_bias="0.157" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

@@ -13,11 +13,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.cinemhub.R;
+import com.example.cinemhub.databinding.FragmentHomeBinding;
+import com.example.cinemhub.databinding.FragmentNowPlayingBinding;
 
 public class NowPlayingFragment extends Fragment {
 
     private NowPlayingViewModel mViewModel;
-
+    private FragmentNowPlayingBinding binding;
     public static NowPlayingFragment newInstance() {
         return new NowPlayingFragment();
     }
@@ -25,7 +27,10 @@ public class NowPlayingFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_now_playing, container, false);
+        binding = FragmentNowPlayingBinding.inflate(inflater, container, false);
+        View view = binding.getRoot();
+       // binding.recyclerViewNowPlaying.
+        return view;
     }
 
     @Override
@@ -33,6 +38,12 @@ public class NowPlayingFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         mViewModel = ViewModelProviders.of(this).get(NowPlayingViewModel.class);
         // TODO: Use the ViewModel
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 
 }
