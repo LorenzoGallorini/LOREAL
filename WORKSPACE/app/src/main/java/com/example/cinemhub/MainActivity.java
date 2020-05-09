@@ -1,19 +1,30 @@
 package com.example.cinemhub;
 
+import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.SurfaceControl;
+import android.view.View;
 
+import com.example.cinemhub.ui.nowplaying.NowPlayingFragment;
+import com.example.cinemhub.ui.settings.SettingsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+
+
 public class MainActivity extends AppCompatActivity {
+
+    private final String TAG = "Settings";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,5 +61,16 @@ public class MainActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        int id=item.getItemId();
+        if(id==R.id.settings){
+            Log.d(TAG, "onClick: SettingsClick");
+            Fragment newFragment = new SettingsFragment();
+            newFragment.getAllowEnterTransitionOverlap();
+            //return true;
+        }
+        return false;
     }
 }
