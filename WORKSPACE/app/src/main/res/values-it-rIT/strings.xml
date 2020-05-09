@@ -13,4 +13,5 @@
     <string name="day_of_death">Giorno di morte:</string>
     <string name="gender">Genere:</string>
     <string name="known_for">Conosciuto per:</string>
+    <string name="action_settings">Settings</string>
 </resources>

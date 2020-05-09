@@ -16,4 +16,5 @@
     <string name="day_of_death">Day of death:</string>
     <string name="gender">Gender:</string>
     <string name="known_for">Known for:</string>
+    <string name="action_settings">Settings</string>
 </resources>
