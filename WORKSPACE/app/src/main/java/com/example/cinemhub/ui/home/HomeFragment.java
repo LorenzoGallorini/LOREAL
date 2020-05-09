@@ -19,9 +19,9 @@ import com.example.cinemhub.ui.nowplaying.NowPlayingFragment;
 
 public class HomeFragment extends Fragment {
 
-    private Button NowPlayingButton;
-    private Button RatedButton;
-    private Button ComingSoonButton;
+    //private Button NowPlayingButton;
+    //private Button RatedButton;
+    //private Button ComingSoonButton;
 
   //  private HomeViewModel homeViewModel;
     private FragmentHomeBinding binding;
@@ -46,7 +46,7 @@ public class HomeFragment extends Fragment {
         binding.showAllNowPlaying.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "onClick: Button1");
+                Log.d(TAG, "onClick: AllNowPlayingClick");
                 Fragment newFragment = new NowPlayingFragment();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.replace(R.id.nav_host_fragment, newFragment);
@@ -57,7 +57,7 @@ public class HomeFragment extends Fragment {
         binding.showAllRated.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "onClick: Button1");
+                Log.d(TAG, "onClick: AllRatedClick");
                 Fragment newFragment = new NowPlayingFragment();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.replace(R.id.nav_host_fragment, newFragment);
@@ -68,7 +68,7 @@ public class HomeFragment extends Fragment {
         binding.showAllComingSoon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "onClick: Button1");
+                Log.d(TAG, "onClick: AllComingSoonClick");
                 Fragment newFragment = new ComingSoonFragment();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.replace(R.id.nav_host_fragment, newFragment);
