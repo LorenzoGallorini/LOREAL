@@ -9,4 +9,11 @@
     <string name="title_show_all">Show all</string>
     <string name="title_actor_card">Actor card</string>
     <string name="title_director_card">Director card</string>
+    <string name="name_surname">Name Surname</string>
+    <string name="paragraph_example" translatable="false">Brad Pitt, all\'anagrafe William Bradley Pitt (Shawnee, 18 dicembre 1963), è un attore e produttore cinematografico statunitense. Nel corso della sua carriera, ha ricevuto numerosi riconoscimenti e nomine a premi prestigiosi per i suoi contributi nel mondo del cinema, inclusi due premi Oscar di cui uno per aver prodotto, tramite la Plan B Entertainment di sua proprietà, il film 12 anni schiavo (2013) di Steve McQueen e l\'altro come miglior attore non protagonista per C\'era una volta a... Hollywood.</string>
+    <string name="birth_date">Birth date:</string>
+    <string name="place_of_birth">Place of birth:</string>
+    <string name="day_of_death">Day of death:</string>
+    <string name="gender">Gender:</string>
+    <string name="known_for">Known for:</string>
 </resources>

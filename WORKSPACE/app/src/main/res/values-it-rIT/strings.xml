@@ -7,4 +7,10 @@
     <string name="title_director_card">Scheda regista</string>
     <string name="title_actor_card">Scheda attore</string>
     <string name="title_favorite">I miei preferiti</string>
+    <string name="name_surname">Name Surname</string>
+    <string name="birth_date">Data di nascita:</string>
+    <string name="place_of_birth">Luogo di nascita:</string>
+    <string name="day_of_death">Giorno di morte:</string>
+    <string name="gender">Genere:</string>
+    <string name="known_for">Conosciuto per:</string>
 </resources>

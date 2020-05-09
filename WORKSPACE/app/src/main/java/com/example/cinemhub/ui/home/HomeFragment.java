@@ -16,6 +16,7 @@ import com.example.cinemhub.R;
 import com.example.cinemhub.databinding.FragmentHomeBinding;
 import com.example.cinemhub.ui.comingsoon.ComingSoonFragment;
 import com.example.cinemhub.ui.nowplaying.NowPlayingFragment;
+import com.example.cinemhub.ui.peoplecard.PeopleCardFragment;
 
 public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
@@ -55,6 +56,18 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 Log.d(TAG, "onClick: AllComingSoonClick");
                 Fragment newFragment = new ComingSoonFragment();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.nav_host_fragment, newFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
+
+        binding.imageButton4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "onClick: image4");
+                Fragment newFragment = new PeopleCardFragment();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.replace(R.id.nav_host_fragment, newFragment);
                 transaction.addToBackStack(null);

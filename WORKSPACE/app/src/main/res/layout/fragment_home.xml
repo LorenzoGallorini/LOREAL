@@ -43,7 +43,7 @@
         <HorizontalScrollView
             android:id="@+id/horizontalScrollViewNowPlaying"
             android:layout_width="420dp"
-            android:layout_height="138dp"
+            android:layout_height="@dimen/horizontal_scroll_view_height"
             android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/alCinema">
@@ -86,7 +86,7 @@
                     android:contentDescription="@string/app_name"/>
 
                 <ImageButton
-                    android:id="@+id/imageButton14"
+                    android:id="@+id/imageButton20"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -120,7 +120,7 @@
         <HorizontalScrollView
             android:id="@+id/horizontalScrollViewTopRated"
             android:layout_width="409dp"
-            android:layout_height="131dp"
+            android:layout_height="@dimen/horizontal_scroll_view_height"
             android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="@+id/horizontalScrollViewNowPlaying"
             app:layout_constraintTop_toBottomOf="@+id/TopRated">
@@ -187,7 +187,7 @@
         <HorizontalScrollView
             android:id="@+id/horizontalScrollView"
             android:layout_width="406dp"
-            android:layout_height="129dp"
+            android:layout_height="@dimen/horizontal_scroll_view_height"
             android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="@+id/horizontalScrollViewTopRated"
             app:layout_constraintTop_toBottomOf="@+id/ComingSoon">
