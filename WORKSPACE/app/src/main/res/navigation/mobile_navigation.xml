@@ -36,10 +36,10 @@
         tools:layout="@layout/fragment_shake" />
 
     <fragment
-        android:id="@+id/navigation_shake_2"
-        android:name="com.example.cinemhub.ui.shake.ShakeFragment"
+        android:id="@+id/navigation_shake2"
+        android:name="com.example.cinemhub.ui.shake2.Shake2Fragment"
         android:label="@string/title_shake"
-        tools:layout="@layout/fragment_shake_2"/>
+        tools:layout="@layout/fragment_shake2"/>
 
     <fragment
         android:id="@+id/navigation_people_card"
