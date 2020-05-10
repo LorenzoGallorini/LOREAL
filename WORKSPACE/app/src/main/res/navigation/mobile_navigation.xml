@@ -36,6 +36,12 @@
         tools:layout="@layout/fragment_shake" />
 
     <fragment
+        android:id="@+id/navigation_shake_2"
+        android:name="com.example.cinemhub.ui.shake.ShakeFragment"
+        android:label="@string/title_shake"
+        tools:layout="@layout/fragment_shake_2"/>
+
+    <fragment
         android:id="@+id/navigation_people_card"
         android:name="com.example.cinemhub.ui.peoplecard.PeopleCardFragment"
         android:label="@string/title_director_card"
@@ -47,6 +53,13 @@
         android:name="com.example.cinemhub.ui.settings.SettingsFragment"
         android:label="@string/action_settings"
         tools:layout="@layout/fragment_settings"
+        />
+
+    <fragment
+        android:id="@+id/navigation_movie_card"
+        android:name="com.example.cinemhub.ui.moviecard.MovieCardFragment"
+        android:label="@string/title_movie_card"
+        tools:layout="@layout/fragment_movie_card"
         />
 
 </navigation>
