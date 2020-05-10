@@ -1,19 +1,16 @@
 package com.example.cinemhub.ui.settings;
 
-import androidx.lifecycle.ViewModelProviders;
-
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.example.cinemhub.MainActivity;
 import com.example.cinemhub.R;
@@ -35,7 +32,7 @@ public class SettingsFragment extends Fragment {
         View view = binding.getRoot();
         setHasOptionsMenu(true);
         ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.action_settings));
-
+        ((MainActivity) getActivity()).menuColorSettings(R.id.navigation_settings);
         return view;
     }
 

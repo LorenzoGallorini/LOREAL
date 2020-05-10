@@ -1,19 +1,17 @@
 package com.example.cinemhub.ui.favorite;
 
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.ViewModelProviders;
-
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.example.cinemhub.MainActivity;
 import com.example.cinemhub.R;
@@ -37,6 +35,7 @@ public class FavoriteFragment extends Fragment {
         View view = binding.getRoot();
         setHasOptionsMenu(true);
         ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.title_favorite));
+        ((MainActivity) getActivity()).menuColorSettings(R.id.navigation_favorite);
         return view;
     }
 

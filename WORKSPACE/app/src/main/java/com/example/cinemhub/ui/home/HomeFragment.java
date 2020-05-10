@@ -29,7 +29,7 @@ public class HomeFragment extends Fragment {
         View view = binding.getRoot();
         setHasOptionsMenu(true);
         ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.title_home));
-
+        ((MainActivity) getActivity()).menuColorSettings(R.id.navigation_home);
         binding.textViewShowAllNowPlaying.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

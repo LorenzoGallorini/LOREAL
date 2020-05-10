@@ -1,6 +1,7 @@
 package com.example.cinemhub;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -19,30 +20,26 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private final String TAG = "Settings";
+    private final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         BottomNavigationView navView = findViewById(R.id.nav_view);
+
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_home, R.id.navigation_shake, R.id.navigation_favorite)
                 .build();
+
+
         navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId())
-                {
-                    case R.id.navigation_home:
-                        item.setIcon(R.drawable.home_full_white);
-                    case R.id.navigation_shake:
-                        item.setIcon(R.drawable.home_full_white);
-                    case R.id.navigation_favorite:
-                        item.setIcon(R.drawable.home_full_white);
-            }
+                Log.d(TAG,"onNavigationItemSelected");
+
                 return false;
             }
         });
@@ -61,5 +58,32 @@ public class MainActivity extends AppCompatActivity {
     public void setActionBarTitle(String title) {
         getSupportActionBar().setTitle(title);
     }
+    public void menuColorSettings(int FromWho)
+    {
+        BottomNavigationView navView = findViewById(R.id.nav_view);
+        Menu menu = navView.getMenu();
+        switch (FromWho) {
+            case R.id.navigation_home:
+                menu.findItem(R.id.navigation_home).setIcon(R.drawable.home_full);
+                menu.findItem(R.id.navigation_shake).setIcon(R.drawable.shake_finish);
+                menu.findItem(R.id.navigation_favorite).setIcon(R.drawable.prefer);
 
+                break;
+            case R.id.navigation_shake:
+                menu.findItem(R.id.navigation_home).setIcon(R.drawable.ic_home_black);
+                menu.findItem(R.id.navigation_shake).setIcon(R.drawable.shake_finish);
+                menu.findItem(R.id.navigation_favorite).setIcon(R.drawable.prefer);
+                break;
+            case R.id.navigation_favorite:
+                menu.findItem(R.id.navigation_home).setIcon(R.drawable.ic_home_black);
+                menu.findItem(R.id.navigation_shake).setIcon(R.drawable.shake_finish);
+                menu.findItem(R.id.navigation_favorite).setIcon(R.drawable.prefer_full);
+                break;
+            default:
+                menu.findItem(R.id.navigation_home).setIcon(R.drawable.ic_home_black);
+                menu.findItem(R.id.navigation_shake).setIcon(R.drawable.shake_finish);
+                menu.findItem(R.id.navigation_favorite).setIcon(R.drawable.prefer);
+                break;
+        }
+    }
 }
