@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.cinemhub.MainActivity;
 import com.example.cinemhub.R;
 import com.example.cinemhub.databinding.FragmentHomeBinding;
 import com.example.cinemhub.ui.comingsoon.ComingSoonFragment;
@@ -27,6 +28,7 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
         setHasOptionsMenu(true);
+        ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.title_home));
 
         binding.textViewShowAllNowPlaying.setOnClickListener(new View.OnClickListener() {
             @Override

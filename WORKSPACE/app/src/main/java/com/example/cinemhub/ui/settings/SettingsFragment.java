@@ -9,14 +9,20 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.cinemhub.MainActivity;
 import com.example.cinemhub.R;
+import com.example.cinemhub.databinding.FragmentSettingsBinding;
 
 public class SettingsFragment extends Fragment {
 
     private SettingsViewModel mViewModel;
+    private FragmentSettingsBinding binding;
 
     public static SettingsFragment newInstance() {
         return new SettingsFragment();
@@ -25,7 +31,12 @@ public class SettingsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_settings, container, false);
+        binding = FragmentSettingsBinding.inflate(inflater, container, false);
+        View view = binding.getRoot();
+        setHasOptionsMenu(true);
+        ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.action_settings));
+
+        return view;
     }
 
     @Override
@@ -33,6 +44,12 @@ public class SettingsFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         mViewModel = ViewModelProviders.of(this).get(SettingsViewModel.class);
         // TODO: Use the ViewModel
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        menu.clear();
     }
 
 }
