@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -42,7 +43,7 @@ public class ShakeFragment extends Fragment {
         ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.title_shake));
         ((MainActivity) getActivity()).menuColorSettings(R.id.navigation_shake);
         ShakeOptions options = new ShakeOptions()
-                .background(true)
+                .background(false)
                 .interval(1000)
                 .shakeCount(2)
                 .sensibility(2.0f);
@@ -51,11 +52,14 @@ public class ShakeFragment extends Fragment {
             @Override
             public void onShake() {
                 Log.d(TAG, "onShake");
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.nav_host_fragment,new Shake2Fragment(), null);
-                transaction.addToBackStack(null);
-                transaction.commit();
-
+                FragmentManager manager = getFragmentManager();
+                if(manager != null)
+                {
+                    FragmentTransaction transaction = manager.beginTransaction();
+                    transaction.replace(R.id.nav_host_fragment, new Shake2Fragment(), null);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                }
             }
         });
 
