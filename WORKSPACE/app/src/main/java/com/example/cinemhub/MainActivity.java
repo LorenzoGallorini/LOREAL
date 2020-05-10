@@ -1,5 +1,9 @@
 package com.example.cinemhub;
 
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -21,6 +25,11 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class MainActivity extends AppCompatActivity {
 
     private final String TAG = "MainActivity";
+    private SensorManager mSensorManager;
+    public float mAccel; // acceleration apart from gravity
+    private float mAccelCurrent; // current acceleration including gravity
+    private float mAccelLast; // last acceleration including gravity
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,5 +94,28 @@ public class MainActivity extends AppCompatActivity {
                 menu.findItem(R.id.navigation_favorite).setIcon(R.drawable.prefer);
                 break;
         }
+    }
+    private final SensorEventListener mSensorListener = new SensorEventListener() {
+
+        public void onSensorChanged(SensorEvent se) {
+            float x = se.values[0];
+            float y = se.values[1];
+            float z = se.values[2];
+            mAccelLast = mAccelCurrent;
+            mAccelCurrent = (float) Math.sqrt((double) (x*x + y*y + z*z));
+            float delta = mAccelCurrent - mAccelLast;
+            mAccel = mAccel * 0.9f + delta; // perform low-cut filter
+        }
+
+        public void onAccuracyChanged(Sensor sensor, int accuracy) {
+        }
+    };
+    public void shakingSetting()
+    {
+        mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        mSensorManager.registerListener(mSensorListener, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
+        mAccel = 0.00f;
+        mAccelCurrent = SensorManager.GRAVITY_EARTH;
+        mAccelLast = SensorManager.GRAVITY_EARTH;
     }
 }
