@@ -31,6 +31,7 @@
             android:layout_marginTop="40dp"
             android:src="@drawable/ic_launcher_background"
             app:layout_constraintStart_toStartOf="@+id/film_text_title"
-            app:layout_constraintTop_toBottomOf="@+id/film_text_title" />
+            app:layout_constraintTop_toBottomOf="@+id/film_text_title"
+            android:contentDescription="@string/title_movie_card" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
