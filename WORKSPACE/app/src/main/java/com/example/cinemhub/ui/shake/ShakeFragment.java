@@ -1,6 +1,5 @@
 package com.example.cinemhub.ui.shake;
 
-import android.hardware.SensorListener;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,7 +23,7 @@ import safety.com.br.android_shake_detector.core.ShakeCallback;
 import safety.com.br.android_shake_detector.core.ShakeDetector;
 import safety.com.br.android_shake_detector.core.ShakeOptions;
 
-public class ShakeFragment extends Fragment implements SensorListener {
+public class ShakeFragment extends Fragment {
 
     private ShakeViewModel mViewModel;
     private final String TAG = "ShakeFragment";
@@ -62,11 +61,7 @@ public class ShakeFragment extends Fragment implements SensorListener {
 
         return view;
     }
-    @Override
-    public void onStop() {
-        super.onStop();
-        shakeDetector.stopShakeDetector(getContext());
-    }
+
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -75,11 +70,7 @@ public class ShakeFragment extends Fragment implements SensorListener {
         // TODO: Use the ViewModel
     }
 
-    @Override
-    public void onDestroy() {
-        shakeDetector.destroy(getContext());
-        super.onDestroy();
-    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         int id=item.getItemId();
@@ -95,13 +86,4 @@ public class ShakeFragment extends Fragment implements SensorListener {
         return false;
     }
 
-    @Override
-    public void onSensorChanged(int sensor, float[] values) {
-
-    }
-
-    @Override
-    public void onAccuracyChanged(int sensor, int accuracy) {
-
-    }
 }
