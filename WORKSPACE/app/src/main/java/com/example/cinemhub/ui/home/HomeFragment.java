@@ -19,9 +19,13 @@ import com.example.cinemhub.ui.nowplaying.NowPlayingFragment;
 import com.example.cinemhub.ui.peoplecard.PeopleCardFragment;
 import com.example.cinemhub.ui.settings.SettingsFragment;
 
+import com.example.cinemhub.models.*;
+
+
 public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
     private final String TAG = "HomeFragment";
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
