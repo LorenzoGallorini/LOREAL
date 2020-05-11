@@ -46,7 +46,7 @@ public class ShakeFragment extends Fragment {
                 .background(false)
                 .interval(1000)
                 .shakeCount(2)
-                .sensibility(2.0f);
+                .sensibility(1.5f);
 
         this.shakeDetector = new ShakeDetector(options).start(getContext(), new ShakeCallback() {
             @Override
