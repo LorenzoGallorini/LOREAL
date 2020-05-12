@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.cinemhub.models.Movie;
+import com.example.cinemhub.repositories.TmdbRepository;
 
 import java.util.List;
 
@@ -14,10 +15,10 @@ public class HomeViewModel extends ViewModel {
 
 
 
-    public LiveData<List<Movie>> getMovieNowPlaying(){
+    public LiveData<List<Movie>> getMovieNowPlaying(String language, int page){
         if(movieNowPlaying==null){
             movieNowPlaying=new MutableLiveData<List<Movie>>();
-            //TODO: recuperare in maniera asincrona i dati
+            TmdbRepository.getInstance().getNowPlaying(movieNowPlaying, language, page);
         }
         return movieNowPlaying;
     }
