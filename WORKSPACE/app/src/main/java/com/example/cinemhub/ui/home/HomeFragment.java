@@ -26,7 +26,6 @@ public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
     private final String TAG = "HomeFragment";
 
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
