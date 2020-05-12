@@ -42,6 +42,9 @@ public class HomeFragment extends Fragment {
             @Override
             public void onChanged(List<Movie> movies) {
                 Log.d(TAG, "lista tmdb nowplaying"+movies);
+                for(int i=0;i<movies.size();i++){
+                    Log.d(TAG, "film numero "+i+" "+movies.get(i).toString());
+                }
             }
         };
 

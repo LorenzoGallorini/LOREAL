@@ -1,6 +1,7 @@
 package com.example.cinemhub.models;
 
-import java.util.Date;
+
+import java.util.Arrays;
 
 public class Movie {
     private int id;
@@ -8,7 +9,7 @@ public class Movie {
     private boolean adult;
     private int runtime;
     private String[] genres;
-    private Date release_date;
+    private String release_date;
     private double vote_average;
     private String poster_path;
     private int[] directors;//da valutare il tipo
@@ -21,8 +22,29 @@ public class Movie {
     private String status;
     private int vote_count;
 
+    public Movie(MovieApiTmdbResponse movieApiTmdbResponse){
+        this.id=movieApiTmdbResponse.getId();
+        this.poster_path = movieApiTmdbResponse.getPoster_path();
+        this.adult = movieApiTmdbResponse.isAdult();
+        this.release_date = movieApiTmdbResponse.getRelease_date();
+
+        this.original_title = movieApiTmdbResponse.getOriginal_title();
+        this.original_language = movieApiTmdbResponse.getOriginal_language();
+        this.title = movieApiTmdbResponse.getTitle();
+        this.popularity = movieApiTmdbResponse.getPopularity();
+        this.vote_count = movieApiTmdbResponse.getVote_count();
+        this.vote_average = movieApiTmdbResponse.getVote_average();
+        this.runtime = movieApiTmdbResponse.getRuntime();
+        this.directors = movieApiTmdbResponse.getDirectors();
+        this.actors = movieApiTmdbResponse.getActors();
+        this.description = movieApiTmdbResponse.getDescription();
+        this.budget = movieApiTmdbResponse.getBudget();
+        this.status = movieApiTmdbResponse.getStatus();
+
+    }
+
     public Movie(int id, String title, boolean adult, int runtime, String[] genres,
-                 Date release_date, double vote_average, String poster_path, int[] directors,
+                 String release_date, double vote_average, String poster_path, int[] directors,
                  int[] actors, String description, int budget, String original_language,
                  String original_title, double popularity, String status, int vote_count) {
         this.id = id;
@@ -84,11 +106,11 @@ public class Movie {
         this.genres = genres;
     }
 
-    public Date getRelease_date() {
+    public String getRelease_date() {
         return release_date;
     }
 
-    public void setRelease_date(Date release_date) {
+    public void setRelease_date(String release_date) {
         this.release_date = release_date;
     }
 
@@ -178,5 +200,28 @@ public class Movie {
 
     public void setVote_count(int vote_count) {
         this.vote_count = vote_count;
+    }
+
+    @Override
+    public String toString() {
+        return "Movie{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", adult=" + adult +
+                ", runtime=" + runtime +
+                ", genres=" + Arrays.toString(genres) +
+                ", release_date='" + release_date + '\'' +
+                ", vote_average=" + vote_average +
+                ", poster_path='" + poster_path + '\'' +
+                ", directors=" + Arrays.toString(directors) +
+                ", actors=" + Arrays.toString(actors) +
+                ", description='" + description + '\'' +
+                ", budget=" + budget +
+                ", original_language='" + original_language + '\'' +
+                ", original_title='" + original_title + '\'' +
+                ", popularity=" + popularity +
+                ", status='" + status + '\'' +
+                ", vote_count=" + vote_count +
+                '}';
     }
 }
