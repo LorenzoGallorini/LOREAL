@@ -8,6 +8,7 @@ import com.example.cinemhub.models.ComingSoonApiTmdbResponse;
 import com.example.cinemhub.models.Movie;
 import com.example.cinemhub.models.MovieApiTmdbResponse;
 import com.example.cinemhub.models.NowPlayingApiTmdbResponse;
+import com.example.cinemhub.models.RecommendationsApiTmdbResponse;
 import com.example.cinemhub.models.TopRatedApiTmdbResponse;
 import com.example.cinemhub.service.TmdbService;
 
@@ -101,6 +102,27 @@ public class TmdbRepository {
 
             @Override
             public void onFailure(Call<ComingSoonApiTmdbResponse> call, Throwable t) {
+                Log.d(TAG, "Error:"+t.toString());
+            }
+        });
+    }
+
+    public void getRecommendations(MutableLiveData<List<Movie>> movieRecommendations, int movie_id,String language, int page){
+        Call<RecommendationsApiTmdbResponse> call=tmdbService.getRecommendations(movie_id, language, page, API_KEY);
+        call.enqueue(new Callback<RecommendationsApiTmdbResponse>() {
+            @Override
+            public void onResponse(Call<RecommendationsApiTmdbResponse> call, Response<RecommendationsApiTmdbResponse> response) {
+                List<MovieApiTmdbResponse> movies =response.body().getResults();
+                Log.d(TAG, "callback recommendations ok");
+                List<Movie> res=new ArrayList<Movie>();
+                for (int i=0;i<movies.size();i++) {
+                    res.add(new Movie(movies.get(i)));
+                }
+                movieRecommendations.postValue(res);
+            }
+
+            @Override
+            public void onFailure(Call<RecommendationsApiTmdbResponse> call, Throwable t) {
                 Log.d(TAG, "Error:"+t.toString());
             }
         });

@@ -7,21 +7,26 @@
     android:layout_height="match_parent"
     tools:context=".ui.shake2.Shake2Fragment"
     android:fillViewport="true">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-
         <ImageButton
             android:id="@+id/film_image_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="120dp"
-            android:contentDescription="@string/title_shake"
+            android:layout_width="match_parent"
+            android:layout_height="350sp"
+            android:layout_marginTop="32dp"
+
+            android:adjustViewBounds="true"
+            android:background="#00FFFFFF"
+            android:backgroundTint="#00FFFFFF"
+
+            android:contentDescription="@string/app_name"
+            android:scaleType="fitCenter"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_launcher_background" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/text_film_name"
@@ -31,6 +36,7 @@
             android:text="@string/title_film"
             android:textColor="@color/titleWhite"
             android:textSize="@dimen/title_size"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/film_image_button"
             app:layout_constraintStart_toStartOf="@+id/film_image_button"
             app:layout_constraintTop_toBottomOf="@+id/film_image_button" />
@@ -39,7 +45,7 @@
             android:id="@+id/shake_2_description"
             android:layout_width="342dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="92dp"
+            android:layout_marginTop="40dp"
             android:text="@string/shake_2_description"
             android:textColor="@color/paragraph_color"
             android:textSize="@dimen/paragraph_size"

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
@@ -31,7 +32,14 @@ public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
     private final String TAG = "HomeFragment";
     private HomeViewModel homeViewModel;
-private final int MAX_LENGHT = 14;
+    private final int MAX_LENGHT = 14;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        homeViewModel=new ViewModelProvider(getActivity()).get(HomeViewModel.class);
+    }
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
@@ -39,7 +47,6 @@ private final int MAX_LENGHT = 14;
         setHasOptionsMenu(true);
         ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.title_home));
         ((MainActivity) getActivity()).menuColorSettings(R.id.navigation_home);
-        homeViewModel=new ViewModelProvider(this).get(HomeViewModel.class);
 
 
         final Observer<List<Movie>> observer_now_playing=new Observer<List<Movie>>() {

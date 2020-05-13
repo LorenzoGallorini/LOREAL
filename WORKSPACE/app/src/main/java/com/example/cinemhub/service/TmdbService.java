@@ -2,6 +2,7 @@ package com.example.cinemhub.service;
 
 import com.example.cinemhub.models.ComingSoonApiTmdbResponse;
 import com.example.cinemhub.models.NowPlayingApiTmdbResponse;
+import com.example.cinemhub.models.RecommendationsApiTmdbResponse;
 import com.example.cinemhub.models.TopRatedApiTmdbResponse;
 
 import retrofit2.Call;
@@ -24,4 +25,10 @@ public interface TmdbService {
     Call<ComingSoonApiTmdbResponse> getComingSoon (@Query("language") String language,
                                                    @Query("page") int page,
                                                    @Query("api_key") String api_key);
+
+    @GET("movie/{movie_id}/recommendations")
+    Call<RecommendationsApiTmdbResponse> getRecommendations (@Path("movie_id") int movie_id,
+                                                             @Query("language") String language,
+                                                             @Query("page") int page,
+                                                             @Query("api_key") String api_key);
 }
