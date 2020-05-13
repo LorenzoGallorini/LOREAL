@@ -77,6 +77,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
+
                     <TextView
                         android:id="@+id/NowPlayingText1"
                         android:layout_width="match_parent"
@@ -111,7 +112,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="@string/title_shake"
                         android:textColor="@color/titleWhite"
                         app:layout_constraintEnd_toEndOf="@+id/NowPlayingImage2"
                         app:layout_constraintStart_toStartOf="@+id/NowPlayingImage2"
@@ -143,7 +143,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="@string/title_shake"
                         android:textColor="@color/titleWhite"
                         app:layout_constraintEnd_toEndOf="@+id/NowPlayingImage3"
                         app:layout_constraintStart_toStartOf="@+id/NowPlayingImage3"
@@ -175,7 +174,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="@string/title_shake"
                         android:textColor="@color/titleWhite"
                         app:layout_constraintEnd_toEndOf="@+id/NowPlayingImage4"
                         app:layout_constraintStart_toStartOf="@+id/NowPlayingImage4"
@@ -201,7 +199,7 @@
 
                         android:scaleType="fitCenter" app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                    android:paddingLeft="@dimen/horizontal_scroll_view_left_margin"/>
+                    />
 
 
                     <TextView
@@ -209,7 +207,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="@string/title_shake"
+
                         android:textColor="@color/titleWhite"
                         app:layout_constraintEnd_toEndOf="@+id/NowPlayingImage5"
                         app:layout_constraintStart_toStartOf="@+id/NowPlayingImage5"
@@ -239,7 +237,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="@string/title_shake"
+
                         android:textColor="@color/titleWhite"
                         app:layout_constraintEnd_toEndOf="@+id/NowPlayingImage6"
                         app:layout_constraintStart_toStartOf="@+id/NowPlayingImage6"
@@ -271,7 +269,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="@string/title_shake"
+
                         android:textColor="@color/titleWhite"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="@+id/NowPlayingImage7"
@@ -305,7 +303,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="@string/title_shake"
+
                         android:textColor="@color/titleWhite"
                         app:layout_constraintEnd_toEndOf="@+id/NowPlayingImage8"
                         app:layout_constraintStart_toStartOf="@+id/NowPlayingImage8"
@@ -338,7 +336,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="@string/title_shake"
                         android:textColor="@color/titleWhite"
                         app:layout_constraintEnd_toEndOf="@+id/NowPlayingImage9"
                         app:layout_constraintStart_toStartOf="@+id/NowPlayingImage9"
@@ -387,36 +384,289 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
-                <ImageButton
-                    android:id="@+id/imageButton8"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@string/app_name"
-                    android:src="@drawable/ic_launcher_background" />
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-                <ImageButton
-                    android:id="@+id/imageButton9"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:contentDescription="@string/app_name"
-                    android:src="@drawable/ic_launcher_background" />
+                    <ImageButton
+                        android:id="@+id/TopRatedImage1"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/horizontal_image_height"
+                        android:adjustViewBounds="true"
+                        android:background="#00FFFFFF"
+                        android:backgroundTint="#00FFFFFF"
+                        android:contentDescription="@string/app_name"
+                        android:scaleType="fitCenter"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                <ImageButton
-                    android:id="@+id/imageButton10"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:contentDescription="@string/app_name"
-                    android:src="@drawable/ic_launcher_background" />
+                    <TextView
+                        android:id="@+id/TopRatedText1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/titleWhite"
+                        app:layout_constraintEnd_toEndOf="@+id/TopRatedImage1"
+                        app:layout_constraintStart_toStartOf="@+id/TopRatedImage1"
+                        app:layout_constraintTop_toBottomOf="@+id/TopRatedImage1" />
 
-                <ImageButton
-                    android:id="@+id/imageButton11"
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:contentDescription="@string/app_name"
-                    android:src="@drawable/ic_launcher_background" />
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/horizontal_scroll_view_left_margin">
+                    <ImageButton
+                        android:id="@+id/TopRatedImage2"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/horizontal_image_height"
+                        android:adjustViewBounds="true"
+
+                        android:background="#00FFFFFF"
+                        android:backgroundTint="#00FFFFFF"
+                        android:contentDescription="@string/app_name"
+
+                        android:scaleType="fitCenter"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                    <TextView
+                        android:id="@+id/TopRatedText2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/titleWhite"
+                        app:layout_constraintEnd_toEndOf="@+id/TopRatedImage2"
+                        app:layout_constraintStart_toStartOf="@+id/TopRatedImage2"
+                        app:layout_constraintTop_toBottomOf="@+id/TopRatedImage2" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/horizontal_scroll_view_left_margin">
+
+                    <ImageButton
+                        android:id="@+id/TopRatedImage3"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/horizontal_image_height"
+                        android:adjustViewBounds="true"
+
+                        android:background="#00FFFFFF"
+                        android:backgroundTint="#00FFFFFF"
+                        android:contentDescription="@string/app_name"
+
+                        android:scaleType="fitCenter"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/TopRatedText3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/titleWhite"
+                        app:layout_constraintEnd_toEndOf="@+id/TopRatedImage3"
+                        app:layout_constraintStart_toStartOf="@+id/TopRatedImage3"
+                        app:layout_constraintTop_toBottomOf="@+id/TopRatedImage3" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/horizontal_scroll_view_left_margin">
+
+                    <ImageButton
+                        android:id="@+id/TopRatedImage4"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/horizontal_image_height"
+                        android:adjustViewBounds="true"
+
+                        android:background="#00FFFFFF"
+                        android:backgroundTint="#00FFFFFF"
+                        android:contentDescription="@string/app_name"
+
+                        android:scaleType="fitCenter"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/TopRatedText4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/titleWhite"
+                        app:layout_constraintEnd_toEndOf="@+id/TopRatedImage4"
+                        app:layout_constraintStart_toStartOf="@+id/TopRatedImage4"
+                        app:layout_constraintTop_toBottomOf="@+id/TopRatedImage4" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/horizontal_scroll_view_left_margin">
+
+                    <ImageButton
+                        android:id="@+id/TopRatedImage5"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/horizontal_image_height"
+                        android:adjustViewBounds="true"
+
+                        android:background="#00FFFFFF"
+                        android:backgroundTint="#00FFFFFF"
+                        android:contentDescription="@string/app_name"
+
+                        android:scaleType="fitCenter"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/TopRatedText5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/titleWhite"
+                        app:layout_constraintEnd_toEndOf="@+id/TopRatedImage5"
+                        app:layout_constraintStart_toStartOf="@+id/TopRatedImage5"
+                        app:layout_constraintTop_toBottomOf="@+id/TopRatedImage5" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/horizontal_scroll_view_left_margin">
+
+                    <ImageButton
+                        android:id="@+id/TopRatedImage6"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/horizontal_image_height"
+                        android:adjustViewBounds="true"
+
+                        android:background="#00FFFFFF"
+                        android:backgroundTint="#00FFFFFF"
+                        android:contentDescription="@string/app_name"
+
+                        android:scaleType="fitCenter"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/TopRatedText6"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/titleWhite"
+                        app:layout_constraintEnd_toEndOf="@+id/TopRatedImage6"
+                        app:layout_constraintStart_toStartOf="@+id/TopRatedImage6"
+                        app:layout_constraintTop_toBottomOf="@+id/TopRatedImage6" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/horizontal_scroll_view_left_margin">
+
+                    <ImageButton
+                        android:id="@+id/TopRatedImage7"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/horizontal_image_height"
+                        android:adjustViewBounds="true"
+
+                        android:background="#00FFFFFF"
+                        android:backgroundTint="#00FFFFFF"
+                        android:contentDescription="@string/app_name"
+
+                        android:scaleType="fitCenter"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/TopRatedText7"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/titleWhite"
+                        app:layout_constraintEnd_toEndOf="@+id/TopRatedImage7"
+                        app:layout_constraintStart_toStartOf="@+id/TopRatedImage7"
+                        app:layout_constraintTop_toBottomOf="@+id/TopRatedImage7" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/horizontal_scroll_view_left_margin">
+
+                    <ImageButton
+                        android:id="@+id/TopRatedImage8"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/horizontal_image_height"
+                        android:adjustViewBounds="true"
+
+                        android:background="#00FFFFFF"
+                        android:backgroundTint="#00FFFFFF"
+                        android:contentDescription="@string/app_name"
+
+                        android:scaleType="fitCenter"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/TopRatedText8"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/titleWhite"
+                        app:layout_constraintEnd_toEndOf="@+id/TopRatedImage8"
+                        app:layout_constraintStart_toStartOf="@+id/TopRatedImage8"
+                        app:layout_constraintTop_toBottomOf="@+id/TopRatedImage8" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/horizontal_scroll_view_left_margin">
+
+                    <ImageButton
+                        android:id="@+id/TopRatedImage9"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/horizontal_image_height"
+                        android:adjustViewBounds="true"
+
+                        android:background="#00FFFFFF"
+                        android:backgroundTint="#00FFFFFF"
+                        android:contentDescription="@string/app_name"
+
+                        android:scaleType="fitCenter"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/TopRatedText9"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/titleWhite"
+                        app:layout_constraintEnd_toEndOf="@+id/TopRatedImage9"
+                        app:layout_constraintStart_toStartOf="@+id/TopRatedImage9"
+                        app:layout_constraintTop_toBottomOf="@+id/TopRatedImage9" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
             </LinearLayout>
         </HorizontalScrollView>
 
@@ -457,37 +707,260 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
-                <ImageButton
-                    android:id="@+id/imageButton13"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:src="@drawable/ic_launcher_background"
-                    android:contentDescription="@string/app_name"/>
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-                <ImageButton
-                    android:id="@+id/imageButton15"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:src="@drawable/ic_launcher_background"
-                    android:contentDescription="@string/app_name"/>
+                    <ImageButton
+                        android:id="@+id/ComingSoonImage1"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/horizontal_image_height"
+                        android:adjustViewBounds="true"
+                        android:background="#00FFFFFF"
+                        android:backgroundTint="#00FFFFFF"
+                        android:contentDescription="@string/app_name"
+                        android:scaleType="fitCenter"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
 
-                <ImageButton
-                    android:id="@+id/imageButton16"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:src="@drawable/ic_launcher_background"
-                    android:contentDescription="@string/app_name"/>
+                    <TextView
+                        android:id="@+id/ComingSoonText1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/titleWhite"
+                        app:layout_constraintEnd_toEndOf="@+id/ComingSoonImage1"
+                        app:layout_constraintStart_toStartOf="@+id/ComingSoonImage1"
+                        app:layout_constraintTop_toBottomOf="@+id/ComingSoonImage1" />
 
-                <ImageButton
-                    android:id="@+id/imageButton17"
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:src="@drawable/ic_launcher_background"
-                    android:contentDescription="@string/app_name"/>
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/horizontal_scroll_view_left_margin">
+                    <ImageButton
+                        android:id="@+id/ComingSoonImage2"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/horizontal_image_height"
+                        android:adjustViewBounds="true"
+                        android:background="#00FFFFFF"
+                        android:backgroundTint="#00FFFFFF"
+                        android:contentDescription="@string/app_name"
+                        android:scaleType="fitCenter"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                    <TextView
+                        android:id="@+id/ComingSoonText2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/titleWhite"
+                        app:layout_constraintEnd_toEndOf="@+id/ComingSoonImage2"
+                        app:layout_constraintStart_toStartOf="@+id/ComingSoonImage2"
+                        app:layout_constraintTop_toBottomOf="@+id/ComingSoonImage2" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/horizontal_scroll_view_left_margin">
+                    <ImageButton
+                        android:id="@+id/ComingSoonImage3"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/horizontal_image_height"
+                        android:adjustViewBounds="true"
+                        android:background="#00FFFFFF"
+                        android:backgroundTint="#00FFFFFF"
+                        android:contentDescription="@string/app_name"
+                        android:scaleType="fitCenter"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                    <TextView
+                        android:id="@+id/ComingSoonText3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/titleWhite"
+                        app:layout_constraintEnd_toEndOf="@+id/ComingSoonImage3"
+                        app:layout_constraintStart_toStartOf="@+id/ComingSoonImage3"
+                        app:layout_constraintTop_toBottomOf="@+id/ComingSoonImage3" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/horizontal_scroll_view_left_margin">
+                    <ImageButton
+                        android:id="@+id/ComingSoonImage4"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/horizontal_image_height"
+                        android:adjustViewBounds="true"
+                        android:background="#00FFFFFF"
+                        android:backgroundTint="#00FFFFFF"
+                        android:contentDescription="@string/app_name"
+                        android:scaleType="fitCenter"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                    <TextView
+                        android:id="@+id/ComingSoonText4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/titleWhite"
+                        app:layout_constraintEnd_toEndOf="@+id/ComingSoonImage4"
+                        app:layout_constraintStart_toStartOf="@+id/ComingSoonImage4"
+                        app:layout_constraintTop_toBottomOf="@+id/ComingSoonImage4" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/horizontal_scroll_view_left_margin">
+                    <ImageButton
+                        android:id="@+id/ComingSoonImage5"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/horizontal_image_height"
+                        android:adjustViewBounds="true"
+                        android:background="#00FFFFFF"
+                        android:backgroundTint="#00FFFFFF"
+                        android:contentDescription="@string/app_name"
+                        android:scaleType="fitCenter"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                    <TextView
+                        android:id="@+id/ComingSoonText5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/titleWhite"
+                        app:layout_constraintEnd_toEndOf="@+id/ComingSoonImage5"
+                        app:layout_constraintStart_toStartOf="@+id/ComingSoonImage5"
+                        app:layout_constraintTop_toBottomOf="@+id/ComingSoonImage5" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/horizontal_scroll_view_left_margin">
+                    <ImageButton
+                        android:id="@+id/ComingSoonImage6"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/horizontal_image_height"
+                        android:adjustViewBounds="true"
+                        android:background="#00FFFFFF"
+                        android:backgroundTint="#00FFFFFF"
+                        android:contentDescription="@string/app_name"
+                        android:scaleType="fitCenter"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                    <TextView
+                        android:id="@+id/ComingSoonText6"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/titleWhite"
+                        app:layout_constraintEnd_toEndOf="@+id/ComingSoonImage6"
+                        app:layout_constraintStart_toStartOf="@+id/ComingSoonImage6"
+                        app:layout_constraintTop_toBottomOf="@+id/ComingSoonImage6" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/horizontal_scroll_view_left_margin">
+                    <ImageButton
+                        android:id="@+id/ComingSoonImage7"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/horizontal_image_height"
+                        android:adjustViewBounds="true"
+                        android:background="#00FFFFFF"
+                        android:backgroundTint="#00FFFFFF"
+                        android:contentDescription="@string/app_name"
+                        android:scaleType="fitCenter"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                    <TextView
+                        android:id="@+id/ComingSoonText7"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/titleWhite"
+                        app:layout_constraintEnd_toEndOf="@+id/ComingSoonImage7"
+                        app:layout_constraintStart_toStartOf="@+id/ComingSoonImage7"
+                        app:layout_constraintTop_toBottomOf="@+id/ComingSoonImage7" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/horizontal_scroll_view_left_margin">
+                    <ImageButton
+                        android:id="@+id/ComingSoonImage8"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/horizontal_image_height"
+                        android:adjustViewBounds="true"
+                        android:background="#00FFFFFF"
+                        android:backgroundTint="#00FFFFFF"
+                        android:contentDescription="@string/app_name"
+                        android:scaleType="fitCenter"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                    <TextView
+                        android:id="@+id/ComingSoonText8"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/titleWhite"
+                        app:layout_constraintEnd_toEndOf="@+id/ComingSoonImage8"
+                        app:layout_constraintStart_toStartOf="@+id/ComingSoonImage8"
+                        app:layout_constraintTop_toBottomOf="@+id/ComingSoonImage8" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/horizontal_scroll_view_left_margin">
+                    <ImageButton
+                        android:id="@+id/ComingSoonImage9"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/horizontal_image_height"
+                        android:adjustViewBounds="true"
+                        android:background="#00FFFFFF"
+                        android:backgroundTint="#00FFFFFF"
+                        android:contentDescription="@string/app_name"
+                        android:scaleType="fitCenter"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                    <TextView
+                        android:id="@+id/ComingSoonText9"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/titleWhite"
+                        app:layout_constraintEnd_toEndOf="@+id/ComingSoonImage9"
+                        app:layout_constraintStart_toStartOf="@+id/ComingSoonImage9"
+                        app:layout_constraintTop_toBottomOf="@+id/ComingSoonImage9" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
             </LinearLayout>
         </HorizontalScrollView>
 
