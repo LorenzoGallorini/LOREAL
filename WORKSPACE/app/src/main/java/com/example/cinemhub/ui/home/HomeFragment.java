@@ -139,6 +139,33 @@ public class HomeFragment extends Fragment {
                     else
                         binding.NowPlayingText9.setText(movie.getTitle());
                 }
+                if(movies.size()>9){
+                    Movie movie = movies.get(9);
+                    Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.getPoster_path()).into(binding.NowPlayingImage10);
+
+                    if(movie.getTitle().length() > MAX_LENGHT)
+                        binding.NowPlayingText10.setText(movie.getTitle().substring(0,MAX_LENGHT-1)+" ...");
+                    else
+                        binding.NowPlayingText10.setText(movie.getTitle());
+                }
+                if(movies.size()>10){
+                    Movie movie = movies.get(10);
+                    Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.getPoster_path()).into(binding.NowPlayingImage11);
+
+                    if(movie.getTitle().length() > MAX_LENGHT)
+                        binding.NowPlayingText11.setText(movie.getTitle().substring(0,MAX_LENGHT-1)+" ...");
+                    else
+                        binding.NowPlayingText11.setText(movie.getTitle());
+                }
+                if(movies.size()>11){
+                    Movie movie = movies.get(11);
+                    Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.getPoster_path()).into(binding.NowPlayingImage12);
+
+                    if(movie.getTitle().length() > MAX_LENGHT)
+                        binding.NowPlayingText12.setText(movie.getTitle().substring(0,MAX_LENGHT-1)+" ...");
+                    else
+                        binding.NowPlayingText12.setText(movie.getTitle());
+                }
 
             }
         };
@@ -243,6 +270,36 @@ public class HomeFragment extends Fragment {
                     else
                         binding.TopRatedText9.setText(movie.getTitle());
                 }
+                if(movies.size()>9){
+                    Movie movie = movies.get(9);
+                    new MainActivity.DownloadImageTask((ImageView) binding.TopRatedImage10)
+                            .execute("https://image.tmdb.org/t/p/w500"+movie.getPoster_path());
+
+                    if(movie.getTitle().length() > MAX_LENGHT)
+                        binding.TopRatedText10.setText(movie.getTitle().substring(0,MAX_LENGHT-1)+" ...");
+                    else
+                        binding.TopRatedText10.setText(movie.getTitle());
+                }
+                if(movies.size()>10){
+                    Movie movie = movies.get(10);
+                    new MainActivity.DownloadImageTask((ImageView) binding.TopRatedImage11)
+                            .execute("https://image.tmdb.org/t/p/w500"+movie.getPoster_path());
+
+                    if(movie.getTitle().length() > MAX_LENGHT)
+                        binding.TopRatedText11.setText(movie.getTitle().substring(0,MAX_LENGHT-1)+" ...");
+                    else
+                        binding.TopRatedText11.setText(movie.getTitle());
+                }
+                if(movies.size()>11){
+                    Movie movie = movies.get(11);
+                    new MainActivity.DownloadImageTask((ImageView) binding.TopRatedImage12)
+                            .execute("https://image.tmdb.org/t/p/w500"+movie.getPoster_path());
+
+                    if(movie.getTitle().length() > MAX_LENGHT)
+                        binding.TopRatedText12.setText(movie.getTitle().substring(0,MAX_LENGHT-1)+" ...");
+                    else
+                        binding.TopRatedText12.setText(movie.getTitle());
+                }
             }
         };
         homeViewModel.getMovieTopRated("it-IT", 1).observe(getViewLifecycleOwner(), observer_top_rated);
@@ -342,6 +399,30 @@ public class HomeFragment extends Fragment {
                         binding.ComingSoonText9.setText(movie.getTitle().substring(0,MAX_LENGHT-1)+" ...");
                     else
                         binding.ComingSoonText9.setText(movie.getTitle());
+                }
+                if(movies.size()>9){
+                    Movie movie = movies.get(9);
+                    Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.getPoster_path()).into(binding.ComingSoonImage10);
+                    if(movie.getTitle().length() > MAX_LENGHT)
+                        binding.ComingSoonText10.setText(movie.getTitle().substring(0,MAX_LENGHT-1)+" ...");
+                    else
+                        binding.ComingSoonText10.setText(movie.getTitle());
+                }
+                if(movies.size()>10){
+                    Movie movie = movies.get(10);
+                    Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.getPoster_path()).into(binding.ComingSoonImage11);
+                    if(movie.getTitle().length() > MAX_LENGHT)
+                        binding.ComingSoonText11.setText(movie.getTitle().substring(0,MAX_LENGHT-1)+" ...");
+                    else
+                        binding.ComingSoonText11.setText(movie.getTitle());
+                }
+                if(movies.size()>11){
+                    Movie movie = movies.get(11);
+                    Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.getPoster_path()).into(binding.ComingSoonImage12);
+                    if(movie.getTitle().length() > MAX_LENGHT)
+                        binding.ComingSoonText12.setText(movie.getTitle().substring(0,MAX_LENGHT-1)+" ...");
+                    else
+                        binding.ComingSoonText12.setText(movie.getTitle());
                 }
             }
         };

@@ -63,15 +63,13 @@ public class Shake2Fragment extends Fragment {
                 Movie movie = movies.get(0);
                 new MainActivity.DownloadImageTask((ImageView) binding.filmImageButton)
                         .execute("https://image.tmdb.org/t/p/w500" + movie.getPoster_path());
-                if(movie.getTitle().length() > MAX_LENGHT)
-                    binding.textFilmName.setText(movie.getTitle().substring(0,MAX_LENGHT-1)+" ...");
-                else
+
                     binding.textFilmName.setText(movie.getTitle());
 
             }
         };
 
-        mViewModel.getMovieOnShake(550, "it-IT",1).observe(getViewLifecycleOwner(), observer_on_shake);//TODO settare delle variabili globali per la lingua e per la pagina
+        mViewModel.getMovieOnShake(530, "it-IT",1).observe(getViewLifecycleOwner(), observer_on_shake);//TODO settare delle variabili globali per la lingua e per la pagina
 
 
         return view;

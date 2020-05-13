@@ -341,6 +341,103 @@
                         app:layout_constraintStart_toStartOf="@+id/NowPlayingImage9"
                         app:layout_constraintTop_toBottomOf="@+id/NowPlayingImage9" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/horizontal_scroll_view_left_margin">
+
+
+                    <ImageButton
+                        android:id="@+id/NowPlayingImage10"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/horizontal_image_height"
+                        android:adjustViewBounds="true"
+                        android:background="#00FFFFFF"
+
+                        android:backgroundTint="#00FFFFFF"
+                        android:contentDescription="@string/app_name"
+
+
+                        android:scaleType="fitCenter" app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/NowPlayingText10"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/titleWhite"
+                        app:layout_constraintEnd_toEndOf="@+id/NowPlayingImage10"
+                        app:layout_constraintStart_toStartOf="@+id/NowPlayingImage10"
+                        app:layout_constraintTop_toBottomOf="@+id/NowPlayingImage10" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/horizontal_scroll_view_left_margin">
+
+
+                    <ImageButton
+                        android:id="@+id/NowPlayingImage11"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/horizontal_image_height"
+                        android:adjustViewBounds="true"
+                        android:background="#00FFFFFF"
+
+                        android:backgroundTint="#00FFFFFF"
+                        android:contentDescription="@string/app_name"
+
+
+                        android:scaleType="fitCenter" app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/NowPlayingText11"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/titleWhite"
+                        app:layout_constraintEnd_toEndOf="@+id/NowPlayingImage11"
+                        app:layout_constraintStart_toStartOf="@+id/NowPlayingImage11"
+                        app:layout_constraintTop_toBottomOf="@+id/NowPlayingImage11" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/horizontal_scroll_view_left_margin">
+
+
+                    <ImageButton
+                        android:id="@+id/NowPlayingImage12"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/horizontal_image_height"
+                        android:adjustViewBounds="true"
+                        android:background="#00FFFFFF"
+
+                        android:backgroundTint="#00FFFFFF"
+                        android:contentDescription="@string/app_name"
+
+
+                        android:scaleType="fitCenter" app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/NowPlayingText12"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/titleWhite"
+                        app:layout_constraintEnd_toEndOf="@+id/NowPlayingImage12"
+                        app:layout_constraintStart_toStartOf="@+id/NowPlayingImage12"
+                        app:layout_constraintTop_toBottomOf="@+id/NowPlayingImage12" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
             </LinearLayout>
 
 
@@ -667,6 +764,96 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/horizontal_scroll_view_left_margin">
+                    <ImageButton
+                        android:id="@+id/TopRatedImage10"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/horizontal_image_height"
+                        android:adjustViewBounds="true"
+
+                        android:background="#00FFFFFF"
+                        android:backgroundTint="#00FFFFFF"
+                        android:contentDescription="@string/app_name"
+
+                        android:scaleType="fitCenter"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                    <TextView
+                        android:id="@+id/TopRatedText10"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/titleWhite"
+                        app:layout_constraintEnd_toEndOf="@+id/TopRatedImage10"
+                        app:layout_constraintStart_toStartOf="@+id/TopRatedImage10"
+                        app:layout_constraintTop_toBottomOf="@+id/TopRatedImage10" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/horizontal_scroll_view_left_margin">
+                    <ImageButton
+                        android:id="@+id/TopRatedImage11"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/horizontal_image_height"
+                        android:adjustViewBounds="true"
+
+                        android:background="#00FFFFFF"
+                        android:backgroundTint="#00FFFFFF"
+                        android:contentDescription="@string/app_name"
+
+                        android:scaleType="fitCenter"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                    <TextView
+                        android:id="@+id/TopRatedText11"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/titleWhite"
+                        app:layout_constraintEnd_toEndOf="@+id/TopRatedImage11"
+                        app:layout_constraintStart_toStartOf="@+id/TopRatedImage11"
+                        app:layout_constraintTop_toBottomOf="@+id/TopRatedImage11" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/horizontal_scroll_view_left_margin">
+                    <ImageButton
+                        android:id="@+id/TopRatedImage12"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/horizontal_image_height"
+                        android:adjustViewBounds="true"
+
+                        android:background="#00FFFFFF"
+                        android:backgroundTint="#00FFFFFF"
+                        android:contentDescription="@string/app_name"
+
+                        android:scaleType="fitCenter"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                    <TextView
+                        android:id="@+id/TopRatedText12"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/titleWhite"
+                        app:layout_constraintEnd_toEndOf="@+id/TopRatedImage12"
+                        app:layout_constraintStart_toStartOf="@+id/TopRatedImage12"
+                        app:layout_constraintTop_toBottomOf="@+id/TopRatedImage12" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
             </LinearLayout>
         </HorizontalScrollView>
 
@@ -957,6 +1144,90 @@
                         app:layout_constraintEnd_toEndOf="@+id/ComingSoonImage9"
                         app:layout_constraintStart_toStartOf="@+id/ComingSoonImage9"
                         app:layout_constraintTop_toBottomOf="@+id/ComingSoonImage9" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/horizontal_scroll_view_left_margin">
+                    <ImageButton
+                        android:id="@+id/ComingSoonImage10"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/horizontal_image_height"
+                        android:adjustViewBounds="true"
+                        android:background="#00FFFFFF"
+                        android:backgroundTint="#00FFFFFF"
+                        android:contentDescription="@string/app_name"
+                        android:scaleType="fitCenter"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                    <TextView
+                        android:id="@+id/ComingSoonText10"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/titleWhite"
+                        app:layout_constraintEnd_toEndOf="@+id/ComingSoonImage10"
+                        app:layout_constraintStart_toStartOf="@+id/ComingSoonImage10"
+                        app:layout_constraintTop_toBottomOf="@+id/ComingSoonImage10" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/horizontal_scroll_view_left_margin">
+                    <ImageButton
+                        android:id="@+id/ComingSoonImage11"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/horizontal_image_height"
+                        android:adjustViewBounds="true"
+                        android:background="#00FFFFFF"
+                        android:backgroundTint="#00FFFFFF"
+                        android:contentDescription="@string/app_name"
+                        android:scaleType="fitCenter"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                    <TextView
+                        android:id="@+id/ComingSoonText11"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/titleWhite"
+                        app:layout_constraintEnd_toEndOf="@+id/ComingSoonImage11"
+                        app:layout_constraintStart_toStartOf="@+id/ComingSoonImage11"
+                        app:layout_constraintTop_toBottomOf="@+id/ComingSoonImage11" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/horizontal_scroll_view_left_margin">
+                    <ImageButton
+                        android:id="@+id/ComingSoonImage12"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/horizontal_image_height"
+                        android:adjustViewBounds="true"
+                        android:background="#00FFFFFF"
+                        android:backgroundTint="#00FFFFFF"
+                        android:contentDescription="@string/app_name"
+                        android:scaleType="fitCenter"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                    <TextView
+                        android:id="@+id/ComingSoonText12"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/titleWhite"
+                        app:layout_constraintEnd_toEndOf="@+id/ComingSoonImage12"
+                        app:layout_constraintStart_toStartOf="@+id/ComingSoonImage12"
+                        app:layout_constraintTop_toBottomOf="@+id/ComingSoonImage12" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
