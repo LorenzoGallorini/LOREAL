@@ -21,6 +21,7 @@ import com.example.cinemhub.models.Movie;
 import com.example.cinemhub.ui.comingsoon.ComingSoonFragment;
 import com.example.cinemhub.ui.nowplaying.NowPlayingFragment;
 import com.example.cinemhub.ui.settings.SettingsFragment;
+import com.example.cinemhub.ui.toprated.TopRatedFragment;
 
 import java.io.InputStream;
 import java.util.List;
@@ -36,8 +37,11 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
         setHasOptionsMenu(true);
-
+        ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.title_home));
+        ((MainActivity) getActivity()).menuColorSettings(R.id.navigation_home);
         homeViewModel=new ViewModelProvider(this).get(HomeViewModel.class);
+
+
         final Observer<List<Movie>> observer_now_playing=new Observer<List<Movie>>() {
             @Override
             public void onChanged(List<Movie> movies) {
@@ -79,11 +83,10 @@ public class HomeFragment extends Fragment {
 
             }
         };
-
         homeViewModel.getMovieNowPlaying("it-IT", 1).observe(getViewLifecycleOwner(), observer_now_playing);//TODO settare delle variabili globali per la lingua e per la pagina
 
-        ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.title_home));
-        ((MainActivity) getActivity()).menuColorSettings(R.id.navigation_home);
+
+
         binding.textViewShowAllNowPlaying.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,19 +99,44 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        final Observer<List<Movie>> observer_top_rated=new Observer<List<Movie>>() {
+            @Override
+            public void onChanged(List<Movie> movies) {
+                Log.d(TAG, "lista tmdb toprated"+movies);
+                for(int i=0;i<movies.size();i++){
+                    Log.d(TAG, "film numero "+i+" "+movies.get(i).toString());
+
+                }
+                InputStream is = null;
+            }
+        };
+        homeViewModel.getMovieTopRated("it-IT", 1).observe(getViewLifecycleOwner(), observer_top_rated);
 
 
         binding.textView2ShowAllTopRated.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "onClick: AllRatedClick");
-                Fragment newFragment = new NowPlayingFragment();
+                Fragment newFragment = new TopRatedFragment();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.replace(R.id.nav_host_fragment, newFragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
             }
         });
+
+        final Observer<List<Movie>> observer_coming_soon=new Observer<List<Movie>>() {
+            @Override
+            public void onChanged(List<Movie> movies) {
+                Log.d(TAG, "lista tmdb comingsoon"+movies);
+                for(int i=0;i<movies.size();i++){
+                    Log.d(TAG, "film numero "+i+" "+movies.get(i).toString());
+
+                }
+                InputStream is = null;
+            }
+        };
+        homeViewModel.getMovieComingSoon("it-IT", 1).observe(getViewLifecycleOwner(), observer_coming_soon);
 
         binding.textViewShowAllComingSoon.setOnClickListener(new View.OnClickListener() {
             @Override

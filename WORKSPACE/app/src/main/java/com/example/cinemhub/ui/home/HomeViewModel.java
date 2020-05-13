@@ -12,6 +12,8 @@ import java.util.List;
 public class HomeViewModel extends ViewModel {
 
     private MutableLiveData<List<Movie>> movieNowPlaying;
+    private MutableLiveData<List<Movie>> movieTopRated;
+    private MutableLiveData<List<Movie>> movieComingSoon;
 
 
 
@@ -22,4 +24,21 @@ public class HomeViewModel extends ViewModel {
         }
         return movieNowPlaying;
     }
+
+    public LiveData<List<Movie>> getMovieTopRated(String language, int page){
+        if(movieTopRated==null){
+            movieTopRated=new MutableLiveData<List<Movie>>();
+            TmdbRepository.getInstance().getTopRated(movieTopRated, language, page);
+        }
+        return movieTopRated;
+    }
+
+    public LiveData<List<Movie>> getMovieComingSoon(String language, int page){
+        if(movieComingSoon==null){
+            movieComingSoon=new MutableLiveData<List<Movie>>();
+            TmdbRepository.getInstance().getComingSoon(movieComingSoon, language, page);
+        }
+        return movieComingSoon;
+    }
+
 }

@@ -62,4 +62,12 @@
         tools:layout="@layout/fragment_movie_card"
         />
 
+    <fragment
+        android:id="@+id/navigation_top_rated"
+        android:name="com.example.cinemhub.ui.toprated.TopRatedFragment"
+        android:label="@string/title_top_rated"
+        tools:layout="@layout/fragment_top_rated"
+        />
+
+
 </navigation>

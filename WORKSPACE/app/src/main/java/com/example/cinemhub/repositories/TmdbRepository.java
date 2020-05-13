@@ -4,9 +4,11 @@ import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.cinemhub.models.ComingSoonApiTmdbResponse;
 import com.example.cinemhub.models.Movie;
 import com.example.cinemhub.models.MovieApiTmdbResponse;
 import com.example.cinemhub.models.NowPlayingApiTmdbResponse;
+import com.example.cinemhub.models.TopRatedApiTmdbResponse;
 import com.example.cinemhub.service.TmdbService;
 
 import java.util.ArrayList;
@@ -57,6 +59,48 @@ public class TmdbRepository {
 
             @Override
             public void onFailure(Call<NowPlayingApiTmdbResponse> call, Throwable t) {
+                Log.d(TAG, "Error:"+t.toString());
+            }
+        });
+    }
+
+    public void getTopRated(MutableLiveData<List<Movie>> movieTopRated, String language, int page){
+        Call<TopRatedApiTmdbResponse> call=tmdbService.getTopRated(language, page, API_KEY);
+        call.enqueue(new Callback<TopRatedApiTmdbResponse>() {
+            @Override
+            public void onResponse(Call<TopRatedApiTmdbResponse> call, Response<TopRatedApiTmdbResponse> response) {
+                List<MovieApiTmdbResponse> movies =response.body().getResults();
+                Log.d(TAG, "callback toprated ok");
+                List<Movie> res=new ArrayList<Movie>();
+                for (int i=0;i<movies.size();i++) {
+                    res.add(new Movie(movies.get(i)));
+                }
+                movieTopRated.postValue(res);
+            }
+
+            @Override
+            public void onFailure(Call<TopRatedApiTmdbResponse> call, Throwable t) {
+                Log.d(TAG, "Error:"+t.toString());
+            }
+        });
+    }
+
+    public void getComingSoon(MutableLiveData<List<Movie>> movieComingSoon, String language, int page){
+        Call<ComingSoonApiTmdbResponse> call=tmdbService.getComingSoon(language, page, API_KEY);
+        call.enqueue(new Callback<ComingSoonApiTmdbResponse>() {
+            @Override
+            public void onResponse(Call<ComingSoonApiTmdbResponse> call, Response<ComingSoonApiTmdbResponse> response) {
+                List<MovieApiTmdbResponse> movies =response.body().getResults();
+                Log.d(TAG, "callback comingsoon ok");
+                List<Movie> res=new ArrayList<Movie>();
+                for (int i=0;i<movies.size();i++) {
+                    res.add(new Movie(movies.get(i)));
+                }
+                movieComingSoon.postValue(res);
+            }
+
+            @Override
+            public void onFailure(Call<ComingSoonApiTmdbResponse> call, Throwable t) {
                 Log.d(TAG, "Error:"+t.toString());
             }
         });
