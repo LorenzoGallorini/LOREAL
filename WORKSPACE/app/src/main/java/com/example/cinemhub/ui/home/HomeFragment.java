@@ -53,10 +53,6 @@ public class HomeFragment extends Fragment {
                 InputStream is = null;
                 new DownloadImageTask((ImageView) binding.imageButton4)
                         .execute("https://image.tmdb.org/t/p/w500"+movies.get(0).getPoster_path());
-
-
-
-
             }
         };
 

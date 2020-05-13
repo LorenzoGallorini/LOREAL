@@ -46,52 +46,59 @@
             android:layout_height="@dimen/horizontal_scroll_view_height"
             android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/alCinema">
+            app:layout_constraintTop_toBottomOf="@+id/alCinema"
+            android:layout_marginStart="@dimen/horizontal_scroll_view_left_margin"
+            android:layout_marginEnd="@dimen/horizontal_scroll_view_right_margin"
+            >
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:background="#00FFFFFF"
                 android:orientation="horizontal">
 
                 <ImageButton
                     android:id="@+id/imageButton4"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:src="@drawable/ic_launcher_background"
-                    android:contentDescription="@string/app_name"/>
+
+                    android:adjustViewBounds="true"
+                    android:background="#00FFFFFF"
+                    android:backgroundTint="#00FFFFFF"
+                    android:contentDescription="@string/app_name"
+                    android:scaleType="fitCenter" />
 
                 <ImageButton
                     android:id="@+id/imageButton5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:src="@drawable/ic_launcher_background"
-                    android:contentDescription="@string/app_name"/>
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/ic_launcher_background" />
 
                 <ImageButton
                     android:id="@+id/imageButton6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:src="@drawable/ic_launcher_background"
-                    android:contentDescription="@string/app_name"/>
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/ic_launcher_background" />
 
                 <ImageButton
                     android:id="@+id/imageButton7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:src="@drawable/ic_launcher_background"
-                    android:contentDescription="@string/app_name"/>
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/ic_launcher_background" />
 
                 <ImageButton
                     android:id="@+id/imageButton20"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:src="@drawable/ic_launcher_background"
-                    android:contentDescription="@string/app_name"/>
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/ic_launcher_background" />
             </LinearLayout>
         </HorizontalScrollView>
 
@@ -123,7 +130,9 @@
             android:layout_height="@dimen/horizontal_scroll_view_height"
             android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="@+id/horizontalScrollViewNowPlaying"
-            app:layout_constraintTop_toBottomOf="@+id/TopRated">
+            app:layout_constraintTop_toBottomOf="@+id/TopRated"
+            android:layout_marginStart="@dimen/horizontal_scroll_view_left_margin"
+            android:layout_marginEnd="@dimen/horizontal_scroll_view_right_margin">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -191,7 +200,9 @@
             android:layout_height="@dimen/horizontal_scroll_view_height"
             android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="@+id/horizontalScrollViewTopRated"
-            app:layout_constraintTop_toBottomOf="@+id/ComingSoon">
+            app:layout_constraintTop_toBottomOf="@+id/ComingSoon"
+            android:layout_marginStart="@dimen/horizontal_scroll_view_left_margin"
+            android:layout_marginEnd="@dimen/horizontal_scroll_view_right_margin">
 
             <LinearLayout
                 android:layout_width="wrap_content"

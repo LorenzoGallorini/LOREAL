@@ -31,6 +31,8 @@
     <dimen name="title_size">20sp</dimen>
     <dimen name="paragraph_size">14sp</dimen>
     <dimen name="horizontal_scroll_view_height">134dp</dimen>
+    <dimen name="horizontal_scroll_view_left_margin">10dp</dimen>
+    <dimen name="horizontal_scroll_view_right_margin">10dp</dimen>
 
 
 
