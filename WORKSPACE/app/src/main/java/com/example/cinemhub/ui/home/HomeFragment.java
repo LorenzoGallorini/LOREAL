@@ -31,7 +31,7 @@ public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
     private final String TAG = "HomeFragment";
     private HomeViewModel homeViewModel;
-
+private final int MAX_LENGHT = 14;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
@@ -52,34 +52,95 @@ public class HomeFragment extends Fragment {
                 }
                 InputStream is = null;
                 if(movies.size()>0) {
+                    Movie movie = movies.get(0);
                     new MainActivity.DownloadImageTask((ImageView) binding.NowPlayingImage1)
-                            .execute("https://image.tmdb.org/t/p/w500" + movies.get(0).getPoster_path());
-                    binding.NowPlayingText1.setText(movies.get(0).getTitle());
+                            .execute("https://image.tmdb.org/t/p/w500" + movie.getPoster_path());
+                    if(movie.getTitle().length() > MAX_LENGHT)
+                        binding.NowPlayingText1.setText(movie.getTitle().substring(0,MAX_LENGHT-1));
+                    else
+                        binding.NowPlayingText1.setText(movie.getTitle());
                 }
-                if(movies.size()>1)
-                new MainActivity.DownloadImageTask((ImageView) binding.NowPlayingImage2)
-                        .execute("https://image.tmdb.org/t/p/w500"+movies.get(1).getPoster_path());
-                if(movies.size()>2)
+                if(movies.size()>1) {
+                    Movie movie = movies.get(1);
+                    new MainActivity.DownloadImageTask((ImageView) binding.NowPlayingImage2)
+                            .execute("https://image.tmdb.org/t/p/w500" + movie.getPoster_path());
+                    binding.NowPlayingText2.setText(movie.getTitle());
+                    if(movie.getTitle().length() > MAX_LENGHT)
+                        binding.NowPlayingText2.setText(movie.getTitle().substring(0,MAX_LENGHT-1)+" ...");
+                    else
+                        binding.NowPlayingText2.setText(movie.getTitle());
+                }
+                if(movies.size()>2){
+                    Movie movie = movies.get(2);
                 new MainActivity.DownloadImageTask((ImageView) binding.NowPlayingImage3)
-                        .execute("https://image.tmdb.org/t/p/w500"+movies.get(2).getPoster_path());
-                if(movies.size()>3)
+                        .execute("https://image.tmdb.org/t/p/w500"+movie.getPoster_path());
+                    if(movie.getTitle().length() > MAX_LENGHT)
+                        binding.NowPlayingText3.setText(movie.getTitle().substring(0,MAX_LENGHT-1)+" ...");
+                    else
+                        binding.NowPlayingText3.setText(movie.getTitle());
+
+            }
+                if(movies.size()>3){
+                    Movie movie = movies.get(3);
                 new MainActivity.DownloadImageTask((ImageView) binding.NowPlayingImage4)
-                        .execute("https://image.tmdb.org/t/p/w500"+movies.get(3).getPoster_path());
-                if(movies.size()>4)
+                        .execute("https://image.tmdb.org/t/p/w500"+movie.getPoster_path());
+
+                    if(movie.getTitle().length() > MAX_LENGHT)
+                        binding.NowPlayingText4.setText(movie.getTitle().substring(0,MAX_LENGHT-1)+" ...");
+                    else
+                        binding.NowPlayingText4.setText(movie.getTitle());
+            }
+                if(movies.size()>4){
+                    Movie movie = movies.get(4);
                 new MainActivity.DownloadImageTask((ImageView) binding.NowPlayingImage5)
-                        .execute("https://image.tmdb.org/t/p/w500"+movies.get(4).getPoster_path());
-                if(movies.size()>5)
+                        .execute("https://image.tmdb.org/t/p/w500"+movie.getPoster_path());
+
+                    if(movie.getTitle().length() > MAX_LENGHT)
+                        binding.NowPlayingText5.setText(movie.getTitle().substring(0,MAX_LENGHT-1)+" ...");
+                    else
+                        binding.NowPlayingText5.setText(movie.getTitle());
+                }
+                if(movies.size()>5){
+                    Movie movie = movies.get(5);
                 new MainActivity.DownloadImageTask((ImageView) binding.NowPlayingImage6)
-                        .execute("https://image.tmdb.org/t/p/w500"+movies.get(5).getPoster_path());
-                if(movies.size()>6)
+                        .execute("https://image.tmdb.org/t/p/w500"+movie.getPoster_path());
+
+                    if(movie.getTitle().length() > MAX_LENGHT)
+                        binding.NowPlayingText6.setText(movie.getTitle().substring(0,MAX_LENGHT-1)+" ...");
+                    else
+                        binding.NowPlayingText6.setText(movie.getTitle());
+                }
+                if(movies.size()>6){
+                    Movie movie = movies.get(6);
                 new MainActivity.DownloadImageTask((ImageView) binding.NowPlayingImage7)
                         .execute("https://image.tmdb.org/t/p/w500"+movies.get(6).getPoster_path());
-                if(movies.size()>7)
+
+                    if(movie.getTitle().length() > MAX_LENGHT)
+                        binding.NowPlayingText7.setText(movie.getTitle().substring(0,MAX_LENGHT-1)+" ...");
+                    else
+                        binding.NowPlayingText7.setText(movie.getTitle());
+                }
+                if(movies.size()>7){
+                    Movie movie = movies.get(7);
                 new MainActivity.DownloadImageTask((ImageView) binding.NowPlayingImage8)
                         .execute("https://image.tmdb.org/t/p/w500"+movies.get(7).getPoster_path());
-                if(movies.size()>8)
+
+                    if(movie.getTitle().length() > MAX_LENGHT)
+                        binding.NowPlayingText8.setText(movie.getTitle().substring(0,MAX_LENGHT-1)+" ...");
+                    else
+                        binding.NowPlayingText8.setText(movie.getTitle());
+
+                }
+                if(movies.size()>8){
+                    Movie movie = movies.get(8);
                 new MainActivity.DownloadImageTask((ImageView) binding.NowPlayingImage9)
-                        .execute("https://image.tmdb.org/t/p/w500"+movies.get(8).getPoster_path());
+                        .execute("https://image.tmdb.org/t/p/w500"+movie.getPoster_path());
+
+                    if(movie.getTitle().length() > MAX_LENGHT)
+                        binding.NowPlayingText9.setText(movie.getTitle().substring(0,MAX_LENGHT-1)+" ...");
+                    else
+                        binding.NowPlayingText9.setText(movie.getTitle());
+                }
 
             }
         };
