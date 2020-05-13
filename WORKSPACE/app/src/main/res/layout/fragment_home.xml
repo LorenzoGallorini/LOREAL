@@ -57,50 +57,177 @@
                 android:background="#00FFFFFF"
                 android:orientation="horizontal">
 
-                <ImageButton
-                    android:id="@+id/imageButton4"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-                    android:adjustViewBounds="true"
-                    android:background="#00FFFFFF"
-                    android:backgroundTint="#00FFFFFF"
-                    android:contentDescription="@string/app_name"
-                    android:scaleType="fitCenter" />
+                    <ImageButton
+                        android:id="@+id/NowPlayingImage1"
+                        android:layout_width="match_parent"
+                        android:layout_height="114dp"
+                        android:adjustViewBounds="true"
 
-                <ImageButton
-                    android:id="@+id/imageButton5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:contentDescription="@string/app_name"
-                    android:src="@drawable/ic_launcher_background" />
+                        android:background="#00FFFFFF"
+                        android:backgroundTint="#00FFFFFF"
+                        android:contentDescription="@string/app_name"
 
-                <ImageButton
-                    android:id="@+id/imageButton6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:contentDescription="@string/app_name"
-                    android:src="@drawable/ic_launcher_background" />
+                        android:scaleType="fitCenter" />
 
-                <ImageButton
-                    android:id="@+id/imageButton7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:contentDescription="@string/app_name"
-                    android:src="@drawable/ic_launcher_background" />
+                    <TextView
+                        android:id="@+id/NowPlayingText1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
 
-                <ImageButton
-                    android:id="@+id/imageButton20"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:contentDescription="@string/app_name"
-                    android:src="@drawable/ic_launcher_background" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/horizontal_scroll_view_left_margin">
+
+                    <ImageButton
+                        android:id="@+id/NowPlayingImage2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:background="#00FFFFFF"
+                        android:backgroundTint="#00FFFFFF"
+                        android:contentDescription="@string/app_name"
+                        android:scaleType="fitCenter" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageButton
+                        android:id="@+id/NowPlayingImage3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:background="#00FFFFFF"
+
+                        android:backgroundTint="#00FFFFFF"
+                        android:contentDescription="@string/app_name"
+
+                        android:scaleType="fitCenter" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageButton
+                        android:id="@+id/NowPlayingImage4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:background="#00FFFFFF"
+
+                        android:backgroundTint="#00FFFFFF"
+                        android:contentDescription="@string/app_name"
+
+                        android:scaleType="fitCenter" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageButton
+                        android:id="@+id/NowPlayingImage5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:background="#00FFFFFF"
+
+                        android:backgroundTint="#00FFFFFF"
+                        android:contentDescription="@string/app_name"
+
+                        android:scaleType="fitCenter" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageButton
+                        android:id="@+id/NowPlayingImage6"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:background="#00FFFFFF"
+
+                        android:backgroundTint="#00FFFFFF"
+                        android:contentDescription="@string/app_name"
+                        android:scaleType="fitCenter" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageButton
+                        android:id="@+id/NowPlayingImage7"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:background="#00FFFFFF"
+
+                        android:backgroundTint="#00FFFFFF"
+                        android:contentDescription="@string/app_name"
+
+                        android:scaleType="fitCenter" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageButton
+                        android:id="@+id/NowPlayingImage8"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:background="#00FFFFFF"
+
+                        android:backgroundTint="#00FFFFFF"
+                        android:contentDescription="@string/app_name"
+
+
+                        android:scaleType="fitCenter" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageButton
+                        android:id="@+id/NowPlayingImage9"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:background="#00FFFFFF"
+
+                        android:backgroundTint="#00FFFFFF"
+                        android:contentDescription="@string/app_name"
+
+
+                        android:scaleType="fitCenter" />
+                </LinearLayout>
             </LinearLayout>
-        </HorizontalScrollView>
+
+
+
+    </HorizontalScrollView>
 
         <TextView
             android:id="@+id/TopRated"

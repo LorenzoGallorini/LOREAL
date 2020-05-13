@@ -1,8 +1,5 @@
 package com.example.cinemhub.ui.home;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,7 +20,6 @@ import com.example.cinemhub.databinding.FragmentHomeBinding;
 import com.example.cinemhub.models.Movie;
 import com.example.cinemhub.ui.comingsoon.ComingSoonFragment;
 import com.example.cinemhub.ui.nowplaying.NowPlayingFragment;
-import com.example.cinemhub.ui.peoplecard.PeopleCardFragment;
 import com.example.cinemhub.ui.settings.SettingsFragment;
 
 import java.io.InputStream;
@@ -51,8 +47,36 @@ public class HomeFragment extends Fragment {
 
                 }
                 InputStream is = null;
-                new DownloadImageTask((ImageView) binding.imageButton4)
-                        .execute("https://image.tmdb.org/t/p/w500"+movies.get(0).getPoster_path());
+                if(movies.size()>0) {
+                    new MainActivity.DownloadImageTask((ImageView) binding.NowPlayingImage1)
+                            .execute("https://image.tmdb.org/t/p/w500" + movies.get(0).getPoster_path());
+                    binding.NowPlayingText1.setText(movies.get(0).getTitle());
+                }
+                if(movies.size()>1)
+                new MainActivity.DownloadImageTask((ImageView) binding.NowPlayingImage2)
+                        .execute("https://image.tmdb.org/t/p/w500"+movies.get(1).getPoster_path());
+                if(movies.size()>2)
+                new MainActivity.DownloadImageTask((ImageView) binding.NowPlayingImage3)
+                        .execute("https://image.tmdb.org/t/p/w500"+movies.get(2).getPoster_path());
+                if(movies.size()>3)
+                new MainActivity.DownloadImageTask((ImageView) binding.NowPlayingImage4)
+                        .execute("https://image.tmdb.org/t/p/w500"+movies.get(3).getPoster_path());
+                if(movies.size()>4)
+                new MainActivity.DownloadImageTask((ImageView) binding.NowPlayingImage5)
+                        .execute("https://image.tmdb.org/t/p/w500"+movies.get(4).getPoster_path());
+                if(movies.size()>5)
+                new MainActivity.DownloadImageTask((ImageView) binding.NowPlayingImage6)
+                        .execute("https://image.tmdb.org/t/p/w500"+movies.get(5).getPoster_path());
+                if(movies.size()>6)
+                new MainActivity.DownloadImageTask((ImageView) binding.NowPlayingImage7)
+                        .execute("https://image.tmdb.org/t/p/w500"+movies.get(6).getPoster_path());
+                if(movies.size()>7)
+                new MainActivity.DownloadImageTask((ImageView) binding.NowPlayingImage8)
+                        .execute("https://image.tmdb.org/t/p/w500"+movies.get(7).getPoster_path());
+                if(movies.size()>8)
+                new MainActivity.DownloadImageTask((ImageView) binding.NowPlayingImage9)
+                        .execute("https://image.tmdb.org/t/p/w500"+movies.get(8).getPoster_path());
+
             }
         };
 
@@ -98,17 +122,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        binding.imageButton4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG, "onClick: image4");
-                Fragment newFragment = new PeopleCardFragment();
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.nav_host_fragment, newFragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
-            }
-        });
+
         return view;
     }
     @Override
@@ -132,28 +146,5 @@ public class HomeFragment extends Fragment {
     }
 
 
-    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-        ImageView bmImage;
 
-        public DownloadImageTask(ImageView bmImage) {
-            this.bmImage = bmImage;
-        }
-
-        protected Bitmap doInBackground(String... urls) {
-            String urldisplay = urls[0];
-            Bitmap mIcon11 = null;
-            try {
-                InputStream in = new java.net.URL(urldisplay).openStream();
-                mIcon11 = BitmapFactory.decodeStream(in);
-            } catch (Exception e) {
-                Log.e("Error", e.getMessage());
-                e.printStackTrace();
-            }
-            return mIcon11;
-        }
-
-        protected void onPostExecute(Bitmap result) {
-            bmImage.setImageBitmap(result);
-        }
-    }
 }
