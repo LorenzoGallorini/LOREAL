@@ -40,7 +40,6 @@ public class Movie {
         this.description = movieApiTmdbResponse.getDescription();
         this.budget = movieApiTmdbResponse.getBudget();
         this.status = movieApiTmdbResponse.getStatus();
-
     }
 
     public Movie(int id, String title, boolean adult, int runtime, String[] genres,

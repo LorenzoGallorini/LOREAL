@@ -1,11 +1,15 @@
 package com.example.cinemhub.ui.home;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -16,13 +20,13 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.cinemhub.MainActivity;
 import com.example.cinemhub.R;
 import com.example.cinemhub.databinding.FragmentHomeBinding;
+import com.example.cinemhub.models.Movie;
 import com.example.cinemhub.ui.comingsoon.ComingSoonFragment;
 import com.example.cinemhub.ui.nowplaying.NowPlayingFragment;
 import com.example.cinemhub.ui.peoplecard.PeopleCardFragment;
 import com.example.cinemhub.ui.settings.SettingsFragment;
 
-import com.example.cinemhub.models.*;
-
+import java.io.InputStream;
 import java.util.List;
 
 
@@ -44,7 +48,15 @@ public class HomeFragment extends Fragment {
                 Log.d(TAG, "lista tmdb nowplaying"+movies);
                 for(int i=0;i<movies.size();i++){
                     Log.d(TAG, "film numero "+i+" "+movies.get(i).toString());
+
                 }
+                InputStream is = null;
+                new DownloadImageTask((ImageView) binding.imageButton4)
+                        .execute("https://image.tmdb.org/t/p/w500"+movies.get(0).getPoster_path());
+
+
+
+
             }
         };
 
@@ -121,5 +133,31 @@ public class HomeFragment extends Fragment {
             return true;
         }
         return false;
+    }
+
+
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
+
+        public DownloadImageTask(ImageView bmImage) {
+            this.bmImage = bmImage;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            bmImage.setImageBitmap(result);
+        }
     }
 }
