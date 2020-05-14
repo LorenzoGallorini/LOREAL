@@ -49,13 +49,17 @@ public class TmdbRepository {
         call.enqueue(new Callback<NowPlayingApiTmdbResponse>() {
             @Override
             public void onResponse(Call<NowPlayingApiTmdbResponse> call, Response<NowPlayingApiTmdbResponse> response) {
-                List<MovieApiTmdbResponse> movies =response.body().getResults();
-                Log.d(TAG, "callback nowplaying ok");
-                List<Movie> res=new ArrayList<Movie>();
-                for (int i=0;i<movies.size();i++) {
-                    res.add(new Movie(movies.get(i)));
+                if(response.body()!=null){
+                    List<MovieApiTmdbResponse> movies =response.body().getResults();
+                    Log.d(TAG, "callback nowplaying ok");
+                    List<Movie> res=new ArrayList<Movie>();
+                    for (int i=0;i<movies.size();i++) {
+                        res.add(new Movie(movies.get(i)));
+                    }
+                    movieNowPlaying.postValue(res);
+                }else{
+                    Log.d(TAG, "ERROR: getNowPlaying=null");
                 }
-                movieNowPlaying.postValue(res);
             }
 
             @Override
@@ -70,13 +74,17 @@ public class TmdbRepository {
         call.enqueue(new Callback<TopRatedApiTmdbResponse>() {
             @Override
             public void onResponse(Call<TopRatedApiTmdbResponse> call, Response<TopRatedApiTmdbResponse> response) {
-                List<MovieApiTmdbResponse> movies =response.body().getResults();
-                Log.d(TAG, "callback toprated ok");
-                List<Movie> res=new ArrayList<Movie>();
-                for (int i=0;i<movies.size();i++) {
-                    res.add(new Movie(movies.get(i)));
+                if (response.body() != null) {
+                    List<MovieApiTmdbResponse> movies = response.body().getResults();
+                    Log.d(TAG, "callback toprated ok");
+                    List<Movie> res = new ArrayList<Movie>();
+                    for (int i = 0; i < movies.size(); i++) {
+                        res.add(new Movie(movies.get(i)));
+                    }
+                    movieTopRated.postValue(res);
+                } else {
+                    Log.d(TAG, "ERROR: getTopRated=null");
                 }
-                movieTopRated.postValue(res);
             }
 
             @Override
@@ -91,13 +99,18 @@ public class TmdbRepository {
         call.enqueue(new Callback<ComingSoonApiTmdbResponse>() {
             @Override
             public void onResponse(Call<ComingSoonApiTmdbResponse> call, Response<ComingSoonApiTmdbResponse> response) {
-                List<MovieApiTmdbResponse> movies =response.body().getResults();
-                Log.d(TAG, "callback comingsoon ok");
-                List<Movie> res=new ArrayList<Movie>();
-                for (int i=0;i<movies.size();i++) {
-                    res.add(new Movie(movies.get(i)));
+                if (response.body() != null) {
+                    List<MovieApiTmdbResponse> movies = response.body().getResults();
+                    Log.d(TAG, "callback comingsoon ok");
+                    List<Movie> res = new ArrayList<Movie>();
+                    for (int i = 0; i < movies.size(); i++) {
+                        res.add(new Movie(movies.get(i)));
+                    }
+                    movieComingSoon.postValue(res);
                 }
-                movieComingSoon.postValue(res);
+            else{
+                Log.d(TAG, "ERROR: getComingSoon=null");
+            }
             }
 
             @Override
@@ -112,17 +125,44 @@ public class TmdbRepository {
         call.enqueue(new Callback<RecommendationsApiTmdbResponse>() {
             @Override
             public void onResponse(Call<RecommendationsApiTmdbResponse> call, Response<RecommendationsApiTmdbResponse> response) {
-                List<MovieApiTmdbResponse> movies =response.body().getResults();
-                Log.d(TAG, "callback recommendations ok");
-                List<Movie> res=new ArrayList<Movie>();
-                for (int i=0;i<movies.size();i++) {
-                    res.add(new Movie(movies.get(i)));
+                if (response.body() != null) {
+                    List<MovieApiTmdbResponse> movies = response.body().getResults();
+                    Log.d(TAG, "callback recommendations ok");
+                    List<Movie> res = new ArrayList<Movie>();
+                    for (int i = 0; i < movies.size(); i++) {
+                        res.add(new Movie(movies.get(i)));
+                    }
+                    movieRecommendations.postValue(res);
                 }
-                movieRecommendations.postValue(res);
+                else{
+                    Log.d(TAG, "ERROR: getRecommendations=null");
+                }
             }
 
             @Override
             public void onFailure(Call<RecommendationsApiTmdbResponse> call, Throwable t) {
+                Log.d(TAG, "Error:"+t.toString());
+            }
+        });
+    }
+
+    public void getMovieDetails(MutableLiveData<Movie> movieDetails, int movie_id, String language){
+        Call<MovieApiTmdbResponse> call=tmdbService.getMovieDetails(movie_id, language, API_KEY);
+        call.enqueue(new Callback<MovieApiTmdbResponse>() {
+            @Override
+            public void onResponse(Call<MovieApiTmdbResponse> call, Response<MovieApiTmdbResponse> response) {
+                if(response.body()!=null) {
+                    MovieApiTmdbResponse movies = response.body();
+                    Log.d(TAG, "callback details ok");
+                    movieDetails.postValue(new Movie(movies));
+                }
+                else{
+                    Log.d(TAG, "ERROR: getDatails=null");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MovieApiTmdbResponse> call, Throwable t) {
                 Log.d(TAG, "Error:"+t.toString());
             }
         });

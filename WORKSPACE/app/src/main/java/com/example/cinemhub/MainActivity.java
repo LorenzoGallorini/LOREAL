@@ -77,47 +77,38 @@ public class MainActivity extends AppCompatActivity {
                 menu.findItem(R.id.navigation_shake).setIcon(R.drawable.shake_finish);
                 menu.findItem(R.id.navigation_favorite).setIcon(R.drawable.prefer);
 
+                menu.findItem(R.id.navigation_home).setEnabled(false);
+                menu.findItem(R.id.navigation_shake).setEnabled(true);
+                menu.findItem(R.id.navigation_favorite).setEnabled(true);
+
                 break;
             case R.id.navigation_shake:
                 menu.findItem(R.id.navigation_home).setIcon(R.drawable.ic_home_black);
                 menu.findItem(R.id.navigation_shake).setIcon(R.drawable.shake_finish);
                 menu.findItem(R.id.navigation_favorite).setIcon(R.drawable.prefer);
+
+                menu.findItem(R.id.navigation_home).setEnabled(true);
+                menu.findItem(R.id.navigation_shake).setEnabled(false);
+                menu.findItem(R.id.navigation_favorite).setEnabled(true);
                 break;
             case R.id.navigation_favorite:
                 menu.findItem(R.id.navigation_home).setIcon(R.drawable.ic_home_black);
                 menu.findItem(R.id.navigation_shake).setIcon(R.drawable.shake_finish);
                 menu.findItem(R.id.navigation_favorite).setIcon(R.drawable.prefer_full);
+
+                menu.findItem(R.id.navigation_home).setEnabled(true);
+                menu.findItem(R.id.navigation_shake).setEnabled(true);
+                menu.findItem(R.id.navigation_favorite).setEnabled(false);
                 break;
             default:
                 menu.findItem(R.id.navigation_home).setIcon(R.drawable.ic_home_black);
                 menu.findItem(R.id.navigation_shake).setIcon(R.drawable.shake_finish);
                 menu.findItem(R.id.navigation_favorite).setIcon(R.drawable.prefer);
+
+                menu.findItem(R.id.navigation_home).setEnabled(true);
+                menu.findItem(R.id.navigation_shake).setEnabled(true);
+                menu.findItem(R.id.navigation_favorite).setEnabled(true);
                 break;
         }
     }
-    public static class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-        ImageView bmImage;
-
-        public DownloadImageTask(ImageView bmImage) {
-            this.bmImage = bmImage;
-        }
-
-        protected Bitmap doInBackground(String... urls) {
-            String urldisplay = urls[0];
-            Bitmap mIcon11 = null;
-            try {
-                InputStream in = new java.net.URL(urldisplay).openStream();
-                mIcon11 = BitmapFactory.decodeStream(in);
-            } catch (Exception e) {
-                Log.e("Error", e.getMessage());
-                e.printStackTrace();
-            }
-            return mIcon11;
-        }
-
-        protected void onPostExecute(Bitmap result) {
-            bmImage.setImageBitmap(result);
-        }
-    }
-
 }

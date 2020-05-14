@@ -20,6 +20,7 @@ import com.example.cinemhub.R;
 import com.example.cinemhub.databinding.FragmentHomeBinding;
 import com.example.cinemhub.models.Movie;
 import com.example.cinemhub.ui.comingsoon.ComingSoonFragment;
+import com.example.cinemhub.ui.moviecard.MovieCardFragment;
 import com.example.cinemhub.ui.nowplaying.NowPlayingFragment;
 import com.example.cinemhub.ui.settings.SettingsFragment;
 import com.example.cinemhub.ui.toprated.TopRatedFragment;
@@ -177,11 +178,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "onClick: AllNowPlayingClick");
-                Fragment newFragment = new NowPlayingFragment();
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.nav_host_fragment, newFragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
+                fragmentTransactionMethod(new NowPlayingFragment());
             }
         });
 
@@ -201,6 +198,13 @@ public class HomeFragment extends Fragment {
                         binding.TopRatedText1.setText(movie.getTitle().substring(0,MAX_LENGHT-1)+" ...");
                     else
                         binding.TopRatedText1.setText(movie.getTitle());
+
+                    binding.TopRatedImage1.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            fragmentTransactionMethod(new MovieCardFragment(), movie.getId());
+                        }
+                    });
                 }
                 if(movies.size()>1) {
                     Movie movie = movies.get(1);
@@ -251,8 +255,7 @@ public class HomeFragment extends Fragment {
                 }
                 if(movies.size()>7){
                     Movie movie = movies.get(7);
-                    new MainActivity.DownloadImageTask((ImageView) binding.TopRatedImage8)
-                            .execute("https://image.tmdb.org/t/p/w500"+movies.get(7).getPoster_path());
+                    Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.getPoster_path()).into(binding.TopRatedImage8);
 
                     if(movie.getTitle().length() > MAX_LENGHT)
                         binding.TopRatedText8.setText(movie.getTitle().substring(0,MAX_LENGHT-1)+" ...");
@@ -262,8 +265,7 @@ public class HomeFragment extends Fragment {
                 }
                 if(movies.size()>8){
                     Movie movie = movies.get(8);
-                    new MainActivity.DownloadImageTask((ImageView) binding.TopRatedImage9)
-                            .execute("https://image.tmdb.org/t/p/w500"+movie.getPoster_path());
+                    Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.getPoster_path()).into(binding.TopRatedImage9);
 
                     if(movie.getTitle().length() > MAX_LENGHT)
                         binding.TopRatedText9.setText(movie.getTitle().substring(0,MAX_LENGHT-1)+" ...");
@@ -272,8 +274,7 @@ public class HomeFragment extends Fragment {
                 }
                 if(movies.size()>9){
                     Movie movie = movies.get(9);
-                    new MainActivity.DownloadImageTask((ImageView) binding.TopRatedImage10)
-                            .execute("https://image.tmdb.org/t/p/w500"+movie.getPoster_path());
+                    Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.getPoster_path()).into(binding.TopRatedImage10);
 
                     if(movie.getTitle().length() > MAX_LENGHT)
                         binding.TopRatedText10.setText(movie.getTitle().substring(0,MAX_LENGHT-1)+" ...");
@@ -282,8 +283,7 @@ public class HomeFragment extends Fragment {
                 }
                 if(movies.size()>10){
                     Movie movie = movies.get(10);
-                    new MainActivity.DownloadImageTask((ImageView) binding.TopRatedImage11)
-                            .execute("https://image.tmdb.org/t/p/w500"+movie.getPoster_path());
+                    Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.getPoster_path()).into(binding.TopRatedImage11);
 
                     if(movie.getTitle().length() > MAX_LENGHT)
                         binding.TopRatedText11.setText(movie.getTitle().substring(0,MAX_LENGHT-1)+" ...");
@@ -292,8 +292,7 @@ public class HomeFragment extends Fragment {
                 }
                 if(movies.size()>11){
                     Movie movie = movies.get(11);
-                    new MainActivity.DownloadImageTask((ImageView) binding.TopRatedImage12)
-                            .execute("https://image.tmdb.org/t/p/w500"+movie.getPoster_path());
+                    Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.getPoster_path()).into(binding.TopRatedImage12);
 
                     if(movie.getTitle().length() > MAX_LENGHT)
                         binding.TopRatedText12.setText(movie.getTitle().substring(0,MAX_LENGHT-1)+" ...");
@@ -305,15 +304,13 @@ public class HomeFragment extends Fragment {
         homeViewModel.getMovieTopRated("it-IT", 1).observe(getViewLifecycleOwner(), observer_top_rated);
 
 
+
+
         binding.textView2ShowAllTopRated.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "onClick: AllRatedClick");
-                Fragment newFragment = new TopRatedFragment();
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.nav_host_fragment, newFragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
+                fragmentTransactionMethod(new TopRatedFragment());
             }
         });
 
@@ -432,14 +429,9 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "onClick: AllComingSoonClick");
-                Fragment newFragment = new ComingSoonFragment();
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.nav_host_fragment, newFragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
+                fragmentTransactionMethod(new ComingSoonFragment());
             }
         });
-
 
         return view;
     }
@@ -454,13 +446,25 @@ public class HomeFragment extends Fragment {
         if(id==R.id.settings){
             Log.d(TAG, "onClick: SettingsClick");
 
-            FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            transaction.replace(R.id.nav_host_fragment,new SettingsFragment(), null);
-            transaction.addToBackStack(null);
-            transaction.commit();
+            fragmentTransactionMethod(new SettingsFragment());
             return true;
         }
         return false;
+    }
+
+    private void fragmentTransactionMethod (Fragment newFragment){
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.nav_host_fragment, newFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+
+    private void fragmentTransactionMethod (Fragment newFragment, int movie_id){
+        Bundle bundle = new Bundle();
+        bundle.putInt("MovieId", movie_id);
+        newFragment.setArguments(bundle);
+        fragmentTransactionMethod(newFragment);
     }
 
 

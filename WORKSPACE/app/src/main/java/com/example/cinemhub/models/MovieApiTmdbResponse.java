@@ -2,42 +2,45 @@ package com.example.cinemhub.models;
 
 
 
-public class MovieApiTmdbResponse {
-    private String poster_path;
-    private boolean adult;
-    private String overview;
-    private String release_date;
-    private int[] genre_id;
-    private int id;
-    private String original_title;
-    private String original_language;
-    private String title;
-    private String backdrop_path;
-    private double popularity;
-    private int vote_count;
-    private boolean video;
-    private double vote_average;
 
-    private int runtime;
+
+public class MovieApiTmdbResponse {
+
+
+
+    private String poster_path;//
+    private boolean adult;//
+    private String overview;//
+    private String release_date;//
+    private int[] genre_id;
+    private Genre[] genres;
+    private int id;
+    private String original_title;//
+    private String original_language;//
+    private String title;//
+    private String backdrop_path;//
+    private double popularity;//
+    private int vote_count;//
+    private boolean video;//
+    private double vote_average;//
+    private int runtime;//
     private int[] directors;//da valutare il tipo
     private int[] actors;//da valutare il tipo
     private String description;
-    private int budget;
-    private String status;
+    private int budget;//
+    private String status;//
+
+    private String home_page;
+    private int revenue;
 
 
-
-    public MovieApiTmdbResponse(String poster_path, boolean adult, String overview,
-                                String release_date, int[] genre_id, int id, String original_title,
-                                String original_language, String title, String backdrop_path,
-                                double popularity, int vote_count, boolean video,
-                                double vote_average, int runtime, int[] directors, int[] actors,
-                                String description, int budget, String status) {
+    public MovieApiTmdbResponse(String poster_path, boolean adult, String overview, String release_date, int[] genre_id, Genre[] genres, int id, String original_title, String original_language, String title, String backdrop_path, double popularity, int vote_count, boolean video, double vote_average, int runtime, int[] directors, int[] actors, String description, int budget, String status, String home_page, int revenue) {
         this.poster_path = poster_path;
         this.adult = adult;
         this.overview = overview;
         this.release_date = release_date;
         this.genre_id = genre_id;
+        this.genres = genres;
         this.id = id;
         this.original_title = original_title;
         this.original_language = original_language;
@@ -53,6 +56,8 @@ public class MovieApiTmdbResponse {
         this.description = description;
         this.budget = budget;
         this.status = status;
+        this.home_page = home_page;
+        this.revenue = revenue;
     }
 
     public String getPoster_path() {
@@ -215,5 +220,27 @@ public class MovieApiTmdbResponse {
         this.status = status;
     }
 
+    public Genre[] getGenres() {
+        return genres;
+    }
 
+    public void setGenres(Genre[] genres) {
+        this.genres = genres;
+    }
+
+    public String getHome_page() {
+        return home_page;
+    }
+
+    public void setHome_page(String home_page) {
+        this.home_page = home_page;
+    }
+
+    public int getRevenue() {
+        return revenue;
+    }
+
+    public void setRevenue(int revenue) {
+        this.revenue = revenue;
+    }
 }

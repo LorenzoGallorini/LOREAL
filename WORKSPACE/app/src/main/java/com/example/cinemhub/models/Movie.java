@@ -1,14 +1,19 @@
 package com.example.cinemhub.models;
 
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Movie {
+
+
+
     private int id;
     private String title;
     private boolean adult;
     private int runtime;
-    private String[] genres;
+    private List<String> genres;
     private String release_date;
     private double vote_average;
     private String poster_path;
@@ -21,6 +26,9 @@ public class Movie {
     private double popularity;
     private String status;
     private int vote_count;
+
+    private String home_page;
+    private int revenue;
 
     public Movie(MovieApiTmdbResponse movieApiTmdbResponse){
         this.id=movieApiTmdbResponse.getId();
@@ -40,9 +48,19 @@ public class Movie {
         this.description = movieApiTmdbResponse.getDescription();
         this.budget = movieApiTmdbResponse.getBudget();
         this.status = movieApiTmdbResponse.getStatus();
+        this.home_page = movieApiTmdbResponse.getHome_page();
+        this.revenue = movieApiTmdbResponse.getRevenue();
+
+        Genre[] gen=movieApiTmdbResponse.getGenres();
+        genres=new ArrayList<String>();
+        if(gen!=null) {
+            for (int i = 0; i < gen.length; i++){
+                this.genres.add(gen[i].getName());
+            }
+        }
     }
 
-    public Movie(int id, String title, boolean adult, int runtime, String[] genres,
+    public Movie(int id, String title, boolean adult, int runtime, List<String> genres,
                  String release_date, double vote_average, String poster_path, int[] directors,
                  int[] actors, String description, int budget, String original_language,
                  String original_title, double popularity, String status, int vote_count) {
@@ -97,12 +115,28 @@ public class Movie {
         this.runtime = runtime;
     }
 
-    public String[] getGenres() {
+    public List<String> getGenres() {
         return genres;
     }
 
-    public void setGenres(String[] genres) {
+    public void setGenres(List<String> genres) {
         this.genres = genres;
+    }
+
+    public String getHome_page() {
+        return home_page;
+    }
+
+    public void setHome_page(String home_page) {
+        this.home_page = home_page;
+    }
+
+    public int getRevenue() {
+        return revenue;
+    }
+
+    public void setRevenue(int revenue) {
+        this.revenue = revenue;
     }
 
     public String getRelease_date() {
@@ -201,6 +235,8 @@ public class Movie {
         this.vote_count = vote_count;
     }
 
+
+
     @Override
     public String toString() {
         return "Movie{" +
@@ -208,7 +244,7 @@ public class Movie {
                 ", title='" + title + '\'' +
                 ", adult=" + adult +
                 ", runtime=" + runtime +
-                ", genres=" + Arrays.toString(genres) +
+                ", genres=" + genres +
                 ", release_date='" + release_date + '\'' +
                 ", vote_average=" + vote_average +
                 ", poster_path='" + poster_path + '\'' +
@@ -221,6 +257,8 @@ public class Movie {
                 ", popularity=" + popularity +
                 ", status='" + status + '\'' +
                 ", vote_count=" + vote_count +
+                ", home_page='" + home_page + '\'' +
+                ", revenue=" + revenue +
                 '}';
     }
 }
