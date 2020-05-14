@@ -1,12 +1,15 @@
 package com.example.cinemhub.ui.home;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -35,6 +38,8 @@ public class HomeFragment extends Fragment {
     private final String TAG = "HomeFragment";
     private HomeViewModel homeViewModel;
     private final int MAX_LENGHT = 14;
+    private String imageBaseUrl="https://image.tmdb.org/t/p/w500";
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,117 +62,54 @@ public class HomeFragment extends Fragment {
                     Log.d(TAG, "film numero "+i+" "+movies.get(i).toString());
 
                 }
-                InputStream is = null;
                 if(movies.size()>0) {
-                    Movie movie = movies.get(0);
-                    Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.getPoster_path()).into(binding.NowPlayingImage1);
-                    if(movie.getTitle().length() > MAX_LENGHT)
-                        binding.NowPlayingText1.setText(movie.getTitle().substring(0,MAX_LENGHT-1)+" ...");
-                    else
-                        binding.NowPlayingText1.setText(movie.getTitle());
+
+                    setMoviePreview(movies.get(0), binding.NowPlayingText1, binding.NowPlayingImage1);
+                    if(movies.size()>1) {
+
+                        setMoviePreview(movies.get(1), binding.NowPlayingText2, binding.NowPlayingImage2);
+                        if(movies.size()>2){
+
+                            setMoviePreview(movies.get(2), binding.NowPlayingText3, binding.NowPlayingImage3);
+                            if(movies.size()>3){
+
+                                setMoviePreview(movies.get(3), binding.NowPlayingText4, binding.NowPlayingImage4);
+                                if(movies.size()>4){
+
+                                    setMoviePreview(movies.get(4), binding.NowPlayingText5, binding.NowPlayingImage5);
+                                    if(movies.size()>5){
+
+                                        setMoviePreview(movies.get(5), binding.NowPlayingText6, binding.NowPlayingImage6);
+                                        if(movies.size()>6){
+
+                                            setMoviePreview(movies.get(6), binding.NowPlayingText7, binding.NowPlayingImage7);
+                                            if(movies.size()>7){
+
+                                                setMoviePreview(movies.get(7), binding.NowPlayingText8, binding.NowPlayingImage8);
+                                                if(movies.size()>8){
+
+                                                    setMoviePreview(movies.get(8), binding.NowPlayingText9, binding.NowPlayingImage9);
+                                                    if(movies.size()>9){
+
+                                                        setMoviePreview(movies.get(9), binding.NowPlayingText10, binding.NowPlayingImage10);
+                                                        if(movies.size()>10){
+                                                            setMoviePreview(movies.get(10), binding.NowPlayingText11, binding.NowPlayingImage11);
+
+                                                            if(movies.size()>11){
+                                                                setMoviePreview(movies.get(11), binding.NowPlayingText12, binding.NowPlayingImage12);
+
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
-                if(movies.size()>1) {
-                    Movie movie = movies.get(1);
-
-                    Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.getPoster_path()).into(binding.NowPlayingImage2);
-                    binding.NowPlayingText2.setText(movie.getTitle());
-                    if(movie.getTitle().length() > MAX_LENGHT)
-                        binding.NowPlayingText2.setText(movie.getTitle().substring(0,MAX_LENGHT-1)+" ...");
-                    else
-                        binding.NowPlayingText2.setText(movie.getTitle());
-                }
-                if(movies.size()>2){
-                    Movie movie = movies.get(2);
-                    Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.getPoster_path()).into(binding.NowPlayingImage3);
-                    if(movie.getTitle().length() > MAX_LENGHT)
-                        binding.NowPlayingText3.setText(movie.getTitle().substring(0,MAX_LENGHT-1)+" ...");
-                    else
-                        binding.NowPlayingText3.setText(movie.getTitle());
-
-                }
-                if(movies.size()>3){
-                    Movie movie = movies.get(3);
-                    Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.getPoster_path()).into(binding.NowPlayingImage4);
-
-                    if(movie.getTitle().length() > MAX_LENGHT)
-                        binding.NowPlayingText4.setText(movie.getTitle().substring(0,MAX_LENGHT-1)+" ...");
-                    else
-                        binding.NowPlayingText4.setText(movie.getTitle());
-                }
-                if(movies.size()>4){
-                    Movie movie = movies.get(4);
-                    Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.getPoster_path()).into(binding.NowPlayingImage5);
-
-                    if(movie.getTitle().length() > MAX_LENGHT)
-                        binding.NowPlayingText5.setText(movie.getTitle().substring(0,MAX_LENGHT-1)+" ...");
-                    else
-                        binding.NowPlayingText5.setText(movie.getTitle());
-                }
-                if(movies.size()>5){
-                    Movie movie = movies.get(5);
-                    Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.getPoster_path()).into(binding.NowPlayingImage6);
-
-                    if(movie.getTitle().length() > MAX_LENGHT)
-                        binding.NowPlayingText6.setText(movie.getTitle().substring(0,MAX_LENGHT-1)+" ...");
-                    else
-                        binding.NowPlayingText6.setText(movie.getTitle());
-                }
-                if(movies.size()>6){
-                    Movie movie = movies.get(6);
-                    Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.getPoster_path()).into(binding.NowPlayingImage7);
-
-                    if(movie.getTitle().length() > MAX_LENGHT)
-                        binding.NowPlayingText7.setText(movie.getTitle().substring(0,MAX_LENGHT-1)+" ...");
-                    else
-                        binding.NowPlayingText7.setText(movie.getTitle());
-                }
-                if(movies.size()>7){
-                    Movie movie = movies.get(7);
-                    Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.getPoster_path()).into(binding.NowPlayingImage8);
-
-                    if(movie.getTitle().length() > MAX_LENGHT)
-                        binding.NowPlayingText8.setText(movie.getTitle().substring(0,MAX_LENGHT-1)+" ...");
-                    else
-                        binding.NowPlayingText8.setText(movie.getTitle());
-
-                }
-                if(movies.size()>8){
-                    Movie movie = movies.get(8);
-                    Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.getPoster_path()).into(binding.NowPlayingImage9);
-
-                    if(movie.getTitle().length() > MAX_LENGHT)
-                        binding.NowPlayingText9.setText(movie.getTitle().substring(0,MAX_LENGHT-1)+" ...");
-                    else
-                        binding.NowPlayingText9.setText(movie.getTitle());
-                }
-                if(movies.size()>9){
-                    Movie movie = movies.get(9);
-                    Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.getPoster_path()).into(binding.NowPlayingImage10);
-
-                    if(movie.getTitle().length() > MAX_LENGHT)
-                        binding.NowPlayingText10.setText(movie.getTitle().substring(0,MAX_LENGHT-1)+" ...");
-                    else
-                        binding.NowPlayingText10.setText(movie.getTitle());
-                }
-                if(movies.size()>10){
-                    Movie movie = movies.get(10);
-                    Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.getPoster_path()).into(binding.NowPlayingImage11);
-
-                    if(movie.getTitle().length() > MAX_LENGHT)
-                        binding.NowPlayingText11.setText(movie.getTitle().substring(0,MAX_LENGHT-1)+" ...");
-                    else
-                        binding.NowPlayingText11.setText(movie.getTitle());
-                }
-                if(movies.size()>11){
-                    Movie movie = movies.get(11);
-                    Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.getPoster_path()).into(binding.NowPlayingImage12);
-
-                    if(movie.getTitle().length() > MAX_LENGHT)
-                        binding.NowPlayingText12.setText(movie.getTitle().substring(0,MAX_LENGHT-1)+" ...");
-                    else
-                        binding.NowPlayingText12.setText(movie.getTitle());
-                }
-
             }
         };
         homeViewModel.getMovieNowPlaying("it-IT", 1).observe(getViewLifecycleOwner(), observer_now_playing);//TODO settare delle variabili globali per la lingua e per la pagina
@@ -190,114 +132,53 @@ public class HomeFragment extends Fragment {
                     Log.d(TAG, "film numero "+i+" "+movies.get(i).toString());
 
                 }
-                InputStream is = null;
                 if(movies.size()>0) {
-                    Movie movie = movies.get(0);
-                    Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.getPoster_path()).into(binding.TopRatedImage1);
-                    if(movie.getTitle().length() > MAX_LENGHT)
-                        binding.TopRatedText1.setText(movie.getTitle().substring(0,MAX_LENGHT-1)+" ...");
-                    else
-                        binding.TopRatedText1.setText(movie.getTitle());
 
-                    binding.TopRatedImage1.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            fragmentTransactionMethod(new MovieCardFragment(), movie.getId());
+                    setMoviePreview(movies.get(0), binding.TopRatedText1, binding.TopRatedImage1);
+                    if(movies.size()>1) {
+
+                        setMoviePreview(movies.get(1), binding.TopRatedText2, binding.TopRatedImage2);
+                        if(movies.size()>2){
+
+                            setMoviePreview(movies.get(2), binding.TopRatedText3, binding.TopRatedImage3);
+                            if(movies.size()>3){
+
+                                setMoviePreview(movies.get(3), binding.TopRatedText4, binding.TopRatedImage4);
+                                if(movies.size()>4){
+
+                                    setMoviePreview(movies.get(4), binding.TopRatedText5, binding.TopRatedImage5);
+                                    if(movies.size()>5){
+
+                                        setMoviePreview(movies.get(5), binding.TopRatedText6, binding.TopRatedImage6);
+                                        if(movies.size()>6){
+
+                                            setMoviePreview(movies.get(6), binding.TopRatedText7, binding.TopRatedImage7);
+                                            if(movies.size()>7){
+
+                                                setMoviePreview(movies.get(7), binding.TopRatedText8, binding.TopRatedImage8);
+                                                if(movies.size()>8){
+
+                                                    setMoviePreview(movies.get(8), binding.TopRatedText9, binding.TopRatedImage9);
+                                                    if(movies.size()>9){
+
+                                                        setMoviePreview(movies.get(9), binding.TopRatedText10, binding.TopRatedImage10);
+                                                        if(movies.size()>10){
+                                                            setMoviePreview(movies.get(10), binding.TopRatedText11, binding.TopRatedImage11);
+
+                                                            if(movies.size()>11){
+                                                                setMoviePreview(movies.get(11), binding.TopRatedText12, binding.TopRatedImage12);
+
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
                         }
-                    });
-                }
-                if(movies.size()>1) {
-                    Movie movie = movies.get(1);
-                    Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.getPoster_path()).into(binding.TopRatedImage2);                    if(movie.getTitle().length() > MAX_LENGHT)
-                        binding.TopRatedText2.setText(movie.getTitle().substring(0,MAX_LENGHT-1)+" ...");
-                    else
-                        binding.TopRatedText2.setText(movie.getTitle());
-                }
-                if(movies.size()>2){
-                    Movie movie = movies.get(2);
-                    Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.getPoster_path()).into(binding.TopRatedImage3);                    if(movie.getTitle().length() > MAX_LENGHT)
-                        binding.TopRatedText3.setText(movie.getTitle().substring(0,MAX_LENGHT-1)+" ...");
-                    else
-                        binding.TopRatedText3.setText(movie.getTitle());
-
-                }
-                if(movies.size()>3){
-                    Movie movie = movies.get(3);
-                    Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.getPoster_path()).into(binding.TopRatedImage4);
-                    if(movie.getTitle().length() > MAX_LENGHT)
-                        binding.TopRatedText4.setText(movie.getTitle().substring(0,MAX_LENGHT-1)+" ...");
-                    else
-                        binding.TopRatedText4.setText(movie.getTitle());
-                }
-                if(movies.size()>4){
-                    Movie movie = movies.get(4);
-                    Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.getPoster_path()).into(binding.TopRatedImage5);
-                    if(movie.getTitle().length() > MAX_LENGHT)
-                        binding.TopRatedText5.setText(movie.getTitle().substring(0,MAX_LENGHT-1)+" ...");
-                    else
-                        binding.TopRatedText5.setText(movie.getTitle());
-                }
-                if(movies.size()>5){
-                    Movie movie = movies.get(5);
-                    Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.getPoster_path()).into(binding.TopRatedImage6);
-                    if(movie.getTitle().length() > MAX_LENGHT)
-                        binding.TopRatedText6.setText(movie.getTitle().substring(0,MAX_LENGHT-1)+" ...");
-                    else
-                        binding.TopRatedText6.setText(movie.getTitle());
-                }
-                if(movies.size()>6){
-                    Movie movie = movies.get(6);
-                    Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.getPoster_path()).into(binding.TopRatedImage7);
-                    if(movie.getTitle().length() > MAX_LENGHT)
-                        binding.TopRatedText7.setText(movie.getTitle().substring(0,MAX_LENGHT-1)+" ...");
-                    else
-                        binding.TopRatedText7.setText(movie.getTitle());
-                }
-                if(movies.size()>7){
-                    Movie movie = movies.get(7);
-                    Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.getPoster_path()).into(binding.TopRatedImage8);
-
-                    if(movie.getTitle().length() > MAX_LENGHT)
-                        binding.TopRatedText8.setText(movie.getTitle().substring(0,MAX_LENGHT-1)+" ...");
-                    else
-                        binding.TopRatedText8.setText(movie.getTitle());
-
-                }
-                if(movies.size()>8){
-                    Movie movie = movies.get(8);
-                    Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.getPoster_path()).into(binding.TopRatedImage9);
-
-                    if(movie.getTitle().length() > MAX_LENGHT)
-                        binding.TopRatedText9.setText(movie.getTitle().substring(0,MAX_LENGHT-1)+" ...");
-                    else
-                        binding.TopRatedText9.setText(movie.getTitle());
-                }
-                if(movies.size()>9){
-                    Movie movie = movies.get(9);
-                    Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.getPoster_path()).into(binding.TopRatedImage10);
-
-                    if(movie.getTitle().length() > MAX_LENGHT)
-                        binding.TopRatedText10.setText(movie.getTitle().substring(0,MAX_LENGHT-1)+" ...");
-                    else
-                        binding.TopRatedText10.setText(movie.getTitle());
-                }
-                if(movies.size()>10){
-                    Movie movie = movies.get(10);
-                    Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.getPoster_path()).into(binding.TopRatedImage11);
-
-                    if(movie.getTitle().length() > MAX_LENGHT)
-                        binding.TopRatedText11.setText(movie.getTitle().substring(0,MAX_LENGHT-1)+" ...");
-                    else
-                        binding.TopRatedText11.setText(movie.getTitle());
-                }
-                if(movies.size()>11){
-                    Movie movie = movies.get(11);
-                    Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.getPoster_path()).into(binding.TopRatedImage12);
-
-                    if(movie.getTitle().length() > MAX_LENGHT)
-                        binding.TopRatedText12.setText(movie.getTitle().substring(0,MAX_LENGHT-1)+" ...");
-                    else
-                        binding.TopRatedText12.setText(movie.getTitle());
+                    }
                 }
             }
         };
@@ -322,104 +203,53 @@ public class HomeFragment extends Fragment {
                     Log.d(TAG, "film numero "+i+" "+movies.get(i).toString());
 
                 }
-                InputStream is = null;
                 if(movies.size()>0) {
-                    Movie movie = movies.get(0);
-                    Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.getPoster_path()).into(binding.ComingSoonImage1);
-                    if(movie.getTitle().length() > MAX_LENGHT)
-                        binding.ComingSoonText1.setText(movie.getTitle().substring(0,MAX_LENGHT-1)+" ...");
-                    else
-                        binding.ComingSoonText1.setText(movie.getTitle());
-                }
-                if(movies.size()>1) {
-                    Movie movie = movies.get(1);
-                    Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.getPoster_path()).into(binding.ComingSoonImage2);
-                    if(movie.getTitle().length() > MAX_LENGHT)
-                        binding.ComingSoonText2.setText(movie.getTitle().substring(0,MAX_LENGHT-1)+" ...");
-                    else
-                        binding.ComingSoonText2.setText(movie.getTitle());
-                }
-                if(movies.size()>2){
-                    Movie movie = movies.get(2);
-                    Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.getPoster_path()).into(binding.ComingSoonImage3);
-                    if(movie.getTitle().length() > MAX_LENGHT)
-                        binding.ComingSoonText3.setText(movie.getTitle().substring(0,MAX_LENGHT-1)+" ...");
-                    else
-                        binding.ComingSoonText3.setText(movie.getTitle());
 
-                }
-                if(movies.size()>3){
-                    Movie movie = movies.get(3);
-                    Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.getPoster_path()).into(binding.ComingSoonImage4);
-                    if(movie.getTitle().length() > MAX_LENGHT)
-                        binding.ComingSoonText4.setText(movie.getTitle().substring(0,MAX_LENGHT-1)+" ...");
-                    else
-                        binding.ComingSoonText4.setText(movie.getTitle());
-                }
-                if(movies.size()>4){
-                    Movie movie = movies.get(4);
-                    Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.getPoster_path()).into(binding.ComingSoonImage5);
-                    if(movie.getTitle().length() > MAX_LENGHT)
-                        binding.ComingSoonText5.setText(movie.getTitle().substring(0,MAX_LENGHT-1)+" ...");
-                    else
-                        binding.ComingSoonText5.setText(movie.getTitle());
-                }
-                if(movies.size()>5){
-                    Movie movie = movies.get(5);
-                    Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.getPoster_path()).into(binding.ComingSoonImage6);
-                    if(movie.getTitle().length() > MAX_LENGHT)
-                        binding.ComingSoonText6.setText(movie.getTitle().substring(0,MAX_LENGHT-1)+" ...");
-                    else
-                        binding.ComingSoonText6.setText(movie.getTitle());
-                }
-                if(movies.size()>6){
-                    Movie movie = movies.get(6);
-                    Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.getPoster_path()).into(binding.ComingSoonImage7);
-                    if(movie.getTitle().length() > MAX_LENGHT)
-                        binding.ComingSoonText7.setText(movie.getTitle().substring(0,MAX_LENGHT-1)+" ...");
-                    else
-                        binding.ComingSoonText7.setText(movie.getTitle());
-                }
-                if(movies.size()>7){
-                    Movie movie = movies.get(7);
-                    Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.getPoster_path()).into(binding.ComingSoonImage8);
-                    if(movie.getTitle().length() > MAX_LENGHT)
-                        binding.ComingSoonText8.setText(movie.getTitle().substring(0,MAX_LENGHT-1)+" ...");
-                    else
-                        binding.ComingSoonText8.setText(movie.getTitle());
+                    setMoviePreview(movies.get(0), binding.ComingSoonText1, binding.ComingSoonImage1);
+                    if(movies.size()>1) {
 
-                }
-                if(movies.size()>8){
-                    Movie movie = movies.get(8);
-                    Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.getPoster_path()).into(binding.ComingSoonImage9);
-                    if(movie.getTitle().length() > MAX_LENGHT)
-                        binding.ComingSoonText9.setText(movie.getTitle().substring(0,MAX_LENGHT-1)+" ...");
-                    else
-                        binding.ComingSoonText9.setText(movie.getTitle());
-                }
-                if(movies.size()>9){
-                    Movie movie = movies.get(9);
-                    Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.getPoster_path()).into(binding.ComingSoonImage10);
-                    if(movie.getTitle().length() > MAX_LENGHT)
-                        binding.ComingSoonText10.setText(movie.getTitle().substring(0,MAX_LENGHT-1)+" ...");
-                    else
-                        binding.ComingSoonText10.setText(movie.getTitle());
-                }
-                if(movies.size()>10){
-                    Movie movie = movies.get(10);
-                    Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.getPoster_path()).into(binding.ComingSoonImage11);
-                    if(movie.getTitle().length() > MAX_LENGHT)
-                        binding.ComingSoonText11.setText(movie.getTitle().substring(0,MAX_LENGHT-1)+" ...");
-                    else
-                        binding.ComingSoonText11.setText(movie.getTitle());
-                }
-                if(movies.size()>11){
-                    Movie movie = movies.get(11);
-                    Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.getPoster_path()).into(binding.ComingSoonImage12);
-                    if(movie.getTitle().length() > MAX_LENGHT)
-                        binding.ComingSoonText12.setText(movie.getTitle().substring(0,MAX_LENGHT-1)+" ...");
-                    else
-                        binding.ComingSoonText12.setText(movie.getTitle());
+                        setMoviePreview(movies.get(1), binding.ComingSoonText2, binding.ComingSoonImage2);
+                        if(movies.size()>2){
+
+                            setMoviePreview(movies.get(2), binding.ComingSoonText3, binding.ComingSoonImage3);
+                            if(movies.size()>3){
+
+                                setMoviePreview(movies.get(3), binding.ComingSoonText4, binding.ComingSoonImage4);
+                                if(movies.size()>4){
+
+                                    setMoviePreview(movies.get(4), binding.ComingSoonText5, binding.ComingSoonImage5);
+                                    if(movies.size()>5){
+
+                                        setMoviePreview(movies.get(5), binding.ComingSoonText6, binding.ComingSoonImage6);
+                                        if(movies.size()>6){
+
+                                            setMoviePreview(movies.get(6), binding.ComingSoonText7, binding.ComingSoonImage7);
+                                            if(movies.size()>7){
+
+                                                setMoviePreview(movies.get(7), binding.ComingSoonText8, binding.ComingSoonImage8);
+                                                if(movies.size()>8){
+
+                                                    setMoviePreview(movies.get(8), binding.ComingSoonText9, binding.ComingSoonImage9);
+                                                    if(movies.size()>9){
+
+                                                        setMoviePreview(movies.get(9), binding.ComingSoonText10, binding.ComingSoonImage10);
+                                                        if(movies.size()>10){
+                                                            setMoviePreview(movies.get(10), binding.ComingSoonText11, binding.ComingSoonImage11);
+
+                                                            if(movies.size()>11){
+                                                                setMoviePreview(movies.get(11), binding.ComingSoonText12, binding.ComingSoonImage12);
+
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
         };
@@ -467,6 +297,24 @@ public class HomeFragment extends Fragment {
         fragmentTransactionMethod(newFragment);
     }
 
+    private void setMoviePreview (Movie movie, TextView textView, ImageButton imageButton){
+        if(movie.getPoster_path()!=null){
+            Picasso.get().load(imageBaseUrl + movie.getPoster_path()).into(imageButton);
+        }else {
+            imageButton.setImageResource(R.drawable.no_image_avaiable);
+        }
+        if(movie.getTitle().length() > MAX_LENGHT)
+            textView.setText(movie.getTitle().substring(0,MAX_LENGHT-1)+" ...");
+        else
+            textView.setText(movie.getTitle());
+
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fragmentTransactionMethod(new MovieCardFragment(), movie.getId());
+            }
+        });
+    }
 
 
 }

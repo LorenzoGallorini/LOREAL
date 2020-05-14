@@ -42,6 +42,8 @@ public class MovieCardFragment extends Fragment {
         View view = binding.getRoot();
         setHasOptionsMenu(true);
         ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.title_movie_card));
+        ((MainActivity) getActivity()).menuColorSettings(R.id.navigation_movie_card);
+
 
         mViewModel=new ViewModelProvider(this).get(MovieCardViewModel.class);
 
