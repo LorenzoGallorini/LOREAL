@@ -21,6 +21,7 @@ import com.example.cinemhub.MainActivity;
 import com.example.cinemhub.R;
 import com.example.cinemhub.databinding.FragmentMovieCardBinding;
 import com.example.cinemhub.models.Movie;
+import com.example.cinemhub.ui.search.SearchFragment;
 import com.example.cinemhub.ui.settings.SettingsFragment;
 import com.squareup.picasso.Picasso;
 
@@ -76,9 +77,12 @@ public class MovieCardFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         int id=item.getItemId();
-        if(id==R.id.settings){
+        if(id==R.id.search){
+            Log.d(TAG, "onClick: SearchClick");
+            fragmentTransactionMethod(new SearchFragment());
+            return true;
+        }else if(id==R.id.settings){
             Log.d(TAG, "onClick: SettingsClick");
-
             fragmentTransactionMethod(new SettingsFragment());
             return true;
         }

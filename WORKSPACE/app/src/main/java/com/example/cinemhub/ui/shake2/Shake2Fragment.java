@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -22,6 +23,8 @@ import com.example.cinemhub.R;
 import com.example.cinemhub.databinding.FragmentShake2Binding;
 import com.example.cinemhub.models.Movie;
 import com.example.cinemhub.ui.moviecard.MovieCardFragment;
+import com.example.cinemhub.ui.search.SearchFragment;
+import com.example.cinemhub.ui.settings.SettingsFragment;
 import com.squareup.picasso.Picasso;
 
 import java.io.InputStream;
@@ -108,5 +111,21 @@ public class Shake2Fragment extends Fragment {
         newFragment.setArguments(bundle);
         fragmentTransactionMethod(newFragment);
     }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        int id=item.getItemId();
+        if(id==R.id.search){
+            Log.d(TAG, "onClick: SearchClick");
+            fragmentTransactionMethod(new SearchFragment());
+            return true;
+        }else if(id==R.id.settings){
+            Log.d(TAG, "onClick: SettingsClick");
+            fragmentTransactionMethod(new SettingsFragment());
+            return true;
+        }
+        return false;
+    }
+
+
 
 }

@@ -1,4 +1,4 @@
-package com.example.cinemhub.ui.peoplecard;
+package com.example.cinemhub.ui.search;
 
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
@@ -17,38 +17,34 @@ import android.view.ViewGroup;
 
 import com.example.cinemhub.MainActivity;
 import com.example.cinemhub.R;
-import com.example.cinemhub.databinding.FragmentPeopleCardBinding;
-import com.example.cinemhub.ui.search.SearchFragment;
+import com.example.cinemhub.databinding.FragmentSearchBinding;
 import com.example.cinemhub.ui.settings.SettingsFragment;
 
-public class PeopleCardFragment extends Fragment {
+public class SearchFragment extends Fragment {
 
-    private PeopleCardViewModel mViewModel;
-    private final String TAG = "PeopleCardFragment";
-    private FragmentPeopleCardBinding binding;
+    private SearchViewModel mViewModel;
+    private String TAG="SearchFragment";
+    private FragmentSearchBinding binding;
 
-    public static PeopleCardFragment newInstance() {
-        return new PeopleCardFragment();
+    public static SearchFragment newInstance() {
+        return new SearchFragment();
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        binding = FragmentPeopleCardBinding.inflate(inflater, container, false);
+        binding = FragmentSearchBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
         setHasOptionsMenu(true);
-        if(true) {//da cambiare se attore o regista
-            ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.title_actor_card));
-        }else{
-            ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.title_director_card));
-        }
+        ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.action_search));
+        ((MainActivity) getActivity()).menuColorSettings(R.id.navigation_settings);
         return view;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(PeopleCardViewModel.class);
+        mViewModel = ViewModelProviders.of(this).get(SearchViewModel.class);
         // TODO: Use the ViewModel
     }
 

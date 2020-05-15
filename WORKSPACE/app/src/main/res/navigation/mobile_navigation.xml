@@ -69,5 +69,12 @@
         tools:layout="@layout/fragment_top_rated"
         />
 
+    <fragment
+        android:id="@+id/navigation_search"
+        android:name="com.example.cinemhub.ui.search.SearchFragment"
+        android:label="@string/action_search"
+        tools:layout="@layout/fragment_search"
+        />
+
 
 </navigation>

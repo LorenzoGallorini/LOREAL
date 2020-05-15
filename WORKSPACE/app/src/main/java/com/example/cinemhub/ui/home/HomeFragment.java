@@ -25,6 +25,7 @@ import com.example.cinemhub.models.Movie;
 import com.example.cinemhub.ui.comingsoon.ComingSoonFragment;
 import com.example.cinemhub.ui.moviecard.MovieCardFragment;
 import com.example.cinemhub.ui.nowplaying.NowPlayingFragment;
+import com.example.cinemhub.ui.search.SearchFragment;
 import com.example.cinemhub.ui.settings.SettingsFragment;
 import com.example.cinemhub.ui.toprated.TopRatedFragment;
 import com.squareup.picasso.Picasso;
@@ -273,9 +274,12 @@ public class HomeFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         int id=item.getItemId();
-        if(id==R.id.settings){
+        if(id==R.id.search){
+            Log.d(TAG, "onClick: SearchClick");
+            fragmentTransactionMethod(new SearchFragment());
+            return true;
+        }else if(id==R.id.settings){
             Log.d(TAG, "onClick: SettingsClick");
-
             fragmentTransactionMethod(new SettingsFragment());
             return true;
         }

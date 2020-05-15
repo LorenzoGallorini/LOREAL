@@ -21,4 +21,5 @@
     <string name="title_film">Film title</string>
     <string name="shake_2_description">Shekera ancora il tuo telefono per farti suggerire un altro film!</string>
     <string name="title_movie_card">Movie card</string>
+    <string name="action_search">Search</string>
 </resources>
