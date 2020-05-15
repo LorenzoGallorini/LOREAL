@@ -84,7 +84,7 @@ public class MovieCardFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         Set<String> preferiti;
-
+                        Toast toast;
                         try {
                             preferiti=sharedPreferences.getStringSet(Constants.FAVOURITE_SHARED_PREF_NAME,null);
                             if (preferiti == null)
@@ -94,32 +94,33 @@ public class MovieCardFragment extends Fragment {
                         {
                             preferiti = new HashSet<String>();
                         }
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
                         if (preferiti.contains(Integer.toString(movie.getId()))) {
-                            SharedPreferences.Editor editor = sharedPreferences.edit();
+
                             Set<String> in = new HashSet<String>(preferiti);
                             in.remove(Integer.toString(movie.getId()));
                             editor.remove(Constants.FAVOURITE_SHARED_PREF_NAME);
                             editor.putStringSet(Constants.FAVOURITE_SHARED_PREF_NAME, in);
-                            editor.commit();
 
-                            Toast toast = Toast.makeText(getContext(), "Rimosso " + movie.getTitle() + " dai tuoi preferiti", Toast.LENGTH_LONG);
-                            toast.setGravity(Gravity.CENTER, 0, 0);
-                            toast.show();
+
+                             toast = Toast.makeText(getContext(), "Rimosso " + movie.getTitle() + " dai tuoi preferiti", Toast.LENGTH_SHORT);
+
                             binding.MovieCardFavouriteButton.setImageResource(R.drawable.startplus);
                         }
                         else {
-                            SharedPreferences.Editor editor = sharedPreferences.edit();
+
                             Set<String> in = new HashSet<String>(preferiti);
                             in.add(Integer.toString(movie.getId()));
                             editor.putStringSet(Constants.FAVOURITE_SHARED_PREF_NAME, in);
-                            editor.commit();
 
-                            Toast toast = Toast.makeText(getContext(), "Aggiunto " + movie.getTitle() + " ai tuoi preferiti", Toast.LENGTH_LONG);
-                            toast.setGravity(Gravity.CENTER, 0, 0);
-                            toast.show();
+
+                           toast = Toast.makeText(getContext(), "Aggiunto " + movie.getTitle() + " ai tuoi preferiti", Toast.LENGTH_SHORT);
+
                             binding.MovieCardFavouriteButton.setImageResource(R.drawable.prefer_full);
                         }
-
+                        editor.commit();
+                        toast.setGravity(Gravity.CENTER, 0, 0);
+                        toast.show();
                     }
                 });
             }
