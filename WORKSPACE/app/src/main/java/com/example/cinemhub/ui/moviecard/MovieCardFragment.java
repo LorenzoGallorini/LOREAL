@@ -3,6 +3,7 @@ package com.example.cinemhub.ui.moviecard;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -96,14 +97,11 @@ public class MovieCardFragment extends Fragment {
                         }
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         if (preferiti.contains(Integer.toString(movie.getId()))) {
-
                             Set<String> in = new HashSet<String>(preferiti);
                             in.remove(Integer.toString(movie.getId()));
                             editor.remove(Constants.FAVOURITE_SHARED_PREF_NAME);
                             editor.putStringSet(Constants.FAVOURITE_SHARED_PREF_NAME, in);
-
-
-                             toast = Toast.makeText(getContext(), "Rimosso " + movie.getTitle() + " dai tuoi preferiti", Toast.LENGTH_SHORT);
+                            toast = Toast.makeText(getContext(), "Rimosso " + movie.getTitle() + " dai tuoi preferiti", Toast.LENGTH_SHORT);
 
                             binding.MovieCardFavouriteButton.setImageResource(R.drawable.startplus);
                         }
@@ -121,8 +119,23 @@ public class MovieCardFragment extends Fragment {
                         editor.commit();
                         toast.setGravity(Gravity.CENTER, 0, 0);
                         toast.show();
+
+                        binding.MovieCardFavouriteButton.setClickable(false);
+
+
+                        new CountDownTimer(2000, 2000) { //Set Timer for 5 seconds
+                            public void onTick(long millisUntilFinished) {
+                            }
+
+                            @Override
+                            public void onFinish() {
+                                binding.MovieCardFavouriteButton.setClickable(true);
+                            }
+                        }.start();
                     }
+
                 });
+
             }
         };
 
