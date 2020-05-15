@@ -1,18 +1,12 @@
 package com.example.cinemhub;
 
-import android.app.SearchManager;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.content.SharedPreferences;
 import android.hardware.SensorManager;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.ImageView;
-import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,9 +15,10 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.example.cinemhub.utils.Constants;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.io.InputStream;
+import java.util.Set;
 
 
 public class MainActivity extends AppCompatActivity {

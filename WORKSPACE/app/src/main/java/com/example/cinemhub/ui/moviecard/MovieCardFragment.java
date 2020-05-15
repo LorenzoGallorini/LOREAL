@@ -1,21 +1,23 @@
 package com.example.cinemhub.ui.moviecard;
 
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
-
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.example.cinemhub.MainActivity;
 import com.example.cinemhub.R;
@@ -23,7 +25,11 @@ import com.example.cinemhub.databinding.FragmentMovieCardBinding;
 import com.example.cinemhub.models.Movie;
 import com.example.cinemhub.ui.search.SearchFragment;
 import com.example.cinemhub.ui.settings.SettingsFragment;
+import com.example.cinemhub.utils.Constants;
 import com.squareup.picasso.Picasso;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public class MovieCardFragment extends Fragment {
 
@@ -55,7 +61,67 @@ public class MovieCardFragment extends Fragment {
                 Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.getPoster_path()).into(binding.filmImage);
 
                 binding.filmTextTitle.setText(movie.getTitle());
+                SharedPreferences sharedPreferences = getActivity().getSharedPreferences(
+                        Constants.FAVOURITE_SHARED_PREF_FILE_NAME, Context.MODE_PRIVATE);
+                Set<String> preferiti;
+                try {
+                    preferiti=sharedPreferences.getStringSet(Constants.FAVOURITE_SHARED_PREF_NAME,null);
+                    if (preferiti == null)
+                        preferiti = new HashSet<String>();
+                }
+                catch(Exception e)
+                {
+                    preferiti = new HashSet<String>();
+                }
+                if (preferiti.contains(Integer.toString(movie.getId()))) {
+                    binding.MovieCardFavouriteButton.setImageResource(R.drawable.prefer_full);
+                }
+                else
+                {
+                    binding.MovieCardFavouriteButton.setImageResource(R.drawable.startplus);
+                }
+                binding.MovieCardFavouriteButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Set<String> preferiti;
 
+                        try {
+                            preferiti=sharedPreferences.getStringSet(Constants.FAVOURITE_SHARED_PREF_NAME,null);
+                            if (preferiti == null)
+                                preferiti = new HashSet<String>();
+                        }
+                        catch(Exception e)
+                        {
+                            preferiti = new HashSet<String>();
+                        }
+                        if (preferiti.contains(Integer.toString(movie.getId()))) {
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            Set<String> in = new HashSet<String>(preferiti);
+                            in.remove(Integer.toString(movie.getId()));
+                            editor.remove(Constants.FAVOURITE_SHARED_PREF_NAME);
+                            editor.putStringSet(Constants.FAVOURITE_SHARED_PREF_NAME, in);
+                            editor.commit();
+
+                            Toast toast = Toast.makeText(getContext(), "Rimosso " + movie.getTitle() + " dai tuoi preferiti", Toast.LENGTH_LONG);
+                            toast.setGravity(Gravity.CENTER, 0, 0);
+                            toast.show();
+                            binding.MovieCardFavouriteButton.setImageResource(R.drawable.startplus);
+                        }
+                        else {
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            Set<String> in = new HashSet<String>(preferiti);
+                            in.add(Integer.toString(movie.getId()));
+                            editor.putStringSet(Constants.FAVOURITE_SHARED_PREF_NAME, in);
+                            editor.commit();
+
+                            Toast toast = Toast.makeText(getContext(), "Aggiunto " + movie.getTitle() + " ai tuoi preferiti", Toast.LENGTH_LONG);
+                            toast.setGravity(Gravity.CENTER, 0, 0);
+                            toast.show();
+                            binding.MovieCardFavouriteButton.setImageResource(R.drawable.prefer_full);
+                        }
+
+                    }
+                });
             }
         };
 
@@ -63,6 +129,7 @@ public class MovieCardFragment extends Fragment {
         int value = bundle.getInt("MovieId");
 
         mViewModel.getMovieDetails(value, "it-IT").observe(getViewLifecycleOwner(), observer_details);//TODO settare delle variabili globali per la lingua e per la pagina
+
 
         return view;
     }

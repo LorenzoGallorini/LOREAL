@@ -29,9 +29,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
-            android:src="@drawable/ic_launcher_background"
             app:layout_constraintStart_toStartOf="@+id/film_text_title"
             app:layout_constraintTop_toBottomOf="@+id/film_text_title"
             android:contentDescription="@string/title_movie_card" />
+
+        <ImageButton
+            android:id="@+id/MovieCardFavouriteButton"
+            android:layout_width="136dp"
+            android:layout_height="134dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="40dp"
+            android:backgroundTint="#00FFFFFF"
+            android:scaleType="fitCenter"
+
+            android:src="@drawable/startplus"
+            app:layout_constraintStart_toEndOf="@+id/film_image"
+            app:layout_constraintTop_toBottomOf="@+id/film_text_title" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
