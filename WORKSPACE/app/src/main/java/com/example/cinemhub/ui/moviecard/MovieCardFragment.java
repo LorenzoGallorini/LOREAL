@@ -62,6 +62,19 @@ public class MovieCardFragment extends Fragment {
                 Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.getPoster_path()).into(binding.filmImage);
 
                 binding.filmTextTitle.setText(movie.getTitle());
+                binding.descriptionValue.setText(movie.getDescription());
+                binding.RatingValue.setText(Double.toString(movie.getVote_average()));
+                if(movie.isAdult())
+                    binding.AdultValue.setText((getString(R.string.Adult)));
+                else
+                    binding.AdultValue.setVisibility(View.INVISIBLE);
+                binding.RuntimeValue.setText(Integer.toString(movie.getRuntime())+"'");
+                binding.ReleaseDateValue.setText(movie.getReleaseDateFORMATTED());
+                binding.RevenueValue.setText(movie.getRevenueFORMATTED()+" €");
+
+                binding.GenresValue.setText(movie.getGenresTostring());
+
+
                 SharedPreferences sharedPreferences = getActivity().getSharedPreferences(
                         Constants.FAVOURITE_SHARED_PREF_FILE_NAME, Context.MODE_PRIVATE);
                 Set<String> preferiti;
@@ -75,11 +88,11 @@ public class MovieCardFragment extends Fragment {
                     preferiti = new HashSet<String>();
                 }
                 if (preferiti.contains(Integer.toString(movie.getId()))) {
-                    binding.MovieCardFavouriteButton.setImageResource(R.drawable.prefer_full);
+                    binding.MovieCardFavouriteButton.setImageResource(R.drawable.startminum_yellow);
                 }
                 else
                 {
-                    binding.MovieCardFavouriteButton.setImageResource(R.drawable.startplus);
+                    binding.MovieCardFavouriteButton.setImageResource(R.drawable.startplus_yellow);
                 }
                 binding.MovieCardFavouriteButton.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -103,7 +116,7 @@ public class MovieCardFragment extends Fragment {
                             editor.putStringSet(Constants.FAVOURITE_SHARED_PREF_NAME, in);
                             toast = Toast.makeText(getContext(), "Rimosso " + movie.getTitle() + " dai tuoi preferiti", Toast.LENGTH_SHORT);
 
-                            binding.MovieCardFavouriteButton.setImageResource(R.drawable.startplus);
+                            binding.MovieCardFavouriteButton.setImageResource(R.drawable.startplus_yellow);
                         }
                         else {
 
@@ -114,7 +127,7 @@ public class MovieCardFragment extends Fragment {
 
                            toast = Toast.makeText(getContext(), "Aggiunto " + movie.getTitle() + " ai tuoi preferiti", Toast.LENGTH_SHORT);
 
-                            binding.MovieCardFavouriteButton.setImageResource(R.drawable.prefer_full);
+                            binding.MovieCardFavouriteButton.setImageResource(R.drawable.startminum_yellow);
                         }
                         editor.commit();
                         toast.setGravity(Gravity.CENTER, 0, 0);

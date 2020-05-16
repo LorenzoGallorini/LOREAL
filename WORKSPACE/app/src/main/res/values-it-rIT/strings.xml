@@ -20,4 +20,12 @@
     <string name="title_movie_card">Scheda film</string>
     <string name="action_search">Search</string>
     <string name="API_LANGUAGE">it-IT</string>
+    <string name="Director">Regista:</string>
+    <string name="Writers">Sceneggiatori:</string>
+    <string name="Runtime">Durata</string>
+    <string name="Adult">Film per solo adulti</string>
+    <string name="ReleaseDate">Data di uscita:</string>
+    <string name="Rating">Valutazione:</string>
+    <string name="Genres">Generi:</string>
+    <string name="Revenue">Incasso:</string>
 </resources>

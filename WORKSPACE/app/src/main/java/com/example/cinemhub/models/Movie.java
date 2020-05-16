@@ -1,8 +1,11 @@
 package com.example.cinemhub.models;
 
 
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 public class Movie {
@@ -45,7 +48,7 @@ public class Movie {
         this.runtime = movieApiTmdbResponse.getRuntime();
         this.directors = movieApiTmdbResponse.getDirectors();
         this.actors = movieApiTmdbResponse.getActors();
-        this.description = movieApiTmdbResponse.getDescription();
+        this.description = movieApiTmdbResponse.getOverview();
         this.budget = movieApiTmdbResponse.getBudget();
         this.status = movieApiTmdbResponse.getStatus();
         this.home_page = movieApiTmdbResponse.getHome_page();
@@ -235,8 +238,37 @@ public class Movie {
         this.vote_count = vote_count;
     }
 
+    public String getGenresTostring()
+    {
+        String ret="";
+        for (int i = 0;i< this.getGenres().size();i++)
+            ret+=this.getGenres().get(i)+" | ";
+        return ret.substring(0,ret.length()-3);
+    }
+    public String getRevenueFORMATTED()
+    {
+        return NumberFormat.getInstance().format(this.revenue);
+
+    }
+    public String getReleaseDateFORMATTED()
+    {
+        String date=getRelease_date();
+        SimpleDateFormat spf=new SimpleDateFormat("yyyy-MM-dd");
+        try
+        {
+            Date newDate=spf.parse(date);
+            spf= new SimpleDateFormat("dd/MM/yyyy");
+            date = spf.format(newDate);
+            return date;
+        }
+        catch (Exception e)
+        {
+            return getRelease_date();
+        }
 
 
+
+    }
     @Override
     public String toString() {
         return "Movie{" +
