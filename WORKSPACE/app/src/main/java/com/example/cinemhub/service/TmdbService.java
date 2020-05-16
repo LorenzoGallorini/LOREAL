@@ -2,7 +2,10 @@ package com.example.cinemhub.service;
 
 import com.example.cinemhub.models.ComingSoonApiTmdbResponse;
 import com.example.cinemhub.models.MovieApiTmdbResponse;
+import com.example.cinemhub.models.MovieCreditsApiTmdbResponse;
 import com.example.cinemhub.models.NowPlayingApiTmdbResponse;
+import com.example.cinemhub.models.People;
+import com.example.cinemhub.models.PeopleApiTmdbResponse;
 import com.example.cinemhub.models.RecommendationsApiTmdbResponse;
 import com.example.cinemhub.models.TopRatedApiTmdbResponse;
 
@@ -37,4 +40,15 @@ public interface TmdbService {
     Call<MovieApiTmdbResponse> getMovieDetails (@Path("movie_id") int movie_id,
                                                 @Query("language") String language,
                                                 @Query("api_key") String api_key);
+
+    @GET("movie/{movie_id}/credits")
+    Call<MovieCreditsApiTmdbResponse> getMovieCredits (@Path("movie_id") int movie_id,
+                                                  @Query("api_key") String api_key);
+
+    @GET("person/{person_id}")
+    Call<PeopleApiTmdbResponse> getPeopleDetails (@Path("person_id") int person_id,
+                                                  @Query("language") String language,
+                                                  @Query("api_key") String api_key);
+
+
 }

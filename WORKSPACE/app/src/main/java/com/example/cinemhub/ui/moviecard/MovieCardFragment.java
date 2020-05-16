@@ -64,6 +64,9 @@ public class MovieCardFragment extends Fragment {
                 binding.filmTextTitle.setText(movie.getTitle());
                 binding.descriptionValue.setText(movie.getDescription());
                 binding.RatingValue.setText(Double.toString(movie.getVote_average()));
+
+                binding.WritersValue.setText(movie.getDirectors()[0].getName());
+
                 if(movie.isAdult())
                     binding.AdultValue.setText((getString(R.string.Adult)));
                 else

@@ -4,11 +4,14 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.cinemhub.models.CastApiTmdbResponse;
+import com.example.cinemhub.models.CrewApiTmdbResponse;
 import com.example.cinemhub.models.Movie;
 import com.example.cinemhub.repositories.TmdbRepository;
 
 public class MovieCardViewModel extends ViewModel {
     private MutableLiveData<Movie> movieCardViewModel;
+
 
     public LiveData<Movie> getMovieDetails(int movie_id, String language){
         if(movieCardViewModel==null){
@@ -17,4 +20,6 @@ public class MovieCardViewModel extends ViewModel {
         }
         return movieCardViewModel;
     }
+
+
 }

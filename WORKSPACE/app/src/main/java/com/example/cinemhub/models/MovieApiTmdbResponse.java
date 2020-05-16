@@ -24,8 +24,8 @@ public class MovieApiTmdbResponse {
     private boolean video;//
     private double vote_average;//
     private int runtime;//
-    private int[] directors;//da valutare il tipo
-    private int[] actors;//da valutare il tipo
+    private CrewApiTmdbResponse[] directors;//da valutare il tipo
+    private CastApiTmdbResponse[] actors;//da valutare il tipo
     private String description;
     private int budget;//
     private String status;//
@@ -34,7 +34,7 @@ public class MovieApiTmdbResponse {
     private int revenue;
 
 
-    public MovieApiTmdbResponse(String poster_path, boolean adult, String overview, String release_date, int[] genre_id, Genre[] genres, int id, String original_title, String original_language, String title, String backdrop_path, double popularity, int vote_count, boolean video, double vote_average, int runtime, int[] directors, int[] actors, String description, int budget, String status, String home_page, int revenue) {
+    public MovieApiTmdbResponse(String poster_path, boolean adult, String overview, String release_date, int[] genre_id, Genre[] genres, int id, String original_title, String original_language, String title, String backdrop_path, double popularity, int vote_count, boolean video, double vote_average, int runtime, CrewApiTmdbResponse[] directors, CastApiTmdbResponse[] actors, String description, int budget, String status, String home_page, int revenue) {
         this.poster_path = poster_path;
         this.adult = adult;
         this.overview = overview;
@@ -180,19 +180,19 @@ public class MovieApiTmdbResponse {
         this.runtime = runtime;
     }
 
-    public int[] getDirectors() {
+    public CrewApiTmdbResponse[] getDirectors() {
         return directors;
     }
 
-    public void setDirectors(int[] directors) {
+    public void setDirectors(CrewApiTmdbResponse[] directors) {
         this.directors = directors;
     }
 
-    public int[] getActors() {
+    public CastApiTmdbResponse[] getActors() {
         return actors;
     }
 
-    public void setActors(int[] actors) {
+    public void setActors(CastApiTmdbResponse[] actors) {
         this.actors = actors;
     }
 
