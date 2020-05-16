@@ -2,6 +2,7 @@ package com.example.cinemhub.ui.moviecard;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -160,8 +161,36 @@ public class MovieCardFragment extends Fragment {
         final Observer<MovieCreditsApiTmdbResponse> observer_credits = new Observer<MovieCreditsApiTmdbResponse>() {
             @Override
             public void onChanged(MovieCreditsApiTmdbResponse movieCreditsApiTmdbResponse) {
-                binding.DirectorsValue.setText(movieCreditsApiTmdbResponse.getCast()[0].getName());
+                String directors="";
+                String screenwriters="";
+                for(int i=0;i<movieCreditsApiTmdbResponse.getCrew().length;i++){
+                    if(movieCreditsApiTmdbResponse.getCrew()[i].getDepartment().equals("Directing")&&
+                            movieCreditsApiTmdbResponse.getCrew()[i].getJob().equals("Director")){
+                        directors+=movieCreditsApiTmdbResponse.getCrew()[i].getName()+" | ";
+                    }
+                    else if(movieCreditsApiTmdbResponse.getCrew()[i].getDepartment().equals("Writing")&&
+                            movieCreditsApiTmdbResponse.getCrew()[i].getJob().equals("Screenplay")){
+                        screenwriters+=movieCreditsApiTmdbResponse.getCrew()[i].getName()+" | ";
+                    }
+                }
+                if(directors.length()>3){
+                    directors= directors.substring(0, directors.length()-3);
+                }
+                else{
+                    directors= getResources().getString(android.R.string.unknownName);
+                }
+                if(screenwriters.length()>3){
+                    screenwriters= screenwriters.substring(0, screenwriters.length()-3);
+                }
+                else{
+                    screenwriters= getResources().getString(android.R.string.unknownName);
+                }
+
+                binding.DirectorsValue.setText(directors);
+                binding.WritersValue.setText(screenwriters);
             }
+
+
         };
         Bundle bundle = getArguments();
         int value = bundle.getInt("MovieId");

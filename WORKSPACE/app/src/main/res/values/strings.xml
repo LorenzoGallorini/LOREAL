@@ -24,7 +24,7 @@
     <string name="action_search">Search</string>
     <string name="API_LANGUAGE">en-EN</string>
     <string name="Director">Director:</string>
-    <string name="Writers">Writers:</string>
+    <string name="Writers">Screenwriters:</string>
     <string name="Runtime">Runtime:</string>
     <string name="Adult">Adult only</string>
     <string name="ReleaseDate">Release Date:</string>
