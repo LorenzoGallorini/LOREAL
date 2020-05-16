@@ -190,7 +190,7 @@
                 <ImageButton
                         android:id="@+id/NowPlayingImage5"
                         android:layout_width="match_parent"
-                    android:layout_height="@dimen/horizontal_image_height"
+                        android:layout_height="@dimen/horizontal_image_height"
                         android:adjustViewBounds="true"
                         android:background="#00FFFFFF"
 
@@ -223,7 +223,7 @@
                 <ImageButton
                         android:id="@+id/NowPlayingImage6"
                         android:layout_width="match_parent"
-                    android:layout_height="@dimen/horizontal_image_height"
+                        android:layout_height="@dimen/horizontal_image_height"
                         android:adjustViewBounds="true"
                         android:background="#00FFFFFF"
 
