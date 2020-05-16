@@ -1,22 +1,19 @@
 package com.example.cinemhub.ui.shake2;
 
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
-
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.example.cinemhub.MainActivity;
 import com.example.cinemhub.R;
@@ -30,10 +27,6 @@ import com.squareup.picasso.Picasso;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Random;
-
-import safety.com.br.android_shake_detector.core.ShakeCallback;
-import safety.com.br.android_shake_detector.core.ShakeDetector;
-import safety.com.br.android_shake_detector.core.ShakeOptions;
 
 public class Shake2Fragment extends Fragment {
 
@@ -84,7 +77,7 @@ public class Shake2Fragment extends Fragment {
             }
         };
 
-        mViewModel.getMovieOnShake(100, "it-IT",1).observe(getViewLifecycleOwner(), observer_on_shake);//TODO settare delle variabili globali per la lingua e per la pagina
+        mViewModel.getMovieOnShake(100, getString(R.string.API_LANGUAGE),1).observe(getViewLifecycleOwner(), observer_on_shake);//TODO settare delle variabili globali per la lingua e per la pagina
 
 
         return view;

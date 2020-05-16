@@ -1,6 +1,5 @@
 package com.example.cinemhub.ui.home;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,7 +7,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -30,7 +28,6 @@ import com.example.cinemhub.ui.settings.SettingsFragment;
 import com.example.cinemhub.ui.toprated.TopRatedFragment;
 import com.squareup.picasso.Picasso;
 
-import java.io.InputStream;
 import java.util.List;
 
 
@@ -113,7 +110,7 @@ public class HomeFragment extends Fragment {
                 }
             }
         };
-        homeViewModel.getMovieNowPlaying("it-IT", 1).observe(getViewLifecycleOwner(), observer_now_playing);//TODO settare delle variabili globali per la lingua e per la pagina
+        homeViewModel.getMovieNowPlaying(getString(R.string.API_LANGUAGE), 1).observe(getViewLifecycleOwner(), observer_now_playing);//TODO settare delle variabili globali per la lingua e per la pagina
 
 
 
@@ -183,7 +180,7 @@ public class HomeFragment extends Fragment {
                 }
             }
         };
-        homeViewModel.getMovieTopRated("it-IT", 1).observe(getViewLifecycleOwner(), observer_top_rated);
+        homeViewModel.getMovieTopRated(getString(R.string.API_LANGUAGE), 1).observe(getViewLifecycleOwner(), observer_top_rated);
 
 
 
@@ -254,7 +251,7 @@ public class HomeFragment extends Fragment {
                 }
             }
         };
-        homeViewModel.getMovieComingSoon("it-IT", 1).observe(getViewLifecycleOwner(), observer_coming_soon);
+        homeViewModel.getMovieComingSoon(getString(R.string.API_LANGUAGE), 1).observe(getViewLifecycleOwner(), observer_coming_soon);
 
         binding.textViewShowAllComingSoon.setOnClickListener(new View.OnClickListener() {
             @Override

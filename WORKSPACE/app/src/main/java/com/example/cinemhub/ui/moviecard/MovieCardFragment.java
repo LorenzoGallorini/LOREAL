@@ -142,7 +142,7 @@ public class MovieCardFragment extends Fragment {
         Bundle bundle = getArguments();
         int value = bundle.getInt("MovieId");
 
-        mViewModel.getMovieDetails(value, "it-IT").observe(getViewLifecycleOwner(), observer_details);//TODO settare delle variabili globali per la lingua e per la pagina
+        mViewModel.getMovieDetails(value,getString(R.string.API_LANGUAGE)).observe(getViewLifecycleOwner(), observer_details);//TODO settare delle variabili globali per la lingua e per la pagina
 
 
         return view;
