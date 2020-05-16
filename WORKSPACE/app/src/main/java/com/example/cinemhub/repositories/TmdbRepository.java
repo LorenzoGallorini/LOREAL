@@ -4,20 +4,16 @@ import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.cinemhub.models.CastApiTmdbResponse;
 import com.example.cinemhub.models.ComingSoonApiTmdbResponse;
-import com.example.cinemhub.models.CrewApiTmdbResponse;
 import com.example.cinemhub.models.Movie;
 import com.example.cinemhub.models.MovieApiTmdbResponse;
 import com.example.cinemhub.models.MovieCreditsApiTmdbResponse;
 import com.example.cinemhub.models.NowPlayingApiTmdbResponse;
-import com.example.cinemhub.models.People;
 import com.example.cinemhub.models.RecommendationsApiTmdbResponse;
 import com.example.cinemhub.models.TopRatedApiTmdbResponse;
 import com.example.cinemhub.service.TmdbService;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
@@ -159,7 +155,7 @@ public class TmdbRepository {
                     MovieApiTmdbResponse movies = response.body();
                     Log.d(TAG, "callback details ok");
                     movieDetails.postValue(new Movie(movies));
-                    getMovieCredits(movieDetails, movie_id);
+                    
 
                 }
                 else{
@@ -174,31 +170,15 @@ public class TmdbRepository {
         });
     }
 
-    public void getMovieCredits(MutableLiveData<Movie> movie, int movie_id){
+    public void getMovieCredits(MutableLiveData<MovieCreditsApiTmdbResponse> credits, int movie_id){
         Call<MovieCreditsApiTmdbResponse> call=tmdbService.getMovieCredits(movie_id, API_KEY);
         call.enqueue(new Callback<MovieCreditsApiTmdbResponse>() {
             @Override
             public void onResponse(Call<MovieCreditsApiTmdbResponse> call, Response<MovieCreditsApiTmdbResponse> response) {
                 if(response.body()!=null) {
-                    MovieCreditsApiTmdbResponse credits = response.body();
+                    credits.postValue(response.body());
                     Log.d(TAG, "callback credits ok");
 
-                    /*
-                    List<CastApiTmdbResponse> cast=new ArrayList<CastApiTmdbResponse>();
-                    List<CrewApiTmdbResponse> crew=new ArrayList<CrewApiTmdbResponse>();
-
-                    for (int i=0;i<credits.getCast().length;i++) {
-                        cast.add(new CastApiTmdbResponse(credits.getCast()[i]));
-                    }
-                    for (int i=0;i<credits.getCrew().length;i++) {
-                        crew.add(new CrewApiTmdbResponse(credits.getCrew()[i]));
-                    }     */
-                    Movie appoggio= movie.getValue();
-
-                    appoggio.setActors(credits.getCast());
-                    appoggio.setDirectors(credits.getCrew());
-
-                    movie.postValue(appoggio);
                 }
                 else{
                     Log.d(TAG, "ERROR: getCredits=null");

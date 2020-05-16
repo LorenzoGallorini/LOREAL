@@ -24,6 +24,7 @@ import com.example.cinemhub.MainActivity;
 import com.example.cinemhub.R;
 import com.example.cinemhub.databinding.FragmentMovieCardBinding;
 import com.example.cinemhub.models.Movie;
+import com.example.cinemhub.models.MovieCreditsApiTmdbResponse;
 import com.example.cinemhub.ui.search.SearchFragment;
 import com.example.cinemhub.ui.settings.SettingsFragment;
 import com.example.cinemhub.utils.Constants;
@@ -65,7 +66,7 @@ public class MovieCardFragment extends Fragment {
                 binding.descriptionValue.setText(movie.getDescription());
                 binding.RatingValue.setText(Double.toString(movie.getVote_average()));
 
-                binding.WritersValue.setText(movie.getDirectors()[0].getName());
+
 
                 if(movie.isAdult())
                     binding.AdultValue.setText((getString(R.string.Adult)));
@@ -155,10 +156,18 @@ public class MovieCardFragment extends Fragment {
             }
         };
 
+
+        final Observer<MovieCreditsApiTmdbResponse> observer_credits = new Observer<MovieCreditsApiTmdbResponse>() {
+            @Override
+            public void onChanged(MovieCreditsApiTmdbResponse movieCreditsApiTmdbResponse) {
+                binding.DirectorsValue.setText(movieCreditsApiTmdbResponse.getCast()[0].getName());
+            }
+        };
         Bundle bundle = getArguments();
         int value = bundle.getInt("MovieId");
 
         mViewModel.getMovieDetails(value,getString(R.string.API_LANGUAGE)).observe(getViewLifecycleOwner(), observer_details);//TODO settare delle variabili globali per la lingua e per la pagina
+        mViewModel.getMovieCredits(value).observe(getViewLifecycleOwner(), observer_credits);//TODO settare delle variabili globali per la lingua e per la pagina
 
 
         return view;
