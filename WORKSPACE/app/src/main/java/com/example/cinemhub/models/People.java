@@ -5,29 +5,48 @@ import java.util.Date;
 public class People {
     private int id;
     private String name;
-    private Date birth_date;
-    private String[] role;
-    private Date death_date;
+    private String birth_date;
+
+    //private String[] role; l'array di stringhe si riferisce a come è conosciuto nel mondo(AKA)
+    private String known_for_department;
+
+    private String death_date;
     private int gender;
     private String biography;
     private double popularity;
-    private String birth_place;
+    private String place_of_birth;
     private String profile_path;
     private boolean adult;
     private int[] filmography;
 
-    public People(int id, String name, Date birth_date, String[] role, Date death_date, int gender,
-                  String biography, double popularity, String birth_place, String profile_path,
-                  boolean adult, int[] filmography) {
+    public People(PeopleApiTmdbResponse peopleApiTmdbResponse){
+        this.birth_date = peopleApiTmdbResponse.getBirthday();
+        this.death_date = peopleApiTmdbResponse.getDeathday();
+        this.id = peopleApiTmdbResponse.getId();
+        this.name = peopleApiTmdbResponse.getName();
+        this.gender = peopleApiTmdbResponse.getGender();
+        this.biography = peopleApiTmdbResponse.getBiography();
+        this.popularity = peopleApiTmdbResponse.getPopularity();
+        this.profile_path = peopleApiTmdbResponse.getProfile_path();
+        this.adult = peopleApiTmdbResponse.isAdult();
+        this.place_of_birth = peopleApiTmdbResponse.getPlace_of_birth();
+        this.known_for_department = peopleApiTmdbResponse.getKnown_for_department();
+
+        //this.imdb_id = peopleApiTmdbResponse.getImdb_id();
+        //this.homepage = peopleApiTmdbResponse.getHomepage();
+        //this.also_known_as = peopleApiTmdbResponse.getAlso_known_as();
+    }
+
+    public People(int id, String name, String birth_date, String known_for_department, String death_date, int gender, String biography, double popularity, String place_of_birth, String profile_path, boolean adult, int[] filmography) {
         this.id = id;
         this.name = name;
         this.birth_date = birth_date;
-        this.role = role;
+        this.known_for_department = known_for_department;
         this.death_date = death_date;
         this.gender = gender;
         this.biography = biography;
         this.popularity = popularity;
-        this.birth_place = birth_place;
+        this.place_of_birth = place_of_birth;
         this.profile_path = profile_path;
         this.adult = adult;
         this.filmography = filmography;
@@ -49,27 +68,28 @@ public class People {
         this.name = name;
     }
 
-    public Date getBirth_date() {
+
+    public String getKnown_for_department() {
+        return known_for_department;
+    }
+
+    public void setKnown_for_department(String known_for_department) {
+        this.known_for_department = known_for_department;
+    }
+
+    public String getBirth_date() {
         return birth_date;
     }
 
-    public void setBirth_date(Date birth_date) {
+    public void setBirth_date(String birth_date) {
         this.birth_date = birth_date;
     }
 
-    public String[] getRole() {
-        return role;
-    }
-
-    public void setRole(String[] role) {
-        this.role = role;
-    }
-
-    public Date getDeath_date() {
+    public String getDeath_date() {
         return death_date;
     }
 
-    public void setDeath_date(Date death_date) {
+    public void setDeath_date(String death_date) {
         this.death_date = death_date;
     }
 
@@ -97,12 +117,12 @@ public class People {
         this.popularity = popularity;
     }
 
-    public String getBirth_place() {
-        return birth_place;
+    public String getPlace_of_birth() {
+        return place_of_birth;
     }
 
-    public void setBirth_place(String birth_place) {
-        this.birth_place = birth_place;
+    public void setPlace_of_birth(String place_of_birth) {
+        this.place_of_birth = place_of_birth;
     }
 
     public String getProfile_path() {

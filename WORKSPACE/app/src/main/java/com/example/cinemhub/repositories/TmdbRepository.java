@@ -9,6 +9,8 @@ import com.example.cinemhub.models.Movie;
 import com.example.cinemhub.models.MovieApiTmdbResponse;
 import com.example.cinemhub.models.MovieCreditsApiTmdbResponse;
 import com.example.cinemhub.models.NowPlayingApiTmdbResponse;
+import com.example.cinemhub.models.People;
+import com.example.cinemhub.models.PeopleApiTmdbResponse;
 import com.example.cinemhub.models.RecommendationsApiTmdbResponse;
 import com.example.cinemhub.models.TopRatedApiTmdbResponse;
 import com.example.cinemhub.service.TmdbService;
@@ -187,6 +189,25 @@ public class TmdbRepository {
 
             @Override
             public void onFailure(Call<MovieCreditsApiTmdbResponse> call, Throwable t) {
+                Log.d(TAG, "Error:"+t.toString());
+            }
+        });
+    }
+
+    public void getPeopleDetails (MutableLiveData<People> peopleDetails, int person_id, String language){
+        Call<PeopleApiTmdbResponse> call=tmdbService.getPeopleDetails(person_id, language, API_KEY);
+        call.enqueue(new Callback<PeopleApiTmdbResponse>() {
+            @Override
+            public void onResponse(Call<PeopleApiTmdbResponse> call, Response<PeopleApiTmdbResponse> response) {
+                if(response.body()!=null){
+                    PeopleApiTmdbResponse people=response.body();
+                    Log.d(TAG, "callback peopledetails ok");
+                    peopleDetails.postValue(new People(people));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PeopleApiTmdbResponse> call, Throwable t) {
                 Log.d(TAG, "Error:"+t.toString());
             }
         });

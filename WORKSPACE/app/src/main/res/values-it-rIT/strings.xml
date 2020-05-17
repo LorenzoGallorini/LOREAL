@@ -28,4 +28,6 @@
     <string name="Rating">Valutazione:</string>
     <string name="Genres">Generi:</string>
     <string name="Revenue">Incasso:</string>
+    <string name="gender_male">Maschio</string>
+    <string name="gender_female">Femmina</string>
 </resources>

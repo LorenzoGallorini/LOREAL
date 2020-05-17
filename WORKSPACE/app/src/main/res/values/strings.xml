@@ -31,4 +31,6 @@
     <string name="Rating">Rating:</string>
     <string name="Genres">Genres:</string>
     <string name="Revenue">Revenue:</string>
+    <string name="gender_male">Male</string>
+    <string name="gender_female">Female</string>
 </resources>
