@@ -30,13 +30,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class TmdbRepository {
     private static TmdbRepository instance;
     private TmdbService tmdbService;
-    private final String API_BASE_URL="https://api.themoviedb.org/3/";
-    private final String API_KEY="711c6e104d15a00a5aff3a04d7c0ceee";
+
 
     private final String TAG="TmdbRepository";
 
     private TmdbRepository(){
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(API_BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.API_TMDB_BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
 
         tmdbService = retrofit.create(TmdbService.class);
     }
@@ -49,7 +48,7 @@ public class TmdbRepository {
     }
 
     public void getNowPlaying(MutableLiveData<List<Movie>> movieNowPlaying, String language, int page){
-        Call<NowPlayingApiTmdbResponse> call = tmdbService.getNowPlaying(language , page, API_KEY);
+        Call<NowPlayingApiTmdbResponse> call = tmdbService.getNowPlaying(language , page, Constants.API_TMDB_KEY);
 
         call.enqueue(new Callback<NowPlayingApiTmdbResponse>() {
             @Override
@@ -75,7 +74,7 @@ public class TmdbRepository {
     }
 
     public void getTopRated(MutableLiveData<List<Movie>> movieTopRated, String language, int page){
-        Call<TopRatedApiTmdbResponse> call=tmdbService.getTopRated(language, page, API_KEY);
+        Call<TopRatedApiTmdbResponse> call=tmdbService.getTopRated(language, page, Constants.API_TMDB_KEY);
         call.enqueue(new Callback<TopRatedApiTmdbResponse>() {
             @Override
             public void onResponse(Call<TopRatedApiTmdbResponse> call, Response<TopRatedApiTmdbResponse> response) {
@@ -100,7 +99,7 @@ public class TmdbRepository {
     }
 
     public void getComingSoon(MutableLiveData<List<Movie>> movieComingSoon, String language, int page){
-        Call<ComingSoonApiTmdbResponse> call=tmdbService.getComingSoon(language, page, API_KEY);
+        Call<ComingSoonApiTmdbResponse> call=tmdbService.getComingSoon(language, page, Constants.API_TMDB_KEY);
         call.enqueue(new Callback<ComingSoonApiTmdbResponse>() {
             @Override
             public void onResponse(Call<ComingSoonApiTmdbResponse> call, Response<ComingSoonApiTmdbResponse> response) {
@@ -126,7 +125,7 @@ public class TmdbRepository {
     }
 
     public void getRecommendations(MutableLiveData<List<Movie>> movieRecommendations, int movie_id,String language, int page){
-        Call<RecommendationsApiTmdbResponse> call=tmdbService.getRecommendations(movie_id, language, page, API_KEY);
+        Call<RecommendationsApiTmdbResponse> call=tmdbService.getRecommendations(movie_id, language, page, Constants.API_TMDB_KEY);
         call.enqueue(new Callback<RecommendationsApiTmdbResponse>() {
             @Override
             public void onResponse(Call<RecommendationsApiTmdbResponse> call, Response<RecommendationsApiTmdbResponse> response) {
@@ -152,7 +151,7 @@ public class TmdbRepository {
     }
 
     public void getMovieDetails(MutableLiveData<Movie> movieDetails, int movie_id, String language){
-        Call<MovieApiTmdbResponse> call=tmdbService.getMovieDetails(movie_id, language, API_KEY);
+        Call<MovieApiTmdbResponse> call=tmdbService.getMovieDetails(movie_id, language, Constants.API_TMDB_KEY);
         call.enqueue(new Callback<MovieApiTmdbResponse>() {
             @Override
             public void onResponse(Call<MovieApiTmdbResponse> call, Response<MovieApiTmdbResponse> response) {
@@ -176,7 +175,7 @@ public class TmdbRepository {
     }
 
     public void getMovieCredits(MutableLiveData<MovieCreditsApiTmdbResponse> credits, int movie_id){
-        Call<MovieCreditsApiTmdbResponse> call=tmdbService.getMovieCredits(movie_id, API_KEY);
+        Call<MovieCreditsApiTmdbResponse> call=tmdbService.getMovieCredits(movie_id, Constants.API_TMDB_KEY);
         call.enqueue(new Callback<MovieCreditsApiTmdbResponse>() {
             @Override
             public void onResponse(Call<MovieCreditsApiTmdbResponse> call, Response<MovieCreditsApiTmdbResponse> response) {
@@ -198,7 +197,7 @@ public class TmdbRepository {
     }
 
     public void getPeopleDetails (MutableLiveData<People> peopleDetails, int person_id, String language){
-        Call<PeopleApiTmdbResponse> call=tmdbService.getPeopleDetails(person_id, language, API_KEY);
+        Call<PeopleApiTmdbResponse> call=tmdbService.getPeopleDetails(person_id, language, Constants.API_TMDB_KEY);
         call.enqueue(new Callback<PeopleApiTmdbResponse>() {
             @Override
             public void onResponse(Call<PeopleApiTmdbResponse> call, Response<PeopleApiTmdbResponse> response) {
@@ -217,7 +216,7 @@ public class TmdbRepository {
     }
 
     public void getPeopleCredits(MutableLiveData<PeopleCreditsApiTmdbResponse> credits, int person_id, String language){
-        Call<PeopleCreditsApiTmdbResponse> call=tmdbService.getPeopleCredits(person_id, language,  API_KEY);
+        Call<PeopleCreditsApiTmdbResponse> call=tmdbService.getPeopleCredits(person_id, language,  Constants.API_TMDB_KEY);
         call.enqueue(new Callback<PeopleCreditsApiTmdbResponse>() {
             @Override
             public void onResponse(Call<PeopleCreditsApiTmdbResponse> call, Response<PeopleCreditsApiTmdbResponse> response) {
@@ -240,7 +239,7 @@ public class TmdbRepository {
 
     public void getVideos(MutableLiveData<GetVideosApiTmdbResponse> videos, int movie_id, String language)
     {
-        Call<GetVideosApiTmdbResponse> call=tmdbService.getVideos(movie_id,language, Constants.API_KEY_YOUTUBE);
+        Call<GetVideosApiTmdbResponse> call=tmdbService.getVideos(movie_id,language, Constants.API_TMDB_KEY);
         call.enqueue(new Callback<GetVideosApiTmdbResponse>() {
             @Override
             public void onResponse(Call<GetVideosApiTmdbResponse> call, Response<GetVideosApiTmdbResponse> response) {

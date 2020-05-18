@@ -10,5 +10,7 @@ public class Constants {
     public static final String DEPARTMENT_DIRECTING="Directing";
     public static final String PLATFORM_VIDEO="YouTube";
     public static final String TYPE_VIDEO="Trailer";
+    public static final String API_TMDB_BASE_URL="https://api.themoviedb.org/3/";
+    public static final String API_TMDB_KEY="711c6e104d15a00a5aff3a04d7c0ceee";
 
 }
