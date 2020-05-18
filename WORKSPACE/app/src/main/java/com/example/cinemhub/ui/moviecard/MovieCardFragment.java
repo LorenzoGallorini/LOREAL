@@ -276,6 +276,7 @@ public class MovieCardFragment extends Fragment {
                         if(results[i].getType().equals(Constants.TYPE_VIDEO))
                             found=true;
                     }
+                    i++;
                 }
                 if(result != null)
                 {
