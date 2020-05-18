@@ -26,6 +26,7 @@ import com.example.cinemhub.ui.nowplaying.NowPlayingFragment;
 import com.example.cinemhub.ui.search.SearchFragment;
 import com.example.cinemhub.ui.settings.SettingsFragment;
 import com.example.cinemhub.ui.toprated.TopRatedFragment;
+import com.example.cinemhub.utils.Constants;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -35,8 +36,6 @@ public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
     private final String TAG = "HomeFragment";
     private HomeViewModel homeViewModel;
-    private final int MAX_LENGHT = 14;
-    private String imageBaseUrl="https://image.tmdb.org/t/p/w500";
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -300,12 +299,12 @@ public class HomeFragment extends Fragment {
 
     private void setMoviePreview (Movie movie, TextView textView, ImageButton imageButton){
         if(movie.getPoster_path()!=null){
-            Picasso.get().load(imageBaseUrl + movie.getPoster_path()).into(imageButton);
+            Picasso.get().load(Constants.IMAGE_BASE_URL + movie.getPoster_path()).into(imageButton);
         }else {
             imageButton.setImageResource(R.drawable.no_image_avaiable);
         }
-        if(movie.getTitle().length() > MAX_LENGHT)
-            textView.setText(movie.getTitle().substring(0,MAX_LENGHT-1)+" ...");
+        if(movie.getTitle().length() > Constants.MAX_LENGHT)
+            textView.setText(movie.getTitle().substring(0,Constants.MAX_LENGHT-1)+" ...");
         else
             textView.setText(movie.getTitle());
 

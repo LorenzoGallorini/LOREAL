@@ -33,4 +33,6 @@
     <string name="Revenue">Revenue:</string>
     <string name="gender_male">Male</string>
     <string name="gender_female">Female</string>
+    <string name="people_card">People card</string>
+    <string name="actors_title">Actors</string>
 </resources>

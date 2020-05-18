@@ -11,6 +11,7 @@ import com.example.cinemhub.models.MovieCreditsApiTmdbResponse;
 import com.example.cinemhub.models.NowPlayingApiTmdbResponse;
 import com.example.cinemhub.models.People;
 import com.example.cinemhub.models.PeopleApiTmdbResponse;
+import com.example.cinemhub.models.PeopleCreditsApiTmdbResponse;
 import com.example.cinemhub.models.RecommendationsApiTmdbResponse;
 import com.example.cinemhub.models.TopRatedApiTmdbResponse;
 import com.example.cinemhub.service.TmdbService;
@@ -212,6 +213,29 @@ public class TmdbRepository {
             }
         });
     }
+
+    public void getPeopleCredits(MutableLiveData<PeopleCreditsApiTmdbResponse> credits, int person_id, String language){
+        Call<PeopleCreditsApiTmdbResponse> call=tmdbService.getPeopleCredits(person_id, language,  API_KEY);
+        call.enqueue(new Callback<PeopleCreditsApiTmdbResponse>() {
+            @Override
+            public void onResponse(Call<PeopleCreditsApiTmdbResponse> call, Response<PeopleCreditsApiTmdbResponse> response) {
+                if(response.body()!=null) {
+                    credits.postValue(response.body());
+                    Log.d(TAG, "callback peoplecredits ok");
+
+                }
+                else{
+                    Log.d(TAG, "ERROR: getCredits=null");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PeopleCreditsApiTmdbResponse> call, Throwable t) {
+                Log.d(TAG, "Error:"+t.toString());
+            }
+        });
+    }
+
 
 
 }

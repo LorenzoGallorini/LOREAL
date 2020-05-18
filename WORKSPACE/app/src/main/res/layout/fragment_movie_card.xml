@@ -12,27 +12,27 @@
         android:layout_height="match_parent"
         android:paddingBottom="10dp">
 
-        <TextView
+        <!--<TextView
             android:id="@+id/DirectorsValue"
-            android:layout_width="162dp"
+            android:layout_width="@dimen/value_text_width"
             android:layout_height="wrap_content"
             android:textColor="@color/titleWhite"
             android:textSize="@dimen/paragraph_size"
             app:layout_constraintStart_toStartOf="@+id/DirectorLabel"
             app:layout_constraintTop_toBottomOf="@+id/DirectorLabel" />
-
-        <TextView
+-->
+        <!--<TextView
             android:id="@+id/WritersValue"
-            android:layout_width="157dp"
+            android:layout_width="@dimen/value_text_width"
             android:layout_height="wrap_content"
             android:textColor="@color/titleWhite"
             android:textSize="@dimen/paragraph_size"
             app:layout_constraintStart_toStartOf="@+id/WritersLabel"
-            app:layout_constraintTop_toBottomOf="@+id/WritersLabel" />
+            app:layout_constraintTop_toBottomOf="@+id/WritersLabel" />-->
 
         <TextView
             android:id="@+id/RuntimeValue"
-            android:layout_width="158dp"
+            android:layout_width="@dimen/value_text_width"
             android:layout_height="wrap_content"
             android:textColor="@color/titleWhite"
             android:textSize="@dimen/paragraph_size"
@@ -41,7 +41,7 @@
 
         <TextView
             android:id="@+id/GenresValue"
-            android:layout_width="162dp"
+            android:layout_width="@dimen/value_text_width"
             android:layout_height="wrap_content"
             android:textColor="@color/titleWhite"
             android:textSize="@dimen/paragraph_size"
@@ -50,7 +50,7 @@
 
         <TextView
             android:id="@+id/ReleaseDateValue"
-            android:layout_width="158dp"
+            android:layout_width="@dimen/value_text_width"
             android:layout_height="wrap_content"
             android:textColor="@color/titleWhite"
             android:textSize="@dimen/paragraph_size"
@@ -59,7 +59,7 @@
 
         <TextView
             android:id="@+id/RevenueValue"
-            android:layout_width="151dp"
+            android:layout_width="@dimen/value_text_width"
             android:layout_height="wrap_content"
             android:textColor="@color/titleWhite"
             android:textSize="@dimen/paragraph_size"
@@ -72,7 +72,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="@string/title_film"
-            android:textAlignment="center"
+            android:textAlignment="textStart"
             android:textColor="@color/titleWhite"
             android:textSize="@dimen/title_size"
             android:textStyle="bold"
@@ -82,8 +82,8 @@
 
         <ImageView
             android:id="@+id/film_image"
-            android:layout_width="221dp"
-            android:layout_height="310dp"
+            android:layout_width="@dimen/image_width_card"
+            android:layout_height="@dimen/image_height_card"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:contentDescription="@string/title_movie_card"
@@ -103,17 +103,16 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
+        <!--<TextView
             android:id="@+id/DirectorLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
             android:text="@string/Director"
             android:textColor="@color/titleWhite"
             android:textSize="@dimen/paragraph_size"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/film_image"
-            app:layout_constraintTop_toTopOf="@+id/film_image" />
+            tools:layout_editor_absoluteX="241dp"
+            tools:layout_editor_absoluteY="50dp" />
 
         <TextView
             android:id="@+id/WritersLabel"
@@ -126,18 +125,18 @@
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/DirectorLabel"
             app:layout_constraintTop_toBottomOf="@+id/DirectorsValue" />
-
+-->
         <TextView
             android:id="@+id/RuntimeLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="4dp"
             android:text="@string/Runtime"
             android:textColor="@color/titleWhite"
             android:textSize="@dimen/paragraph_size"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/WritersLabel"
-            app:layout_constraintTop_toBottomOf="@+id/WritersValue" />
+            app:layout_constraintStart_toEndOf="@+id/film_image"
+            app:layout_constraintTop_toTopOf="@+id/film_image" />
 
         <TextView
             android:id="@+id/GenresLabel"
@@ -191,12 +190,12 @@
             android:id="@+id/descriptionValue"
             android:layout_width="376dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="64dp"
+            android:layout_marginTop="16dp"
             android:text="@android:string/unknownName"
             android:textColor="@color/titleWhite"
             android:textSize="@dimen/paragraph_size"
             app:layout_constraintStart_toStartOf="@+id/film_image"
-            app:layout_constraintTop_toBottomOf="@+id/RevenueValue" />
+            app:layout_constraintTop_toBottomOf="@+id/RatingLabel" />
 
         <TextView
             android:id="@+id/RatingValue"
@@ -220,24 +219,442 @@
             app:layout_constraintStart_toStartOf="@+id/film_image"
             app:layout_constraintTop_toBottomOf="@+id/film_image" />
 
-        <WebView
-            android:id="@+id/webView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/horizontal_scroll_view_left_margin"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="@dimen/horizontal_scroll_view_right_margin"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/descriptionValue" />
-
         <FrameLayout
             android:id="@+id/fl_youtube"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:layout_marginTop="18dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/webView" />
+            app:layout_constraintTop_toBottomOf="@+id/descriptionValue" />
+
+        <TextView
+            android:id="@+id/actors"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/actors_title"
+            android:textColor="@color/titleWhite"
+            android:textSize="25sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fl_youtube" />
+
+        <TextView
+            android:id="@+id/textView_showAll_nowPlaying"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="28dp"
+            android:text="@string/title_show_all"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/buttom_show_all"
+            app:layout_constraintBottom_toBottomOf="@+id/actors"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <HorizontalScrollView
+            android:id="@+id/horizontalScrollViewActors"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/horizontal_scroll_view_height"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/actors"
+            android:layout_marginStart="@dimen/horizontal_scroll_view_left_margin"
+            android:layout_marginEnd="@dimen/horizontal_scroll_view_right_margin"
+
+            >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="#00FFFFFF"
+                android:orientation="horizontal">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageButton
+                        android:id="@+id/ActorsImage1"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/horizontal_image_height"
+                        android:adjustViewBounds="true"
+
+                        android:background="#00FFFFFF"
+                        android:backgroundTint="#00FFFFFF"
+                        android:contentDescription="@string/app_name"
+
+                        android:scaleType="fitCenter"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <TextView
+                        android:id="@+id/ActorsText1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/titleWhite"
+                        app:layout_constraintEnd_toEndOf="@+id/ActorsImage1"
+                        app:layout_constraintStart_toStartOf="@+id/ActorsImage1"
+                        app:layout_constraintTop_toBottomOf="@+id/ActorsImage1" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/horizontal_scroll_view_left_margin">
+
+                    <ImageButton
+                        android:id="@+id/ActorsImage2"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/horizontal_image_height"
+                        android:adjustViewBounds="true"
+                        android:background="#00FFFFFF"
+                        android:backgroundTint="#00FFFFFF"
+                        android:contentDescription="@string/app_name"
+                        android:scaleType="fitCenter"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/ActorsText2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/titleWhite"
+                        app:layout_constraintEnd_toEndOf="@+id/ActorsImage2"
+                        app:layout_constraintStart_toStartOf="@+id/ActorsImage2"
+                        app:layout_constraintTop_toBottomOf="@+id/ActorsImage2" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/horizontal_scroll_view_left_margin">
+
+
+                    <ImageButton
+                        android:id="@+id/ActorsImage3"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/horizontal_image_height"
+                        android:adjustViewBounds="true"
+                        android:background="#00FFFFFF"
+
+                        android:backgroundTint="#00FFFFFF"
+                        android:contentDescription="@string/app_name"
+
+                        android:scaleType="fitCenter" app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/ActorsText3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/titleWhite"
+                        app:layout_constraintEnd_toEndOf="@+id/ActorsImage3"
+                        app:layout_constraintStart_toStartOf="@+id/ActorsImage3"
+                        app:layout_constraintTop_toBottomOf="@+id/ActorsImage3" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/horizontal_scroll_view_left_margin">
+
+
+                    <ImageButton
+                        android:id="@+id/ActorsImage4"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/horizontal_image_height"
+                        android:adjustViewBounds="true"
+                        android:background="#00FFFFFF"
+
+                        android:backgroundTint="#00FFFFFF"
+                        android:contentDescription="@string/app_name"
+
+                        android:scaleType="fitCenter" app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/ActorsText4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/titleWhite"
+                        app:layout_constraintEnd_toEndOf="@+id/ActorsImage4"
+                        app:layout_constraintStart_toStartOf="@+id/ActorsImage4"
+                        app:layout_constraintTop_toBottomOf="@+id/ActorsImage4" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/horizontal_scroll_view_left_margin">
+
+
+                    <ImageButton
+                        android:id="@+id/ActorsImage5"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/horizontal_image_height"
+                        android:adjustViewBounds="true"
+                        android:background="#00FFFFFF"
+
+                        android:backgroundTint="#00FFFFFF"
+                        android:contentDescription="@string/app_name"
+
+                        android:scaleType="fitCenter" app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        />
+
+
+                    <TextView
+                        android:id="@+id/ActorsText5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+
+                        android:textColor="@color/titleWhite"
+                        app:layout_constraintEnd_toEndOf="@+id/ActorsImage5"
+                        app:layout_constraintStart_toStartOf="@+id/ActorsImage5"
+                        app:layout_constraintTop_toBottomOf="@+id/ActorsImage5" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical" android:paddingLeft="@dimen/horizontal_scroll_view_left_margin">
+
+
+                    <ImageButton
+                        android:id="@+id/ActorsImage6"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/horizontal_image_height"
+                        android:adjustViewBounds="true"
+                        android:background="#00FFFFFF"
+
+                        android:backgroundTint="#00FFFFFF"
+                        android:contentDescription="@string/app_name"
+                        android:scaleType="fitCenter" app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/ActorsText6"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+
+                        android:textColor="@color/titleWhite"
+                        app:layout_constraintEnd_toEndOf="@+id/ActorsImage6"
+                        app:layout_constraintStart_toStartOf="@+id/ActorsImage6"
+                        app:layout_constraintTop_toBottomOf="@+id/ActorsImage6" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/horizontal_scroll_view_left_margin">
+
+
+                    <ImageButton
+                        android:id="@+id/ActorsImage7"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/horizontal_image_height"
+                        android:adjustViewBounds="true"
+                        android:background="#00FFFFFF"
+
+                        android:backgroundTint="#00FFFFFF"
+                        android:contentDescription="@string/app_name"
+
+                        android:scaleType="fitCenter" app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/ActorsText7"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+
+                        android:textColor="@color/titleWhite"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/ActorsImage7"
+                        app:layout_constraintStart_toStartOf="@+id/ActorsImage7"
+                        app:layout_constraintTop_toBottomOf="@+id/ActorsImage7" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/horizontal_scroll_view_left_margin">
+
+
+                    <ImageButton
+                        android:id="@+id/ActorsImage8"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/horizontal_image_height"
+                        android:adjustViewBounds="true"
+                        android:background="#00FFFFFF"
+
+                        android:backgroundTint="#00FFFFFF"
+                        android:contentDescription="@string/app_name"
+
+
+                        android:scaleType="fitCenter" app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/ActorsText8"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+
+                        android:textColor="@color/titleWhite"
+                        app:layout_constraintEnd_toEndOf="@+id/ActorsImage8"
+                        app:layout_constraintStart_toStartOf="@+id/ActorsImage8"
+                        app:layout_constraintTop_toBottomOf="@+id/ActorsImage8" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/horizontal_scroll_view_left_margin">
+
+
+                    <ImageButton
+                        android:id="@+id/ActorsImage9"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/horizontal_image_height"
+                        android:adjustViewBounds="true"
+                        android:background="#00FFFFFF"
+
+                        android:backgroundTint="#00FFFFFF"
+                        android:contentDescription="@string/app_name"
+
+
+                        android:scaleType="fitCenter" app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/ActorsText9"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/titleWhite"
+                        app:layout_constraintEnd_toEndOf="@+id/ActorsImage9"
+                        app:layout_constraintStart_toStartOf="@+id/ActorsImage9"
+                        app:layout_constraintTop_toBottomOf="@+id/ActorsImage9" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/horizontal_scroll_view_left_margin">
+
+
+                    <ImageButton
+                        android:id="@+id/ActorsImage10"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/horizontal_image_height"
+                        android:adjustViewBounds="true"
+                        android:background="#00FFFFFF"
+
+                        android:backgroundTint="#00FFFFFF"
+                        android:contentDescription="@string/app_name"
+
+
+                        android:scaleType="fitCenter" app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/ActorsText10"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/titleWhite"
+                        app:layout_constraintEnd_toEndOf="@+id/ActorsImage10"
+                        app:layout_constraintStart_toStartOf="@+id/ActorsImage10"
+                        app:layout_constraintTop_toBottomOf="@+id/ActorsImage10" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/horizontal_scroll_view_left_margin">
+
+
+                    <ImageButton
+                        android:id="@+id/ActorsImage11"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/horizontal_image_height"
+                        android:adjustViewBounds="true"
+                        android:background="#00FFFFFF"
+
+                        android:backgroundTint="#00FFFFFF"
+                        android:contentDescription="@string/app_name"
+
+
+                        android:scaleType="fitCenter" app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/ActorsText11"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/titleWhite"
+                        app:layout_constraintEnd_toEndOf="@+id/ActorsImage11"
+                        app:layout_constraintStart_toStartOf="@+id/ActorsImage11"
+                        app:layout_constraintTop_toBottomOf="@+id/ActorsImage11" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/horizontal_scroll_view_left_margin">
+
+
+                    <ImageButton
+                        android:id="@+id/ActorsImage12"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/horizontal_image_height"
+                        android:adjustViewBounds="true"
+                        android:background="#00FFFFFF"
+
+                        android:backgroundTint="#00FFFFFF"
+                        android:contentDescription="@string/app_name"
+
+
+                        android:scaleType="fitCenter" app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/ActorsText12"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/titleWhite"
+                        app:layout_constraintEnd_toEndOf="@+id/ActorsImage12"
+                        app:layout_constraintStart_toStartOf="@+id/ActorsImage12"
+                        app:layout_constraintTop_toBottomOf="@+id/ActorsImage12" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+
+
+
+        </HorizontalScrollView>
+
+
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

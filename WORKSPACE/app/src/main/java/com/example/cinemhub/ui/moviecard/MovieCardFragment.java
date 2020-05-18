@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -23,13 +25,17 @@ import androidx.lifecycle.ViewModelProviders;
 import com.example.cinemhub.MainActivity;
 import com.example.cinemhub.R;
 import com.example.cinemhub.databinding.FragmentMovieCardBinding;
+import com.example.cinemhub.models.CastApiTmdbResponse;
 import com.example.cinemhub.models.Movie;
 import com.example.cinemhub.models.MovieCreditsApiTmdbResponse;
+import com.example.cinemhub.models.People;
+import com.example.cinemhub.ui.peoplecard.PeopleCardFragment;
 import com.example.cinemhub.ui.search.SearchFragment;
 import com.example.cinemhub.ui.settings.SettingsFragment;
 import com.example.cinemhub.utils.Constants;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
+import com.google.android.youtube.player.YouTubePlayerFragment;
 import com.google.android.youtube.player.YouTubePlayerSupportFragment;
 import com.squareup.picasso.Picasso;
 
@@ -63,7 +69,12 @@ public class MovieCardFragment extends Fragment {
             @Override
             public void onChanged(Movie movie) {
                 Log.d(TAG, "movie tmdb details"+movie);
-                Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.getPoster_path()).into(binding.filmImage);
+
+                if(movie.getPoster_path()!=null&&!movie.getPoster_path().equals("")){
+                    Picasso.get().load(Constants.IMAGE_BASE_URL + movie.getPoster_path()).into(binding.filmImage);
+                }else{
+                    binding.filmImage.setImageResource(R.drawable.no_image_avaiable);
+                }
 
                 binding.filmTextTitle.setText(movie.getTitle());
                 binding.descriptionValue.setText(movie.getDescription());
@@ -71,13 +82,15 @@ public class MovieCardFragment extends Fragment {
 
                 YouTubePlayerSupportFragment youTubePlayerFragment = YouTubePlayerSupportFragment.newInstance();
 
+
                 youTubePlayerFragment.initialize(Constants.API_KEY_YOUTUBE, new YouTubePlayer.OnInitializedListener() {
                             @Override
                             public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
                                 if (!b) {
                                     mYoutubePlayer = youTubePlayer;
-                                    mYoutubePlayer.setShowFullscreenButton(false);
+                                    mYoutubePlayer.setShowFullscreenButton(true);
                                     mYoutubePlayer.cueVideo("FEqp8tSh1F4");
+                                    mYoutubePlayer.setFullscreenControlFlags(YouTubePlayer.FULLSCREEN_FLAG_CONTROL_SYSTEM_UI);
                                 }
                             }
 
@@ -206,8 +219,60 @@ public class MovieCardFragment extends Fragment {
                     screenwriters= getResources().getString(android.R.string.unknownName);
                 }
 
-                binding.DirectorsValue.setText(directors);
-                binding.WritersValue.setText(screenwriters);
+                //binding.DirectorsValue.setText(directors);
+                //binding.WritersValue.setText(screenwriters);
+                movieCreditsApiTmdbResponse.getCast();
+
+                if(movieCreditsApiTmdbResponse.getCast().length>0) {
+
+                    setCastPreview(movieCreditsApiTmdbResponse.getCast()[0], binding.ActorsText1, binding.ActorsImage1);
+                    if(movieCreditsApiTmdbResponse.getCast().length>1) {
+
+                        setCastPreview(movieCreditsApiTmdbResponse.getCast()[1], binding.ActorsText2, binding.ActorsImage2);
+                        if(movieCreditsApiTmdbResponse.getCast().length>2){
+
+                            setCastPreview(movieCreditsApiTmdbResponse.getCast()[2], binding.ActorsText3, binding.ActorsImage3);
+                            if(movieCreditsApiTmdbResponse.getCast().length>3){
+
+                                setCastPreview(movieCreditsApiTmdbResponse.getCast()[3], binding.ActorsText4, binding.ActorsImage4);
+                                if(movieCreditsApiTmdbResponse.getCast().length>4){
+
+                                    setCastPreview(movieCreditsApiTmdbResponse.getCast()[4], binding.ActorsText5, binding.ActorsImage5);
+                                    if(movieCreditsApiTmdbResponse.getCast().length>5){
+
+                                        setCastPreview(movieCreditsApiTmdbResponse.getCast()[5], binding.ActorsText6, binding.ActorsImage6);
+                                        if(movieCreditsApiTmdbResponse.getCast().length>6){
+
+                                            setCastPreview(movieCreditsApiTmdbResponse.getCast()[6], binding.ActorsText7, binding.ActorsImage7);
+                                            if(movieCreditsApiTmdbResponse.getCast().length>7){
+
+                                                setCastPreview(movieCreditsApiTmdbResponse.getCast()[7], binding.ActorsText8, binding.ActorsImage8);
+                                                if(movieCreditsApiTmdbResponse.getCast().length>8){
+
+                                                    setCastPreview(movieCreditsApiTmdbResponse.getCast()[8], binding.ActorsText9, binding.ActorsImage9);
+                                                    if(movieCreditsApiTmdbResponse.getCast().length>9){
+
+                                                        setCastPreview(movieCreditsApiTmdbResponse.getCast()[9], binding.ActorsText10, binding.ActorsImage10);
+                                                        if(movieCreditsApiTmdbResponse.getCast().length>10){
+                                                            setCastPreview(movieCreditsApiTmdbResponse.getCast()[10], binding.ActorsText11, binding.ActorsImage11);
+
+                                                            if(movieCreditsApiTmdbResponse.getCast().length>11){
+                                                                setCastPreview(movieCreditsApiTmdbResponse.getCast()[11], binding.ActorsText12, binding.ActorsImage12);
+
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                
+
             }
 
 
@@ -217,6 +282,7 @@ public class MovieCardFragment extends Fragment {
 
         mViewModel.getMovieDetails(value,getString(R.string.API_LANGUAGE)).observe(getViewLifecycleOwner(), observer_details);//TODO settare delle variabili globali per la lingua e per la pagina
         mViewModel.getMovieCredits(value).observe(getViewLifecycleOwner(), observer_credits);//TODO settare delle variabili globali per la lingua e per la pagina
+
 
 
         return view;
@@ -249,6 +315,32 @@ public class MovieCardFragment extends Fragment {
         transaction.replace(R.id.nav_host_fragment, newFragment);
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    private void fragmentTransactionMethod (Fragment newFragment, int people_id){
+        Bundle bundle = new Bundle();
+        bundle.putInt("PeopleId", people_id);
+        newFragment.setArguments(bundle);
+        fragmentTransactionMethod(newFragment);
+    }
+
+    private void setCastPreview (CastApiTmdbResponse castApiTmdbResponse, TextView textView, ImageButton imageButton){
+        if(castApiTmdbResponse.getProfile_path()!=null){
+            Picasso.get().load(Constants.IMAGE_BASE_URL + castApiTmdbResponse.getProfile_path()).into(imageButton);
+        }else {
+            imageButton.setImageResource(R.drawable.no_image_avaiable);
+        }
+        if(castApiTmdbResponse.getName().length() > Constants.MAX_LENGHT)
+            textView.setText(castApiTmdbResponse.getName().substring(0,Constants.MAX_LENGHT-1)+" ...");
+        else
+            textView.setText(castApiTmdbResponse.getName());
+
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fragmentTransactionMethod(new PeopleCardFragment(), castApiTmdbResponse.getId());
+            }
+        });
     }
 
 }

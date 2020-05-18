@@ -30,4 +30,6 @@
     <string name="Revenue">Incasso:</string>
     <string name="gender_male">Maschio</string>
     <string name="gender_female">Femmina</string>
+    <string name="people_card">Scheda persona</string>
+    <string name="actors_title">Attori</string>
 </resources>
