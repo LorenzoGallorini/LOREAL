@@ -2,7 +2,6 @@ package com.example.cinemhub.ui.moviecard;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -29,13 +28,16 @@ import com.example.cinemhub.models.MovieCreditsApiTmdbResponse;
 import com.example.cinemhub.ui.search.SearchFragment;
 import com.example.cinemhub.ui.settings.SettingsFragment;
 import com.example.cinemhub.utils.Constants;
+import com.google.android.youtube.player.YouTubeInitializationResult;
+import com.google.android.youtube.player.YouTubePlayer;
+import com.google.android.youtube.player.YouTubePlayerSupportFragment;
 import com.squareup.picasso.Picasso;
 
 import java.util.HashSet;
 import java.util.Set;
 
 public class MovieCardFragment extends Fragment {
-
+    private YouTubePlayer mYoutubePlayer;
     private MovieCardViewModel mViewModel;
     private FragmentMovieCardBinding binding;
     private final String TAG="MovieCard";
@@ -67,7 +69,25 @@ public class MovieCardFragment extends Fragment {
                 binding.descriptionValue.setText(movie.getDescription());
                 binding.RatingValue.setText(Double.toString(movie.getVote_average()));
 
+                YouTubePlayerSupportFragment youTubePlayerFragment = YouTubePlayerSupportFragment.newInstance();
 
+                youTubePlayerFragment.initialize(Constants.API_KEY_YOUTUBE, new YouTubePlayer.OnInitializedListener() {
+                            @Override
+                            public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
+                                if (!b) {
+                                    mYoutubePlayer = youTubePlayer;
+                                    mYoutubePlayer.setShowFullscreenButton(false);
+                                    mYoutubePlayer.cueVideo("FEqp8tSh1F4");
+                                }
+                            }
+
+                            @Override
+                            public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
+
+                            }
+                        });
+                        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+                        transaction.replace(R.id.fl_youtube, (Fragment) youTubePlayerFragment).commit();
 
                 if(movie.isAdult())
                     binding.AdultValue.setText((getString(R.string.Adult)));
