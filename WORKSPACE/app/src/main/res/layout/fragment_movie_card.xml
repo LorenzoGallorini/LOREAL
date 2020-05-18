@@ -235,7 +235,7 @@
             android:text="@string/actors_title"
             android:textColor="@color/titleWhite"
             android:textSize="25sp"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/film_image"
             app:layout_constraintTop_toBottomOf="@+id/fl_youtube" />
 
         <TextView
@@ -256,8 +256,6 @@
             android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/actors"
-            android:layout_marginStart="@dimen/horizontal_scroll_view_left_margin"
-            android:layout_marginEnd="@dimen/horizontal_scroll_view_right_margin"
 
             >
 
@@ -314,7 +312,7 @@
                         android:contentDescription="@string/app_name"
                         android:scaleType="fitCenter"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"/>
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/ActorsText2"
@@ -344,8 +342,9 @@
                         android:backgroundTint="#00FFFFFF"
                         android:contentDescription="@string/app_name"
 
-                        android:scaleType="fitCenter" app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"/>
+                        android:scaleType="fitCenter"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/ActorsText3"
@@ -375,8 +374,9 @@
                         android:backgroundTint="#00FFFFFF"
                         android:contentDescription="@string/app_name"
 
-                        android:scaleType="fitCenter" app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"/>
+                        android:scaleType="fitCenter"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/ActorsText4"
@@ -406,9 +406,9 @@
                         android:backgroundTint="#00FFFFFF"
                         android:contentDescription="@string/app_name"
 
-                        android:scaleType="fitCenter" app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        />
+                        android:scaleType="fitCenter"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
 
                     <TextView
@@ -426,7 +426,8 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical" android:paddingLeft="@dimen/horizontal_scroll_view_left_margin">
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/horizontal_scroll_view_left_margin">
 
 
                     <ImageButton
@@ -438,8 +439,9 @@
 
                         android:backgroundTint="#00FFFFFF"
                         android:contentDescription="@string/app_name"
-                        android:scaleType="fitCenter" app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"/>
+                        android:scaleType="fitCenter"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/ActorsText6"
@@ -470,8 +472,9 @@
                         android:backgroundTint="#00FFFFFF"
                         android:contentDescription="@string/app_name"
 
-                        android:scaleType="fitCenter" app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"/>
+                        android:scaleType="fitCenter"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/ActorsText7"
@@ -504,8 +507,9 @@
                         android:contentDescription="@string/app_name"
 
 
-                        android:scaleType="fitCenter" app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"/>
+                        android:scaleType="fitCenter"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/ActorsText8"
@@ -537,8 +541,9 @@
                         android:contentDescription="@string/app_name"
 
 
-                        android:scaleType="fitCenter" app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"/>
+                        android:scaleType="fitCenter"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/ActorsText9"
@@ -569,8 +574,9 @@
                         android:contentDescription="@string/app_name"
 
 
-                        android:scaleType="fitCenter" app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"/>
+                        android:scaleType="fitCenter"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/ActorsText10"
@@ -601,8 +607,9 @@
                         android:contentDescription="@string/app_name"
 
 
-                        android:scaleType="fitCenter" app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"/>
+                        android:scaleType="fitCenter"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/ActorsText11"
@@ -633,8 +640,9 @@
                         android:contentDescription="@string/app_name"
 
 
-                        android:scaleType="fitCenter" app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"/>
+                        android:scaleType="fitCenter"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/ActorsText12"
@@ -648,7 +656,6 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </LinearLayout>
-
 
 
         </HorizontalScrollView>

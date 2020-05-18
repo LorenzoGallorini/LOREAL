@@ -5,6 +5,7 @@ import android.util.Log;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.cinemhub.models.ComingSoonApiTmdbResponse;
+import com.example.cinemhub.models.GetVideosApiTmdbResponse;
 import com.example.cinemhub.models.Movie;
 import com.example.cinemhub.models.MovieApiTmdbResponse;
 import com.example.cinemhub.models.MovieCreditsApiTmdbResponse;
@@ -15,6 +16,7 @@ import com.example.cinemhub.models.PeopleCreditsApiTmdbResponse;
 import com.example.cinemhub.models.RecommendationsApiTmdbResponse;
 import com.example.cinemhub.models.TopRatedApiTmdbResponse;
 import com.example.cinemhub.service.TmdbService;
+import com.example.cinemhub.utils.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -236,6 +238,31 @@ public class TmdbRepository {
         });
     }
 
+    public void getVideos(MutableLiveData<GetVideosApiTmdbResponse> videos, int movie_id, String language)
+    {
+        Call<GetVideosApiTmdbResponse> call=tmdbService.getVideos(movie_id,language, Constants.API_KEY_YOUTUBE);
+        call.enqueue(new Callback<GetVideosApiTmdbResponse>() {
+            @Override
+            public void onResponse(Call<GetVideosApiTmdbResponse> call, Response<GetVideosApiTmdbResponse> response) {
+
+                if(response.body()!=null) {
+                    videos.postValue(response.body());
+                    Log.d(TAG, "callback getVideos ok");
+
+                }
+                else{
+                    Log.d(TAG, "ERROR: getVideos=null");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GetVideosApiTmdbResponse> call, Throwable t) {
+                Log.d(TAG, "Error:"+t.toString());
+            }
+        });
+
+
+    }
 
 
 }

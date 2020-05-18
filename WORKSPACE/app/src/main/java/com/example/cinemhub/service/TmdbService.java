@@ -1,16 +1,14 @@
 package com.example.cinemhub.service;
 
 import com.example.cinemhub.models.ComingSoonApiTmdbResponse;
+import com.example.cinemhub.models.GetVideosApiTmdbResponse;
 import com.example.cinemhub.models.MovieApiTmdbResponse;
 import com.example.cinemhub.models.MovieCreditsApiTmdbResponse;
 import com.example.cinemhub.models.NowPlayingApiTmdbResponse;
-import com.example.cinemhub.models.People;
 import com.example.cinemhub.models.PeopleApiTmdbResponse;
 import com.example.cinemhub.models.PeopleCreditsApiTmdbResponse;
 import com.example.cinemhub.models.RecommendationsApiTmdbResponse;
 import com.example.cinemhub.models.TopRatedApiTmdbResponse;
-
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -57,6 +55,11 @@ public interface TmdbService {
     Call<PeopleCreditsApiTmdbResponse> getPeopleCredits(@Path("person_id") int person_id,
                                                         @Query("language") String language,
                                                         @Query("api_key") String api_key);
+
+    @GET("movie/{movie_id}/videos")
+    Call<GetVideosApiTmdbResponse> getVideos(@Path("movie_id") int movie_id,
+                                             @Query("language") String language,
+                                             @Query("api_key") String api_key);
 
 
 }

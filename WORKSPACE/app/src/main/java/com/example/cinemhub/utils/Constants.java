@@ -8,5 +8,7 @@ public class Constants {
     public static final int MAX_LENGHT = 14;
     public static final String DEPARTMENT_ACTING="Acting";
     public static final String DEPARTMENT_DIRECTING="Directing";
+    public static final String PLATFORM_VIDEO="YouTube";
+    public static final String TYPE_VIDEO="Trailer";
 
 }

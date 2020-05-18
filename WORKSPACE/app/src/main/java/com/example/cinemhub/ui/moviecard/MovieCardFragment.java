@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -26,9 +27,11 @@ import com.example.cinemhub.MainActivity;
 import com.example.cinemhub.R;
 import com.example.cinemhub.databinding.FragmentMovieCardBinding;
 import com.example.cinemhub.models.CastApiTmdbResponse;
+import com.example.cinemhub.models.GetVideosApiTmdbResponse;
 import com.example.cinemhub.models.Movie;
 import com.example.cinemhub.models.MovieCreditsApiTmdbResponse;
 import com.example.cinemhub.models.People;
+import com.example.cinemhub.models.VideoApiTmdbResponse;
 import com.example.cinemhub.ui.peoplecard.PeopleCardFragment;
 import com.example.cinemhub.ui.search.SearchFragment;
 import com.example.cinemhub.ui.settings.SettingsFragment;
@@ -80,27 +83,7 @@ public class MovieCardFragment extends Fragment {
                 binding.descriptionValue.setText(movie.getDescription());
                 binding.RatingValue.setText(Double.toString(movie.getVote_average()));
 
-                YouTubePlayerSupportFragment youTubePlayerFragment = YouTubePlayerSupportFragment.newInstance();
 
-
-                youTubePlayerFragment.initialize(Constants.API_KEY_YOUTUBE, new YouTubePlayer.OnInitializedListener() {
-                            @Override
-                            public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
-                                if (!b) {
-                                    mYoutubePlayer = youTubePlayer;
-                                    mYoutubePlayer.setShowFullscreenButton(true);
-                                    mYoutubePlayer.cueVideo("FEqp8tSh1F4");
-                                    mYoutubePlayer.setFullscreenControlFlags(YouTubePlayer.FULLSCREEN_FLAG_CONTROL_SYSTEM_UI);
-                                }
-                            }
-
-                            @Override
-                            public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
-
-                            }
-                        });
-                        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-                        transaction.replace(R.id.fl_youtube, (Fragment) youTubePlayerFragment).commit();
 
                 if(movie.isAdult())
                     binding.AdultValue.setText((getString(R.string.Adult)));
@@ -277,13 +260,56 @@ public class MovieCardFragment extends Fragment {
 
 
         };
+
+        final Observer<GetVideosApiTmdbResponse> observer_videos = new Observer<GetVideosApiTmdbResponse>() {
+            @Override
+            public void onChanged(GetVideosApiTmdbResponse getVideosApiTmdbResponse) {
+                VideoApiTmdbResponse[] results = getVideosApiTmdbResponse.getResults();
+                int i = 0;
+                boolean found= false;
+                VideoApiTmdbResponse result=null;
+                while (i<results.length && !found)
+                {
+                    if(results[i].getSite().equals(Constants.PLATFORM_VIDEO))
+                    {
+                        result=results[i];
+                        if(results[i].getType().equals(Constants.TYPE_VIDEO))
+                            found=true;
+                    }
+                }
+                if(result != null)
+                {
+                    YouTubePlayerSupportFragment youTubePlayerFragment = YouTubePlayerSupportFragment.newInstance();
+
+                    setRetainInstance(true);
+                    VideoApiTmdbResponse finalResult = result;
+                    youTubePlayerFragment.initialize(Constants.API_KEY_YOUTUBE, new YouTubePlayer.OnInitializedListener() {
+                        @Override
+                        public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
+                            if (!b) {
+                                mYoutubePlayer = youTubePlayer;
+                                mYoutubePlayer.setShowFullscreenButton(true);
+                                mYoutubePlayer.cueVideo(finalResult.getKey());
+                                mYoutubePlayer.setFullscreenControlFlags(YouTubePlayer.FULLSCREEN_FLAG_CONTROL_SYSTEM_UI);
+                            }
+                        }
+
+                        @Override
+                        public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
+
+                        }
+                    });
+                    FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+                    transaction.replace(R.id.fl_youtube, (Fragment) youTubePlayerFragment).commit();
+                }
+            }
+        };
         Bundle bundle = getArguments();
         int value = bundle.getInt("MovieId");
 
-        mViewModel.getMovieDetails(value,getString(R.string.API_LANGUAGE)).observe(getViewLifecycleOwner(), observer_details);//TODO settare delle variabili globali per la lingua e per la pagina
-        mViewModel.getMovieCredits(value).observe(getViewLifecycleOwner(), observer_credits);//TODO settare delle variabili globali per la lingua e per la pagina
-
-
+        mViewModel.getMovieDetails(value,getString(R.string.API_LANGUAGE)).observe(getViewLifecycleOwner(), observer_details);
+        mViewModel.getMovieCredits(value).observe(getViewLifecycleOwner(), observer_credits);
+        mViewModel.getVideos(value,getString(R.string.API_LANGUAGE)).observe(getViewLifecycleOwner(), observer_videos);
 
         return view;
     }
