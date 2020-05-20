@@ -22,6 +22,7 @@ import com.example.cinemhub.R;
 import com.example.cinemhub.adapters.MovieListVerticalAdapter;
 import com.example.cinemhub.databinding.FragmentTopRatedBinding;
 import com.example.cinemhub.models.Movie;
+import com.example.cinemhub.ui.moviecard.MovieCardFragment;
 import com.example.cinemhub.ui.search.SearchFragment;
 import com.example.cinemhub.ui.settings.SettingsFragment;
 
@@ -63,7 +64,12 @@ public class TopRatedFragment extends Fragment {
             @Override
             public void onChanged(List<Movie> movies) {
                 Log.d(TAG, "lista tmdb comingsoon"+movies);
-                MovieListVerticalAdapter movieListVerticalAdapter = new MovieListVerticalAdapter(getActivity(),movies);
+                MovieListVerticalAdapter movieListVerticalAdapter = new MovieListVerticalAdapter(getActivity(), movies, new MovieListVerticalAdapter.OnItemClickListener() {
+                    @Override
+                    public void OnItemClick(Movie movie) {
+                        fragmentTransactionMethod(new MovieCardFragment(), movie.getId());
+                    }
+                });
                 binding.TopRatedRecyclerView.setAdapter(movieListVerticalAdapter);
 
             }
@@ -98,6 +104,13 @@ public class TopRatedFragment extends Fragment {
         transaction.replace(R.id.nav_host_fragment, newFragment);
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    private void fragmentTransactionMethod (Fragment newFragment, int movie_id){
+        Bundle bundle = new Bundle();
+        bundle.putInt("MovieId", movie_id);
+        newFragment.setArguments(bundle);
+        fragmentTransactionMethod(newFragment);
     }
 
 }

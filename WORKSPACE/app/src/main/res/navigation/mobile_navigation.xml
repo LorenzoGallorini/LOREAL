@@ -21,7 +21,11 @@
         android:id="@+id/navigation_now_playing"
         android:name="com.example.cinemhub.ui.nowplaying.NowPlayingFragment"
         android:label="@string/title_now_playing"
-        tools:layout="@layout/fragment_now_playing" />
+        tools:layout="@layout/fragment_now_playing" >
+        <action
+            android:id="@+id/NowPlayingOpenMovieCard"
+            app:destination="@id/navigation_movie_card" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_favorite"
@@ -60,7 +64,11 @@
         android:name="com.example.cinemhub.ui.moviecard.MovieCardFragment"
         android:label="@string/title_movie_card"
         tools:layout="@layout/fragment_movie_card"
-        />
+        >
+        <argument
+            android:name="movie_id"
+            app:argType="integer" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_top_rated"

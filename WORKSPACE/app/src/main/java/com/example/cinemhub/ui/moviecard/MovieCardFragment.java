@@ -22,9 +22,13 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cinemhub.MainActivity;
 import com.example.cinemhub.R;
+import com.example.cinemhub.adapters.CreditsListHorizontalAdapter;
 import com.example.cinemhub.databinding.FragmentMovieCardBinding;
 import com.example.cinemhub.models.CastApiTmdbResponse;
 import com.example.cinemhub.models.GetVideosApiTmdbResponse;
@@ -64,6 +68,20 @@ public class MovieCardFragment extends Fragment {
         setHasOptionsMenu(true);
         ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.title_movie_card));
         ((MainActivity) getActivity()).menuColorSettings(R.id.navigation_movie_card);
+
+
+
+
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL,false);
+        RecyclerView.LayoutManager layoutManager2 = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL,false);
+        binding.CreditsRecyclerView.setLayoutManager(layoutManager);
+        binding.CreditsCrewRecyclerView.setLayoutManager(layoutManager2);
 
 
         mViewModel=new ViewModelProvider(this).get(MovieCardViewModel.class);
@@ -146,7 +164,7 @@ public class MovieCardFragment extends Fragment {
                             editor.putStringSet(Constants.FAVOURITE_SHARED_PREF_NAME, in);
 
 
-                           toast = Toast.makeText(getContext(), "Aggiunto " + movie.getTitle() + " ai tuoi preferiti", Toast.LENGTH_SHORT);
+                            toast = Toast.makeText(getContext(), "Aggiunto " + movie.getTitle() + " ai tuoi preferiti", Toast.LENGTH_SHORT);
 
                             binding.MovieCardFavouriteButton.setImageResource(R.drawable.startminum_yellow);
                         }
@@ -177,89 +195,26 @@ public class MovieCardFragment extends Fragment {
         final Observer<MovieCreditsApiTmdbResponse> observer_credits = new Observer<MovieCreditsApiTmdbResponse>() {
             @Override
             public void onChanged(MovieCreditsApiTmdbResponse movieCreditsApiTmdbResponse) {
-                String directors="";
-                String screenwriters="";
-                for(int i=0;i<movieCreditsApiTmdbResponse.getCrew().length;i++){
-                    if(movieCreditsApiTmdbResponse.getCrew()[i].getDepartment().equals("Directing")&&
-                            movieCreditsApiTmdbResponse.getCrew()[i].getJob().equals("Director")){
-                        directors+=movieCreditsApiTmdbResponse.getCrew()[i].getName()+" | ";
+
+                CreditsListHorizontalAdapter creditsListHorizontalAdapter = new CreditsListHorizontalAdapter(getActivity(),
+                        People.toList(movieCreditsApiTmdbResponse.getCast()), new CreditsListHorizontalAdapter.OnItemClickListener() {
+                    @Override
+                    public void OnItemClick(People people) {
+                        fragmentTransactionMethod(new PeopleCardFragment(), people.getId());
                     }
-                    else if(movieCreditsApiTmdbResponse.getCrew()[i].getDepartment().equals("Writing")&&
-                            movieCreditsApiTmdbResponse.getCrew()[i].getJob().equals("Screenplay")){
-                        screenwriters+=movieCreditsApiTmdbResponse.getCrew()[i].getName()+" | ";
+                });
+                CreditsListHorizontalAdapter creditsCrewListHorizontalAdapter = new CreditsListHorizontalAdapter(getActivity(),
+                        People.toList(movieCreditsApiTmdbResponse.getCrew()), new CreditsListHorizontalAdapter.OnItemClickListener() {
+                    @Override
+                    public void OnItemClick(People people) {
+                        fragmentTransactionMethod(new PeopleCardFragment(), people.getId());
                     }
-                }
-                if(directors.length()>3){
-                    directors= directors.substring(0, directors.length()-3);
-                }
-                else{
-                    directors= getResources().getString(android.R.string.unknownName);
-                }
-                if(screenwriters.length()>3){
-                    screenwriters= screenwriters.substring(0, screenwriters.length()-3);
-                }
-                else{
-                    screenwriters= getResources().getString(android.R.string.unknownName);
-                }
-
-                //binding.DirectorsValue.setText(directors);
-                //binding.WritersValue.setText(screenwriters);
-                movieCreditsApiTmdbResponse.getCast();
-
-                if(movieCreditsApiTmdbResponse.getCast().length>0) {
-
-                    setCastPreview(movieCreditsApiTmdbResponse.getCast()[0], binding.ActorsText1, binding.ActorsImage1);
-                    if(movieCreditsApiTmdbResponse.getCast().length>1) {
-
-                        setCastPreview(movieCreditsApiTmdbResponse.getCast()[1], binding.ActorsText2, binding.ActorsImage2);
-                        if(movieCreditsApiTmdbResponse.getCast().length>2){
-
-                            setCastPreview(movieCreditsApiTmdbResponse.getCast()[2], binding.ActorsText3, binding.ActorsImage3);
-                            if(movieCreditsApiTmdbResponse.getCast().length>3){
-
-                                setCastPreview(movieCreditsApiTmdbResponse.getCast()[3], binding.ActorsText4, binding.ActorsImage4);
-                                if(movieCreditsApiTmdbResponse.getCast().length>4){
-
-                                    setCastPreview(movieCreditsApiTmdbResponse.getCast()[4], binding.ActorsText5, binding.ActorsImage5);
-                                    if(movieCreditsApiTmdbResponse.getCast().length>5){
-
-                                        setCastPreview(movieCreditsApiTmdbResponse.getCast()[5], binding.ActorsText6, binding.ActorsImage6);
-                                        if(movieCreditsApiTmdbResponse.getCast().length>6){
-
-                                            setCastPreview(movieCreditsApiTmdbResponse.getCast()[6], binding.ActorsText7, binding.ActorsImage7);
-                                            if(movieCreditsApiTmdbResponse.getCast().length>7){
-
-                                                setCastPreview(movieCreditsApiTmdbResponse.getCast()[7], binding.ActorsText8, binding.ActorsImage8);
-                                                if(movieCreditsApiTmdbResponse.getCast().length>8){
-
-                                                    setCastPreview(movieCreditsApiTmdbResponse.getCast()[8], binding.ActorsText9, binding.ActorsImage9);
-                                                    if(movieCreditsApiTmdbResponse.getCast().length>9){
-
-                                                        setCastPreview(movieCreditsApiTmdbResponse.getCast()[9], binding.ActorsText10, binding.ActorsImage10);
-                                                        if(movieCreditsApiTmdbResponse.getCast().length>10){
-                                                            setCastPreview(movieCreditsApiTmdbResponse.getCast()[10], binding.ActorsText11, binding.ActorsImage11);
-
-                                                            if(movieCreditsApiTmdbResponse.getCast().length>11){
-                                                                setCastPreview(movieCreditsApiTmdbResponse.getCast()[11], binding.ActorsText12, binding.ActorsImage12);
-
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                
-
+                });
+                binding.CreditsCrewRecyclerView.setAdapter(creditsCrewListHorizontalAdapter);
+                binding.CreditsRecyclerView.setAdapter(creditsListHorizontalAdapter);
             }
-
-
         };
+
 
         final Observer<GetVideosApiTmdbResponse> observer_videos = new Observer<GetVideosApiTmdbResponse>() {
             @Override
@@ -306,14 +261,16 @@ public class MovieCardFragment extends Fragment {
                 }
             }
         };
+
         Bundle bundle = getArguments();
         int value = bundle.getInt("MovieId");
+
+        //int value=MovieCardFragmentArgs.fromBundle(getArguments()).getMovieId();
+
 
         mViewModel.getMovieDetails(value,getString(R.string.API_LANGUAGE)).observe(getViewLifecycleOwner(), observer_details);
         mViewModel.getMovieCredits(value).observe(getViewLifecycleOwner(), observer_credits);
         mViewModel.getVideos(value,getString(R.string.API_LANGUAGE)).observe(getViewLifecycleOwner(), observer_videos);
-
-        return view;
     }
 
     @Override
@@ -352,23 +309,6 @@ public class MovieCardFragment extends Fragment {
         fragmentTransactionMethod(newFragment);
     }
 
-    private void setCastPreview (CastApiTmdbResponse castApiTmdbResponse, TextView textView, ImageButton imageButton){
-        if(castApiTmdbResponse.getProfile_path()!=null){
-            Picasso.get().load(Constants.IMAGE_BASE_URL + castApiTmdbResponse.getProfile_path()).into(imageButton);
-        }else {
-            imageButton.setImageResource(R.drawable.no_image_avaiable);
-        }
-        if(castApiTmdbResponse.getName().length() > Constants.MAX_LENGHT)
-            textView.setText(castApiTmdbResponse.getName().substring(0,Constants.MAX_LENGHT-1)+" ...");
-        else
-            textView.setText(castApiTmdbResponse.getName());
 
-        imageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                fragmentTransactionMethod(new PeopleCardFragment(), castApiTmdbResponse.getId());
-            }
-        });
-    }
 
 }

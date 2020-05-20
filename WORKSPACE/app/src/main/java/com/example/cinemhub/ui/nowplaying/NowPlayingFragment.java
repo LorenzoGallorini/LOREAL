@@ -14,6 +14,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,6 +23,8 @@ import com.example.cinemhub.R;
 import com.example.cinemhub.adapters.MovieListVerticalAdapter;
 import com.example.cinemhub.databinding.FragmentNowPlayingBinding;
 import com.example.cinemhub.models.Movie;
+import com.example.cinemhub.ui.comingsoon.ComingSoonFragment;
+import com.example.cinemhub.ui.moviecard.MovieCardFragment;
 import com.example.cinemhub.ui.search.SearchFragment;
 import com.example.cinemhub.ui.settings.SettingsFragment;
 
@@ -62,7 +65,16 @@ public class NowPlayingFragment extends Fragment {
             @Override
             public void onChanged(List<Movie> movies) {
                 Log.d(TAG, "lista tmdb comingsoon"+movies);
-                MovieListVerticalAdapter movieListVerticalAdapter = new MovieListVerticalAdapter(getActivity(),movies);
+                MovieListVerticalAdapter movieListVerticalAdapter = new MovieListVerticalAdapter(getActivity(), movies, new MovieListVerticalAdapter.OnItemClickListener() {
+                    @Override
+                    public void OnItemClick(Movie movie) {
+                        //NowPlayingFragmentDirections.NowPlayingOpenMovieCard action= NowPlayingFragmentDirections.NowPlayingOpenMovieCard(movie.getId());
+                        //Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(action);
+                        Log.d(TAG, "onclick listener");
+                        fragmentTransactionMethod(new MovieCardFragment(), movie.getId());
+
+                    }
+                });
                 binding.recyclerViewNowPlaying.setAdapter(movieListVerticalAdapter);
             }
         };
@@ -102,6 +114,13 @@ public class NowPlayingFragment extends Fragment {
         transaction.replace(R.id.nav_host_fragment, newFragment);
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    private void fragmentTransactionMethod (Fragment newFragment, int movie_id){
+        Bundle bundle = new Bundle();
+        bundle.putInt("MovieId", movie_id);
+        newFragment.setArguments(bundle);
+        fragmentTransactionMethod(newFragment);
     }
 
 }

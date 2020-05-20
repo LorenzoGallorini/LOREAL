@@ -1,6 +1,8 @@
 package com.example.cinemhub.models;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class People {
     private int id;
@@ -18,6 +20,28 @@ public class People {
     private String profile_path;
     private boolean adult;
     private int[] filmography;
+    private String role;
+
+    public People(CastApiTmdbResponse castApiTmdbResponse){
+        //this.cast_id = castApiTmdbResponse.getCast_id();
+        this.role = castApiTmdbResponse.getCharacter();
+        //this.credit_id = castApiTmdbResponse.getCredit_id();
+        this.gender = castApiTmdbResponse.getGender();
+        this.id = castApiTmdbResponse.getId();
+        this.name = castApiTmdbResponse.getName();
+        //this.order = castApiTmdbResponse.getOrder();
+        this.profile_path = castApiTmdbResponse.getProfile_path();
+    }
+
+    public People(CrewApiTmdbResponse crewApiTmdbResponse){
+        //this.credit_id = crewApiTmdbResponse.getCredit_id();
+        //this.known_for_department = crewApiTmdbResponse.getDepartment();
+        this.gender = crewApiTmdbResponse.getGender();
+        this.id = crewApiTmdbResponse.getId();
+        this.role = crewApiTmdbResponse.getJob();
+        this.name = crewApiTmdbResponse.getName();
+        this.profile_path = crewApiTmdbResponse.getProfile_path();
+    }
 
     public People(PeopleApiTmdbResponse peopleApiTmdbResponse){
         this.birth_date = peopleApiTmdbResponse.getBirthday();
@@ -32,12 +56,13 @@ public class People {
         this.place_of_birth = peopleApiTmdbResponse.getPlace_of_birth();
         this.known_for_department = peopleApiTmdbResponse.getKnown_for_department();
 
+
         //this.imdb_id = peopleApiTmdbResponse.getImdb_id();
         //this.homepage = peopleApiTmdbResponse.getHomepage();
         //this.also_known_as = peopleApiTmdbResponse.getAlso_known_as();
     }
 
-    public People(int id, String name, String birth_date, String known_for_department, String death_date, int gender, String biography, double popularity, String place_of_birth, String profile_path, boolean adult, int[] filmography) {
+    public People(int id, String name, String birth_date, String known_for_department, String death_date, int gender, String biography, double popularity, String place_of_birth, String profile_path, boolean adult, int[] filmography, String role) {
         this.id = id;
         this.name = name;
         this.birth_date = birth_date;
@@ -50,6 +75,7 @@ public class People {
         this.profile_path = profile_path;
         this.adult = adult;
         this.filmography = filmography;
+        this.role=role;
     }
 
     public int getId() {
@@ -147,5 +173,30 @@ public class People {
 
     public void setFilmography(int[] filmography) {
         this.filmography = filmography;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public static List<People> toList(CastApiTmdbResponse[] castApiTmdbResponse){
+        List<People> ris= new ArrayList<People>();
+        for(int i=0; i<castApiTmdbResponse.length;i++){
+            ris.add(new People(castApiTmdbResponse[i]));
+        }
+        return ris;
+    }
+    public static List<People> toList(CrewApiTmdbResponse[] crewApiTmdbResponses){
+        List<People> ris= new ArrayList<People>();
+        for(int i=0; i<crewApiTmdbResponses.length;i++){
+            if(crewApiTmdbResponses[i].getDepartment().equals("Directing")|crewApiTmdbResponses[i].getDepartment().equals("Writing")){
+                ris.add(new People(crewApiTmdbResponses[i]));
+            }
+        }
+        return ris;
     }
 }
