@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cinemhub.MainActivity;
 import com.example.cinemhub.R;
-import com.example.cinemhub.adapters.ComingSoonAdapter;
+import com.example.cinemhub.adapters.MovieListVerticalAdapter;
 import com.example.cinemhub.databinding.FragmentNowPlayingBinding;
 import com.example.cinemhub.models.Movie;
 import com.example.cinemhub.ui.search.SearchFragment;
@@ -62,8 +62,8 @@ public class NowPlayingFragment extends Fragment {
             @Override
             public void onChanged(List<Movie> movies) {
                 Log.d(TAG, "lista tmdb comingsoon"+movies);
-                ComingSoonAdapter comingSoonAdapter = new ComingSoonAdapter(getActivity(),movies);
-                binding.recyclerViewNowPlaying.setAdapter(comingSoonAdapter);
+                MovieListVerticalAdapter movieListVerticalAdapter = new MovieListVerticalAdapter(getActivity(),movies);
+                binding.recyclerViewNowPlaying.setAdapter(movieListVerticalAdapter);
             }
         };
         mViewModel.getMovieNowPlaying(getString(R.string.API_LANGUAGE), 1).observe(getViewLifecycleOwner(), observer_now_playing);

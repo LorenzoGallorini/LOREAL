@@ -17,20 +17,20 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class ComingSoonAdapter extends RecyclerView.Adapter<ComingSoonAdapter.ComingSoonViewHolder> {
+public class MovieListVerticalAdapter extends RecyclerView.Adapter<MovieListVerticalAdapter.MovieListViewHolder> {
     private List<Movie> movies;
     private LayoutInflater layoutInflater;
-    public static class ComingSoonViewHolder extends RecyclerView.ViewHolder{
+    public static class MovieListViewHolder extends RecyclerView.ViewHolder{
         TextView title;
         ImageButton photo;
-        public ComingSoonViewHolder(View view){
+        public MovieListViewHolder(View view){
             super(view);
 
             title = view.findViewById(R.id.TitleTextViewItem);
             photo = view.findViewById(R.id.ImageButtonItem);
         }
     }
-    public ComingSoonAdapter(Context context,List<Movie> movieList)
+    public MovieListVerticalAdapter(Context context, List<Movie> movieList)
     {
         this.layoutInflater = LayoutInflater.from(context);
         this.movies = movieList;
@@ -38,13 +38,13 @@ public class ComingSoonAdapter extends RecyclerView.Adapter<ComingSoonAdapter.Co
 
     @NonNull
     @Override
-    public ComingSoonViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MovieListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = this.layoutInflater.inflate(R.layout.movie_item,parent,false);
-        return new ComingSoonViewHolder(view);
+        return new MovieListViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ComingSoonViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MovieListViewHolder holder, int position) {
         if(movies.get(position).getTitle().length() > Constants.MAX_LENGHT)
             holder.title.setText(movies.get(position).getTitle().substring(0,Constants.MAX_LENGHT-1)+" ...");
         else
