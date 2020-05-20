@@ -42,11 +42,22 @@ public class HomeFragment extends Fragment {
         super.onCreate(savedInstanceState);
         homeViewModel=new ViewModelProvider(getActivity()).get(HomeViewModel.class);
     }
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
         setHasOptionsMenu(true);
+
+
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+
         ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.title_home));
         ((MainActivity) getActivity()).menuColorSettings(R.id.navigation_home);
 
@@ -259,14 +270,14 @@ public class HomeFragment extends Fragment {
                 fragmentTransactionMethod(new ComingSoonFragment());
             }
         });
-
-        return view;
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         int id=item.getItemId();
@@ -288,7 +299,6 @@ public class HomeFragment extends Fragment {
         transaction.addToBackStack(null);
         transaction.commit();
     }
-
 
     private void fragmentTransactionMethod (Fragment newFragment, int movie_id){
         Bundle bundle = new Bundle();

@@ -301,7 +301,8 @@ public class MovieCardFragment extends Fragment {
                         }
                     });
                     FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-                    transaction.replace(R.id.fl_youtube, (Fragment) youTubePlayerFragment).commit();
+                    transaction.replace(R.id.fl_youtube, (Fragment) youTubePlayerFragment);
+                    transaction.commit();
                 }
             }
         };

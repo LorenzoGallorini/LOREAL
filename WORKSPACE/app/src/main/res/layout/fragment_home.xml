@@ -67,12 +67,12 @@
                         android:id="@+id/NowPlayingImage1"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/horizontal_image_height"
-                        android:adjustViewBounds="true"
+
 
                         android:background="#00FFFFFF"
                         android:backgroundTint="#00FFFFFF"
                         android:contentDescription="@string/app_name"
-
+                        android:adjustViewBounds="true"
                         android:scaleType="fitCenter"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />

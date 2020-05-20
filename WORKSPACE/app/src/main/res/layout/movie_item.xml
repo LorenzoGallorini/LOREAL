@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/MovieItem"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <ImageButton
+        android:id="@+id/ImageButtonItem"
+        android:layout_width="129dp"
+        android:layout_height="181dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
+        android:adjustViewBounds="true"
+        android:background="#00FFFFFF"
+        android:backgroundTint="#00FFFFFF"
+        android:scaleType="fitCenter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_launcher_background" />
+
+    <TextView
+        android:id="@+id/TitleTextViewItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="TextView"
+        android:textColor="@color/titleWhite"
+        android:textSize="@dimen/paragraph_size"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/ImageButtonItem"
+        app:layout_constraintStart_toStartOf="@+id/ImageButtonItem"
+        app:layout_constraintTop_toBottomOf="@+id/ImageButtonItem" />
+</androidx.constraintlayout.widget.ConstraintLayout>
