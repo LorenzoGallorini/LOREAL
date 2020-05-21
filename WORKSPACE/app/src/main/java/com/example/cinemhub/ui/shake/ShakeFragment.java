@@ -49,6 +49,7 @@ public class ShakeFragment extends Fragment {
             @Override
             public void onShake() {
                 Log.d(TAG, "onShake");
+                shakeDetector.destroy(getContext());
                 Navigation.findNavController(getView()).navigate(ShakeFragmentDirections.actionNavigationShakeToNavigationShake2());
             }
         });
