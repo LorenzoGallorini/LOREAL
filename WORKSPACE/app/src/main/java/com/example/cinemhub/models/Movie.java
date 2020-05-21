@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-public class Movie extends Parcelable {
+public class Movie implements Parcelable {
     private int id;
     private String title;
     private boolean adult;
