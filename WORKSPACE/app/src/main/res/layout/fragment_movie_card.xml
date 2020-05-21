@@ -190,12 +190,12 @@
             android:id="@+id/descriptionValue"
             android:layout_width="376dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:text="@android:string/unknownName"
             android:textColor="@color/titleWhite"
             android:textSize="@dimen/paragraph_size"
             app:layout_constraintStart_toStartOf="@+id/film_image"
-            app:layout_constraintTop_toBottomOf="@+id/RatingLabel" />
+            app:layout_constraintTop_toBottomOf="@+id/fl_youtube" />
 
         <TextView
             android:id="@+id/RatingValue"
@@ -223,20 +223,20 @@
             android:id="@+id/fl_youtube"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/descriptionValue" />
+            app:layout_constraintTop_toBottomOf="@+id/RatingLabel" />
 
         <TextView
             android:id="@+id/actors"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:text="@string/actors_title"
             android:textColor="@color/titleWhite"
             android:textSize="25sp"
             app:layout_constraintStart_toStartOf="@+id/film_image"
-            app:layout_constraintTop_toBottomOf="@+id/fl_youtube" />
+            app:layout_constraintTop_toBottomOf="@+id/descriptionValue" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/CreditsRecyclerView"

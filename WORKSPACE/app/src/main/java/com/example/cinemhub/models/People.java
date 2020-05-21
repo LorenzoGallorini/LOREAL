@@ -1,6 +1,7 @@
 package com.example.cinemhub.models;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -35,7 +36,7 @@ public class People {
 
     public People(CrewApiTmdbResponse crewApiTmdbResponse){
         //this.credit_id = crewApiTmdbResponse.getCredit_id();
-        //this.known_for_department = crewApiTmdbResponse.getDepartment();
+        this.known_for_department = crewApiTmdbResponse.getDepartment();
         this.gender = crewApiTmdbResponse.getGender();
         this.id = crewApiTmdbResponse.getId();
         this.role = crewApiTmdbResponse.getJob();
@@ -190,11 +191,32 @@ public class People {
         }
         return ris;
     }
+
+    public static int isInList(List<People> peoples, int id){
+        boolean found=false;
+        int i=0;
+        while (i<peoples.size() && !found){
+            if(peoples.get(i).getId()==id){
+                found=true;
+            }
+            i++;
+        }
+        if(found){
+            return i-1;
+        }
+        return -1;
+    }
+
     public static List<People> toList(CrewApiTmdbResponse[] crewApiTmdbResponses){
         List<People> ris= new ArrayList<People>();
         for(int i=0; i<crewApiTmdbResponses.length;i++){
             if(crewApiTmdbResponses[i].getDepartment().equals("Directing")|crewApiTmdbResponses[i].getDepartment().equals("Writing")){
-                ris.add(new People(crewApiTmdbResponses[i]));
+                int index=isInList(ris, crewApiTmdbResponses[i].getId());
+                if(index>=0){
+                    ris.get(index).setRole(ris.get(index).getRole()+" | "+crewApiTmdbResponses[i].getJob());
+                }else{
+                    ris.add(new People(crewApiTmdbResponses[i]));
+                }
             }
         }
         return ris;
