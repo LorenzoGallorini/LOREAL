@@ -1,6 +1,9 @@
 package com.example.cinemhub.models;
 
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -8,10 +11,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-public class Movie {
-
-
-
+public class Movie extends Parcelable {
     private int id;
     private String title;
     private boolean adult;
@@ -292,4 +292,73 @@ public class Movie {
                 ", revenue=" + revenue +
                 '}';
     }
+
+    protected Movie(Parcel in) {
+        id = in.readInt();
+        title = in.readString();
+        adult = in.readByte() != 0x00;
+        runtime = in.readInt();
+        if (in.readByte() == 0x01) {
+            genres = new ArrayList<String>();
+            in.readList(genres, String.class.getClassLoader());
+        } else {
+            genres = null;
+        }
+        release_date = in.readString();
+        vote_average = in.readDouble();
+        poster_path = in.readString();
+        description = in.readString();
+        budget = in.readInt();
+        original_language = in.readString();
+        original_title = in.readString();
+        popularity = in.readDouble();
+        status = in.readString();
+        vote_count = in.readInt();
+        home_page = in.readString();
+        revenue = in.readInt();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(title);
+        dest.writeByte((byte) (adult ? 0x01 : 0x00));
+        dest.writeInt(runtime);
+        if (genres == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeList(genres);
+        }
+        dest.writeString(release_date);
+        dest.writeDouble(vote_average);
+        dest.writeString(poster_path);
+        dest.writeString(description);
+        dest.writeInt(budget);
+        dest.writeString(original_language);
+        dest.writeString(original_title);
+        dest.writeDouble(popularity);
+        dest.writeString(status);
+        dest.writeInt(vote_count);
+        dest.writeString(home_page);
+        dest.writeInt(revenue);
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<Movie> CREATOR = new Parcelable.Creator<Movie>() {
+        @Override
+        public Movie createFromParcel(Parcel in) {
+            return new Movie(in);
+        }
+
+        @Override
+        public Movie[] newArray(int size) {
+            return new Movie[size];
+        }
+    };
 }
