@@ -9,13 +9,44 @@
         android:id="@+id/navigation_home"
         android:name="com.example.cinemhub.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_now_playing"
+            app:destination="@id/navigation_now_playing"
+            app:launchSingleTop="false" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_top_rated"
+            app:destination="@id/navigation_top_rated" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_coming_soon"
+            app:destination="@id/navigation_coming_soon" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_movie_card"
+            app:destination="@id/navigation_movie_card" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_settings"
+            app:destination="@id/navigation_settings" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_search"
+            app:destination="@id/navigation_search" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_coming_soon"
         android:name="com.example.cinemhub.ui.comingsoon.ComingSoonFragment"
         android:label="@string/title_coming_soon"
-        tools:layout="@layout/fragment_coming_soon" />
+        tools:layout="@layout/fragment_coming_soon" >
+        <action
+            android:id="@+id/action_navigation_coming_soon_to_navigation_movie_card"
+            app:destination="@id/navigation_movie_card" />
+        <action
+            android:id="@+id/action_navigation_coming_soon_to_navigation_settings"
+            app:destination="@id/navigation_settings" />
+        <action
+            android:id="@+id/action_navigation_coming_soon_to_navigation_search"
+            app:destination="@id/navigation_search"
+            app:popUpToInclusive="false" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_now_playing"
@@ -23,34 +54,86 @@
         android:label="@string/title_now_playing"
         tools:layout="@layout/fragment_now_playing" >
         <action
-            android:id="@+id/NowPlayingOpenMovieCard"
+            android:id="@+id/nowPlayingOpenMovieCardAction"
             app:destination="@id/navigation_movie_card" />
+        <action
+            android:id="@+id/action_navigation_now_playing_to_navigation_settings"
+            app:destination="@id/navigation_settings" />
+        <action
+            android:id="@+id/action_navigation_now_playing_to_navigation_search"
+            app:destination="@id/navigation_search" />
     </fragment>
 
     <fragment
         android:id="@+id/navigation_favorite"
         android:name="com.example.cinemhub.ui.favorite.FavoriteFragment"
         android:label="@string/title_favorite"
-        tools:layout="@layout/fragment_favorite" />
+        tools:layout="@layout/fragment_favorite" >
+        <action
+            android:id="@+id/action_navigation_favorite_to_navigation_movie_card"
+            app:destination="@id/navigation_movie_card" />
+        <action
+            android:id="@+id/action_navigation_favorite_to_navigation_search"
+            app:destination="@id/navigation_search" />
+        <action
+            android:id="@+id/action_navigation_favorite_to_navigation_settings"
+            app:destination="@id/navigation_settings" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_shake"
         android:name="com.example.cinemhub.ui.shake.ShakeFragment"
         android:label="@string/title_shake"
-        tools:layout="@layout/fragment_shake" />
+        tools:layout="@layout/fragment_shake" >
+        <action
+            android:id="@+id/action_navigation_shake_to_navigation_shake2"
+            app:destination="@id/navigation_shake2" />
+        <action
+            android:id="@+id/action_navigation_shake_to_navigation_search"
+            app:destination="@id/navigation_search" />
+        <action
+            android:id="@+id/action_navigation_shake_to_navigation_settings"
+            app:destination="@id/navigation_settings" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_shake2"
         android:name="com.example.cinemhub.ui.shake2.Shake2Fragment"
         android:label="@string/title_shake"
-        tools:layout="@layout/fragment_shake2"/>
+        tools:layout="@layout/fragment_shake2">
+        <action
+            android:id="@+id/action_navigation_shake2_to_navigation_movie_card"
+            app:destination="@id/navigation_movie_card" />
+        <action
+            android:id="@+id/action_navigation_shake2_self"
+            app:destination="@id/navigation_shake2" />
+        <action
+            android:id="@+id/action_navigation_shake2_to_navigation_search"
+            app:destination="@id/navigation_search" />
+        <action
+            android:id="@+id/action_navigation_shake2_to_navigation_settings"
+            app:destination="@id/navigation_settings" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_people_card"
         android:name="com.example.cinemhub.ui.peoplecard.PeopleCardFragment"
         android:label="@string/title_director_card"
         tools:layout="@layout/fragment_people_card"
-        />
+        >
+        <argument
+            android:name="People_id"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_navigation_people_card_to_navigation_settings"
+            app:destination="@id/navigation_settings" />
+        <action
+            android:id="@+id/action_navigation_people_card_to_navigation_search"
+            app:destination="@id/navigation_search" />
+        <action
+            android:id="@+id/action_navigation_people_card_to_navigation_movie_card"
+            app:destination="@id/navigation_movie_card" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_settings"
@@ -68,6 +151,15 @@
         <argument
             android:name="movie_id"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_navigation_movie_card_to_navigation_people_card"
+            app:destination="@id/navigation_people_card" />
+        <action
+            android:id="@+id/action_navigation_movie_card_to_navigation_settings"
+            app:destination="@id/navigation_settings" />
+        <action
+            android:id="@+id/action_navigation_movie_card_to_navigation_search"
+            app:destination="@id/navigation_search" />
     </fragment>
 
     <fragment
@@ -75,7 +167,17 @@
         android:name="com.example.cinemhub.ui.toprated.TopRatedFragment"
         android:label="@string/title_top_rated"
         tools:layout="@layout/fragment_top_rated"
-        />
+        >
+        <action
+            android:id="@+id/action_navigation_top_rated_to_navigation_movie_card"
+            app:destination="@id/navigation_movie_card" />
+        <action
+            android:id="@+id/action_navigation_top_rated_to_navigation_search"
+            app:destination="@id/navigation_search" />
+        <action
+            android:id="@+id/action_navigation_top_rated_to_navigation_settings"
+            app:destination="@id/navigation_settings" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_search"

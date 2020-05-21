@@ -4,15 +4,12 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -22,7 +19,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -30,19 +27,16 @@ import com.example.cinemhub.MainActivity;
 import com.example.cinemhub.R;
 import com.example.cinemhub.adapters.CreditsListHorizontalAdapter;
 import com.example.cinemhub.databinding.FragmentMovieCardBinding;
-import com.example.cinemhub.models.CastApiTmdbResponse;
 import com.example.cinemhub.models.GetVideosApiTmdbResponse;
 import com.example.cinemhub.models.Movie;
 import com.example.cinemhub.models.MovieCreditsApiTmdbResponse;
 import com.example.cinemhub.models.People;
 import com.example.cinemhub.models.VideoApiTmdbResponse;
 import com.example.cinemhub.ui.peoplecard.PeopleCardFragment;
-import com.example.cinemhub.ui.search.SearchFragment;
 import com.example.cinemhub.ui.settings.SettingsFragment;
 import com.example.cinemhub.utils.Constants;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
-import com.google.android.youtube.player.YouTubePlayerFragment;
 import com.google.android.youtube.player.YouTubePlayerSupportFragment;
 import com.squareup.picasso.Picasso;
 
@@ -200,14 +194,15 @@ public class MovieCardFragment extends Fragment {
                         People.toList(movieCreditsApiTmdbResponse.getCast()), new CreditsListHorizontalAdapter.OnItemClickListener() {
                     @Override
                     public void OnItemClick(People people) {
-                        fragmentTransactionMethod(new PeopleCardFragment(), people.getId());
+                        Navigation.findNavController(view).navigate(MovieCardFragmentDirections.actionNavigationMovieCardToNavigationPeopleCard(people.getId()));
+
                     }
                 });
                 CreditsListHorizontalAdapter creditsCrewListHorizontalAdapter = new CreditsListHorizontalAdapter(getActivity(),
                         People.toList(movieCreditsApiTmdbResponse.getCrew()), new CreditsListHorizontalAdapter.OnItemClickListener() {
                     @Override
                     public void OnItemClick(People people) {
-                        fragmentTransactionMethod(new PeopleCardFragment(), people.getId());
+                        Navigation.findNavController(view).navigate(MovieCardFragmentDirections.actionNavigationMovieCardToNavigationPeopleCard(people.getId()));
                     }
                 });
                 binding.CreditsCrewRecyclerView.setAdapter(creditsCrewListHorizontalAdapter);
@@ -262,10 +257,10 @@ public class MovieCardFragment extends Fragment {
             }
         };
 
-        Bundle bundle = getArguments();
-        int value = bundle.getInt("MovieId");
+        //Bundle bundle = getArguments();
+        //int value = bundle.getInt("MovieId");
 
-        //int value=MovieCardFragmentArgs.fromBundle(getArguments()).getMovieId();
+        int value=MovieCardFragmentArgs.fromBundle(getArguments()).getMovieId();
 
 
         mViewModel.getMovieDetails(value,getString(R.string.API_LANGUAGE)).observe(getViewLifecycleOwner(), observer_details);
@@ -285,15 +280,19 @@ public class MovieCardFragment extends Fragment {
         int id=item.getItemId();
         if(id==R.id.search){
             Log.d(TAG, "onClick: SearchClick");
-            fragmentTransactionMethod(new SearchFragment());
+            Navigation.findNavController(getView()).navigate(MovieCardFragmentDirections.actionNavigationMovieCardToNavigationSearch());
             return true;
         }else if(id==R.id.settings){
             Log.d(TAG, "onClick: SettingsClick");
-            fragmentTransactionMethod(new SettingsFragment());
+            Navigation.findNavController(getView()).navigate(MovieCardFragmentDirections.actionNavigationMovieCardToNavigationSettings());
             return true;
+        }
+        else if(id==android.R.id.home) {
+
         }
         return false;
     }
+
 
     private void fragmentTransactionMethod (Fragment newFragment){
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
@@ -301,14 +300,6 @@ public class MovieCardFragment extends Fragment {
         transaction.addToBackStack(null);
         transaction.commit();
     }
-
-    private void fragmentTransactionMethod (Fragment newFragment, int people_id){
-        Bundle bundle = new Bundle();
-        bundle.putInt("PeopleId", people_id);
-        newFragment.setArguments(bundle);
-        fragmentTransactionMethod(newFragment);
-    }
-
 
 
 }

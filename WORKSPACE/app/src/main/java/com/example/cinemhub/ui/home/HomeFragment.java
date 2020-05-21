@@ -12,20 +12,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import com.example.cinemhub.MainActivity;
 import com.example.cinemhub.R;
 import com.example.cinemhub.databinding.FragmentHomeBinding;
 import com.example.cinemhub.models.Movie;
-import com.example.cinemhub.ui.comingsoon.ComingSoonFragment;
-import com.example.cinemhub.ui.moviecard.MovieCardFragment;
-import com.example.cinemhub.ui.nowplaying.NowPlayingFragment;
-import com.example.cinemhub.ui.search.SearchFragment;
-import com.example.cinemhub.ui.settings.SettingsFragment;
-import com.example.cinemhub.ui.toprated.TopRatedFragment;
 import com.example.cinemhub.utils.Constants;
 import com.squareup.picasso.Picasso;
 
@@ -72,39 +66,39 @@ public class HomeFragment extends Fragment {
                 }
                 if(movies.size()>0) {
 
-                    setMoviePreview(movies.get(0), binding.NowPlayingText1, binding.NowPlayingImage1);
+                    setMoviePreview(movies.get(0), binding.NowPlayingText1, binding.NowPlayingImage1,view);
                     if(movies.size()>1) {
 
-                        setMoviePreview(movies.get(1), binding.NowPlayingText2, binding.NowPlayingImage2);
+                        setMoviePreview(movies.get(1), binding.NowPlayingText2, binding.NowPlayingImage2,view);
                         if(movies.size()>2){
 
-                            setMoviePreview(movies.get(2), binding.NowPlayingText3, binding.NowPlayingImage3);
+                            setMoviePreview(movies.get(2), binding.NowPlayingText3, binding.NowPlayingImage3,view);
                             if(movies.size()>3){
 
-                                setMoviePreview(movies.get(3), binding.NowPlayingText4, binding.NowPlayingImage4);
+                                setMoviePreview(movies.get(3), binding.NowPlayingText4, binding.NowPlayingImage4,view);
                                 if(movies.size()>4){
 
-                                    setMoviePreview(movies.get(4), binding.NowPlayingText5, binding.NowPlayingImage5);
+                                    setMoviePreview(movies.get(4), binding.NowPlayingText5, binding.NowPlayingImage5,view);
                                     if(movies.size()>5){
 
-                                        setMoviePreview(movies.get(5), binding.NowPlayingText6, binding.NowPlayingImage6);
+                                        setMoviePreview(movies.get(5), binding.NowPlayingText6, binding.NowPlayingImage6,view);
                                         if(movies.size()>6){
 
-                                            setMoviePreview(movies.get(6), binding.NowPlayingText7, binding.NowPlayingImage7);
+                                            setMoviePreview(movies.get(6), binding.NowPlayingText7, binding.NowPlayingImage7,view);
                                             if(movies.size()>7){
 
-                                                setMoviePreview(movies.get(7), binding.NowPlayingText8, binding.NowPlayingImage8);
+                                                setMoviePreview(movies.get(7), binding.NowPlayingText8, binding.NowPlayingImage8,view);
                                                 if(movies.size()>8){
 
-                                                    setMoviePreview(movies.get(8), binding.NowPlayingText9, binding.NowPlayingImage9);
+                                                    setMoviePreview(movies.get(8), binding.NowPlayingText9, binding.NowPlayingImage9,view);
                                                     if(movies.size()>9){
 
-                                                        setMoviePreview(movies.get(9), binding.NowPlayingText10, binding.NowPlayingImage10);
+                                                        setMoviePreview(movies.get(9), binding.NowPlayingText10, binding.NowPlayingImage10,view);
                                                         if(movies.size()>10){
-                                                            setMoviePreview(movies.get(10), binding.NowPlayingText11, binding.NowPlayingImage11);
+                                                            setMoviePreview(movies.get(10), binding.NowPlayingText11, binding.NowPlayingImage11,view);
 
                                                             if(movies.size()>11){
-                                                                setMoviePreview(movies.get(11), binding.NowPlayingText12, binding.NowPlayingImage12);
+                                                                setMoviePreview(movies.get(11), binding.NowPlayingText12, binding.NowPlayingImage12,view);
 
                                                             }
                                                         }
@@ -128,7 +122,8 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "onClick: AllNowPlayingClick");
-                fragmentTransactionMethod(new NowPlayingFragment());
+                //fragmentTransactionMethod(new NowPlayingFragment());
+                Navigation.findNavController(view).navigate(HomeFragmentDirections.actionNavigationHomeToNavigationNowPlaying());
             }
         });
 
@@ -142,39 +137,39 @@ public class HomeFragment extends Fragment {
                 }
                 if(movies.size()>0) {
 
-                    setMoviePreview(movies.get(0), binding.TopRatedText1, binding.TopRatedImage1);
+                    setMoviePreview(movies.get(0), binding.TopRatedText1, binding.TopRatedImage1,view);
                     if(movies.size()>1) {
 
-                        setMoviePreview(movies.get(1), binding.TopRatedText2, binding.TopRatedImage2);
+                        setMoviePreview(movies.get(1), binding.TopRatedText2, binding.TopRatedImage2,view);
                         if(movies.size()>2){
 
-                            setMoviePreview(movies.get(2), binding.TopRatedText3, binding.TopRatedImage3);
+                            setMoviePreview(movies.get(2), binding.TopRatedText3, binding.TopRatedImage3,view);
                             if(movies.size()>3){
 
-                                setMoviePreview(movies.get(3), binding.TopRatedText4, binding.TopRatedImage4);
+                                setMoviePreview(movies.get(3), binding.TopRatedText4, binding.TopRatedImage4,view);
                                 if(movies.size()>4){
 
-                                    setMoviePreview(movies.get(4), binding.TopRatedText5, binding.TopRatedImage5);
+                                    setMoviePreview(movies.get(4), binding.TopRatedText5, binding.TopRatedImage5,view);
                                     if(movies.size()>5){
 
-                                        setMoviePreview(movies.get(5), binding.TopRatedText6, binding.TopRatedImage6);
+                                        setMoviePreview(movies.get(5), binding.TopRatedText6, binding.TopRatedImage6,view);
                                         if(movies.size()>6){
 
-                                            setMoviePreview(movies.get(6), binding.TopRatedText7, binding.TopRatedImage7);
+                                            setMoviePreview(movies.get(6), binding.TopRatedText7, binding.TopRatedImage7,view);
                                             if(movies.size()>7){
 
-                                                setMoviePreview(movies.get(7), binding.TopRatedText8, binding.TopRatedImage8);
+                                                setMoviePreview(movies.get(7), binding.TopRatedText8, binding.TopRatedImage8,view);
                                                 if(movies.size()>8){
 
-                                                    setMoviePreview(movies.get(8), binding.TopRatedText9, binding.TopRatedImage9);
+                                                    setMoviePreview(movies.get(8), binding.TopRatedText9, binding.TopRatedImage9,view);
                                                     if(movies.size()>9){
 
-                                                        setMoviePreview(movies.get(9), binding.TopRatedText10, binding.TopRatedImage10);
+                                                        setMoviePreview(movies.get(9), binding.TopRatedText10, binding.TopRatedImage10,view);
                                                         if(movies.size()>10){
-                                                            setMoviePreview(movies.get(10), binding.TopRatedText11, binding.TopRatedImage11);
+                                                            setMoviePreview(movies.get(10), binding.TopRatedText11, binding.TopRatedImage11,view);
 
                                                             if(movies.size()>11){
-                                                                setMoviePreview(movies.get(11), binding.TopRatedText12, binding.TopRatedImage12);
+                                                                setMoviePreview(movies.get(11), binding.TopRatedText12, binding.TopRatedImage12,view);
 
                                                             }
                                                         }
@@ -199,7 +194,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "onClick: AllRatedClick");
-                fragmentTransactionMethod(new TopRatedFragment());
+                Navigation.findNavController(view).navigate(HomeFragmentDirections.actionNavigationHomeToNavigationTopRated());
             }
         });
 
@@ -213,39 +208,39 @@ public class HomeFragment extends Fragment {
                 }
                 if(movies.size()>0) {
 
-                    setMoviePreview(movies.get(0), binding.ComingSoonText1, binding.ComingSoonImage1);
+                    setMoviePreview(movies.get(0), binding.ComingSoonText1, binding.ComingSoonImage1,view);
                     if(movies.size()>1) {
 
-                        setMoviePreview(movies.get(1), binding.ComingSoonText2, binding.ComingSoonImage2);
+                        setMoviePreview(movies.get(1), binding.ComingSoonText2, binding.ComingSoonImage2,view);
                         if(movies.size()>2){
 
-                            setMoviePreview(movies.get(2), binding.ComingSoonText3, binding.ComingSoonImage3);
+                            setMoviePreview(movies.get(2), binding.ComingSoonText3, binding.ComingSoonImage3,view);
                             if(movies.size()>3){
 
-                                setMoviePreview(movies.get(3), binding.ComingSoonText4, binding.ComingSoonImage4);
+                                setMoviePreview(movies.get(3), binding.ComingSoonText4, binding.ComingSoonImage4,view);
                                 if(movies.size()>4){
 
-                                    setMoviePreview(movies.get(4), binding.ComingSoonText5, binding.ComingSoonImage5);
+                                    setMoviePreview(movies.get(4), binding.ComingSoonText5, binding.ComingSoonImage5,view);
                                     if(movies.size()>5){
 
-                                        setMoviePreview(movies.get(5), binding.ComingSoonText6, binding.ComingSoonImage6);
+                                        setMoviePreview(movies.get(5), binding.ComingSoonText6, binding.ComingSoonImage6,view);
                                         if(movies.size()>6){
 
-                                            setMoviePreview(movies.get(6), binding.ComingSoonText7, binding.ComingSoonImage7);
+                                            setMoviePreview(movies.get(6), binding.ComingSoonText7, binding.ComingSoonImage7,view);
                                             if(movies.size()>7){
 
-                                                setMoviePreview(movies.get(7), binding.ComingSoonText8, binding.ComingSoonImage8);
+                                                setMoviePreview(movies.get(7), binding.ComingSoonText8, binding.ComingSoonImage8,view);
                                                 if(movies.size()>8){
 
-                                                    setMoviePreview(movies.get(8), binding.ComingSoonText9, binding.ComingSoonImage9);
+                                                    setMoviePreview(movies.get(8), binding.ComingSoonText9, binding.ComingSoonImage9,view);
                                                     if(movies.size()>9){
 
-                                                        setMoviePreview(movies.get(9), binding.ComingSoonText10, binding.ComingSoonImage10);
+                                                        setMoviePreview(movies.get(9), binding.ComingSoonText10, binding.ComingSoonImage10,view);
                                                         if(movies.size()>10){
-                                                            setMoviePreview(movies.get(10), binding.ComingSoonText11, binding.ComingSoonImage11);
+                                                            setMoviePreview(movies.get(10), binding.ComingSoonText11, binding.ComingSoonImage11,view);
 
                                                             if(movies.size()>11){
-                                                                setMoviePreview(movies.get(11), binding.ComingSoonText12, binding.ComingSoonImage12);
+                                                                setMoviePreview(movies.get(11), binding.ComingSoonText12, binding.ComingSoonImage12,view);
 
                                                             }
                                                         }
@@ -267,7 +262,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "onClick: AllComingSoonClick");
-                fragmentTransactionMethod(new ComingSoonFragment());
+                Navigation.findNavController(view).navigate(HomeFragmentDirections.actionNavigationHomeToNavigationComingSoon());
             }
         });
     }
@@ -283,31 +278,19 @@ public class HomeFragment extends Fragment {
         int id=item.getItemId();
         if(id==R.id.search){
             Log.d(TAG, "onClick: SearchClick");
-            fragmentTransactionMethod(new SearchFragment());
+            Navigation.findNavController(getView()).navigate(HomeFragmentDirections.actionNavigationHomeToNavigationSearch());
             return true;
         }else if(id==R.id.settings){
             Log.d(TAG, "onClick: SettingsClick");
-            fragmentTransactionMethod(new SettingsFragment());
+            Navigation.findNavController(getView()).navigate(HomeFragmentDirections.actionNavigationHomeToNavigationSettings());
             return true;
         }
         return false;
     }
 
-    private void fragmentTransactionMethod (Fragment newFragment){
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.nav_host_fragment, newFragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
-    }
 
-    private void fragmentTransactionMethod (Fragment newFragment, int movie_id){
-        Bundle bundle = new Bundle();
-        bundle.putInt("MovieId", movie_id);
-        newFragment.setArguments(bundle);
-        fragmentTransactionMethod(newFragment);
-    }
 
-    private void setMoviePreview (Movie movie, TextView textView, ImageButton imageButton){
+    private void setMoviePreview (Movie movie, TextView textView, ImageButton imageButton,View view){
         if(movie.getPoster_path()!=null){
             Picasso.get().load(Constants.IMAGE_BASE_URL + movie.getPoster_path()).into(imageButton);
         }else {
@@ -321,7 +304,7 @@ public class HomeFragment extends Fragment {
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fragmentTransactionMethod(new MovieCardFragment(), movie.getId());
+                Navigation.findNavController(view).navigate(HomeFragmentDirections.actionNavigationHomeToNavigationMovieCard(movie.getId()));
             }
         });
     }

@@ -1,16 +1,6 @@
 package com.example.cinemhub.ui.peoplecard;
 
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
-
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -19,6 +9,14 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.Navigation;
+
 import com.example.cinemhub.MainActivity;
 import com.example.cinemhub.R;
 import com.example.cinemhub.databinding.FragmentPeopleCardBinding;
@@ -26,9 +24,6 @@ import com.example.cinemhub.models.Movie;
 import com.example.cinemhub.models.MovieApiTmdbResponse;
 import com.example.cinemhub.models.People;
 import com.example.cinemhub.models.PeopleCreditsApiTmdbResponse;
-import com.example.cinemhub.ui.moviecard.MovieCardFragment;
-import com.example.cinemhub.ui.search.SearchFragment;
-import com.example.cinemhub.ui.settings.SettingsFragment;
 import com.example.cinemhub.utils.Constants;
 import com.squareup.picasso.Picasso;
 
@@ -51,8 +46,7 @@ public class PeopleCardFragment extends Fragment {
 
         mViewModel=new ViewModelProvider(this).get(PeopleCardViewModel.class);
 
-        Bundle bundle = getArguments();
-        int value = bundle.getInt("PeopleId");
+        int value= PeopleCardFragmentArgs.fromBundle(getArguments()).getPeopleId();
 
         final Observer<People> observer_details = new Observer<People>() {
             @Override
@@ -178,29 +172,17 @@ public class PeopleCardFragment extends Fragment {
         int id=item.getItemId();
         if(id==R.id.search){
             Log.d(TAG, "onClick: SearchClick");
-            fragmentTransactionMethod(new SearchFragment());
+            Navigation.findNavController(getView()).navigate(PeopleCardFragmentDirections.actionNavigationPeopleCardToNavigationSearch());
             return true;
         }else if(id==R.id.settings){
             Log.d(TAG, "onClick: SettingsClick");
-            fragmentTransactionMethod(new SettingsFragment());
+            Navigation.findNavController(getView()).navigate(PeopleCardFragmentDirections.actionNavigationPeopleCardToNavigationSettings());
             return true;
         }
         return false;
     }
 
-    private void fragmentTransactionMethod (Fragment newFragment){
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.nav_host_fragment, newFragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
-    }
 
-    private void fragmentTransactionMethod (Fragment newFragment, int movie_id){
-        Bundle bundle = new Bundle();
-        bundle.putInt("MovieId", movie_id);
-        newFragment.setArguments(bundle);
-        fragmentTransactionMethod(newFragment);
-    }
 
     private void setMoviePreview (Movie movie, TextView textView, ImageButton imageButton){
         if(movie.getPoster_path()!=null){
@@ -216,7 +198,7 @@ public class PeopleCardFragment extends Fragment {
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fragmentTransactionMethod(new MovieCardFragment(), movie.getId());
+                Navigation.findNavController(getView()).navigate(PeopleCardFragmentDirections.actionNavigationPeopleCardToNavigationMovieCard(movie.getId()));
             }
         });
     }

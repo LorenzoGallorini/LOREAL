@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
@@ -23,10 +22,6 @@ import com.example.cinemhub.R;
 import com.example.cinemhub.adapters.MovieListVerticalAdapter;
 import com.example.cinemhub.databinding.FragmentNowPlayingBinding;
 import com.example.cinemhub.models.Movie;
-import com.example.cinemhub.ui.comingsoon.ComingSoonFragment;
-import com.example.cinemhub.ui.moviecard.MovieCardFragment;
-import com.example.cinemhub.ui.search.SearchFragment;
-import com.example.cinemhub.ui.settings.SettingsFragment;
 
 import java.util.List;
 
@@ -68,10 +63,10 @@ public class NowPlayingFragment extends Fragment {
                 MovieListVerticalAdapter movieListVerticalAdapter = new MovieListVerticalAdapter(getActivity(), movies, new MovieListVerticalAdapter.OnItemClickListener() {
                     @Override
                     public void OnItemClick(Movie movie) {
-                        //NowPlayingFragmentDirections.NowPlayingOpenMovieCard action= NowPlayingFragmentDirections.NowPlayingOpenMovieCard(movie.getId());
-                        //Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(action);
+
+                        Navigation.findNavController(view).navigate(NowPlayingFragmentDirections.nowPlayingOpenMovieCardAction(movie.getId()));
                         Log.d(TAG, "onclick listener");
-                        fragmentTransactionMethod(new MovieCardFragment(), movie.getId());
+                        //fragmentTransactionMethod(new MovieCardFragment(), movie.getId());
 
                     }
                 });
@@ -99,28 +94,16 @@ public class NowPlayingFragment extends Fragment {
         int id=item.getItemId();
         if(id==R.id.search){
             Log.d(TAG, "onClick: SearchClick");
-            fragmentTransactionMethod(new SearchFragment());
+            Navigation.findNavController(getView()).navigate(NowPlayingFragmentDirections.actionNavigationNowPlayingToNavigationSearch());
             return true;
         }else if(id==R.id.settings){
             Log.d(TAG, "onClick: SettingsClick");
-            fragmentTransactionMethod(new SettingsFragment());
+            Navigation.findNavController(getView()).navigate(NowPlayingFragmentDirections.actionNavigationNowPlayingToNavigationSettings());
             return true;
         }
         return false;
     }
 
-    private void fragmentTransactionMethod (Fragment newFragment){
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.nav_host_fragment, newFragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
-    }
 
-    private void fragmentTransactionMethod (Fragment newFragment, int movie_id){
-        Bundle bundle = new Bundle();
-        bundle.putInt("MovieId", movie_id);
-        newFragment.setArguments(bundle);
-        fragmentTransactionMethod(newFragment);
-    }
 
 }

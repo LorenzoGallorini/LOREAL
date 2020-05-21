@@ -10,14 +10,12 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.Navigation;
 
 import com.example.cinemhub.MainActivity;
 import com.example.cinemhub.R;
 import com.example.cinemhub.databinding.FragmentFavoriteBinding;
-import com.example.cinemhub.ui.search.SearchFragment;
-import com.example.cinemhub.ui.settings.SettingsFragment;
 
 public class FavoriteFragment extends Fragment {
 
@@ -52,21 +50,16 @@ public class FavoriteFragment extends Fragment {
         int id=item.getItemId();
         if(id==R.id.search){
             Log.d(TAG, "onClick: SearchClick");
-            fragmentTransactionMethod(new SearchFragment());
+            Navigation.findNavController(getView()).navigate(FavoriteFragmentDirections.actionNavigationFavoriteToNavigationSearch());
             return true;
         }else if(id==R.id.settings){
             Log.d(TAG, "onClick: SettingsClick");
-            fragmentTransactionMethod(new SettingsFragment());
+            Navigation.findNavController(getView()).navigate(FavoriteFragmentDirections.actionNavigationFavoriteToNavigationSettings());
             return true;
         }
         return false;
     }
 
-    private void fragmentTransactionMethod (Fragment newFragment){
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.nav_host_fragment, newFragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
-    }
+
 
 }

@@ -1,24 +1,20 @@
 package com.example.cinemhub.ui.search;
 
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.ViewModelProviders;
-
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.example.cinemhub.MainActivity;
 import com.example.cinemhub.R;
 import com.example.cinemhub.databinding.FragmentSearchBinding;
-import com.example.cinemhub.ui.settings.SettingsFragment;
 
 public class SearchFragment extends Fragment {
 
@@ -48,26 +44,11 @@ public class SearchFragment extends Fragment {
         // TODO: Use the ViewModel
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        int id=item.getItemId();
-        if(id==R.id.search){
-            Log.d(TAG, "onClick: SearchClick");
-            fragmentTransactionMethod(new SearchFragment());
-            return true;
-        }else if(id==R.id.settings){
-            Log.d(TAG, "onClick: SettingsClick");
-            fragmentTransactionMethod(new SettingsFragment());
-            return true;
-        }
-        return false;
-    }
 
-    private void fragmentTransactionMethod (Fragment newFragment){
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.nav_host_fragment, newFragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        menu.clear();
     }
 
 }
