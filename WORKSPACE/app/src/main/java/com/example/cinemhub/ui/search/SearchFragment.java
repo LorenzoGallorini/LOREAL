@@ -1,9 +1,11 @@
 package com.example.cinemhub.ui.search;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -11,10 +13,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.Navigation;
 
 import com.example.cinemhub.MainActivity;
 import com.example.cinemhub.R;
 import com.example.cinemhub.databinding.FragmentSearchBinding;
+import com.example.cinemhub.ui.home.HomeFragmentDirections;
 
 public class SearchFragment extends Fragment {
 
@@ -48,7 +52,19 @@ public class SearchFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        menu.clear();
+        menu.findItem(R.id.search).setEnabled(false);
+        menu.findItem(R.id.search).setVisible(false);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        int id=item.getItemId();
+        if(id==R.id.settings){
+            Log.d(TAG, "onClick: SettingsClick");
+            Navigation.findNavController(getView()).navigate(SearchFragmentDirections.actionNavigationSearchToNavigationSettings());
+            return true;
+        }
+        return false;
     }
 
 }

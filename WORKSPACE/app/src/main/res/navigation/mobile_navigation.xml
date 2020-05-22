@@ -184,7 +184,11 @@
         android:name="com.example.cinemhub.ui.search.SearchFragment"
         android:label="@string/action_search"
         tools:layout="@layout/fragment_search"
-        />
+        >
+        <action
+            android:id="@+id/action_navigation_search_to_navigation_settings"
+            app:destination="@id/navigation_settings" />
+    </fragment>
 
 
 </navigation>
