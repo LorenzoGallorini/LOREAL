@@ -150,16 +150,12 @@ public class PeopleCardFragment extends Fragment {
 
                 mViewModel.getPeopleCredits(value,getString(R.string.API_LANGUAGE)).observe(getViewLifecycleOwner(), observer_credits);
             }
-
-
         };
-
         mViewModel.getPeopleDetails(value, getString(R.string.API_LANGUAGE)).observe(getViewLifecycleOwner(), observer_details);
-
-
-
         return view;
     }
+
+
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {

@@ -38,7 +38,9 @@ import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerSupportFragment;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class MovieCardFragment extends Fragment {
@@ -106,8 +108,7 @@ public class MovieCardFragment extends Fragment {
                 binding.GenresValue.setText(movie.getGenresTostring());
 
 
-                SharedPreferences sharedPreferences = getActivity().getSharedPreferences(
-                        Constants.FAVORITE_SHARED_PREF_FILE_NAME, Context.MODE_PRIVATE);
+                SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.FAVORITE_SHARED_PREF_FILE_NAME, Context.MODE_PRIVATE);
                 Set<String> preferiti;
                 try {
                     preferiti=sharedPreferences.getStringSet(Constants.FAVORITE_SHARED_PREF_NAME,null);
@@ -118,7 +119,14 @@ public class MovieCardFragment extends Fragment {
                 {
                     preferiti = new HashSet<String>();
                 }
-                if (preferiti.contains(Integer.toString(movie.getId()))) {
+
+                Object[] favoriteArray=preferiti.toArray();
+                List<Integer> intList=new ArrayList<Integer>();
+                for (int i=0;i<favoriteArray.length;i++){
+                    intList.add(Integer.parseInt(favoriteArray[i].toString().split(Constants.SEPARATOR)[0]));
+                }
+
+                if (intList.contains(movie.getId())) {
                     binding.MovieCardFavouriteButton.setImageResource(R.drawable.startminum_yellow);
                 }
                 else
@@ -139,10 +147,20 @@ public class MovieCardFragment extends Fragment {
                         {
                             preferiti = new HashSet<String>();
                         }
+
+                        Object[] favoriteArray=preferiti.toArray();
+                        List<Integer> intList=new ArrayList<Integer>();
+                        for (int i=0;i<favoriteArray.length;i++){
+                            intList.add(Integer.parseInt(favoriteArray[i].toString().split(Constants.SEPARATOR)[0]));
+                        }
+
+
                         SharedPreferences.Editor editor = sharedPreferences.edit();
-                        if (preferiti.contains(Integer.toString(movie.getId()))) {
+                        if (intList.contains(movie.getId())) {
+                            int position=intList.indexOf(movie.getId());
+
                             Set<String> in = new HashSet<String>(preferiti);
-                            in.remove(Integer.toString(movie.getId()));
+                            in.remove(favoriteArray[position].toString());
                             editor.remove(Constants.FAVORITE_SHARED_PREF_NAME);
                             editor.putStringSet(Constants.FAVORITE_SHARED_PREF_NAME, in);
                             toast = Toast.makeText(getContext(), "Rimosso " + movie.getTitle() + " dai tuoi preferiti", Toast.LENGTH_SHORT);
@@ -151,8 +169,9 @@ public class MovieCardFragment extends Fragment {
                         }
                         else {
 
+
                             Set<String> in = new HashSet<String>(preferiti);
-                            in.add(Integer.toString(movie.getId()));
+                            in.add(Integer.toString(movie.getId())+Constants.SEPARATOR+movie.getTitle()+Constants.SEPARATOR+movie.getPoster_path());
                             editor.putStringSet(Constants.FAVORITE_SHARED_PREF_NAME, in);
 
 

@@ -33,6 +33,12 @@ public class Movie implements Parcelable {
     private String home_page;
     private int revenue;
 
+    public Movie(String id, String title, String poster_path){
+        this.id=Integer.parseInt(id);
+        this.title=title;
+        this.poster_path=poster_path;
+    }
+
     public Movie(MovieApiTmdbResponse movieApiTmdbResponse){
         this.id=movieApiTmdbResponse.getId();
         this.poster_path = movieApiTmdbResponse.getPoster_path();

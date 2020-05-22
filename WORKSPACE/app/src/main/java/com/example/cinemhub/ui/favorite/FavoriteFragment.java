@@ -64,33 +64,34 @@ public class FavoriteFragment extends Fragment {
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(),3);
         binding.FavoriteRecyclerView.setLayoutManager(layoutManager);
 
-
-        final Observer<List<Movie>> observer_favorite=new Observer<List<Movie>>() {
-            @Override
-            public void onChanged(List<Movie> movies) {
-                Log.d(TAG, "lista tmdb comingsoon"+movies);
-                MovieListVerticalAdapter movieListVerticalAdapter = new MovieListVerticalAdapter(getActivity(), movies, new MovieListVerticalAdapter.OnItemClickListener() {
-                    @Override
-                    public void OnItemClick(Movie movie) {
-                        Navigation.findNavController(getView()).navigate(FavoriteFragmentDirections.actionNavigationFavoriteToNavigationMovieCard(movie.getId()));
-
-                    }
-                });
-                binding.FavoriteRecyclerView.setAdapter(movieListVerticalAdapter);
-
-            }
-        };
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(
                 Constants.FAVORITE_SHARED_PREF_FILE_NAME, Context.MODE_PRIVATE);
         Set<String> preferiti;
         preferiti=sharedPreferences.getStringSet(Constants.FAVORITE_SHARED_PREF_NAME,null);
-        /*if (preferiti == null) TODO:impostare una scritta di default se vuota
-            preferiti = new HashSet<String>();*/
-        List<Integer> favoriteMovieId=new ArrayList<Integer>();
-        for(int i=0;i<preferiti.size();i++){
-            favoriteMovieId.add(Integer.parseInt( preferiti.toArray()[i].toString()));
+        if (preferiti == null){
+            //TODO
+        }else {
+            List<Movie> mList=new ArrayList<Movie>();
+            Object[] favoriteObjArray=preferiti.toArray();
+            for (int i=0;i<favoriteObjArray.length;i++){
+                String[] app=favoriteObjArray[i].toString().split(Constants.SEPARATOR);
+                if(app.length==3){
+                    mList.add(new Movie(app[0], app[1], app[2]));
+                }
+            }
+
+            MovieListVerticalAdapter movieListVerticalAdapter = new MovieListVerticalAdapter(getActivity(), mList, new MovieListVerticalAdapter.OnItemClickListener() {
+                @Override
+                public void OnItemClick(Movie movie) {
+                    Navigation.findNavController(getView()).navigate(FavoriteFragmentDirections.actionNavigationFavoriteToNavigationMovieCard(movie.getId()));
+
+                }
+            });
+            binding.FavoriteRecyclerView.setAdapter(movieListVerticalAdapter);
         }
-        mViewModel.getFavoriteMovie(favoriteMovieId, getString(R.string.API_LANGUAGE)).observe(getViewLifecycleOwner(), observer_favorite);
+
+
+
     }
 
     @Override
