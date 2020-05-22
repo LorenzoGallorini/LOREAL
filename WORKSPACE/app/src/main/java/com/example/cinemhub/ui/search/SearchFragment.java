@@ -19,6 +19,7 @@ import com.example.cinemhub.MainActivity;
 import com.example.cinemhub.R;
 import com.example.cinemhub.databinding.FragmentSearchBinding;
 import com.example.cinemhub.ui.home.HomeFragmentDirections;
+import com.example.cinemhub.ui.moviecard.MovieCardFragmentDirections;
 
 public class SearchFragment extends Fragment {
 
@@ -56,15 +57,21 @@ public class SearchFragment extends Fragment {
         menu.findItem(R.id.search).setVisible(false);
     }
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         int id=item.getItemId();
-        if(id==R.id.settings){
-            Log.d(TAG, "onClick: SettingsClick");
-            Navigation.findNavController(getView()).navigate(SearchFragmentDirections.actionNavigationSearchToNavigationSettings());
-            return true;
+        switch (id){
+            case R.id.settings:
+                Log.d(TAG, "onClick: SettingsClick");
+                Navigation.findNavController(getView()).navigate(MovieCardFragmentDirections.actionNavigationMovieCardToNavigationSettings());
+                return true;
+            case android.R.id.home:
+                getActivity().onBackPressed();
+
+                return true;
+            default:return false;
         }
-        return false;
     }
 
 }

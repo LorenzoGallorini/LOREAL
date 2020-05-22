@@ -32,8 +32,6 @@ import com.example.cinemhub.models.Movie;
 import com.example.cinemhub.models.MovieCreditsApiTmdbResponse;
 import com.example.cinemhub.models.People;
 import com.example.cinemhub.models.VideoApiTmdbResponse;
-import com.example.cinemhub.ui.peoplecard.PeopleCardFragment;
-import com.example.cinemhub.ui.settings.SettingsFragment;
 import com.example.cinemhub.utils.Constants;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
@@ -109,10 +107,10 @@ public class MovieCardFragment extends Fragment {
 
 
                 SharedPreferences sharedPreferences = getActivity().getSharedPreferences(
-                        Constants.FAVOURITE_SHARED_PREF_FILE_NAME, Context.MODE_PRIVATE);
+                        Constants.FAVORITE_SHARED_PREF_FILE_NAME, Context.MODE_PRIVATE);
                 Set<String> preferiti;
                 try {
-                    preferiti=sharedPreferences.getStringSet(Constants.FAVOURITE_SHARED_PREF_NAME,null);
+                    preferiti=sharedPreferences.getStringSet(Constants.FAVORITE_SHARED_PREF_NAME,null);
                     if (preferiti == null)
                         preferiti = new HashSet<String>();
                 }
@@ -133,7 +131,7 @@ public class MovieCardFragment extends Fragment {
                         Set<String> preferiti;
                         Toast toast;
                         try {
-                            preferiti=sharedPreferences.getStringSet(Constants.FAVOURITE_SHARED_PREF_NAME,null);
+                            preferiti=sharedPreferences.getStringSet(Constants.FAVORITE_SHARED_PREF_NAME,null);
                             if (preferiti == null)
                                 preferiti = new HashSet<String>();
                         }
@@ -145,8 +143,8 @@ public class MovieCardFragment extends Fragment {
                         if (preferiti.contains(Integer.toString(movie.getId()))) {
                             Set<String> in = new HashSet<String>(preferiti);
                             in.remove(Integer.toString(movie.getId()));
-                            editor.remove(Constants.FAVOURITE_SHARED_PREF_NAME);
-                            editor.putStringSet(Constants.FAVOURITE_SHARED_PREF_NAME, in);
+                            editor.remove(Constants.FAVORITE_SHARED_PREF_NAME);
+                            editor.putStringSet(Constants.FAVORITE_SHARED_PREF_NAME, in);
                             toast = Toast.makeText(getContext(), "Rimosso " + movie.getTitle() + " dai tuoi preferiti", Toast.LENGTH_SHORT);
 
                             binding.MovieCardFavouriteButton.setImageResource(R.drawable.startplus_yellow);
@@ -155,7 +153,7 @@ public class MovieCardFragment extends Fragment {
 
                             Set<String> in = new HashSet<String>(preferiti);
                             in.add(Integer.toString(movie.getId()));
-                            editor.putStringSet(Constants.FAVOURITE_SHARED_PREF_NAME, in);
+                            editor.putStringSet(Constants.FAVORITE_SHARED_PREF_NAME, in);
 
 
                             toast = Toast.makeText(getContext(), "Aggiunto " + movie.getTitle() + " ai tuoi preferiti", Toast.LENGTH_SHORT);
@@ -278,28 +276,20 @@ public class MovieCardFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         int id=item.getItemId();
-        if(id==R.id.search){
-            Log.d(TAG, "onClick: SearchClick");
-            Navigation.findNavController(getView()).navigate(MovieCardFragmentDirections.actionNavigationMovieCardToNavigationSearch());
-            return true;
-        }else if(id==R.id.settings){
-            Log.d(TAG, "onClick: SettingsClick");
-            Navigation.findNavController(getView()).navigate(MovieCardFragmentDirections.actionNavigationMovieCardToNavigationSettings());
-            return true;
+        switch (id){
+            case R.id.search:
+                Log.d(TAG, "onClick: SearchClick");
+                Navigation.findNavController(getView()).navigate(MovieCardFragmentDirections.actionNavigationMovieCardToNavigationSearch());
+                return true;
+            case R.id.settings:
+                Log.d(TAG, "onClick: SettingsClick");
+                Navigation.findNavController(getView()).navigate(MovieCardFragmentDirections.actionNavigationMovieCardToNavigationSettings());
+                return true;
+            case android.R.id.home:
+                getActivity().onBackPressed();
+
+                return true;
+            default:return false;
         }
-        else if(id==android.R.id.home) {
-
-        }
-        return false;
     }
-
-
-    private void fragmentTransactionMethod (Fragment newFragment){
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.nav_host_fragment, newFragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
-    }
-
-
 }

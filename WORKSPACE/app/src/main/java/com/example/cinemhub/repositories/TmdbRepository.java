@@ -159,8 +159,6 @@ public class TmdbRepository {
                     MovieApiTmdbResponse movies = response.body();
                     Log.d(TAG, "callback details ok");
                     movieDetails.postValue(new Movie(movies));
-                    
-
                 }
                 else{
                     Log.d(TAG, "ERROR: getDatails=null");

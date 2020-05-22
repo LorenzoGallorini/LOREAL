@@ -22,6 +22,7 @@ import com.example.cinemhub.R;
 import com.example.cinemhub.adapters.MovieListVerticalAdapter;
 import com.example.cinemhub.databinding.FragmentComingSoonBinding;
 import com.example.cinemhub.models.Movie;
+import com.example.cinemhub.ui.moviecard.MovieCardFragmentDirections;
 
 import java.util.List;
 
@@ -87,17 +88,21 @@ public class ComingSoonFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         int id=item.getItemId();
-        if(id==R.id.search){
-            Log.d(TAG, "onClick: SearchClick");
-            Navigation.findNavController(getView()).navigate(ComingSoonFragmentDirections.actionNavigationComingSoonToNavigationSearch());
-            return true;
-        }else if(id==R.id.settings){
-            Log.d(TAG, "onClick: SettingsClick");
-            Navigation.findNavController(getView()).navigate(ComingSoonFragmentDirections.actionNavigationComingSoonToNavigationSettings());
+        switch (id){
+            case R.id.search:
+                Log.d(TAG, "onClick: SearchClick");
+                Navigation.findNavController(getView()).navigate(MovieCardFragmentDirections.actionNavigationMovieCardToNavigationSearch());
+                return true;
+            case R.id.settings:
+                Log.d(TAG, "onClick: SettingsClick");
+                Navigation.findNavController(getView()).navigate(MovieCardFragmentDirections.actionNavigationMovieCardToNavigationSettings());
+                return true;
+            case android.R.id.home:
+                getActivity().onBackPressed();
 
-            return true;
+                return true;
+            default:return false;
         }
-        return false;
     }
 
 
