@@ -88,7 +88,7 @@ public class PeopleCardFragment extends Fragment {
                     ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.people_card));
                 }
 
-                final Observer<PeopleCreditsApiTmdbResponse> observer_credits=new Observer<PeopleCreditsApiTmdbResponse>() {
+               final Observer<PeopleCreditsApiTmdbResponse> observer_credits=new Observer<PeopleCreditsApiTmdbResponse>() {
                     @Override
                     public void onChanged(PeopleCreditsApiTmdbResponse peopleCreditsApiTmdbResponse) {
                         MovieApiTmdbResponse[] movies;
@@ -97,7 +97,7 @@ public class PeopleCardFragment extends Fragment {
                         }else{
                             movies=peopleCreditsApiTmdbResponse.getCrew();
                         }
-                        if(movies.length>0) {
+                   /*     if(movies.length>0) {
 
                             setMoviePreview(new Movie(movies[0]), binding.filmographyText1, binding.filmographyMovieCard1);
                             if(movies.length>1) {
@@ -144,7 +144,7 @@ public class PeopleCardFragment extends Fragment {
                                     }
                                 }
                             }
-                        }
+                        }*/
                     }
                 };
 

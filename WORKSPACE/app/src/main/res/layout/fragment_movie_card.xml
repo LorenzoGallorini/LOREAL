@@ -41,8 +41,9 @@
 
         <TextView
             android:id="@+id/GenresValue"
-            android:layout_width="@dimen/value_text_width"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingStart="@dimen/padding_label"
             android:textColor="@color/titleWhite"
             android:textSize="@dimen/paragraph_size"
             app:layout_constraintStart_toStartOf="@+id/GenresLabel"
@@ -188,13 +189,14 @@
 
         <TextView
             android:id="@+id/descriptionValue"
-            android:layout_width="376dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:paddingStart="16dp"
             android:text="@android:string/unknownName"
             android:textColor="@color/titleWhite"
             android:textSize="@dimen/paragraph_size"
-            app:layout_constraintStart_toStartOf="@+id/film_image"
+            app:layout_constraintStart_toStartOf="@+id/fl_youtube"
             app:layout_constraintTop_toBottomOf="@+id/fl_youtube" />
 
         <TextView
