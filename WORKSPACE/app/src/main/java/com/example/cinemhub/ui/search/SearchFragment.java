@@ -64,7 +64,7 @@ public class SearchFragment extends Fragment {
         switch (id){
             case R.id.settings:
                 Log.d(TAG, "onClick: SettingsClick");
-                Navigation.findNavController(getView()).navigate(MovieCardFragmentDirections.actionNavigationMovieCardToNavigationSettings());
+                Navigation.findNavController(getView()).navigate(SearchFragmentDirections.actionNavigationSearchToNavigationSettings());
                 return true;
             case android.R.id.home:
                 getActivity().onBackPressed();

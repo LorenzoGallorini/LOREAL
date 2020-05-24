@@ -8,6 +8,7 @@ import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -297,6 +298,19 @@ public class Movie implements Parcelable {
                 ", home_page='" + home_page + '\'' +
                 ", revenue=" + revenue +
                 '}';
+    }
+    public static List<Movie> toList(MovieApiTmdbResponse[] movies){
+        List<Movie> ris=new ArrayList<Movie>();
+        for (MovieApiTmdbResponse movie : movies) {
+            ris.add(new Movie(movie));
+        }
+        return ris;
+    }
+    public static class MoviePopularityComparator implements Comparator<Movie>{
+        public int compare(Movie p1, Movie p2) {
+            return Double.compare(p2.getPopularity(), p1.getPopularity());
+
+        }
     }
 
     protected Movie(Parcel in) {

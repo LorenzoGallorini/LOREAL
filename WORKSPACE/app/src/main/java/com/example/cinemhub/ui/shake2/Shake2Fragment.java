@@ -95,14 +95,14 @@ public class Shake2Fragment extends Fragment {
         switch (id){
             case R.id.search:
                 Log.d(TAG, "onClick: SearchClick");
-                Navigation.findNavController(getView()).navigate(MovieCardFragmentDirections.actionNavigationMovieCardToNavigationSearch());
+                Navigation.findNavController(getView()).navigate(Shake2FragmentDirections.actionNavigationShake2ToNavigationSearch());
                 return true;
             case R.id.settings:
                 Log.d(TAG, "onClick: SettingsClick");
-                Navigation.findNavController(getView()).navigate(MovieCardFragmentDirections.actionNavigationMovieCardToNavigationSettings());
+                Navigation.findNavController(getView()).navigate(Shake2FragmentDirections.actionNavigationShake2ToNavigationSettings());
                 return true;
             case android.R.id.home:
-                getActivity().onBackPressed();
+                requireActivity().onBackPressed();
 
                 return true;
             default:return false;

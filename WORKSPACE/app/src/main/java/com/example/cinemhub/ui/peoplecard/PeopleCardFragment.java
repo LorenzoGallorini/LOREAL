@@ -16,9 +16,13 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cinemhub.MainActivity;
 import com.example.cinemhub.R;
+import com.example.cinemhub.adapters.CreditsListHorizontalAdapter;
+import com.example.cinemhub.adapters.MovieListVerticalAdapter;
 import com.example.cinemhub.databinding.FragmentPeopleCardBinding;
 import com.example.cinemhub.models.Movie;
 import com.example.cinemhub.models.MovieApiTmdbResponse;
@@ -27,6 +31,12 @@ import com.example.cinemhub.models.PeopleCreditsApiTmdbResponse;
 import com.example.cinemhub.ui.moviecard.MovieCardFragmentDirections;
 import com.example.cinemhub.utils.Constants;
 import com.squareup.picasso.Picasso;
+
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 public class PeopleCardFragment extends Fragment {
 
@@ -46,6 +56,17 @@ public class PeopleCardFragment extends Fragment {
         setHasOptionsMenu(true);
 
         mViewModel=new ViewModelProvider(this).get(PeopleCardViewModel.class);
+
+
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL,false);
+        binding.filmographyRecyclerView.setLayoutManager(layoutManager);
 
         int value= PeopleCardFragmentArgs.fromBundle(getArguments()).getPeopleId();
 
@@ -88,7 +109,7 @@ public class PeopleCardFragment extends Fragment {
                     ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.people_card));
                 }
 
-               final Observer<PeopleCreditsApiTmdbResponse> observer_credits=new Observer<PeopleCreditsApiTmdbResponse>() {
+                final Observer<PeopleCreditsApiTmdbResponse> observer_credits=new Observer<PeopleCreditsApiTmdbResponse>() {
                     @Override
                     public void onChanged(PeopleCreditsApiTmdbResponse peopleCreditsApiTmdbResponse) {
                         MovieApiTmdbResponse[] movies;
@@ -97,65 +118,36 @@ public class PeopleCardFragment extends Fragment {
                         }else{
                             movies=peopleCreditsApiTmdbResponse.getCrew();
                         }
-                   /*     if(movies.length>0) {
+                        List<Movie> m=Movie.toList(movies);
+                        Collections.sort(m, new Movie.MoviePopularityComparator());
+                        MovieListVerticalAdapter movieListVerticalAdapter = new MovieListVerticalAdapter(getActivity(),
+                                m.subList(0,12), new MovieListVerticalAdapter.OnItemClickListener() {
+                            @Override
+                            public void OnItemClick(Movie movie) {
+                                Navigation.findNavController(view).navigate(PeopleCardFragmentDirections.actionNavigationPeopleCardToNavigationMovieCard(movie.getId()));
 
-                            setMoviePreview(new Movie(movies[0]), binding.filmographyText1, binding.filmographyMovieCard1);
-                            if(movies.length>1) {
-
-                                setMoviePreview(new Movie(movies[1]), binding.filmographyText2, binding.filmographyMovieCard2);
-                                if(movies.length>2){
-
-                                    setMoviePreview(new Movie(movies[2]), binding.filmographyText3, binding.filmographyMovieCard3);
-                                    if(movies.length>3){
-
-                                        setMoviePreview(new Movie(movies[3]), binding.filmographyText4, binding.filmographyMovieCard4);
-                                        if(movies.length>4){
-
-                                            setMoviePreview(new Movie(movies[4]), binding.filmographyText5, binding.filmographyMovieCard5);
-                                            if(movies.length>5){
-
-                                                setMoviePreview(new Movie(movies[5]), binding.filmographyText6, binding.filmographyMovieCard6);
-                                                if(movies.length>6){
-
-                                                    setMoviePreview(new Movie(movies[6]), binding.filmographyText7, binding.filmographyMovieCard7);
-                                                    if(movies.length>7){
-
-                                                        setMoviePreview(new Movie(movies[7]), binding.filmographyText8, binding.filmographyMovieCard8);
-                                                        if(movies.length>8){
-
-                                                            setMoviePreview(new Movie(movies[8]), binding.filmographyText9, binding.filmographyMovieCard9);
-                                                            if(movies.length>9){
-
-                                                                setMoviePreview(new Movie(movies[9]), binding.filmographyText10, binding.filmographyMovieCard10);
-                                                                if(movies.length>10){
-                                                                    setMoviePreview(new Movie(movies[10]), binding.filmographyText11, binding.filmographyMovieCard11);
-
-                                                                    if(movies.length>11){
-                                                                        setMoviePreview(new Movie(movies[11]), binding.filmographyText12, binding.filmographyMovieCard12);
-
-                                                                    }
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
                             }
-                        }*/
+                        });
+                        binding.filmographyRecyclerView.setAdapter(movieListVerticalAdapter);
+
                     }
+
                 };
-
                 mViewModel.getPeopleCredits(value,getString(R.string.API_LANGUAGE)).observe(getViewLifecycleOwner(), observer_credits);
+
+
+
+
             }
+
         };
+
+
+
+
         mViewModel.getPeopleDetails(value, getString(R.string.API_LANGUAGE)).observe(getViewLifecycleOwner(), observer_details);
-        return view;
+
     }
-
-
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -170,11 +162,11 @@ public class PeopleCardFragment extends Fragment {
         switch (id){
             case R.id.search:
                 Log.d(TAG, "onClick: SearchClick");
-                Navigation.findNavController(getView()).navigate(MovieCardFragmentDirections.actionNavigationMovieCardToNavigationSearch());
+                Navigation.findNavController(getView()).navigate(PeopleCardFragmentDirections.actionNavigationPeopleCardToNavigationSearch());
                 return true;
             case R.id.settings:
                 Log.d(TAG, "onClick: SettingsClick");
-                Navigation.findNavController(getView()).navigate(MovieCardFragmentDirections.actionNavigationMovieCardToNavigationSettings());
+                Navigation.findNavController(getView()).navigate(PeopleCardFragmentDirections.actionNavigationPeopleCardToNavigationSettings());
                 return true;
             case android.R.id.home:
                 getActivity().onBackPressed();

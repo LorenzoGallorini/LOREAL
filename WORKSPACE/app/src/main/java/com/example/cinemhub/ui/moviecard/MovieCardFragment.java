@@ -1,5 +1,6 @@
 package com.example.cinemhub.ui.moviecard;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -41,6 +43,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 public class MovieCardFragment extends Fragment {
@@ -229,6 +232,7 @@ public class MovieCardFragment extends Fragment {
 
 
         final Observer<GetVideosApiTmdbResponse> observer_videos = new Observer<GetVideosApiTmdbResponse>() {
+            @SuppressLint("ResourceType")
             @Override
             public void onChanged(GetVideosApiTmdbResponse getVideosApiTmdbResponse) {
                 VideoApiTmdbResponse[] results = getVideosApiTmdbResponse.getResults();
@@ -270,6 +274,9 @@ public class MovieCardFragment extends Fragment {
                     FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
                     transaction.replace(R.id.fl_youtube, (Fragment) youTubePlayerFragment);
                     transaction.commit();
+                }
+                else {
+
                 }
             }
         };
