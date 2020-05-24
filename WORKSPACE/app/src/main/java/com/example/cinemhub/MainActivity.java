@@ -1,7 +1,5 @@
 package com.example.cinemhub;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,10 +13,9 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.example.cinemhub.utils.Constants;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.util.Set;
+import safety.com.br.android_shake_detector.core.ShakeDetector;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -28,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     public float mAccel; // acceleration apart from gravity
     private float mAccelCurrent; // current acceleration including gravity
     private float mAccelLast; // last acceleration including gravity
-
+    public ShakeDetector shakeDetector;
 
 
     @Override

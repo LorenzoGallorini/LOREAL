@@ -17,8 +17,6 @@ import com.example.cinemhub.MainActivity;
 import com.example.cinemhub.R;
 import com.example.cinemhub.databinding.FragmentShakeBinding;
 
-import java.util.Objects;
-
 import safety.com.br.android_shake_detector.core.ShakeCallback;
 import safety.com.br.android_shake_detector.core.ShakeDetector;
 import safety.com.br.android_shake_detector.core.ShakeOptions;
@@ -28,7 +26,7 @@ public class ShakeFragment extends Fragment {
     private ShakeViewModel mViewModel;
     private final String TAG = "ShakeFragment";
     private FragmentShakeBinding binding;
-    private ShakeDetector shakeDetector;
+
     public static ShakeFragment newInstance() {
         return new ShakeFragment();
     }
@@ -47,8 +45,10 @@ public class ShakeFragment extends Fragment {
                 .shakeCount(2)
                 .sensibility(1.3f);
 
-
-            this.shakeDetector = new ShakeDetector(options).start(getContext(), new ShakeCallback() {
+            if (((MainActivity) getActivity()).shakeDetector != null)
+                ((MainActivity) getActivity()).shakeDetector.start(getContext());
+            else
+            ((MainActivity) getActivity()).shakeDetector = new ShakeDetector(options).start(getContext(), new ShakeCallback() {
                 @Override
                 public void onShake() {
                     Log.d(TAG, "onShake");
@@ -64,13 +64,13 @@ public class ShakeFragment extends Fragment {
 
     @Override
     public void onStop() {
-        shakeDetector.stopShakeDetector(getContext());
+        ((MainActivity) getActivity()).shakeDetector.stopShakeDetector(getContext());
         super.onStop();
     }
 
     @Override
     public void onDestroy() {
-        shakeDetector.destroy(getContext());
+        ((MainActivity) getActivity()).shakeDetector.destroy(getContext());
         super.onDestroy();
     }
 
