@@ -156,39 +156,16 @@ public class HomeFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
-        int id=item.getItemId();
-        if(id==R.id.search){
-            Log.d(TAG, "onClick: SearchClick");
-            Navigation.findNavController(getView()).navigate(HomeFragmentDirections.actionNavigationHomeToNavigationSearch());
-            return true;
-        }else if(id==R.id.settings){
-            Log.d(TAG, "onClick: SettingsClick");
-            Navigation.findNavController(getView()).navigate(HomeFragmentDirections.actionNavigationHomeToNavigationSettings());
-            return true;
+        switch (item.getItemId()){
+            case R.id.search:
+                Log.d(TAG, "onClick: SearchClick");
+                Navigation.findNavController(getView()).navigate(HomeFragmentDirections.actionNavigationHomeToNavigationSearch());
+                return true;
+            case R.id.settings:
+                Log.d(TAG, "onClick: SettingsClick");
+                Navigation.findNavController(getView()).navigate(HomeFragmentDirections.actionNavigationHomeToNavigationSettings());
+                return true;
+            default:return false;
         }
-        return false;
     }
-
-
-
-    private void setMoviePreview (Movie movie, TextView textView, ImageButton imageButton,View view){
-        if(movie.getPoster_path()!=null){
-            Picasso.get().load(Constants.IMAGE_BASE_URL + movie.getPoster_path()).into(imageButton);
-        }else {
-            imageButton.setImageResource(R.drawable.no_image_avaiable);
-        }
-        if(movie.getTitle().length() > Constants.MAX_LENGHT)
-            textView.setText(movie.getTitle().substring(0,Constants.MAX_LENGHT-1)+" ...");
-        else
-            textView.setText(movie.getTitle());
-
-        imageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(view).navigate(HomeFragmentDirections.actionNavigationHomeToNavigationMovieCard(movie.getId()));
-            }
-        });
-    }
-
-
 }

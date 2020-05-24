@@ -113,6 +113,9 @@
         <action
             android:id="@+id/action_navigation_shake2_to_navigation_settings"
             app:destination="@id/navigation_settings" />
+        <action
+            android:id="@+id/action_navigation_shake2_to_navigation_shake"
+            app:destination="@id/navigation_shake" />
     </fragment>
 
     <fragment

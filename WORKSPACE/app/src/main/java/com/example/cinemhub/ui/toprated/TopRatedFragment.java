@@ -84,8 +84,7 @@ public class TopRatedFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
-        int id=item.getItemId();
-        switch (id){
+        switch (item.getItemId()){
             case R.id.search:
                 Log.d(TAG, "onClick: SearchClick");
                 Navigation.findNavController(getView()).navigate(MovieCardFragmentDirections.actionNavigationMovieCardToNavigationSearch());
@@ -96,7 +95,6 @@ public class TopRatedFragment extends Fragment {
                 return true;
             case android.R.id.home:
                 getActivity().onBackPressed();
-
                 return true;
             default:return false;
         }

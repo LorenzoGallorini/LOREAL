@@ -103,17 +103,17 @@ public class FavoriteFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
-        int id=item.getItemId();
-        if(id==R.id.search){
-            Log.d(TAG, "onClick: SearchClick");
-            Navigation.findNavController(getView()).navigate(FavoriteFragmentDirections.actionNavigationFavoriteToNavigationSearch());
-            return true;
-        }else if(id==R.id.settings){
-            Log.d(TAG, "onClick: SettingsClick");
-            Navigation.findNavController(getView()).navigate(FavoriteFragmentDirections.actionNavigationFavoriteToNavigationSettings());
-            return true;
+        switch (item.getItemId()){
+            case R.id.search:
+                Log.d(TAG, "onClick: SearchClick");
+                Navigation.findNavController(getView()).navigate(FavoriteFragmentDirections.actionNavigationFavoriteToNavigationSearch());
+                return true;
+            case R.id.settings:
+                Log.d(TAG, "onClick: SettingsClick");
+                Navigation.findNavController(getView()).navigate(FavoriteFragmentDirections.actionNavigationFavoriteToNavigationSettings());
+                return true;
+            default:return false;
         }
-        return false;
     }
 
 

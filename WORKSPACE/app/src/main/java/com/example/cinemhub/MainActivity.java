@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private float mAccelCurrent; // current acceleration including gravity
     private float mAccelLast; // last acceleration including gravity
     public ShakeDetector shakeDetector;
+    public ShakeDetector shakeDetector2;
 
 
     @Override

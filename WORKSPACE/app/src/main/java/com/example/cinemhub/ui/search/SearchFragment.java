@@ -60,15 +60,13 @@ public class SearchFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
-        int id=item.getItemId();
-        switch (id){
+        switch (item.getItemId()){
             case R.id.settings:
                 Log.d(TAG, "onClick: SettingsClick");
                 Navigation.findNavController(getView()).navigate(SearchFragmentDirections.actionNavigationSearchToNavigationSettings());
                 return true;
             case android.R.id.home:
                 getActivity().onBackPressed();
-
                 return true;
             default:return false;
         }

@@ -20,11 +20,17 @@ import com.example.cinemhub.R;
 import com.example.cinemhub.databinding.FragmentShake2Binding;
 import com.example.cinemhub.models.Movie;
 import com.example.cinemhub.ui.moviecard.MovieCardFragmentDirections;
+import com.example.cinemhub.ui.shake.ShakeFragmentDirections;
 import com.squareup.picasso.Picasso;
 
 import java.io.InputStream;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
+
+import safety.com.br.android_shake_detector.core.ShakeCallback;
+import safety.com.br.android_shake_detector.core.ShakeDetector;
+import safety.com.br.android_shake_detector.core.ShakeOptions;
 
 public class Shake2Fragment extends Fragment {
 
@@ -45,6 +51,28 @@ public class Shake2Fragment extends Fragment {
         setHasOptionsMenu(true);
         ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.title_shake));
         ((MainActivity) getActivity()).menuColorSettings(R.id.navigation_shake);
+
+        ShakeOptions options = new ShakeOptions()
+                .background(true)
+                .interval(1000)
+                .shakeCount(1)
+                .sensibility(1.3f);
+
+        if (((MainActivity) getActivity()).shakeDetector2 != null){
+            if(!((MainActivity) getActivity()).shakeDetector2.isRunning())
+                ((MainActivity) getActivity()).shakeDetector2.start(getContext());
+        }else{
+            ((MainActivity) getActivity()).shakeDetector2 = new ShakeDetector(options).start(getContext(), new ShakeCallback() {
+                @Override
+                public void onShake() {
+                    Log.d(TAG, "onShake");
+                    //shakeDetector2.stopShakeDetector(getActivity());
+
+                    Navigation.findNavController(getView()).navigate(Shake2FragmentDirections.actionNavigationShake2Self());
+                }
+
+            });
+        }
 
         mViewModel=new ViewModelProvider(getActivity()).get(Shake2ViewModel.class);
 
@@ -82,17 +110,35 @@ public class Shake2Fragment extends Fragment {
     }
 
     @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+    }
+
+    @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = ViewModelProviders.of(this).get(Shake2ViewModel.class);
         // TODO: Use the ViewModel
     }
 
+    @Override
+    public void onStop() {
+
+        super.onStop();
+    }
+
+    @Override
+    public void onDestroy() {
+        ((MainActivity) getActivity()).shakeDetector2.stopShakeDetector(getContext());
+
+        ((MainActivity) requireActivity()).shakeDetector2.destroy(getContext());
+        ((MainActivity) requireActivity()).shakeDetector2=null;
+        super.onDestroy();
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
-        int id=item.getItemId();
-        switch (id){
+        switch (item.getItemId()){
             case R.id.search:
                 Log.d(TAG, "onClick: SearchClick");
                 Navigation.findNavController(getView()).navigate(Shake2FragmentDirections.actionNavigationShake2ToNavigationSearch());
@@ -102,8 +148,7 @@ public class Shake2Fragment extends Fragment {
                 Navigation.findNavController(getView()).navigate(Shake2FragmentDirections.actionNavigationShake2ToNavigationSettings());
                 return true;
             case android.R.id.home:
-                requireActivity().onBackPressed();
-
+                Navigation.findNavController(getView()).navigate(Shake2FragmentDirections.actionNavigationShake2ToNavigationShake());
                 return true;
             default:return false;
         }

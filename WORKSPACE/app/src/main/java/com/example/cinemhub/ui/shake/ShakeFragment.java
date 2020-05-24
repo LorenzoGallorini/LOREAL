@@ -40,23 +40,24 @@ public class ShakeFragment extends Fragment {
         ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.title_shake));
         ((MainActivity) getActivity()).menuColorSettings(R.id.navigation_shake);
         ShakeOptions options = new ShakeOptions()
-                .background(false)
+                .background(true)
                 .interval(1000)
-                .shakeCount(2)
+                .shakeCount(1)
                 .sensibility(1.3f);
 
-            if (((MainActivity) getActivity()).shakeDetector != null)
-                ((MainActivity) getActivity()).shakeDetector.start(getContext());
-            else
+        if (((MainActivity) getActivity()).shakeDetector != null){
+            ((MainActivity) getActivity()).shakeDetector.start(getContext());
+        }else{
             ((MainActivity) getActivity()).shakeDetector = new ShakeDetector(options).start(getContext(), new ShakeCallback() {
                 @Override
                 public void onShake() {
                     Log.d(TAG, "onShake");
-                    //shakeDetector.stopShakeDetector(getActivity());
+                    //((MainActivity) getActivity()).shakeDetector.stopShakeDetector(getActivity());
                     Navigation.findNavController(getView()).navigate(ShakeFragmentDirections.actionNavigationShakeToNavigationShake2());
                 }
 
             });
+        }
 
 
         return view;
@@ -65,12 +66,13 @@ public class ShakeFragment extends Fragment {
     @Override
     public void onStop() {
         ((MainActivity) getActivity()).shakeDetector.stopShakeDetector(getContext());
+        ((MainActivity) getActivity()).shakeDetector.destroy(getContext());
+        ((MainActivity) getActivity()).shakeDetector=null;
         super.onStop();
     }
 
     @Override
     public void onDestroy() {
-        ((MainActivity) getActivity()).shakeDetector.destroy(getContext());
         super.onDestroy();
     }
 
@@ -81,22 +83,18 @@ public class ShakeFragment extends Fragment {
         // TODO: Use the ViewModel
     }
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
-        int id=item.getItemId();
-        if(id==R.id.search){
-            Log.d(TAG, "onClick: SearchClick");
-            Navigation.findNavController(getView()).navigate(ShakeFragmentDirections.actionNavigationShakeToNavigationSearch());
-            return true;
-        }else if(id==R.id.settings){
-            Log.d(TAG, "onClick: SettingsClick");
-            Navigation.findNavController(getView()).navigate(ShakeFragmentDirections.actionNavigationShakeToNavigationSettings());
-            return true;
+        switch (item.getItemId()){
+            case R.id.search:
+                Log.d(TAG, "onClick: SearchClick");
+                Navigation.findNavController(getView()).navigate(ShakeFragmentDirections.actionNavigationShakeToNavigationSearch());
+                return true;
+            case R.id.settings:
+                Log.d(TAG, "onClick: SettingsClick");
+                Navigation.findNavController(getView()).navigate(ShakeFragmentDirections.actionNavigationShakeToNavigationSettings());
+                return true;
+            default:return false;
         }
-        return false;
     }
-
-
-
 }
