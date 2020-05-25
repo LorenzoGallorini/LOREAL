@@ -137,6 +137,20 @@ public class Shake2Fragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+
+        super.onResume();
+        ((MainActivity) requireActivity()).shakeDetector2.start(getContext());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        ((MainActivity) getActivity()).shakeDetector2.stopShakeDetector(getContext());
+
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
             case R.id.search:

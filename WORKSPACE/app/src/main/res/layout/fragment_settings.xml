@@ -1,6 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.settings.SettingsFragment"/>
+    tools:context=".ui.settings.SettingsFragment"
+    android:fillViewport="true"
+    android:orientation="vertical"
+    >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/DisplayTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/displayTitleSettings"
+                android:textColor="@color/titleWhite"
+                android:textSize="@dimen/title_size"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Switch
+                android:id="@+id/dark_theme_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:switchPadding="10dp"
+                android:text="@string/dark_theme_label"
+                android:textColor="@color/titleWhite"
+                android:textSize="@dimen/paragraph_size"
+                app:layout_constraintStart_toStartOf="@+id/DisplayTitle"
+                app:layout_constraintTop_toBottomOf="@+id/DisplayTitle" />
+
+            <TextView
+                android:id="@+id/SecurityTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="@string/security_title"
+                android:textColor="@color/titleWhite"
+                android:textSize="@dimen/title_size"
+                app:layout_constraintStart_toStartOf="@+id/DisplayTitle"
+                app:layout_constraintTop_toBottomOf="@+id/dark_theme_switch" />
+
+            <Switch
+                android:id="@+id/parental_control_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:switchPadding="10dp"
+                android:text="@string/parental_control_label"
+                android:textColor="@color/titleWhite"
+                app:layout_constraintStart_toStartOf="@+id/SecurityTitle"
+                app:layout_constraintTop_toBottomOf="@+id/SecurityTitle" />
+
+            <TextView
+                android:id="@+id/InformationTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="@string/information_title"
+                android:textColor="@color/titleWhite"
+                android:textSize="@dimen/title_size"
+                app:layout_constraintStart_toStartOf="@+id/SecurityTitle"
+                app:layout_constraintTop_toBottomOf="@+id/parental_control_switch" />
+
+            <TextView
+                android:id="@+id/faq_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/faq_text"
+                android:textColor="@color/titleWhite"
+                app:layout_constraintStart_toStartOf="@+id/InformationTitle"
+                app:layout_constraintTop_toBottomOf="@+id/InformationTitle" />
+
+            <TextView
+                android:id="@+id/git_hub_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/git_hub_text"
+                android:textColor="@color/titleWhite"
+                app:layout_constraintStart_toStartOf="@+id/faq_text"
+                app:layout_constraintTop_toBottomOf="@+id/faq_text" />
+
+            <TextView
+                android:id="@+id/credits_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/credits_text"
+                android:textColor="@color/titleWhite"
+                app:layout_constraintStart_toStartOf="@+id/git_hub_text"
+                app:layout_constraintTop_toBottomOf="@+id/git_hub_text" />
+
+            <TextView
+                android:id="@+id/version_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/version_n_text"
+                android:textColor="@color/titleWhite"
+                app:layout_constraintStart_toStartOf="@+id/credits_text"
+                app:layout_constraintTop_toBottomOf="@+id/credits_text" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>

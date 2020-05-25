@@ -32,4 +32,13 @@
     <string name="gender_female">Femmina</string>
     <string name="people_card">Scheda persona</string>
     <string name="actors_title">Attori</string>
+    <string name="displayTitleSettings">Display</string>
+    <string name="security_title">Security</string>
+    <string name="information_title">Information</string>
+    <string name="dark_theme_label">Dark Theme</string>
+    <string name="parental_control_label">Parental Control</string>
+    <string name="faq_text">F.A.Q.</string>
+    <string name="git_hub_text">Git Hub</string>
+    <string name="credits_text">Credits</string>
+    <string name="version_n_text">Version n:</string>
 </resources>
