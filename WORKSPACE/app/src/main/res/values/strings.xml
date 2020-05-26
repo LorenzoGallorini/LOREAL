@@ -6,7 +6,7 @@
     <string name="title_coming_soon">Coming Soon</string>
     <string name="title_shake" translatable="false">SHAKE!</string>
     <string name="title_top_rated">Top Rated</string>
-    <string name="title_show_all">Show all</string>
+    <string name="title_show_all"><u>Show all</u></string>
     <string name="title_actor_card">Actor card</string>
     <string name="title_director_card">Director card</string>
     <string name="name_surname">Name Surname</string>

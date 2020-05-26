@@ -36,9 +36,24 @@ public class SettingsFragment extends Fragment {
         binding = FragmentSettingsBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
         setHasOptionsMenu(true);
+
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
         ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.action_settings));
         ((MainActivity) getActivity()).menuColorSettings(R.id.navigation_settings);
-        return view;
+        binding.faqText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "onClick: FaqClick");
+                Navigation.findNavController(view).navigate(SettingsFragmentDirections.actionNavigationSettingsToNavigationFaq());
+
+            }
+        });
     }
 
     @Override

@@ -3,7 +3,7 @@
     <string name="title_now_playing">Al cinema</string>
     <string name="title_coming_soon">Prossimamente</string>
     <string name="title_top_rated">I più valutati</string>
-    <string name="title_show_all">Vedi tutti</string>
+    <string name="title_show_all"><u>Vedi tutti</u></string>
     <string name="title_director_card">Scheda regista</string>
     <string name="title_actor_card">Scheda attore</string>
     <string name="title_favorite">I miei preferiti</string>

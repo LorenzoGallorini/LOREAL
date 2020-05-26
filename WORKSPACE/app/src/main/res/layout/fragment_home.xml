@@ -31,11 +31,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="28dp"
-            android:layout_marginBottom="16dp"
             android:text="@string/title_show_all"
             android:textColor="@android:color/white"
             android:textSize="@dimen/buttom_show_all"
-            app:layout_constraintBottom_toTopOf="@+id/NowPlayingRecyclerView"
+            app:layout_constraintBottom_toBottomOf="@+id/alCinema"
             app:layout_constraintEnd_toEndOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -71,11 +70,10 @@
             android:id="@+id/textView2_showAll_TopRated"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
             android:text="@string/title_show_all"
             android:textColor="@android:color/white"
             android:textSize="@dimen/buttom_show_all"
-            app:layout_constraintBottom_toTopOf="@+id/TopRatedRecyclerView"
+            app:layout_constraintBottom_toBottomOf="@+id/TopRated"
             app:layout_constraintStart_toStartOf="@+id/textView_showAll_nowPlaying" />
 
         <TextView
@@ -102,12 +100,11 @@
             android:id="@+id/textView_showAll_ComingSoon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
             android:text="@string/title_show_all"
+            android:textColor="@android:color/white"
             android:textSize="@dimen/buttom_show_all"
-            app:layout_constraintBottom_toTopOf="@+id/ComingSoonRecyclerView"
-            app:layout_constraintStart_toStartOf="@+id/textView2_showAll_TopRated"
-            android:textColor="@android:color/white"/>
+            app:layout_constraintBottom_toBottomOf="@+id/ComingSoon"
+            app:layout_constraintStart_toStartOf="@+id/textView2_showAll_TopRated" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

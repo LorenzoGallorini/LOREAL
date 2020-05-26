@@ -143,7 +143,11 @@
         android:name="com.example.cinemhub.ui.settings.SettingsFragment"
         android:label="@string/action_settings"
         tools:layout="@layout/fragment_settings"
-        />
+        >
+        <action
+            android:id="@+id/action_navigation_settings_to_navigation_faq"
+            app:destination="@id/navigation_faq" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_movie_card"
@@ -191,6 +195,15 @@
         <action
             android:id="@+id/action_navigation_search_to_navigation_settings"
             app:destination="@id/navigation_settings" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_faq"
+        android:name="com.example.cinemhub.ui.faq.FaqFragment"
+        android:label="@string/faq_text"
+        tools:layout="@layout/fragment_faq"
+        >
+
     </fragment>
 
 
