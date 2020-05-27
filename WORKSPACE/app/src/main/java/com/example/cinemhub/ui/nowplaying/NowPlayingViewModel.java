@@ -10,11 +10,13 @@ import com.example.cinemhub.repositories.TmdbRepository;
 import java.util.List;
 
 public class NowPlayingViewModel extends ViewModel {
+
     private MutableLiveData<List<Movie>> movieNowPlaying;
-    public LiveData<List<Movie>> getMovieNowPlaying(String language, int page){
+
+    public LiveData<List<Movie>> getMovieNowPlaying(String language, int page, boolean checkAdult){
         if(movieNowPlaying==null){
             movieNowPlaying=new MutableLiveData<List<Movie>>();
-            TmdbRepository.getInstance().getNowPlaying(movieNowPlaying, language, page);
+            TmdbRepository.getInstance().getNowPlaying(movieNowPlaying, language, page, checkAdult);
         }
         return movieNowPlaying;
     }

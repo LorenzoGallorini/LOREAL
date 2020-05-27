@@ -147,6 +147,9 @@
         <action
             android:id="@+id/action_navigation_settings_to_navigation_faq"
             app:destination="@id/navigation_faq" />
+        <action
+            android:id="@+id/action_navigation_settings_to_navigation_credits"
+            app:destination="@id/navigation_credits" />
     </fragment>
 
     <fragment
@@ -202,6 +205,15 @@
         android:name="com.example.cinemhub.ui.faq.FaqFragment"
         android:label="@string/faq_text"
         tools:layout="@layout/fragment_faq"
+        >
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_credits"
+        android:name="com.example.cinemhub.ui.credits.CreditsFragment"
+        android:label="@string/credits_text"
+        tools:layout="@layout/fragment_credits"
         >
 
     </fragment>

@@ -17,26 +17,26 @@ public class HomeViewModel extends ViewModel {
 
 
 
-    public LiveData<List<Movie>> getMovieNowPlaying(String language, int page){
+    public LiveData<List<Movie>> getMovieNowPlaying(String language, int page, boolean checkAdult){
         if(movieNowPlaying==null){
             movieNowPlaying=new MutableLiveData<List<Movie>>();
-            TmdbRepository.getInstance().getNowPlaying(movieNowPlaying, language, page);
+            TmdbRepository.getInstance().getNowPlaying(movieNowPlaying, language, page, checkAdult);
         }
         return movieNowPlaying;
     }
 
-    public LiveData<List<Movie>> getMovieTopRated(String language, int page){
+    public LiveData<List<Movie>> getMovieTopRated(String language, int page, boolean checkAdult){
         if(movieTopRated==null){
             movieTopRated=new MutableLiveData<List<Movie>>();
-            TmdbRepository.getInstance().getTopRated(movieTopRated, language, page);
+            TmdbRepository.getInstance().getTopRated(movieTopRated, language, page, checkAdult);
         }
         return movieTopRated;
     }
 
-    public LiveData<List<Movie>> getMovieComingSoon(String language, int page){
+    public LiveData<List<Movie>> getMovieComingSoon(String language, int page, boolean checkAdult){
         if(movieComingSoon==null){
             movieComingSoon=new MutableLiveData<List<Movie>>();
-            TmdbRepository.getInstance().getComingSoon(movieComingSoon, language, page);
+            TmdbRepository.getInstance().getComingSoon(movieComingSoon, language, page, checkAdult);
         }
         return movieComingSoon;
     }

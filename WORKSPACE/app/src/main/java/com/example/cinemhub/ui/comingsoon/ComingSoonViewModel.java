@@ -12,10 +12,11 @@ import java.util.List;
 public class ComingSoonViewModel extends ViewModel {
     private MutableLiveData<List<Movie>> movieComingSoon;
 
-    public LiveData<List<Movie>> getMovieComingSoon(String language, int page){
+    public LiveData<List<Movie>> getMovieComingSoon(String language, int page, boolean checkAdult){
         if(movieComingSoon==null){
             movieComingSoon=new MutableLiveData<List<Movie>>();
-            TmdbRepository.getInstance().getComingSoon(movieComingSoon, language, page);
+
+            TmdbRepository.getInstance().getComingSoon(movieComingSoon, language, page, checkAdult);
         }
         return movieComingSoon;
     }

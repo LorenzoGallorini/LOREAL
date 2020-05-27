@@ -16,7 +16,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -43,7 +42,6 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 
 public class MovieCardFragment extends Fragment {
@@ -65,10 +63,6 @@ public class MovieCardFragment extends Fragment {
         setHasOptionsMenu(true);
         ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.title_movie_card));
         ((MainActivity) getActivity()).menuColorSettings(R.id.navigation_movie_card);
-
-
-
-
         return view;
     }
 
@@ -111,12 +105,13 @@ public class MovieCardFragment extends Fragment {
                 binding.GenresValue.setText(movie.getGenresTostring());
 
 
-                SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.FAVORITE_SHARED_PREF_FILE_NAME, Context.MODE_PRIVATE);
+                SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.CINEM_HUB_SHARED_PREF_FILE_NAME, Context.MODE_PRIVATE);
                 Set<String> preferiti;
                 try {
                     preferiti=sharedPreferences.getStringSet(Constants.FAVORITE_SHARED_PREF_NAME,null);
-                    if (preferiti == null)
+                    if (preferiti == null){
                         preferiti = new HashSet<String>();
+                    }
                 }
                 catch(Exception e)
                 {
@@ -171,15 +166,10 @@ public class MovieCardFragment extends Fragment {
                             binding.MovieCardFavouriteButton.setImageResource(R.drawable.startplus_yellow);
                         }
                         else {
-
-
                             Set<String> in = new HashSet<String>(preferiti);
                             in.add(Integer.toString(movie.getId())+Constants.SEPARATOR+movie.getTitle()+Constants.SEPARATOR+movie.getPoster_path());
                             editor.putStringSet(Constants.FAVORITE_SHARED_PREF_NAME, in);
-
-
                             toast = Toast.makeText(getContext(), "Aggiunto " + movie.getTitle() + " ai tuoi preferiti", Toast.LENGTH_SHORT);
-
                             binding.MovieCardFavouriteButton.setImageResource(R.drawable.startminum_yellow);
                         }
                         editor.commit();

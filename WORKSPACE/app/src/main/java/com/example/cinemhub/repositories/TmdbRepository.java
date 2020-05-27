@@ -47,7 +47,7 @@ public class TmdbRepository {
         return instance;
     }
 
-    public void getNowPlaying(MutableLiveData<List<Movie>> movieNowPlaying, String language, int page){
+    public void getNowPlaying(MutableLiveData<List<Movie>> movieNowPlaying, String language, int page, boolean checkAdult){
         Call<NowPlayingApiTmdbResponse> call = tmdbService.getNowPlaying(language , page, Constants.API_TMDB_KEY);
 
         call.enqueue(new Callback<NowPlayingApiTmdbResponse>() {
@@ -58,7 +58,9 @@ public class TmdbRepository {
                     Log.d(TAG, "callback nowplaying ok");
                     List<Movie> res=new ArrayList<Movie>();
                     for (int i=0;i<movies.size();i++) {
-                        res.add(new Movie(movies.get(i)));
+                        if(!checkAdult||!movies.get(i).isAdult()){
+                            res.add(new Movie(movies.get(i)));
+                        }
                     }
                     movieNowPlaying.postValue(res);
                 }else{
@@ -73,7 +75,7 @@ public class TmdbRepository {
         });
     }
 
-    public void getTopRated(MutableLiveData<List<Movie>> movieTopRated, String language, int page){
+    public void getTopRated(MutableLiveData<List<Movie>> movieTopRated, String language, int page, boolean checkAdult){
         Call<TopRatedApiTmdbResponse> call=tmdbService.getTopRated(language, page, Constants.API_TMDB_KEY);
         call.enqueue(new Callback<TopRatedApiTmdbResponse>() {
             @Override
@@ -83,7 +85,9 @@ public class TmdbRepository {
                     Log.d(TAG, "callback toprated ok");
                     List<Movie> res = new ArrayList<Movie>();
                     for (int i = 0; i < movies.size(); i++) {
-                        res.add(new Movie(movies.get(i)));
+                        if(!checkAdult||!movies.get(i).isAdult()){
+                            res.add(new Movie(movies.get(i)));
+                        }
                     }
                     movieTopRated.postValue(res);
                 } else {
@@ -98,7 +102,7 @@ public class TmdbRepository {
         });
     }
 
-    public void getComingSoon(MutableLiveData<List<Movie>> movieComingSoon, String language, int page){
+    public void getComingSoon(MutableLiveData<List<Movie>> movieComingSoon, String language, int page, boolean checkAdult){
         Call<ComingSoonApiTmdbResponse> call=tmdbService.getComingSoon(language, page, Constants.API_TMDB_KEY);
         call.enqueue(new Callback<ComingSoonApiTmdbResponse>() {
             @Override
@@ -108,7 +112,9 @@ public class TmdbRepository {
                     Log.d(TAG, "callback comingsoon ok");
                     List<Movie> res = new ArrayList<Movie>();
                     for (int i = 0; i < movies.size(); i++) {
-                        res.add(new Movie(movies.get(i)));
+                        if(!checkAdult||!movies.get(i).isAdult()){
+                            res.add(new Movie(movies.get(i)));
+                        }
                     }
                     movieComingSoon.postValue(res);
                 }
@@ -124,7 +130,7 @@ public class TmdbRepository {
         });
     }
 
-    public void getRecommendations(MutableLiveData<List<Movie>> movieRecommendations, int movie_id,String language, int page){
+    public void getRecommendations(MutableLiveData<List<Movie>> movieRecommendations, int movie_id,String language, int page, boolean checkAdult){
         Call<RecommendationsApiTmdbResponse> call=tmdbService.getRecommendations(movie_id, language, page, Constants.API_TMDB_KEY);
         call.enqueue(new Callback<RecommendationsApiTmdbResponse>() {
             @Override
@@ -134,7 +140,9 @@ public class TmdbRepository {
                     Log.d(TAG, "callback recommendations ok");
                     List<Movie> res = new ArrayList<Movie>();
                     for (int i = 0; i < movies.size(); i++) {
-                        res.add(new Movie(movies.get(i)));
+                        if(!checkAdult||!movies.get(i).isAdult()){
+                            res.add(new Movie(movies.get(i)));
+                        }
                     }
                     movieRecommendations.postValue(res);
                 }

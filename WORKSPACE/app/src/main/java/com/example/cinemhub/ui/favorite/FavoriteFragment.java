@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
@@ -27,7 +26,6 @@ import com.example.cinemhub.models.Movie;
 import com.example.cinemhub.utils.Constants;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -65,7 +63,7 @@ public class FavoriteFragment extends Fragment {
         binding.FavoriteRecyclerView.setLayoutManager(layoutManager);
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(
-                Constants.FAVORITE_SHARED_PREF_FILE_NAME, Context.MODE_PRIVATE);
+                Constants.CINEM_HUB_SHARED_PREF_FILE_NAME, Context.MODE_PRIVATE);
         Set<String> preferiti;
         preferiti=sharedPreferences.getStringSet(Constants.FAVORITE_SHARED_PREF_NAME,null);
         if (preferiti == null){

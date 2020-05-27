@@ -1,5 +1,7 @@
 package com.example.cinemhub.ui.comingsoon;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,6 +25,7 @@ import com.example.cinemhub.adapters.MovieListVerticalAdapter;
 import com.example.cinemhub.databinding.FragmentComingSoonBinding;
 import com.example.cinemhub.models.Movie;
 import com.example.cinemhub.ui.moviecard.MovieCardFragmentDirections;
+import com.example.cinemhub.utils.Constants;
 
 import java.util.List;
 
@@ -74,7 +77,9 @@ public class ComingSoonFragment extends Fragment {
 
             }
         };
-        mViewModel.getMovieComingSoon(getString(R.string.API_LANGUAGE), 1).observe(getViewLifecycleOwner(), observer_coming_soon);
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.CINEM_HUB_SHARED_PREF_FILE_NAME, Context.MODE_PRIVATE);
+        boolean checkAdult=sharedPreferences.getBoolean(Constants.ADULT_SHARED_PREF_NAME, false);
+        mViewModel.getMovieComingSoon(getString(R.string.API_LANGUAGE), 1, checkAdult).observe(getViewLifecycleOwner(), observer_coming_soon);
     }
 
     @Override
@@ -90,11 +95,11 @@ public class ComingSoonFragment extends Fragment {
         switch (item.getItemId()){
             case R.id.search:
                 Log.d(TAG, "onClick: SearchClick");
-                Navigation.findNavController(getView()).navigate(MovieCardFragmentDirections.actionNavigationMovieCardToNavigationSearch());
+                Navigation.findNavController(getView()).navigate(ComingSoonFragmentDirections.actionNavigationComingSoonToNavigationSearch());
                 return true;
             case R.id.settings:
                 Log.d(TAG, "onClick: SettingsClick");
-                Navigation.findNavController(getView()).navigate(MovieCardFragmentDirections.actionNavigationMovieCardToNavigationSettings());
+                Navigation.findNavController(getView()).navigate(ComingSoonFragmentDirections.actionNavigationComingSoonToNavigationSettings());
                 return true;
             case android.R.id.home:
                 getActivity().onBackPressed();

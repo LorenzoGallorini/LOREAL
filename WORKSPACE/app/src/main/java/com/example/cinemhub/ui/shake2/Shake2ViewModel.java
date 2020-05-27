@@ -10,12 +10,13 @@ import com.example.cinemhub.repositories.TmdbRepository;
 import java.util.List;
 
 public class Shake2ViewModel extends ViewModel {
+
     private MutableLiveData<List<Movie>> movieOnShake;
 
-    public LiveData<List<Movie>> getMovieOnShake(int movie_id, String language, int page){
+    public LiveData<List<Movie>> getMovieOnShake(int movie_id, String language, int page, boolean checkAdult){
         if(movieOnShake==null){
             movieOnShake=new MutableLiveData<List<Movie>>();
-            TmdbRepository.getInstance().getRecommendations(movieOnShake, movie_id,language, page);
+            TmdbRepository.getInstance().getRecommendations(movieOnShake, movie_id,language, page, checkAdult);
         }
         return movieOnShake;
     }

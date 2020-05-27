@@ -39,6 +39,6 @@
     <string name="parental_control_label">Parental Control</string>
     <string name="faq_text">F.A.Q.</string>
     <string name="git_hub_text">Git Hub</string>
-    <string name="credits_text">Credits</string>
-    <string name="version_n_text">Version n:</string>
+    <string name="credits_text">Crediti</string>
+    <string name="version_n_text">Versione n:</string>
 </resources>

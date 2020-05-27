@@ -1,5 +1,7 @@
 package com.example.cinemhub.ui.shake2;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,6 +23,7 @@ import com.example.cinemhub.databinding.FragmentShake2Binding;
 import com.example.cinemhub.models.Movie;
 import com.example.cinemhub.ui.moviecard.MovieCardFragmentDirections;
 import com.example.cinemhub.ui.shake.ShakeFragmentDirections;
+import com.example.cinemhub.utils.Constants;
 import com.squareup.picasso.Picasso;
 
 import java.io.InputStream;
@@ -103,7 +106,9 @@ public class Shake2Fragment extends Fragment {
             }
         };
 
-        mViewModel.getMovieOnShake(100, getString(R.string.API_LANGUAGE),1).observe(getViewLifecycleOwner(), observer_on_shake);//TODO settare delle variabili globali per la lingua e per la pagina
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.CINEM_HUB_SHARED_PREF_FILE_NAME, Context.MODE_PRIVATE);
+        boolean checkAdult=sharedPreferences.getBoolean(Constants.ADULT_SHARED_PREF_NAME, false);
+        mViewModel.getMovieOnShake(100, getString(R.string.API_LANGUAGE),1, checkAdult).observe(getViewLifecycleOwner(), observer_on_shake);//TODO settare delle variabili globali per la lingua e per la pagina
 
 
         return view;

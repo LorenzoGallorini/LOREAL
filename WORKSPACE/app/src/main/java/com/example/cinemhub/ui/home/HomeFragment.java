@@ -1,5 +1,7 @@
 package com.example.cinemhub.ui.home;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -66,6 +68,9 @@ public class HomeFragment extends Fragment {
         binding.TopRatedRecyclerView.setLayoutManager(layoutManagerTopRated);
         binding.ComingSoonRecyclerView.setLayoutManager(layoutManagerComingSoon);
 
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.CINEM_HUB_SHARED_PREF_FILE_NAME, Context.MODE_PRIVATE);
+        boolean checkAdult=sharedPreferences.getBoolean(Constants.ADULT_SHARED_PREF_NAME, false);
+
 
         final Observer<List<Movie>> observer_now_playing=new Observer<List<Movie>>() {
             @Override
@@ -83,7 +88,8 @@ public class HomeFragment extends Fragment {
             }
         };
 
-        homeViewModel.getMovieNowPlaying(getString(R.string.API_LANGUAGE), 1).observe(getViewLifecycleOwner(), observer_now_playing);//TODO settare delle variabili globali per la pagina
+
+        homeViewModel.getMovieNowPlaying(getString(R.string.API_LANGUAGE), 1, checkAdult).observe(getViewLifecycleOwner(), observer_now_playing);//TODO settare delle variabili globali per la pagina
 
 
 
@@ -110,7 +116,7 @@ public class HomeFragment extends Fragment {
                 binding.TopRatedRecyclerView.setAdapter(movieListVerticalAdapter);
             }
         };
-        homeViewModel.getMovieTopRated(getString(R.string.API_LANGUAGE), 1).observe(getViewLifecycleOwner(), observer_top_rated);
+        homeViewModel.getMovieTopRated(getString(R.string.API_LANGUAGE), 1, checkAdult).observe(getViewLifecycleOwner(), observer_top_rated);
 
 
 
@@ -137,7 +143,7 @@ public class HomeFragment extends Fragment {
                 binding.ComingSoonRecyclerView.setAdapter(movieListVerticalAdapter);
             }
         };
-        homeViewModel.getMovieComingSoon(getString(R.string.API_LANGUAGE), 1).observe(getViewLifecycleOwner(), observer_coming_soon);
+        homeViewModel.getMovieComingSoon(getString(R.string.API_LANGUAGE), 1, checkAdult).observe(getViewLifecycleOwner(), observer_coming_soon);
 
         binding.textViewShowAllComingSoon.setOnClickListener(new View.OnClickListener() {
             @Override

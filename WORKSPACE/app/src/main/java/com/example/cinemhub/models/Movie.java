@@ -1,8 +1,12 @@
 package com.example.cinemhub.models;
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Parcel;
 import android.os.Parcelable;
+
+import com.example.cinemhub.utils.Constants;
 
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
@@ -299,10 +303,12 @@ public class Movie implements Parcelable {
                 ", revenue=" + revenue +
                 '}';
     }
-    public static List<Movie> toList(MovieApiTmdbResponse[] movies){
+    public static List<Movie> toList(MovieApiTmdbResponse[] movies, boolean checkAdult){
         List<Movie> ris=new ArrayList<Movie>();
         for (MovieApiTmdbResponse movie : movies) {
-            ris.add(new Movie(movie));
+            if(!checkAdult || !movie.isAdult()){
+                ris.add(new Movie(movie));
+            }
         }
         return ris;
     }

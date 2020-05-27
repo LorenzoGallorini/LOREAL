@@ -1,5 +1,7 @@
 package com.example.cinemhub.ui.settings;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,6 +21,7 @@ import com.example.cinemhub.MainActivity;
 import com.example.cinemhub.R;
 import com.example.cinemhub.databinding.FragmentSettingsBinding;
 import com.example.cinemhub.ui.moviecard.MovieCardFragmentDirections;
+import com.example.cinemhub.utils.Constants;
 
 public class SettingsFragment extends Fragment {
 
@@ -37,6 +40,12 @@ public class SettingsFragment extends Fragment {
         View view = binding.getRoot();
         setHasOptionsMenu(true);
 
+        binding.darkThemeSwitch.setChecked(true);
+        binding.darkThemeSwitch.setClickable(false);
+
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.CINEM_HUB_SHARED_PREF_FILE_NAME, Context.MODE_PRIVATE);
+        boolean isAdult=sharedPreferences.getBoolean(Constants.ADULT_SHARED_PREF_NAME, false);
+        binding.parentalControlSwitch.setChecked(isAdult);
         return view;
     }
 
@@ -51,6 +60,24 @@ public class SettingsFragment extends Fragment {
             public void onClick(View v) {
                 Log.d(TAG, "onClick: FaqClick");
                 Navigation.findNavController(view).navigate(SettingsFragmentDirections.actionNavigationSettingsToNavigationFaq());
+
+            }
+        });
+
+        binding.creditsText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "onClick: CreditsClick");
+                Navigation.findNavController(view).navigate(SettingsFragmentDirections.actionNavigationSettingsToNavigationCredits());
+            }
+        });
+        binding.parentalControlSwitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.CINEM_HUB_SHARED_PREF_FILE_NAME, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean(Constants.ADULT_SHARED_PREF_NAME, binding.parentalControlSwitch.isChecked());
+                editor.commit();
 
             }
         });

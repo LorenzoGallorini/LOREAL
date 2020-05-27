@@ -1,5 +1,7 @@
 package com.example.cinemhub.ui.peoplecard;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -118,7 +120,9 @@ public class PeopleCardFragment extends Fragment {
                         }else{
                             movies=peopleCreditsApiTmdbResponse.getCrew();
                         }
-                        List<Movie> m=Movie.toList(movies);
+                        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.CINEM_HUB_SHARED_PREF_FILE_NAME, Context.MODE_PRIVATE);
+                        boolean isAdult=sharedPreferences.getBoolean(Constants.ADULT_SHARED_PREF_NAME, false);
+                        List<Movie> m=Movie.toList(movies, isAdult);
                         Collections.sort(m, new Movie.MoviePopularityComparator());
                         MovieListVerticalAdapter movieListVerticalAdapter = new MovieListVerticalAdapter(getActivity(),
                                 m.subList(0,12), new MovieListVerticalAdapter.OnItemClickListener() {
