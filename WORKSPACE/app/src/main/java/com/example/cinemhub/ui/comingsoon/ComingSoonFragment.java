@@ -77,9 +77,11 @@ public class ComingSoonFragment extends Fragment {
 
             }
         };
+
+        Movie[] coming_soon_movies=ComingSoonFragmentArgs.fromBundle(getArguments()).getMovieComingSoonArray();
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.CINEM_HUB_SHARED_PREF_FILE_NAME, Context.MODE_PRIVATE);
         boolean checkAdult=sharedPreferences.getBoolean(Constants.ADULT_SHARED_PREF_NAME, false);
-        mViewModel.getMovieComingSoon(getString(R.string.API_LANGUAGE), 1, checkAdult).observe(getViewLifecycleOwner(), observer_coming_soon);
+        mViewModel.getMovieComingSoon(getString(R.string.API_LANGUAGE), 1, checkAdult, coming_soon_movies).observe(getViewLifecycleOwner(), observer_coming_soon);
     }
 
     @Override

@@ -75,9 +75,11 @@ public class TopRatedFragment extends Fragment {
 
             }
         };
+        Movie[] top_rated_movies=TopRatedFragmentArgs.fromBundle(getArguments()).getMovieTopRatedArray();
+
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.CINEM_HUB_SHARED_PREF_FILE_NAME, Context.MODE_PRIVATE);
         boolean checkAdult=sharedPreferences.getBoolean(Constants.ADULT_SHARED_PREF_NAME, false);
-        mViewModel.getMovieTopRated(getString(R.string.API_LANGUAGE), 1,checkAdult).observe(getViewLifecycleOwner(), observer_top_rated);
+        mViewModel.getMovieTopRated(getString(R.string.API_LANGUAGE), 1,checkAdult, top_rated_movies).observe(getViewLifecycleOwner(), observer_top_rated);
     }
 
     @Override

@@ -80,27 +80,23 @@ public class HomeFragment extends Fragment {
                     @Override
                     public void OnItemClick(Movie movie) {
                         Navigation.findNavController(view).navigate(HomeFragmentDirections.actionNavigationHomeToNavigationMovieCard(movie.getId()));
-
                     }
                 });
                 binding.NowPlayingRecyclerView.setAdapter(movieListVerticalAdapter);
 
+                binding.textViewShowAllNowPlaying.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Log.d(TAG, "onClick: AllNowPlayingClick");
+                        //fragmentTransactionMethod(new NowPlayingFragment());
+                        Navigation.findNavController(view).navigate(HomeFragmentDirections.actionNavigationHomeToNavigationNowPlaying(Movie.fromListToArray(movies)));
+                    }
+                });
             }
         };
-
-
         homeViewModel.getMovieNowPlaying(getString(R.string.API_LANGUAGE), 1, checkAdult).observe(getViewLifecycleOwner(), observer_now_playing);//TODO settare delle variabili globali per la pagina
 
 
-
-        binding.textViewShowAllNowPlaying.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG, "onClick: AllNowPlayingClick");
-                //fragmentTransactionMethod(new NowPlayingFragment());
-                Navigation.findNavController(view).navigate(HomeFragmentDirections.actionNavigationHomeToNavigationNowPlaying());
-            }
-        });
 
         final Observer<List<Movie>> observer_top_rated=new Observer<List<Movie>>() {
             @Override
@@ -114,6 +110,14 @@ public class HomeFragment extends Fragment {
                     }
                 });
                 binding.TopRatedRecyclerView.setAdapter(movieListVerticalAdapter);
+
+                binding.textView2ShowAllTopRated.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Log.d(TAG, "onClick: AllRatedClick");
+                        Navigation.findNavController(view).navigate(HomeFragmentDirections.actionNavigationHomeToNavigationTopRated(Movie.fromListToArray(movies)));
+                    }
+                });
             }
         };
         homeViewModel.getMovieTopRated(getString(R.string.API_LANGUAGE), 1, checkAdult).observe(getViewLifecycleOwner(), observer_top_rated);
@@ -121,13 +125,7 @@ public class HomeFragment extends Fragment {
 
 
 
-        binding.textView2ShowAllTopRated.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG, "onClick: AllRatedClick");
-                Navigation.findNavController(view).navigate(HomeFragmentDirections.actionNavigationHomeToNavigationTopRated());
-            }
-        });
+
 
         final Observer<List<Movie>> observer_coming_soon=new Observer<List<Movie>>() {
             @Override
@@ -141,17 +139,19 @@ public class HomeFragment extends Fragment {
                     }
                 });
                 binding.ComingSoonRecyclerView.setAdapter(movieListVerticalAdapter);
+
+                binding.textViewShowAllComingSoon.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Log.d(TAG, "onClick: AllComingSoonClick");
+                        Navigation.findNavController(view).navigate(HomeFragmentDirections.actionNavigationHomeToNavigationComingSoon(Movie.fromListToArray(movies)));
+                    }
+                });
             }
         };
         homeViewModel.getMovieComingSoon(getString(R.string.API_LANGUAGE), 1, checkAdult).observe(getViewLifecycleOwner(), observer_coming_soon);
 
-        binding.textViewShowAllComingSoon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG, "onClick: AllComingSoonClick");
-                Navigation.findNavController(view).navigate(HomeFragmentDirections.actionNavigationHomeToNavigationComingSoon());
-            }
-        });
+
     }
 
     @Override

@@ -13,10 +13,14 @@ public class NowPlayingViewModel extends ViewModel {
 
     private MutableLiveData<List<Movie>> movieNowPlaying;
 
-    public LiveData<List<Movie>> getMovieNowPlaying(String language, int page, boolean checkAdult){
+    public LiveData<List<Movie>> getMovieNowPlaying(String language, int page, boolean checkAdult, Movie[] movies){
         if(movieNowPlaying==null){
             movieNowPlaying=new MutableLiveData<List<Movie>>();
-            TmdbRepository.getInstance().getNowPlaying(movieNowPlaying, language, page, checkAdult);
+            if(movies==null){
+                TmdbRepository.getInstance().getNowPlaying(movieNowPlaying, language, page, checkAdult);
+            }else{
+                movieNowPlaying.postValue(Movie.toList(movies, checkAdult));
+            }
         }
         return movieNowPlaying;
     }

@@ -77,9 +77,11 @@ public class NowPlayingFragment extends Fragment {
                 binding.recyclerViewNowPlaying.setAdapter(movieListVerticalAdapter);
             }
         };
+        Movie[] now_playing_movies=NowPlayingFragmentArgs.fromBundle(getArguments()).getMovieNowPlayingArray();
+
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.CINEM_HUB_SHARED_PREF_FILE_NAME, Context.MODE_PRIVATE);
         boolean checkAdult=sharedPreferences.getBoolean(Constants.ADULT_SHARED_PREF_NAME, false);
-        mViewModel.getMovieNowPlaying(getString(R.string.API_LANGUAGE), 1, checkAdult).observe(getViewLifecycleOwner(), observer_now_playing);
+        mViewModel.getMovieNowPlaying(getString(R.string.API_LANGUAGE), 1, checkAdult, now_playing_movies).observe(getViewLifecycleOwner(), observer_now_playing);
     }
 
     @Override

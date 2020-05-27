@@ -46,6 +46,9 @@
             android:id="@+id/action_navigation_coming_soon_to_navigation_search"
             app:destination="@id/navigation_search"
             app:popUpToInclusive="false" />
+        <argument
+            android:name="movie_coming_soon_array"
+            app:argType="com.example.cinemhub.models.Movie[]" />
     </fragment>
 
     <fragment
@@ -62,6 +65,9 @@
         <action
             android:id="@+id/action_navigation_now_playing_to_navigation_search"
             app:destination="@id/navigation_search" />
+        <argument
+            android:name="movie_now_playing_array"
+            app:argType="com.example.cinemhub.models.Movie[]" />
     </fragment>
 
     <fragment
@@ -187,6 +193,9 @@
         <action
             android:id="@+id/action_navigation_top_rated_to_navigation_settings"
             app:destination="@id/navigation_settings" />
+        <argument
+            android:name="movie_top_rated_array"
+            app:argType="com.example.cinemhub.models.Movie[]" />
     </fragment>
 
     <fragment

@@ -13,10 +13,14 @@ public class TopRatedViewModel extends ViewModel {
 
     private MutableLiveData<List<Movie>> movieTopRated;
 
-    public LiveData<List<Movie>> getMovieTopRated(String language, int page, boolean checkAdult){
+    public LiveData<List<Movie>> getMovieTopRated(String language, int page, boolean checkAdult, Movie[] movies){
         if(movieTopRated==null){
             movieTopRated=new MutableLiveData<List<Movie>>();
-            TmdbRepository.getInstance().getTopRated(movieTopRated, language, page, checkAdult);
+            if(movies==null){
+                TmdbRepository.getInstance().getTopRated(movieTopRated, language, page, checkAdult);
+            }else{
+                movieTopRated.postValue(Movie.toList(movies, checkAdult));
+            }
         }
         return movieTopRated;
     }

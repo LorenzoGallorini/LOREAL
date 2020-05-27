@@ -27,9 +27,11 @@ import com.example.cinemhub.utils.Constants;
 import com.squareup.picasso.Picasso;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
+import java.util.Set;
 
 import safety.com.br.android_shake_detector.core.ShakeCallback;
 import safety.com.br.android_shake_detector.core.ShakeDetector;
@@ -55,7 +57,7 @@ public class Shake2Fragment extends Fragment {
         ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.title_shake));
         ((MainActivity) getActivity()).menuColorSettings(R.id.navigation_shake);
 
-        ShakeOptions options = new ShakeOptions()
+        /*ShakeOptions options = new ShakeOptions()
                 .background(true)
                 .interval(1000)
                 .shakeCount(1)
@@ -75,7 +77,7 @@ public class Shake2Fragment extends Fragment {
                 }
 
             });
-        }
+        }*/
 
         mViewModel=new ViewModelProvider(getActivity()).get(Shake2ViewModel.class);
 
@@ -90,7 +92,18 @@ public class Shake2Fragment extends Fragment {
                 InputStream is = null;
 
                 Random random=new Random();
-                int casual= random.nextInt(movies.size()-1);
+                int casual;
+
+                switch (movies.size()){
+                    case 0:
+                        return;//TODO bisogna presentare un errore
+                    case 1:
+                        casual=0;
+                        break;
+                    default:
+                        casual=random.nextInt(movies.size()-1);
+                        break;
+                }
                 Movie movie = movies.get(casual);
                 Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.getPoster_path()).into(binding.filmImageButton);
 
@@ -107,9 +120,56 @@ public class Shake2Fragment extends Fragment {
         };
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.CINEM_HUB_SHARED_PREF_FILE_NAME, Context.MODE_PRIVATE);
+        Set<String> preferiti=sharedPreferences.getStringSet(Constants.FAVORITE_SHARED_PREF_NAME,null);
         boolean checkAdult=sharedPreferences.getBoolean(Constants.ADULT_SHARED_PREF_NAME, false);
-        mViewModel.getMovieOnShake(100, getString(R.string.API_LANGUAGE),1, checkAdult).observe(getViewLifecycleOwner(), observer_on_shake);//TODO settare delle variabili globali per la lingua e per la pagina
 
+        if(preferiti!=null && preferiti.size()>0){
+            int casual_id;
+            Object[] favoriteArray=preferiti.toArray();
+
+            List<Integer> intList=new ArrayList<Integer>();
+            for (Object o : favoriteArray) {
+                intList.add(Integer.parseInt(o.toString().split(Constants.SEPARATOR)[0]));
+            }
+            Random random=new Random();
+
+            if(intList.size()>1){
+                casual_id=intList.get(random.nextInt(intList.size()-1));
+            }else {
+                casual_id=intList.get(0);
+            }
+
+            mViewModel.getMovieOnShake(casual_id, getString(R.string.API_LANGUAGE),1, checkAdult).observe(getViewLifecycleOwner(), observer_on_shake);//TODO settare delle variabili globali per la lingua e per la pagina
+
+        }
+        else{
+            final Observer<List<Movie>> observer_top_rated=new Observer<List<Movie>>() {
+                @Override
+                public void onChanged(List<Movie> movies) {
+                    int casual_id;
+                    Log.d(TAG, "shake2 no favorite");
+                    Random random=new Random();
+
+                    switch (movies.size()){
+                        case 0:
+                            casual_id=100;//id di un film sicuramente presente nel DB
+                            break;
+                        case 1:
+                            casual_id=movies.get(0).getId();
+                            break;
+                        default:
+                            casual_id=movies.get(random.nextInt(movies.size()-1)).getId();
+                            break;
+                    }
+
+                    boolean checkAdult=sharedPreferences.getBoolean(Constants.ADULT_SHARED_PREF_NAME, false);
+                    mViewModel.getMovieOnShake(casual_id, getString(R.string.API_LANGUAGE),1, checkAdult).observe(getViewLifecycleOwner(), observer_on_shake);//TODO settare delle variabili globali per la lingua e per la pagina
+
+                }
+            };
+
+            mViewModel.getMovieTopRated(getString(R.string.API_LANGUAGE), 1, checkAdult).observe(getViewLifecycleOwner(), observer_top_rated);
+        }
 
         return view;
     }
@@ -126,7 +186,7 @@ public class Shake2Fragment extends Fragment {
         // TODO: Use the ViewModel
     }
 
-    @Override
+    /*@Override
     public void onStop() {
 
         super.onStop();
@@ -153,7 +213,7 @@ public class Shake2Fragment extends Fragment {
         super.onPause();
         ((MainActivity) getActivity()).shakeDetector2.stopShakeDetector(getContext());
 
-    }
+    }*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){

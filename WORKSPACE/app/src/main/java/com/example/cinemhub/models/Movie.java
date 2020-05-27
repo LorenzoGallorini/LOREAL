@@ -303,6 +303,14 @@ public class Movie implements Parcelable {
                 ", revenue=" + revenue +
                 '}';
     }
+
+    public static Movie[] fromListToArray(List<Movie> movies){
+        Movie[] ris=new Movie[movies.size()];
+        for (int i=0;i<movies.size();i++){
+            ris[i]=movies.get(i);
+        }
+        return ris;
+    }
     public static List<Movie> toList(MovieApiTmdbResponse[] movies, boolean checkAdult){
         List<Movie> ris=new ArrayList<Movie>();
         for (MovieApiTmdbResponse movie : movies) {
@@ -312,6 +320,16 @@ public class Movie implements Parcelable {
         }
         return ris;
     }
+    public static List<Movie> toList(Movie[] movies, boolean checkAdult){
+        List<Movie> ris= new ArrayList<>();
+        for (Movie movie : movies) {
+            if(!checkAdult || !movie.isAdult()){
+                ris.add(movie);
+            }
+        }
+        return ris;
+    }
+
     public static class MoviePopularityComparator implements Comparator<Movie>{
         public int compare(Movie p1, Movie p2) {
             return Double.compare(p2.getPopularity(), p1.getPopularity());
