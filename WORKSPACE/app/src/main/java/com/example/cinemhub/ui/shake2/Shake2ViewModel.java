@@ -13,6 +13,10 @@ public class Shake2ViewModel extends ViewModel {
 
     private MutableLiveData<List<Movie>> movieOnShake;
     private MutableLiveData<List<Movie>> movieTopRated;
+    public void reset()
+    {
+        movieOnShake=null;
+    }
 
     public LiveData<List<Movie>> getMovieOnShake(int movie_id, String language, int page, boolean checkAdult){
         if(movieOnShake==null){

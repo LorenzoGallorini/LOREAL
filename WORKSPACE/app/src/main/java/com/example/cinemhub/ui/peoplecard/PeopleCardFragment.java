@@ -138,9 +138,6 @@ public class PeopleCardFragment extends Fragment {
                 };
                 mViewModel.getPeopleCredits(value,getString(R.string.API_LANGUAGE)).observe(getViewLifecycleOwner(), observer_credits);
 
-
-
-
             }
 
         };
