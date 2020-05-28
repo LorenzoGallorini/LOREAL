@@ -108,7 +108,8 @@ public class MovieCardFragment extends Fragment {
                 SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.CINEM_HUB_SHARED_PREF_FILE_NAME, Context.MODE_PRIVATE);
                 Set<String> preferiti;
                 try {
-                    preferiti=sharedPreferences.getStringSet(Constants.FAVORITE_SHARED_PREF_NAME,null);
+
+                    preferiti=sharedPreferences.getStringSet(Constants.FAVORITE_SHARED_PREF_NAME+getString(R.string.API_LANGUAGE),null);
                     if (preferiti == null){
                         preferiti = new HashSet<String>();
                     }
@@ -137,7 +138,7 @@ public class MovieCardFragment extends Fragment {
                         Set<String> preferiti;
                         Toast toast;
                         try {
-                            preferiti=sharedPreferences.getStringSet(Constants.FAVORITE_SHARED_PREF_NAME,null);
+                            preferiti=sharedPreferences.getStringSet(Constants.FAVORITE_SHARED_PREF_NAME+getString(R.string.API_LANGUAGE),null);
                             if (preferiti == null)
                                 preferiti = new HashSet<String>();
                         }
@@ -159,8 +160,8 @@ public class MovieCardFragment extends Fragment {
 
                             Set<String> in = new HashSet<String>(preferiti);
                             in.remove(favoriteArray[position].toString());
-                            editor.remove(Constants.FAVORITE_SHARED_PREF_NAME);
-                            editor.putStringSet(Constants.FAVORITE_SHARED_PREF_NAME, in);
+                            editor.remove(Constants.FAVORITE_SHARED_PREF_NAME+getString(R.string.API_LANGUAGE));
+                            editor.putStringSet(Constants.FAVORITE_SHARED_PREF_NAME+getString(R.string.API_LANGUAGE), in);
                             toast = Toast.makeText(getContext(), "Rimosso " + movie.getTitle() + " dai tuoi preferiti", Toast.LENGTH_SHORT);
 
                             binding.MovieCardFavouriteButton.setImageResource(R.drawable.startplus_yellow);
@@ -168,7 +169,7 @@ public class MovieCardFragment extends Fragment {
                         else {
                             Set<String> in = new HashSet<String>(preferiti);
                             in.add(Integer.toString(movie.getId())+Constants.SEPARATOR+movie.getTitle()+Constants.SEPARATOR+movie.getPoster_path());
-                            editor.putStringSet(Constants.FAVORITE_SHARED_PREF_NAME, in);
+                            editor.putStringSet(Constants.FAVORITE_SHARED_PREF_NAME+getString(R.string.API_LANGUAGE), in);
                             toast = Toast.makeText(getContext(), "Aggiunto " + movie.getTitle() + " ai tuoi preferiti", Toast.LENGTH_SHORT);
                             binding.MovieCardFavouriteButton.setImageResource(R.drawable.startminum_yellow);
                         }

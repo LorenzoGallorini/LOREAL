@@ -65,7 +65,7 @@ public class FavoriteFragment extends Fragment {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(
                 Constants.CINEM_HUB_SHARED_PREF_FILE_NAME, Context.MODE_PRIVATE);
         Set<String> preferiti;
-        preferiti=sharedPreferences.getStringSet(Constants.FAVORITE_SHARED_PREF_NAME,null);
+        preferiti=sharedPreferences.getStringSet(Constants.FAVORITE_SHARED_PREF_NAME+getString(R.string.API_LANGUAGE),null);
         if (preferiti == null){
             //TODO
         }else {
