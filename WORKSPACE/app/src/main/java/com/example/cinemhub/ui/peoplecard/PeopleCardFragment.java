@@ -23,21 +23,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cinemhub.MainActivity;
 import com.example.cinemhub.R;
-import com.example.cinemhub.adapters.CreditsListHorizontalAdapter;
 import com.example.cinemhub.adapters.MovieListVerticalAdapter;
 import com.example.cinemhub.databinding.FragmentPeopleCardBinding;
 import com.example.cinemhub.models.Movie;
 import com.example.cinemhub.models.MovieApiTmdbResponse;
 import com.example.cinemhub.models.People;
 import com.example.cinemhub.models.PeopleCreditsApiTmdbResponse;
-import com.example.cinemhub.ui.moviecard.MovieCardFragmentDirections;
 import com.example.cinemhub.utils.Constants;
 import com.squareup.picasso.Picasso;
 
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 public class PeopleCardFragment extends Fragment {
@@ -122,19 +117,23 @@ public class PeopleCardFragment extends Fragment {
                         }
                         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.CINEM_HUB_SHARED_PREF_FILE_NAME, Context.MODE_PRIVATE);
                         boolean isAdult=sharedPreferences.getBoolean(Constants.ADULT_SHARED_PREF_NAME, false);
+                        if(movies!= null && movies.length>0){
                         List<Movie> m=Movie.toList(movies, isAdult);
                         Collections.sort(m, new Movie.MoviePopularityComparator());
-                        MovieListVerticalAdapter movieListVerticalAdapter = new MovieListVerticalAdapter(getActivity(),
-                                m.subList(0,12), new MovieListVerticalAdapter.OnItemClickListener() {
-                            @Override
-                            public void OnItemClick(Movie movie) {
-                                Navigation.findNavController(view).navigate(PeopleCardFragmentDirections.actionNavigationPeopleCardToNavigationMovieCard(movie.getId()));
+                        if(m.size()>0) {
+                            if (m.size()>12)
+                                m=m.subList(0, 12);
+                            MovieListVerticalAdapter movieListVerticalAdapter = new MovieListVerticalAdapter(getActivity(),
+                                  m  , new MovieListVerticalAdapter.OnItemClickListener() {
+                                @Override
+                                public void OnItemClick(Movie movie) {
+                                    Navigation.findNavController(view).navigate(PeopleCardFragmentDirections.actionNavigationPeopleCardToNavigationMovieCard(movie.getId()));
 
-                            }
-                        });
-                        binding.filmographyRecyclerView.setAdapter(movieListVerticalAdapter);
-
-                    }
+                                }
+                            });
+                            binding.filmographyRecyclerView.setAdapter(movieListVerticalAdapter);
+                        }
+                    }}
 
                 };
                 mViewModel.getPeopleCredits(value,getString(R.string.API_LANGUAGE)).observe(getViewLifecycleOwner(), observer_credits);
