@@ -32,6 +32,7 @@ import com.example.cinemhub.models.GetVideosApiTmdbResponse;
 import com.example.cinemhub.models.Movie;
 import com.example.cinemhub.models.MovieCreditsApiTmdbResponse;
 import com.example.cinemhub.models.People;
+import com.example.cinemhub.models.Resource;
 import com.example.cinemhub.models.VideoApiTmdbResponse;
 import com.example.cinemhub.utils.Constants;
 import com.google.android.youtube.player.YouTubeInitializationResult;
@@ -77,10 +78,13 @@ public class MovieCardFragment extends Fragment {
 
         mViewModel=new ViewModelProvider(this).get(MovieCardViewModel.class);
 
-        final Observer<Movie> observer_details=new Observer<Movie>() {
+        final Observer<Resource<Movie>> observer_details=new Observer<Resource<Movie>>() {
             @Override
-            public void onChanged(Movie movie) {
+            public void onChanged(Resource<Movie> movieResource) {
+
+                Movie movie=movieResource.getData();
                 Log.d(TAG, "movie tmdb details"+movie);
+
 
                 if(movie.getPoster_path()!=null&&!movie.getPoster_path().equals("")){
                     Picasso.get().load(Constants.IMAGE_BASE_URL + movie.getPoster_path()).into(binding.filmImage);
@@ -197,9 +201,10 @@ public class MovieCardFragment extends Fragment {
         };
 
 
-        final Observer<MovieCreditsApiTmdbResponse> observer_credits = new Observer<MovieCreditsApiTmdbResponse>() {
+        final Observer<Resource<MovieCreditsApiTmdbResponse>> observer_credits = new Observer<Resource<MovieCreditsApiTmdbResponse>>() {
             @Override
-            public void onChanged(MovieCreditsApiTmdbResponse movieCreditsApiTmdbResponse) {
+            public void onChanged(Resource<MovieCreditsApiTmdbResponse> movieCreditsApiTmdbResponseResource) {
+                MovieCreditsApiTmdbResponse movieCreditsApiTmdbResponse=movieCreditsApiTmdbResponseResource.getData();
 
                 CreditsListHorizontalAdapter creditsListHorizontalAdapter = new CreditsListHorizontalAdapter(getActivity(),
                         People.toList(movieCreditsApiTmdbResponse.getCast()), new CreditsListHorizontalAdapter.OnItemClickListener() {
@@ -222,10 +227,11 @@ public class MovieCardFragment extends Fragment {
         };
 
 
-        final Observer<GetVideosApiTmdbResponse> observer_videos = new Observer<GetVideosApiTmdbResponse>() {
+        final Observer<Resource<GetVideosApiTmdbResponse>> observer_videos = new Observer<Resource<GetVideosApiTmdbResponse>>() {
             @SuppressLint("ResourceType")
             @Override
-            public void onChanged(GetVideosApiTmdbResponse getVideosApiTmdbResponse) {
+            public void onChanged(Resource<GetVideosApiTmdbResponse> getVideosApiTmdbResponseResource) {
+                GetVideosApiTmdbResponse getVideosApiTmdbResponse=getVideosApiTmdbResponseResource.getData();
                 VideoApiTmdbResponse[] results = getVideosApiTmdbResponse.getResults();
                 int i = 0;
                 boolean found= false;
@@ -267,7 +273,7 @@ public class MovieCardFragment extends Fragment {
                     transaction.commit();
                 }
                 else {
-
+                    //TODO cosa visualizzare in assenza di trailer
                 }
             }
         };

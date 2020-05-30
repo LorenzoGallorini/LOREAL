@@ -24,6 +24,7 @@ import com.example.cinemhub.R;
 import com.example.cinemhub.adapters.MovieListVerticalAdapter;
 import com.example.cinemhub.databinding.FragmentNowPlayingBinding;
 import com.example.cinemhub.models.Movie;
+import com.example.cinemhub.models.Resource;
 import com.example.cinemhub.ui.moviecard.MovieCardFragmentDirections;
 import com.example.cinemhub.utils.Constants;
 
@@ -60,18 +61,17 @@ public class NowPlayingFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(),3);
         binding.recyclerViewNowPlaying.setLayoutManager(layoutManager);
-        final Observer<List<Movie>> observer_now_playing=new Observer<List<Movie>>() {
+
+        final Observer<Resource<List<Movie>>> observer_now_playing=new Observer<Resource<List<Movie>>>() {
             @Override
-            public void onChanged(List<Movie> movies) {
+            public void onChanged(Resource<List<Movie>> moviesResource) {
+                List<Movie> movies=moviesResource.getData();
                 Log.d(TAG, "lista tmdb comingsoon"+movies);
                 MovieListVerticalAdapter movieListVerticalAdapter = new MovieListVerticalAdapter(getActivity(), movies, new MovieListVerticalAdapter.OnItemClickListener() {
                     @Override
                     public void OnItemClick(Movie movie) {
-
-                        Navigation.findNavController(view).navigate(NowPlayingFragmentDirections.nowPlayingOpenMovieCardAction(movie.getId()));
                         Log.d(TAG, "onclick listener");
-                        //fragmentTransactionMethod(new MovieCardFragment(), movie.getId());
-
+                        Navigation.findNavController(view).navigate(NowPlayingFragmentDirections.nowPlayingOpenMovieCardAction(movie.getId()));
                     }
                 });
                 binding.recyclerViewNowPlaying.setAdapter(movieListVerticalAdapter);
@@ -81,7 +81,11 @@ public class NowPlayingFragment extends Fragment {
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.CINEM_HUB_SHARED_PREF_FILE_NAME, Context.MODE_PRIVATE);
         boolean checkAdult=sharedPreferences.getBoolean(Constants.ADULT_SHARED_PREF_NAME, false);
-        mViewModel.getMovieNowPlaying(getString(R.string.API_LANGUAGE), 1, checkAdult, now_playing_movies).observe(getViewLifecycleOwner(), observer_now_playing);
+        int total_result=NowPlayingFragmentArgs.fromBundle(getArguments()).getTotalResults();
+        int status_code=NowPlayingFragmentArgs.fromBundle(getArguments()).getStatusCode();
+        String status_message=NowPlayingFragmentArgs.fromBundle(getArguments()).getStatusMessage();
+        Resource<List<Movie>> resource=new Resource<>(Movie.toList(now_playing_movies, checkAdult), total_result, status_code, status_message);
+        mViewModel.getMovieNowPlaying(getString(R.string.API_LANGUAGE), 1, checkAdult, resource).observe(getViewLifecycleOwner(), observer_now_playing);
     }
 
     @Override

@@ -49,6 +49,15 @@
         <argument
             android:name="movie_coming_soon_array"
             app:argType="com.example.cinemhub.models.Movie[]" />
+        <argument
+            android:name="total_results"
+            app:argType="integer" />
+        <argument
+            android:name="status_code"
+            app:argType="integer" />
+        <argument
+            android:name="status_message"
+            app:argType="string" />
     </fragment>
 
     <fragment
@@ -68,6 +77,15 @@
         <argument
             android:name="movie_now_playing_array"
             app:argType="com.example.cinemhub.models.Movie[]" />
+        <argument
+            android:name="total_results"
+            app:argType="integer" />
+        <argument
+            android:name="status_code"
+            app:argType="integer" />
+        <argument
+            android:name="status_message"
+            app:argType="string" />
     </fragment>
 
     <fragment
@@ -196,6 +214,15 @@
         <argument
             android:name="movie_top_rated_array"
             app:argType="com.example.cinemhub.models.Movie[]" />
+        <argument
+            android:name="total_results"
+            app:argType="integer" />
+        <argument
+            android:name="status_code"
+            app:argType="integer" />
+        <argument
+            android:name="status_message"
+            app:argType="string" />
     </fragment>
 
     <fragment

@@ -29,6 +29,7 @@ import com.example.cinemhub.models.Movie;
 import com.example.cinemhub.models.MovieApiTmdbResponse;
 import com.example.cinemhub.models.People;
 import com.example.cinemhub.models.PeopleCreditsApiTmdbResponse;
+import com.example.cinemhub.models.Resource;
 import com.example.cinemhub.utils.Constants;
 import com.squareup.picasso.Picasso;
 
@@ -67,9 +68,10 @@ public class PeopleCardFragment extends Fragment {
 
         int value= PeopleCardFragmentArgs.fromBundle(getArguments()).getPeopleId();
 
-        final Observer<People> observer_details = new Observer<People>() {
+        final Observer<Resource<People>> observer_details = new Observer<Resource<People>>() {
             @Override
-            public void onChanged(People people) {
+            public void onChanged(Resource<People> peopleResource) {
+                People people=peopleResource.getData();
                 Log.d(TAG, "people tmdb details"+people);
                 if(people.getProfile_path()!=null&&!people.getProfile_path().equals("")){
                     Picasso.get().load(Constants.IMAGE_BASE_URL + people.getProfile_path()).into(binding.peopleImage);
@@ -106,9 +108,10 @@ public class PeopleCardFragment extends Fragment {
                     ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.people_card));
                 }
 
-                final Observer<PeopleCreditsApiTmdbResponse> observer_credits=new Observer<PeopleCreditsApiTmdbResponse>() {
+                final Observer<Resource<PeopleCreditsApiTmdbResponse>> observer_credits=new Observer<Resource<PeopleCreditsApiTmdbResponse>>() {
                     @Override
-                    public void onChanged(PeopleCreditsApiTmdbResponse peopleCreditsApiTmdbResponse) {
+                    public void onChanged(Resource<PeopleCreditsApiTmdbResponse> peopleCreditsApiTmdbResponseResource) {
+                        PeopleCreditsApiTmdbResponse peopleCreditsApiTmdbResponse=peopleCreditsApiTmdbResponseResource.getData();
                         MovieApiTmdbResponse[] movies;
                         if(people.getKnown_for_department().equals(Constants.DEPARTMENT_ACTING)){
                             movies=peopleCreditsApiTmdbResponse.getCast();
@@ -174,28 +177,4 @@ public class PeopleCardFragment extends Fragment {
         }
     }
 
-
-
-    private void setMoviePreview (Movie movie, TextView textView, ImageButton imageButton){
-        if(movie.getPoster_path()!=null){
-            Picasso.get().load(Constants.IMAGE_BASE_URL + movie.getPoster_path()).into(imageButton);
-        }else {
-            imageButton.setImageResource(R.drawable.no_image_avaiable);
-        }
-        if(movie.getTitle().length() > Constants.MAX_LENGHT)
-            textView.setText(movie.getTitle().substring(0,Constants.MAX_LENGHT-1)+" ...");
-        else
-            textView.setText(movie.getTitle());
-
-        imageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(getView()).navigate(PeopleCardFragmentDirections.actionNavigationPeopleCardToNavigationMovieCard(movie.getId()));
-            }
-        });
-    }
-    
-    private void hideImage(int i){
-        
-    }
 }

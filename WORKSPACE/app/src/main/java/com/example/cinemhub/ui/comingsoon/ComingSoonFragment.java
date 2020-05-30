@@ -24,7 +24,7 @@ import com.example.cinemhub.R;
 import com.example.cinemhub.adapters.MovieListVerticalAdapter;
 import com.example.cinemhub.databinding.FragmentComingSoonBinding;
 import com.example.cinemhub.models.Movie;
-import com.example.cinemhub.ui.moviecard.MovieCardFragmentDirections;
+import com.example.cinemhub.models.Resource;
 import com.example.cinemhub.utils.Constants;
 
 import java.util.List;
@@ -62,11 +62,11 @@ public class ComingSoonFragment extends Fragment {
         binding.ComingSoonRecyclerView.setLayoutManager(layoutManager);
 
 
-        final Observer<List<Movie>> observer_coming_soon=new Observer<List<Movie>>() {
+        final Observer<Resource<List<Movie>>> observer_coming_soon=new Observer<Resource<List<Movie>>>() {
             @Override
-            public void onChanged(List<Movie> movies) {
+            public void onChanged(Resource<List<Movie>> movies) {
                 Log.d(TAG, "lista tmdb comingsoon"+movies);
-                MovieListVerticalAdapter movieListVerticalAdapter = new MovieListVerticalAdapter(getActivity(), movies, new MovieListVerticalAdapter.OnItemClickListener() {
+                MovieListVerticalAdapter movieListVerticalAdapter = new MovieListVerticalAdapter(getActivity(), movies.getData(), new MovieListVerticalAdapter.OnItemClickListener() {
                     @Override
                     public void OnItemClick(Movie movie) {
                         Navigation.findNavController(getView()).navigate(ComingSoonFragmentDirections.actionNavigationComingSoonToNavigationMovieCard(movie.getId()));
@@ -79,9 +79,15 @@ public class ComingSoonFragment extends Fragment {
         };
 
         Movie[] coming_soon_movies=ComingSoonFragmentArgs.fromBundle(getArguments()).getMovieComingSoonArray();
+
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.CINEM_HUB_SHARED_PREF_FILE_NAME, Context.MODE_PRIVATE);
         boolean checkAdult=sharedPreferences.getBoolean(Constants.ADULT_SHARED_PREF_NAME, false);
-        mViewModel.getMovieComingSoon(getString(R.string.API_LANGUAGE), 1, checkAdult, coming_soon_movies).observe(getViewLifecycleOwner(), observer_coming_soon);
+
+        int total_result=ComingSoonFragmentArgs.fromBundle(getArguments()).getTotalResults();
+        int status_code=ComingSoonFragmentArgs.fromBundle(getArguments()).getStatusCode();
+        String status_message=ComingSoonFragmentArgs.fromBundle(getArguments()).getStatusMessage();
+        Resource<List<Movie>> resource=new Resource<>(Movie.toList(coming_soon_movies, checkAdult), total_result, status_code, status_message);
+        mViewModel.getMovieComingSoon(getString(R.string.API_LANGUAGE), 1, checkAdult, resource).observe(getViewLifecycleOwner(), observer_coming_soon);
     }
 
     @Override

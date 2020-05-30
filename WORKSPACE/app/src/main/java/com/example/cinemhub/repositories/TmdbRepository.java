@@ -14,6 +14,7 @@ import com.example.cinemhub.models.People;
 import com.example.cinemhub.models.PeopleApiTmdbResponse;
 import com.example.cinemhub.models.PeopleCreditsApiTmdbResponse;
 import com.example.cinemhub.models.RecommendationsApiTmdbResponse;
+import com.example.cinemhub.models.Resource;
 import com.example.cinemhub.models.TopRatedApiTmdbResponse;
 import com.example.cinemhub.service.TmdbService;
 import com.example.cinemhub.utils.Constants;
@@ -47,13 +48,14 @@ public class TmdbRepository {
         return instance;
     }
 
-    public void getNowPlaying(MutableLiveData<List<Movie>> movieNowPlaying, String language, int page, boolean checkAdult){
+    public void getNowPlaying(MutableLiveData<Resource<List<Movie>>> movieNowPlaying, String language, int page, boolean checkAdult){
         Call<NowPlayingApiTmdbResponse> call = tmdbService.getNowPlaying(language , page, Constants.API_TMDB_KEY);
-
         call.enqueue(new Callback<NowPlayingApiTmdbResponse>() {
             @Override
             public void onResponse(Call<NowPlayingApiTmdbResponse> call, Response<NowPlayingApiTmdbResponse> response) {
-                if(response.body()!=null){
+                if(response.isSuccessful() && response.body()!=null){
+                    Resource<List<Movie>> resource=new Resource();
+
                     List<MovieApiTmdbResponse> movies =response.body().getResults();
                     Log.d(TAG, "callback nowplaying ok");
                     List<Movie> res=new ArrayList<Movie>();
@@ -62,12 +64,15 @@ public class TmdbRepository {
                             res.add(new Movie(movies.get(i)));
                         }
                     }
-                    movieNowPlaying.postValue(res);
+                    resource.setData(res);
+                    resource.setTotalResult(response.body().getTotal_results());
+                    resource.setStatusCode(response.code());
+                    resource.setStatusMessage(response.message());
+                    movieNowPlaying.postValue(resource);
                 }else{
                     Log.d(TAG, "ERROR: getNowPlaying=null");
                 }
             }
-
             @Override
             public void onFailure(Call<NowPlayingApiTmdbResponse> call, Throwable t) {
                 Log.d(TAG, "Error:"+t.toString());
@@ -75,12 +80,13 @@ public class TmdbRepository {
         });
     }
 
-    public void getTopRated(MutableLiveData<List<Movie>> movieTopRated, String language, int page, boolean checkAdult){
+    public void getTopRated(MutableLiveData<Resource<List<Movie>>> movieTopRated, String language, int page, boolean checkAdult){
         Call<TopRatedApiTmdbResponse> call=tmdbService.getTopRated(language, page, Constants.API_TMDB_KEY);
         call.enqueue(new Callback<TopRatedApiTmdbResponse>() {
             @Override
             public void onResponse(Call<TopRatedApiTmdbResponse> call, Response<TopRatedApiTmdbResponse> response) {
-                if (response.body() != null) {
+                if (response.isSuccessful() && response.body() != null) {
+                    Resource<List<Movie>> resource=new Resource();
                     List<MovieApiTmdbResponse> movies = response.body().getResults();
                     Log.d(TAG, "callback toprated ok");
                     List<Movie> res = new ArrayList<Movie>();
@@ -89,7 +95,12 @@ public class TmdbRepository {
                             res.add(new Movie(movies.get(i)));
                         }
                     }
-                    movieTopRated.postValue(res);
+                    resource.setData(res);
+                    resource.setTotalResult(response.body().getTotal_results());
+                    resource.setStatusCode(response.code());
+                    resource.setStatusMessage(response.message());
+
+                    movieTopRated.postValue(resource);
                 } else {
                     Log.d(TAG, "ERROR: getTopRated=null");
                 }
@@ -102,12 +113,13 @@ public class TmdbRepository {
         });
     }
 
-    public void getComingSoon(MutableLiveData<List<Movie>> movieComingSoon, String language, int page, boolean checkAdult){
+    public void getComingSoon(MutableLiveData<Resource<List<Movie>>> movieComingSoon, String language, int page, boolean checkAdult){
         Call<ComingSoonApiTmdbResponse> call=tmdbService.getComingSoon(language, page, Constants.API_TMDB_KEY);
         call.enqueue(new Callback<ComingSoonApiTmdbResponse>() {
             @Override
             public void onResponse(Call<ComingSoonApiTmdbResponse> call, Response<ComingSoonApiTmdbResponse> response) {
-                if (response.body() != null) {
+                if (response.isSuccessful() && response.body() != null) {
+                    Resource<List<Movie>> resource=new Resource();
                     List<MovieApiTmdbResponse> movies = response.body().getResults();
                     Log.d(TAG, "callback comingsoon ok");
                     List<Movie> res = new ArrayList<Movie>();
@@ -116,7 +128,11 @@ public class TmdbRepository {
                             res.add(new Movie(movies.get(i)));
                         }
                     }
-                    movieComingSoon.postValue(res);
+                    resource.setData(res);
+                    resource.setTotalResult(response.body().getTotal_results());
+                    resource.setStatusCode(response.code());
+                    resource.setStatusMessage(response.message());
+                    movieComingSoon.postValue(resource);
                 }
             else{
                 Log.d(TAG, "ERROR: getComingSoon=null");
@@ -130,12 +146,13 @@ public class TmdbRepository {
         });
     }
 
-    public void getRecommendations(MutableLiveData<List<Movie>> movieRecommendations, int movie_id,String language, int page, boolean checkAdult){
+    public void getRecommendations(MutableLiveData<Resource<List<Movie>>> movieRecommendations, int movie_id,String language, int page, boolean checkAdult){
         Call<RecommendationsApiTmdbResponse> call=tmdbService.getRecommendations(movie_id, language, page, Constants.API_TMDB_KEY);
         call.enqueue(new Callback<RecommendationsApiTmdbResponse>() {
             @Override
             public void onResponse(Call<RecommendationsApiTmdbResponse> call, Response<RecommendationsApiTmdbResponse> response) {
-                if (response.body() != null) {
+                if (response.isSuccessful() && response.body() != null) {
+                    Resource<List<Movie>> resource=new Resource();
                     List<MovieApiTmdbResponse> movies = response.body().getResults();
                     Log.d(TAG, "callback recommendations ok");
                     List<Movie> res = new ArrayList<Movie>();
@@ -144,7 +161,11 @@ public class TmdbRepository {
                             res.add(new Movie(movies.get(i)));
                         }
                     }
-                    movieRecommendations.postValue(res);
+                    resource.setData(res);
+                    resource.setTotalResult(response.body().getTotal_results());
+                    resource.setStatusCode(response.code());
+                    resource.setStatusMessage(response.message());
+                    movieRecommendations.postValue(resource);
                 }
                 else{
                     Log.d(TAG, "ERROR: getRecommendations=null");
@@ -158,15 +179,20 @@ public class TmdbRepository {
         });
     }
 
-    public void getMovieDetails(MutableLiveData<Movie> movieDetails, int movie_id, String language){
+    public void getMovieDetails(MutableLiveData<Resource<Movie>> movieDetails, int movie_id, String language){
         Call<MovieApiTmdbResponse> call=tmdbService.getMovieDetails(movie_id, language, Constants.API_TMDB_KEY);
         call.enqueue(new Callback<MovieApiTmdbResponse>() {
             @Override
             public void onResponse(Call<MovieApiTmdbResponse> call, Response<MovieApiTmdbResponse> response) {
-                if(response.body()!=null) {
-                    MovieApiTmdbResponse movies = response.body();
+                if(response.isSuccessful() && response.body()!=null) {
+                    Resource<Movie> resource=new Resource();
+                    MovieApiTmdbResponse movie = response.body();
                     Log.d(TAG, "callback details ok");
-                    movieDetails.postValue(new Movie(movies));
+                    resource.setData(new Movie(movie));
+                    resource.setTotalResult(1);
+                    resource.setStatusCode(response.code());
+                    resource.setStatusMessage(response.message());
+                    movieDetails.postValue(resource);
                 }
                 else{
                     Log.d(TAG, "ERROR: getDatails=null");
@@ -180,13 +206,18 @@ public class TmdbRepository {
         });
     }
 
-    public void getMovieCredits(MutableLiveData<MovieCreditsApiTmdbResponse> credits, int movie_id){
+    public void getMovieCredits(MutableLiveData<Resource<MovieCreditsApiTmdbResponse>> credits, int movie_id){
         Call<MovieCreditsApiTmdbResponse> call=tmdbService.getMovieCredits(movie_id, Constants.API_TMDB_KEY);
         call.enqueue(new Callback<MovieCreditsApiTmdbResponse>() {
             @Override
             public void onResponse(Call<MovieCreditsApiTmdbResponse> call, Response<MovieCreditsApiTmdbResponse> response) {
-                if(response.body()!=null) {
-                    credits.postValue(response.body());
+                if(response.isSuccessful() && response.body()!=null) {
+                    Resource<MovieCreditsApiTmdbResponse> resource=new Resource();
+                    resource.setData(response.body());
+                    resource.setTotalResult(1);
+                    resource.setStatusCode(response.code());
+                    resource.setStatusMessage(response.message());
+                    credits.postValue(resource);
                     Log.d(TAG, "callback credits ok");
 
                 }
@@ -202,15 +233,20 @@ public class TmdbRepository {
         });
     }
 
-    public void getPeopleDetails (MutableLiveData<People> peopleDetails, int person_id, String language){
+    public void getPeopleDetails (MutableLiveData<Resource<People>> peopleDetails, int person_id, String language){
         Call<PeopleApiTmdbResponse> call=tmdbService.getPeopleDetails(person_id, language, Constants.API_TMDB_KEY);
         call.enqueue(new Callback<PeopleApiTmdbResponse>() {
             @Override
             public void onResponse(Call<PeopleApiTmdbResponse> call, Response<PeopleApiTmdbResponse> response) {
-                if(response.body()!=null){
+                if(response.isSuccessful() && response.body()!=null){
+                    Resource<People> resource=new Resource();
                     PeopleApiTmdbResponse people=response.body();
                     Log.d(TAG, "callback peopledetails ok");
-                    peopleDetails.postValue(new People(people));
+                    resource.setData(new People(people));
+                    resource.setTotalResult(1);
+                    resource.setStatusCode(response.code());
+                    resource.setStatusMessage(response.message());
+                    peopleDetails.postValue(resource);
                 }
             }
 
@@ -221,13 +257,18 @@ public class TmdbRepository {
         });
     }
 
-    public void getPeopleCredits(MutableLiveData<PeopleCreditsApiTmdbResponse> credits, int person_id, String language){
+    public void getPeopleCredits(MutableLiveData<Resource<PeopleCreditsApiTmdbResponse>> credits, int person_id, String language){
         Call<PeopleCreditsApiTmdbResponse> call=tmdbService.getPeopleCredits(person_id, language,  Constants.API_TMDB_KEY);
         call.enqueue(new Callback<PeopleCreditsApiTmdbResponse>() {
             @Override
             public void onResponse(Call<PeopleCreditsApiTmdbResponse> call, Response<PeopleCreditsApiTmdbResponse> response) {
-                if(response.body()!=null) {
-                    credits.postValue(response.body());
+                if(response.isSuccessful() && response.body()!=null) {
+                    Resource<PeopleCreditsApiTmdbResponse> resource=new Resource();
+                    resource.setData(response.body());
+                    resource.setTotalResult(1);
+                    resource.setStatusCode(response.code());
+                    resource.setStatusMessage(response.message());
+                    credits.postValue(resource);
                     Log.d(TAG, "callback peoplecredits ok");
 
                 }
@@ -243,15 +284,20 @@ public class TmdbRepository {
         });
     }
 
-    public void getVideos(MutableLiveData<GetVideosApiTmdbResponse> videos, int movie_id, String language)
+    public void getVideos(MutableLiveData<Resource<GetVideosApiTmdbResponse>> videos, int movie_id, String language)
     {
         Call<GetVideosApiTmdbResponse> call=tmdbService.getVideos(movie_id,language, Constants.API_TMDB_KEY);
         call.enqueue(new Callback<GetVideosApiTmdbResponse>() {
             @Override
             public void onResponse(Call<GetVideosApiTmdbResponse> call, Response<GetVideosApiTmdbResponse> response) {
 
-                if(response.body()!=null) {
-                    videos.postValue(response.body());
+                if(response.isSuccessful() && response.body()!=null) {
+                    Resource<GetVideosApiTmdbResponse> resource=new Resource();
+                    resource.setData(response.body());
+                    resource.setTotalResult(1);
+                    resource.setStatusCode(response.code());
+                    resource.setStatusMessage(response.message());
+                    videos.postValue(resource);
                     Log.d(TAG, "callback getVideos ok");
 
                 }
@@ -265,9 +311,6 @@ public class TmdbRepository {
                 Log.d(TAG, "Error:"+t.toString());
             }
         });
-
-
     }
-
 
 }

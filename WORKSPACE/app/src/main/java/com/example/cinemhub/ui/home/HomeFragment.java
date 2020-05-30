@@ -25,6 +25,7 @@ import com.example.cinemhub.R;
 import com.example.cinemhub.adapters.MovieListVerticalAdapter;
 import com.example.cinemhub.databinding.FragmentHomeBinding;
 import com.example.cinemhub.models.Movie;
+import com.example.cinemhub.models.Resource;
 import com.example.cinemhub.ui.moviecard.MovieCardFragmentDirections;
 import com.example.cinemhub.utils.Constants;
 import com.squareup.picasso.Picasso;
@@ -72,14 +73,21 @@ public class HomeFragment extends Fragment {
         boolean checkAdult=sharedPreferences.getBoolean(Constants.ADULT_SHARED_PREF_NAME, false);
 
 
-        final Observer<List<Movie>> observer_now_playing=new Observer<List<Movie>>() {
+        final Observer<Resource<List<Movie>>> observer_now_playing=new Observer<Resource<List<Movie>>>() {
             @Override
-            public void onChanged(List<Movie> movies) {
+            public void onChanged(Resource<List<Movie>> movies) {
                 Log.d(TAG, "lista tmdb nowplaying"+movies);
-                MovieListVerticalAdapter movieListVerticalAdapter=new MovieListVerticalAdapter(getActivity(), movies.subList(0,12), new MovieListVerticalAdapter.OnItemClickListener() {
+                List<Movie> appMovies=movies.getData();
+
+                if (appMovies.size()>12){
+                    appMovies=appMovies.subList(0,12);
+                }
+                MovieListVerticalAdapter movieListVerticalAdapter=new MovieListVerticalAdapter(
+                        getActivity(), appMovies, new MovieListVerticalAdapter.OnItemClickListener() {
                     @Override
                     public void OnItemClick(Movie movie) {
-                        Navigation.findNavController(view).navigate(HomeFragmentDirections.actionNavigationHomeToNavigationMovieCard(movie.getId()));
+                        Navigation.findNavController(view).navigate(
+                                HomeFragmentDirections.actionNavigationHomeToNavigationMovieCard(movie.getId()));
                     }
                 });
                 binding.NowPlayingRecyclerView.setAdapter(movieListVerticalAdapter);
@@ -89,7 +97,9 @@ public class HomeFragment extends Fragment {
                     public void onClick(View v) {
                         Log.d(TAG, "onClick: AllNowPlayingClick");
                         //fragmentTransactionMethod(new NowPlayingFragment());
-                        Navigation.findNavController(view).navigate(HomeFragmentDirections.actionNavigationHomeToNavigationNowPlaying(Movie.fromListToArray(movies)));
+                        Navigation.findNavController(view).navigate(
+                                HomeFragmentDirections.actionNavigationHomeToNavigationNowPlaying(
+                                        Movie.fromListToArray(movies.getData()), movies.getTotalResult(), movies.getStatusCode(), movies.getStatusMessage()));
                     }
                 });
             }
@@ -98,11 +108,15 @@ public class HomeFragment extends Fragment {
 
 
 
-        final Observer<List<Movie>> observer_top_rated=new Observer<List<Movie>>() {
+        final Observer<Resource<List<Movie>>> observer_top_rated=new Observer<Resource<List<Movie>>>() {
             @Override
-            public void onChanged(List<Movie> movies) {
+            public void onChanged(Resource<List<Movie>> movies) {
                 Log.d(TAG, "lista tmdb toprated"+movies);
-                MovieListVerticalAdapter movieListVerticalAdapter=new MovieListVerticalAdapter(getActivity(), movies.subList(0,12), new MovieListVerticalAdapter.OnItemClickListener() {
+                List<Movie> appMovies=movies.getData();
+                if(appMovies.size()>12){
+                    appMovies=appMovies.subList(0, 12);
+                }
+                MovieListVerticalAdapter movieListVerticalAdapter=new MovieListVerticalAdapter(getActivity(), appMovies, new MovieListVerticalAdapter.OnItemClickListener() {
                     @Override
                     public void OnItemClick(Movie movie) {
                         Navigation.findNavController(view).navigate(HomeFragmentDirections.actionNavigationHomeToNavigationMovieCard(movie.getId()));
@@ -115,7 +129,8 @@ public class HomeFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         Log.d(TAG, "onClick: AllRatedClick");
-                        Navigation.findNavController(view).navigate(HomeFragmentDirections.actionNavigationHomeToNavigationTopRated(Movie.fromListToArray(movies)));
+                        Navigation.findNavController(view).navigate(HomeFragmentDirections.actionNavigationHomeToNavigationTopRated(
+                                Movie.fromListToArray(movies.getData()), movies.getTotalResult(), movies.getStatusCode(), movies.getStatusMessage()));
                     }
                 });
             }
@@ -127,11 +142,15 @@ public class HomeFragment extends Fragment {
 
 
 
-        final Observer<List<Movie>> observer_coming_soon=new Observer<List<Movie>>() {
+        final Observer<Resource<List<Movie>>> observer_coming_soon=new Observer<Resource<List<Movie>>>() {
             @Override
-            public void onChanged(List<Movie> movies) {
+            public void onChanged(Resource<List<Movie>> movies) {
                 Log.d(TAG, "lista tmdb comingsoon"+movies);
-                MovieListVerticalAdapter movieListVerticalAdapter=new MovieListVerticalAdapter(getActivity(), movies.subList(0,12), new MovieListVerticalAdapter.OnItemClickListener() {
+                List<Movie> appMovies=movies.getData();
+                if(appMovies.size()>12){
+                    appMovies=appMovies.subList(0,12);
+                }
+                MovieListVerticalAdapter movieListVerticalAdapter=new MovieListVerticalAdapter(getActivity(), appMovies, new MovieListVerticalAdapter.OnItemClickListener() {
                     @Override
                     public void OnItemClick(Movie movie) {
                         Navigation.findNavController(view).navigate(HomeFragmentDirections.actionNavigationHomeToNavigationMovieCard(movie.getId()));
@@ -144,14 +163,13 @@ public class HomeFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         Log.d(TAG, "onClick: AllComingSoonClick");
-                        Navigation.findNavController(view).navigate(HomeFragmentDirections.actionNavigationHomeToNavigationComingSoon(Movie.fromListToArray(movies)));
+                        Navigation.findNavController(view).navigate(HomeFragmentDirections.actionNavigationHomeToNavigationComingSoon(
+                                Movie.fromListToArray(movies.getData()), movies.getTotalResult(), movies.getStatusCode(), movies.getStatusMessage()));
                     }
                 });
             }
         };
         homeViewModel.getMovieComingSoon(getString(R.string.API_LANGUAGE), 1, checkAdult).observe(getViewLifecycleOwner(), observer_coming_soon);
-
-
     }
 
     @Override

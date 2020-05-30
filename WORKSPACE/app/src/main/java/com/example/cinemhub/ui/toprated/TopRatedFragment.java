@@ -24,6 +24,7 @@ import com.example.cinemhub.R;
 import com.example.cinemhub.adapters.MovieListVerticalAdapter;
 import com.example.cinemhub.databinding.FragmentTopRatedBinding;
 import com.example.cinemhub.models.Movie;
+import com.example.cinemhub.models.Resource;
 import com.example.cinemhub.ui.moviecard.MovieCardFragmentDirections;
 import com.example.cinemhub.utils.Constants;
 
@@ -61,9 +62,10 @@ public class TopRatedFragment extends Fragment {
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(),3);
         binding.TopRatedRecyclerView.setLayoutManager(layoutManager);
 
-        final Observer<List<Movie>> observer_top_rated=new Observer<List<Movie>>() {
+        final Observer<Resource<List<Movie>>> observer_top_rated=new Observer<Resource<List<Movie>>>() {
             @Override
-            public void onChanged(List<Movie> movies) {
+            public void onChanged(Resource<List<Movie>> moviesResource) {
+                List<Movie> movies=moviesResource.getData();
                 Log.d(TAG, "lista tmdb comingsoon"+movies);
                 MovieListVerticalAdapter movieListVerticalAdapter = new MovieListVerticalAdapter(getActivity(), movies, new MovieListVerticalAdapter.OnItemClickListener() {
                     @Override
@@ -79,7 +81,12 @@ public class TopRatedFragment extends Fragment {
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.CINEM_HUB_SHARED_PREF_FILE_NAME, Context.MODE_PRIVATE);
         boolean checkAdult=sharedPreferences.getBoolean(Constants.ADULT_SHARED_PREF_NAME, false);
-        mViewModel.getMovieTopRated(getString(R.string.API_LANGUAGE), 1,checkAdult, top_rated_movies).observe(getViewLifecycleOwner(), observer_top_rated);
+
+        int total_result=TopRatedFragmentArgs.fromBundle(getArguments()).getTotalResults();
+        int status_code=TopRatedFragmentArgs.fromBundle(getArguments()).getStatusCode();
+        String status_message=TopRatedFragmentArgs.fromBundle(getArguments()).getStatusMessage();
+        Resource<List<Movie>> resource=new Resource<>(Movie.toList(top_rated_movies, checkAdult), total_result, status_code, status_message);
+        mViewModel.getMovieTopRated(getString(R.string.API_LANGUAGE), 1,checkAdult, resource).observe(getViewLifecycleOwner(), observer_top_rated);
     }
 
     @Override

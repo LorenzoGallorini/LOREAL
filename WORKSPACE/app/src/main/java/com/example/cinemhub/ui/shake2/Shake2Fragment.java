@@ -21,6 +21,7 @@ import com.example.cinemhub.MainActivity;
 import com.example.cinemhub.R;
 import com.example.cinemhub.databinding.FragmentShake2Binding;
 import com.example.cinemhub.models.Movie;
+import com.example.cinemhub.models.Resource;
 import com.example.cinemhub.utils.Constants;
 import com.squareup.picasso.Picasso;
 
@@ -56,9 +57,10 @@ public class Shake2Fragment extends Fragment {
         mViewModel=new ViewModelProvider(getActivity()).get(Shake2ViewModel.class);
 
 
-        final Observer<List<Movie>> observer_on_shake=new Observer<List<Movie>>() {
+        final Observer<Resource<List<Movie>>> observer_on_shake=new Observer<Resource<List<Movie>>>() {
             @Override
-            public void onChanged(List<Movie> movies) {
+            public void onChanged(Resource<List<Movie>> moviesResource) {
+                List<Movie> movies=moviesResource.getData();
                 Log.d(TAG, "lista shake"+movies);
                 for(int i=0;i<movies.size();i++){
                     Log.d(TAG, "film numero "+i+" "+movies.get(i).toString());
@@ -182,7 +184,7 @@ public class Shake2Fragment extends Fragment {
     }
 
 
-    void CallShake(Set<String> preferiti,boolean checkAdult, Observer<List<Movie>> observer_on_shake,
+    void CallShake(Set<String> preferiti,boolean checkAdult, Observer<Resource<List<Movie>>> observer_on_shake,
                     SharedPreferences sharedPreferences)
     {
         if(preferiti!=null && preferiti.size()>0){
@@ -205,9 +207,10 @@ public class Shake2Fragment extends Fragment {
 
         }
         else{
-            final Observer<List<Movie>> observer_top_rated=new Observer<List<Movie>>() {
+            final Observer<Resource<List<Movie>>> observer_top_rated=new Observer<Resource<List<Movie>>>() {
                 @Override
-                public void onChanged(List<Movie> movies) {
+                public void onChanged(Resource<List<Movie>> moviesResource) {
+                    List<Movie> movies=moviesResource.getData();
                     int casual_id;
                     Log.d(TAG, "shake2 no favorite");
                     Random random=new Random();
