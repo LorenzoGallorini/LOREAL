@@ -4,12 +4,14 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,6 +29,7 @@ import com.example.cinemhub.databinding.FragmentHomeBinding;
 import com.example.cinemhub.models.Movie;
 import com.example.cinemhub.models.Resource;
 import com.example.cinemhub.ui.moviecard.MovieCardFragmentDirections;
+import com.example.cinemhub.ui.toprated.TopRatedFragment;
 import com.example.cinemhub.utils.Constants;
 import com.squareup.picasso.Picasso;
 
@@ -77,31 +80,45 @@ public class HomeFragment extends Fragment {
             @Override
             public void onChanged(Resource<List<Movie>> movies) {
                 Log.d(TAG, "lista tmdb nowplaying"+movies);
-                List<Movie> appMovies=movies.getData();
 
-                if (appMovies.size()>12){
-                    appMovies=appMovies.subList(0,12);
+                if (movies!=null && movies.getData()!= null){
+
+                    List<Movie> appMovies=movies.getData();
+
+                    if (appMovies.size()>12){
+                        appMovies=appMovies.subList(0,12);
+                    }
+                    MovieListVerticalAdapter movieListVerticalAdapter=new MovieListVerticalAdapter(
+                            getActivity(), appMovies, new MovieListVerticalAdapter.OnItemClickListener() {
+                        @Override
+                        public void OnItemClick(Movie movie) {
+                            Navigation.findNavController(view).navigate(
+                                    HomeFragmentDirections.actionNavigationHomeToNavigationMovieCard(movie.getId()));
+                        }
+                    });
+                    binding.NowPlayingRecyclerView.setAdapter(movieListVerticalAdapter);
+
+                    binding.textViewShowAllNowPlaying.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Log.d(TAG, "onClick: AllNowPlayingClick");
+                            //fragmentTransactionMethod(new NowPlayingFragment());
+                            Navigation.findNavController(view).navigate(
+                                    HomeFragmentDirections.actionNavigationHomeToNavigationNowPlaying(
+                                            Movie.fromListToArray(movies.getData()), movies.getTotalResult(), movies.getStatusCode(), movies.getStatusMessage()));
+                        }
+                    });
+                }else {
+                    if(movies!= null && movies.getStatusMessage()!=null) {
+                        Log.d(TAG, "ERROR CODE: " + movies.getStatusCode() + " ERROR MESSAGE: " + movies.getStatusMessage());
+                    }
+
+
+                    Toast toast;
+                    toast = Toast.makeText(getContext(), "Impossibile recuperare i film "+getString(R.string.title_now_playing) , Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
                 }
-                MovieListVerticalAdapter movieListVerticalAdapter=new MovieListVerticalAdapter(
-                        getActivity(), appMovies, new MovieListVerticalAdapter.OnItemClickListener() {
-                    @Override
-                    public void OnItemClick(Movie movie) {
-                        Navigation.findNavController(view).navigate(
-                                HomeFragmentDirections.actionNavigationHomeToNavigationMovieCard(movie.getId()));
-                    }
-                });
-                binding.NowPlayingRecyclerView.setAdapter(movieListVerticalAdapter);
-
-                binding.textViewShowAllNowPlaying.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Log.d(TAG, "onClick: AllNowPlayingClick");
-                        //fragmentTransactionMethod(new NowPlayingFragment());
-                        Navigation.findNavController(view).navigate(
-                                HomeFragmentDirections.actionNavigationHomeToNavigationNowPlaying(
-                                        Movie.fromListToArray(movies.getData()), movies.getTotalResult(), movies.getStatusCode(), movies.getStatusMessage()));
-                    }
-                });
             }
         };
         homeViewModel.getMovieNowPlaying(getString(R.string.API_LANGUAGE), 1, checkAdult).observe(getViewLifecycleOwner(), observer_now_playing);//TODO settare delle variabili globali per la pagina

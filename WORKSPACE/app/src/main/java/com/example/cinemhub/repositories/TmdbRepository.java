@@ -19,6 +19,7 @@ import com.example.cinemhub.models.TopRatedApiTmdbResponse;
 import com.example.cinemhub.service.TmdbService;
 import com.example.cinemhub.utils.Constants;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,12 +50,14 @@ public class TmdbRepository {
     }
 
     public void getNowPlaying(MutableLiveData<Resource<List<Movie>>> movieNowPlaying, String language, int page, boolean checkAdult){
+
         Call<NowPlayingApiTmdbResponse> call = tmdbService.getNowPlaying(language , page, Constants.API_TMDB_KEY);
         call.enqueue(new Callback<NowPlayingApiTmdbResponse>() {
             @Override
             public void onResponse(Call<NowPlayingApiTmdbResponse> call, Response<NowPlayingApiTmdbResponse> response) {
+                Resource<List<Movie>> resource=new Resource<>();
+
                 if(response.isSuccessful() && response.body()!=null){
-                    Resource<List<Movie>> resource=new Resource();
 
                     List<MovieApiTmdbResponse> movies =response.body().getResults();
                     Log.d(TAG, "callback nowplaying ok");
@@ -68,14 +71,22 @@ public class TmdbRepository {
                     resource.setTotalResult(response.body().getTotal_results());
                     resource.setStatusCode(response.code());
                     resource.setStatusMessage(response.message());
-                    movieNowPlaying.postValue(resource);
-                }else{
+                }else if (response.errorBody()!=null){
                     Log.d(TAG, "ERROR: getNowPlaying=null");
+                    resource.setStatusCode(response.code());
+                    try {
+                        resource.setStatusMessage(response.message()+" - "+response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
+                movieNowPlaying.postValue(resource);
+
             }
             @Override
             public void onFailure(Call<NowPlayingApiTmdbResponse> call, Throwable t) {
                 Log.d(TAG, "Error:"+t.toString());
+
             }
         });
     }
