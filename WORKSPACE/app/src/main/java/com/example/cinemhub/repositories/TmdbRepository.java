@@ -73,6 +73,7 @@ public class TmdbRepository {
                     resource.setStatusMessage(response.message());
                 }else if (response.errorBody()!=null){
                     Log.d(TAG, "ERROR: getNowPlaying=null");
+
                     resource.setStatusCode(response.code());
                     try {
                         resource.setStatusMessage(response.message()+" - "+response.errorBody().string());
@@ -96,8 +97,9 @@ public class TmdbRepository {
         call.enqueue(new Callback<TopRatedApiTmdbResponse>() {
             @Override
             public void onResponse(Call<TopRatedApiTmdbResponse> call, Response<TopRatedApiTmdbResponse> response) {
+                Resource<List<Movie>> resource=new Resource();
                 if (response.isSuccessful() && response.body() != null) {
-                    Resource<List<Movie>> resource=new Resource();
+
                     List<MovieApiTmdbResponse> movies = response.body().getResults();
                     Log.d(TAG, "callback toprated ok");
                     List<Movie> res = new ArrayList<Movie>();
@@ -111,10 +113,18 @@ public class TmdbRepository {
                     resource.setStatusCode(response.code());
                     resource.setStatusMessage(response.message());
 
-                    movieTopRated.postValue(resource);
-                } else {
+
+                } else if (response.errorBody()!=null){
                     Log.d(TAG, "ERROR: getTopRated=null");
+
+                    resource.setStatusCode(response.code());
+                    try {
+                        resource.setStatusMessage(response.message()+" - "+response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
+                movieTopRated.postValue(resource);
             }
 
             @Override
@@ -129,8 +139,9 @@ public class TmdbRepository {
         call.enqueue(new Callback<ComingSoonApiTmdbResponse>() {
             @Override
             public void onResponse(Call<ComingSoonApiTmdbResponse> call, Response<ComingSoonApiTmdbResponse> response) {
+                Resource<List<Movie>> resource=new Resource();
                 if (response.isSuccessful() && response.body() != null) {
-                    Resource<List<Movie>> resource=new Resource();
+
                     List<MovieApiTmdbResponse> movies = response.body().getResults();
                     Log.d(TAG, "callback comingsoon ok");
                     List<Movie> res = new ArrayList<Movie>();
@@ -143,11 +154,19 @@ public class TmdbRepository {
                     resource.setTotalResult(response.body().getTotal_results());
                     resource.setStatusCode(response.code());
                     resource.setStatusMessage(response.message());
-                    movieComingSoon.postValue(resource);
+
                 }
-            else{
-                Log.d(TAG, "ERROR: getComingSoon=null");
-            }
+                else if (response.errorBody()!=null){
+                    Log.d(TAG, "ERROR: getComingSoon=null");
+
+                    resource.setStatusCode(response.code());
+                    try {
+                        resource.setStatusMessage(response.message()+" - "+response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                movieComingSoon.postValue(resource);
             }
 
             @Override
@@ -162,8 +181,9 @@ public class TmdbRepository {
         call.enqueue(new Callback<RecommendationsApiTmdbResponse>() {
             @Override
             public void onResponse(Call<RecommendationsApiTmdbResponse> call, Response<RecommendationsApiTmdbResponse> response) {
+                Resource<List<Movie>> resource=new Resource();
                 if (response.isSuccessful() && response.body() != null) {
-                    Resource<List<Movie>> resource=new Resource();
+
                     List<MovieApiTmdbResponse> movies = response.body().getResults();
                     Log.d(TAG, "callback recommendations ok");
                     List<Movie> res = new ArrayList<Movie>();
@@ -176,11 +196,19 @@ public class TmdbRepository {
                     resource.setTotalResult(response.body().getTotal_results());
                     resource.setStatusCode(response.code());
                     resource.setStatusMessage(response.message());
-                    movieRecommendations.postValue(resource);
+
                 }
-                else{
-                    Log.d(TAG, "ERROR: getRecommendations=null");
+                else if (response.errorBody()!=null){
+                    Log.d(TAG, "ERROR: getRaccomandation=null");
+
+                    resource.setStatusCode(response.code());
+                    try {
+                        resource.setStatusMessage(response.message()+" - "+response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
+                movieRecommendations.postValue(resource);
             }
 
             @Override
@@ -195,19 +223,28 @@ public class TmdbRepository {
         call.enqueue(new Callback<MovieApiTmdbResponse>() {
             @Override
             public void onResponse(Call<MovieApiTmdbResponse> call, Response<MovieApiTmdbResponse> response) {
+                Resource<Movie> resource=new Resource();
                 if(response.isSuccessful() && response.body()!=null) {
-                    Resource<Movie> resource=new Resource();
+
                     MovieApiTmdbResponse movie = response.body();
                     Log.d(TAG, "callback details ok");
                     resource.setData(new Movie(movie));
                     resource.setTotalResult(1);
                     resource.setStatusCode(response.code());
                     resource.setStatusMessage(response.message());
-                    movieDetails.postValue(resource);
+
                 }
-                else{
-                    Log.d(TAG, "ERROR: getDatails=null");
+                else if (response.errorBody()!=null){
+                    Log.d(TAG, "ERROR: getMovieDetails=null");
+
+                    resource.setStatusCode(response.code());
+                    try {
+                        resource.setStatusMessage(response.message()+" - "+response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
+                movieDetails.postValue(resource);
             }
 
             @Override
@@ -222,19 +259,27 @@ public class TmdbRepository {
         call.enqueue(new Callback<MovieCreditsApiTmdbResponse>() {
             @Override
             public void onResponse(Call<MovieCreditsApiTmdbResponse> call, Response<MovieCreditsApiTmdbResponse> response) {
-                if(response.isSuccessful() && response.body()!=null) {
-                    Resource<MovieCreditsApiTmdbResponse> resource=new Resource();
+                Resource<MovieCreditsApiTmdbResponse> resource = new Resource();
+                if (response.isSuccessful() && response.body() != null) {
+
                     resource.setData(response.body());
                     resource.setTotalResult(1);
                     resource.setStatusCode(response.code());
                     resource.setStatusMessage(response.message());
-                    credits.postValue(resource);
+
                     Log.d(TAG, "callback credits ok");
 
+                } else if (response.errorBody() != null) {
+                    Log.d(TAG, "ERROR: getTopRated=null");
+
+                    resource.setStatusCode(response.code());
+                    try {
+                        resource.setStatusMessage(response.message() + " - " + response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
-                else{
-                    Log.d(TAG, "ERROR: getCredits=null");
-                }
+                credits.postValue(resource);
             }
 
             @Override
@@ -249,16 +294,28 @@ public class TmdbRepository {
         call.enqueue(new Callback<PeopleApiTmdbResponse>() {
             @Override
             public void onResponse(Call<PeopleApiTmdbResponse> call, Response<PeopleApiTmdbResponse> response) {
+                Resource<People> resource=new Resource();
                 if(response.isSuccessful() && response.body()!=null){
-                    Resource<People> resource=new Resource();
+
                     PeopleApiTmdbResponse people=response.body();
                     Log.d(TAG, "callback peopledetails ok");
                     resource.setData(new People(people));
                     resource.setTotalResult(1);
                     resource.setStatusCode(response.code());
                     resource.setStatusMessage(response.message());
-                    peopleDetails.postValue(resource);
+
+                } else if (response.errorBody() != null) {
+                    Log.d(TAG, "ERROR: getTopRated=null");
+
+                    resource.setStatusCode(response.code());
+                    try {
+                        resource.setStatusMessage(response.message() + " - " + response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
+                peopleDetails.postValue(resource);
+
             }
 
             @Override
@@ -273,19 +330,26 @@ public class TmdbRepository {
         call.enqueue(new Callback<PeopleCreditsApiTmdbResponse>() {
             @Override
             public void onResponse(Call<PeopleCreditsApiTmdbResponse> call, Response<PeopleCreditsApiTmdbResponse> response) {
+                Resource<PeopleCreditsApiTmdbResponse> resource=new Resource();
                 if(response.isSuccessful() && response.body()!=null) {
-                    Resource<PeopleCreditsApiTmdbResponse> resource=new Resource();
+                    Log.d(TAG, "callback peoplecredits ok");
                     resource.setData(response.body());
                     resource.setTotalResult(1);
                     resource.setStatusCode(response.code());
                     resource.setStatusMessage(response.message());
-                    credits.postValue(resource);
-                    Log.d(TAG, "callback peoplecredits ok");
 
                 }
-                else{
-                    Log.d(TAG, "ERROR: getCredits=null");
+                else if (response.errorBody() != null) {
+                    Log.d(TAG, "ERROR: getTopRated=null");
+
+                    resource.setStatusCode(response.code());
+                    try {
+                        resource.setStatusMessage(response.message() + " - " + response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
+                credits.postValue(resource);
             }
 
             @Override
@@ -301,20 +365,28 @@ public class TmdbRepository {
         call.enqueue(new Callback<GetVideosApiTmdbResponse>() {
             @Override
             public void onResponse(Call<GetVideosApiTmdbResponse> call, Response<GetVideosApiTmdbResponse> response) {
-
+                Resource<GetVideosApiTmdbResponse> resource=new Resource();
                 if(response.isSuccessful() && response.body()!=null) {
-                    Resource<GetVideosApiTmdbResponse> resource=new Resource();
+
                     resource.setData(response.body());
                     resource.setTotalResult(1);
                     resource.setStatusCode(response.code());
                     resource.setStatusMessage(response.message());
-                    videos.postValue(resource);
+
                     Log.d(TAG, "callback getVideos ok");
 
                 }
-                else{
-                    Log.d(TAG, "ERROR: getVideos=null");
+                else if (response.errorBody() != null) {
+                    Log.d(TAG, "ERROR: getTopRated=null");
+
+                    resource.setStatusCode(response.code());
+                    try {
+                        resource.setStatusMessage(response.message() + " - " + response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
+                videos.postValue(resource);
             }
 
             @Override
