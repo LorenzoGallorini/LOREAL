@@ -4,10 +4,12 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -61,20 +63,27 @@ public class ComingSoonFragment extends Fragment {
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(),3);
         binding.ComingSoonRecyclerView.setLayoutManager(layoutManager);
 
-
         final Observer<Resource<List<Movie>>> observer_coming_soon=new Observer<Resource<List<Movie>>>() {
             @Override
             public void onChanged(Resource<List<Movie>> movies) {
                 Log.d(TAG, "lista tmdb comingsoon"+movies);
+                if(movies!=null && movies.getData()!= null){
                 MovieListVerticalAdapter movieListVerticalAdapter = new MovieListVerticalAdapter(getActivity(), movies.getData(), new MovieListVerticalAdapter.OnItemClickListener() {
                     @Override
                     public void OnItemClick(Movie movie) {
                         Navigation.findNavController(getView()).navigate(ComingSoonFragmentDirections.actionNavigationComingSoonToNavigationMovieCard(movie.getId()));
-
                     }
                 });
                 binding.ComingSoonRecyclerView.setAdapter(movieListVerticalAdapter);
-
+                }else{
+                    if(movies!= null && movies.getStatusMessage()!=null) {
+                        Log.d(TAG, "ERROR CODE: " + movies.getStatusCode() + " ERROR MESSAGE: " + movies.getStatusMessage());
+                    }
+                    Toast toast;
+                    toast = Toast.makeText(getContext(), getString(R.string.error_message_movie)+getString(R.string.title_coming_soon) , Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
+                }
             }
         };
 

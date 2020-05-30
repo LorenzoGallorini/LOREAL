@@ -4,10 +4,12 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -64,10 +66,12 @@ public class NowPlayingFragment extends Fragment {
 
         final Observer<Resource<List<Movie>>> observer_now_playing=new Observer<Resource<List<Movie>>>() {
             @Override
-            public void onChanged(Resource<List<Movie>> moviesResource) {
-                List<Movie> movies=moviesResource.getData();
+            public void onChanged(Resource<List<Movie>> movies) {
                 Log.d(TAG, "lista tmdb comingsoon"+movies);
-                MovieListVerticalAdapter movieListVerticalAdapter = new MovieListVerticalAdapter(getActivity(), movies, new MovieListVerticalAdapter.OnItemClickListener() {
+
+                if(movies!=null && movies.getData()!= null){
+
+                    MovieListVerticalAdapter movieListVerticalAdapter = new MovieListVerticalAdapter(getActivity(), movies.getData(), new MovieListVerticalAdapter.OnItemClickListener() {
                     @Override
                     public void OnItemClick(Movie movie) {
                         Log.d(TAG, "onclick listener");
@@ -75,6 +79,15 @@ public class NowPlayingFragment extends Fragment {
                     }
                 });
                 binding.recyclerViewNowPlaying.setAdapter(movieListVerticalAdapter);
+                }else{
+                    if(movies!= null && movies.getStatusMessage()!=null) {
+                        Log.d(TAG, "ERROR CODE: " + movies.getStatusCode() + " ERROR MESSAGE: " + movies.getStatusMessage());
+                    }
+                    Toast toast;
+                    toast = Toast.makeText(getContext(), getString(R.string.error_message_movie)+getString(R.string.title_now_playing) , Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
+                }
             }
         };
         Movie[] now_playing_movies=NowPlayingFragmentArgs.fromBundle(getArguments()).getMovieNowPlayingArray();

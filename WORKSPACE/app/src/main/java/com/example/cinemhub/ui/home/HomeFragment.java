@@ -52,16 +52,12 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
         setHasOptionsMenu(true);
-
-
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
         ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.title_home));
         ((MainActivity) getActivity()).menuColorSettings(R.id.navigation_home);
 
@@ -71,20 +67,15 @@ public class HomeFragment extends Fragment {
         binding.NowPlayingRecyclerView.setLayoutManager(layoutManagerNowPlaying);
         binding.TopRatedRecyclerView.setLayoutManager(layoutManagerTopRated);
         binding.ComingSoonRecyclerView.setLayoutManager(layoutManagerComingSoon);
-
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.CINEM_HUB_SHARED_PREF_FILE_NAME, Context.MODE_PRIVATE);
         boolean checkAdult=sharedPreferences.getBoolean(Constants.ADULT_SHARED_PREF_NAME, false);
-
 
         final Observer<Resource<List<Movie>>> observer_now_playing=new Observer<Resource<List<Movie>>>() {
             @Override
             public void onChanged(Resource<List<Movie>> movies) {
                 Log.d(TAG, "lista tmdb nowplaying"+movies);
-
                 if (movies!=null && movies.getData()!= null){
-
                     List<Movie> appMovies=movies.getData();
-
                     if (appMovies.size()>12){
                         appMovies=appMovies.subList(0,12);
                     }
@@ -97,12 +88,10 @@ public class HomeFragment extends Fragment {
                         }
                     });
                     binding.NowPlayingRecyclerView.setAdapter(movieListVerticalAdapter);
-
                     binding.textViewShowAllNowPlaying.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             Log.d(TAG, "onClick: AllNowPlayingClick");
-                            //fragmentTransactionMethod(new NowPlayingFragment());
                             Navigation.findNavController(view).navigate(
                                     HomeFragmentDirections.actionNavigationHomeToNavigationNowPlaying(
                                             Movie.fromListToArray(movies.getData()), movies.getTotalResult(), movies.getStatusCode(), movies.getStatusMessage()));
@@ -112,10 +101,8 @@ public class HomeFragment extends Fragment {
                     if(movies!= null && movies.getStatusMessage()!=null) {
                         Log.d(TAG, "ERROR CODE: " + movies.getStatusCode() + " ERROR MESSAGE: " + movies.getStatusMessage());
                     }
-
-
                     Toast toast;
-                    toast = Toast.makeText(getContext(), "Impossibile recuperare i film "+getString(R.string.title_now_playing) , Toast.LENGTH_LONG);
+                    toast = Toast.makeText(getContext(), getString(R.string.error_message_movie)+getString(R.string.title_now_playing) , Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.CENTER, 0, 0);
                     toast.show();
                 }
@@ -129,27 +116,36 @@ public class HomeFragment extends Fragment {
             @Override
             public void onChanged(Resource<List<Movie>> movies) {
                 Log.d(TAG, "lista tmdb toprated"+movies);
-                List<Movie> appMovies=movies.getData();
-                if(appMovies.size()>12){
-                    appMovies=appMovies.subList(0, 12);
+                if(movies!=null && movies.getData()!= null){
+                    List<Movie> appMovies=movies.getData();
+                    if(appMovies.size()>12){
+                        appMovies=appMovies.subList(0, 12);
+                    }
+                    MovieListVerticalAdapter movieListVerticalAdapter=new MovieListVerticalAdapter(getActivity(), appMovies, new MovieListVerticalAdapter.OnItemClickListener() {
+                        @Override
+                        public void OnItemClick(Movie movie) {
+                            Navigation.findNavController(view).navigate(HomeFragmentDirections.actionNavigationHomeToNavigationMovieCard(movie.getId()));
+                        }
+                    });
+                    binding.TopRatedRecyclerView.setAdapter(movieListVerticalAdapter);
+
+                    binding.textView2ShowAllTopRated.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Log.d(TAG, "onClick: AllRatedClick");
+                            Navigation.findNavController(view).navigate(HomeFragmentDirections.actionNavigationHomeToNavigationTopRated(
+                                    Movie.fromListToArray(movies.getData()), movies.getTotalResult(), movies.getStatusCode(), movies.getStatusMessage()));
+                        }
+                    });
+                }else {
+                    if(movies!= null && movies.getStatusMessage()!=null) {
+                        Log.d(TAG, "ERROR CODE: " + movies.getStatusCode() + " ERROR MESSAGE: " + movies.getStatusMessage());
+                    }
+                    Toast toast;
+                    toast = Toast.makeText(getContext(), getString(R.string.error_message_movie)+getString(R.string.title_top_rated) , Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
                 }
-                MovieListVerticalAdapter movieListVerticalAdapter=new MovieListVerticalAdapter(getActivity(), appMovies, new MovieListVerticalAdapter.OnItemClickListener() {
-                    @Override
-                    public void OnItemClick(Movie movie) {
-                        Navigation.findNavController(view).navigate(HomeFragmentDirections.actionNavigationHomeToNavigationMovieCard(movie.getId()));
-
-                    }
-                });
-                binding.TopRatedRecyclerView.setAdapter(movieListVerticalAdapter);
-
-                binding.textView2ShowAllTopRated.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Log.d(TAG, "onClick: AllRatedClick");
-                        Navigation.findNavController(view).navigate(HomeFragmentDirections.actionNavigationHomeToNavigationTopRated(
-                                Movie.fromListToArray(movies.getData()), movies.getTotalResult(), movies.getStatusCode(), movies.getStatusMessage()));
-                    }
-                });
             }
         };
         homeViewModel.getMovieTopRated(getString(R.string.API_LANGUAGE), 1, checkAdult).observe(getViewLifecycleOwner(), observer_top_rated);
@@ -163,27 +159,39 @@ public class HomeFragment extends Fragment {
             @Override
             public void onChanged(Resource<List<Movie>> movies) {
                 Log.d(TAG, "lista tmdb comingsoon"+movies);
-                List<Movie> appMovies=movies.getData();
-                if(appMovies.size()>12){
-                    appMovies=appMovies.subList(0,12);
+                if(movies!=null && movies.getData()!= null){
+                    List<Movie> appMovies=movies.getData();
+                    if(appMovies.size()>12){
+                        appMovies=appMovies.subList(0,12);
+                    }
+                    MovieListVerticalAdapter movieListVerticalAdapter=new MovieListVerticalAdapter(
+                            getActivity(), appMovies, new MovieListVerticalAdapter.OnItemClickListener() {
+                        @Override
+                        public void OnItemClick(Movie movie) {
+                            Navigation.findNavController(view).navigate(
+                                    HomeFragmentDirections.actionNavigationHomeToNavigationMovieCard(movie.getId()));
+
+                        }
+                    });
+                    binding.ComingSoonRecyclerView.setAdapter(movieListVerticalAdapter);
+
+                    binding.textViewShowAllComingSoon.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Log.d(TAG, "onClick: AllComingSoonClick");
+                            Navigation.findNavController(view).navigate(HomeFragmentDirections.actionNavigationHomeToNavigationComingSoon(
+                                    Movie.fromListToArray(movies.getData()), movies.getTotalResult(), movies.getStatusCode(), movies.getStatusMessage()));
+                        }
+                    });
+                }else {
+                    if(movies!= null && movies.getStatusMessage()!=null) {
+                        Log.d(TAG, "ERROR CODE: " + movies.getStatusCode() + " ERROR MESSAGE: " + movies.getStatusMessage());
+                    }
+                    Toast toast;
+                    toast = Toast.makeText(getContext(), getString(R.string.error_message_movie)+getString(R.string.title_coming_soon) , Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
                 }
-                MovieListVerticalAdapter movieListVerticalAdapter=new MovieListVerticalAdapter(getActivity(), appMovies, new MovieListVerticalAdapter.OnItemClickListener() {
-                    @Override
-                    public void OnItemClick(Movie movie) {
-                        Navigation.findNavController(view).navigate(HomeFragmentDirections.actionNavigationHomeToNavigationMovieCard(movie.getId()));
-
-                    }
-                });
-                binding.ComingSoonRecyclerView.setAdapter(movieListVerticalAdapter);
-
-                binding.textViewShowAllComingSoon.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Log.d(TAG, "onClick: AllComingSoonClick");
-                        Navigation.findNavController(view).navigate(HomeFragmentDirections.actionNavigationHomeToNavigationComingSoon(
-                                Movie.fromListToArray(movies.getData()), movies.getTotalResult(), movies.getStatusCode(), movies.getStatusMessage()));
-                    }
-                });
             }
         };
         homeViewModel.getMovieComingSoon(getString(R.string.API_LANGUAGE), 1, checkAdult).observe(getViewLifecycleOwner(), observer_coming_soon);

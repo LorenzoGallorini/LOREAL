@@ -4,10 +4,12 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -64,17 +66,25 @@ public class TopRatedFragment extends Fragment {
 
         final Observer<Resource<List<Movie>>> observer_top_rated=new Observer<Resource<List<Movie>>>() {
             @Override
-            public void onChanged(Resource<List<Movie>> moviesResource) {
-                List<Movie> movies=moviesResource.getData();
+            public void onChanged(Resource<List<Movie>> movies) {
                 Log.d(TAG, "lista tmdb comingsoon"+movies);
-                MovieListVerticalAdapter movieListVerticalAdapter = new MovieListVerticalAdapter(getActivity(), movies, new MovieListVerticalAdapter.OnItemClickListener() {
-                    @Override
-                    public void OnItemClick(Movie movie) {
-                        Navigation.findNavController(getView()).navigate(TopRatedFragmentDirections.actionNavigationTopRatedToNavigationMovieCard(movie.getId()));
+                if(movies!=null && movies.getData()!= null) {
+                    MovieListVerticalAdapter movieListVerticalAdapter = new MovieListVerticalAdapter(getActivity(), movies.getData(), new MovieListVerticalAdapter.OnItemClickListener() {
+                        @Override
+                        public void OnItemClick(Movie movie) {
+                            Navigation.findNavController(getView()).navigate(TopRatedFragmentDirections.actionNavigationTopRatedToNavigationMovieCard(movie.getId()));
+                        }
+                    });
+                    binding.TopRatedRecyclerView.setAdapter(movieListVerticalAdapter);
+                }else{
+                    if(movies!= null && movies.getStatusMessage()!=null) {
+                        Log.d(TAG, "ERROR CODE: " + movies.getStatusCode() + " ERROR MESSAGE: " + movies.getStatusMessage());
                     }
-                });
-                binding.TopRatedRecyclerView.setAdapter(movieListVerticalAdapter);
-
+                    Toast toast;
+                    toast = Toast.makeText(getContext(), getString(R.string.error_message_movie)+getString(R.string.title_coming_soon) , Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
+                }
             }
         };
         Movie[] top_rated_movies=TopRatedFragmentArgs.fromBundle(getArguments()).getMovieTopRatedArray();

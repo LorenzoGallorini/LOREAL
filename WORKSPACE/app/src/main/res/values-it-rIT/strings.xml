@@ -41,4 +41,6 @@
     <string name="git_hub_text">Git Hub</string>
     <string name="credits_text">Crediti</string>
     <string name="version_n_text">Versione n:</string>
+    <string name="error_message_movie">"Impossibile recuperare i film "</string>
+    <string name="error_message_people">"Impossibile recuperare la persona "</string>
 </resources>

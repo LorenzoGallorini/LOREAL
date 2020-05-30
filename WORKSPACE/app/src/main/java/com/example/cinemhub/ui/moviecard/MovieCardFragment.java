@@ -82,6 +82,7 @@ public class MovieCardFragment extends Fragment {
             @Override
             public void onChanged(Resource<Movie> movieResource) {
 
+                if(movieResource!=null && movieResource.getData()!= null){
                 Movie movie=movieResource.getData();
                 Log.d(TAG, "movie tmdb details"+movie);
 
@@ -196,7 +197,15 @@ public class MovieCardFragment extends Fragment {
                     }
 
                 });
-
+                }else{
+                    if(movieResource!= null && movieResource.getStatusMessage()!=null) {
+                        Log.d(TAG, "ERROR CODE: " + movieResource.getStatusCode() + " ERROR MESSAGE: " + movieResource.getStatusMessage());
+                    }
+                    Toast toast;
+                    toast = Toast.makeText(getContext(), getString(R.string.error_message_movie) , Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
+                }
             }
         };
 
