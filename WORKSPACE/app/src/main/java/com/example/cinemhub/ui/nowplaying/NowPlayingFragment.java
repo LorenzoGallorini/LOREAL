@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
@@ -37,6 +38,12 @@ public class NowPlayingFragment extends Fragment {
     private NowPlayingViewModel mViewModel;
     private final String TAG = "NowPlayingFragment";
     private FragmentNowPlayingBinding binding;
+
+    private int totalItemCount;
+    private int lastVisibleItem;
+    private int visibleItemCount;
+    private int threshold=1;
+
     public static NowPlayingFragment newInstance() {
         return new NowPlayingFragment();
     }
@@ -58,61 +65,99 @@ public class NowPlayingFragment extends Fragment {
         return view;
     }
 
+    private List<Movie> getMovieList(String language, boolean checkAdult){
+        Resource<List<Movie>> movieListResult=mViewModel.getMovieNowPlaying(language, checkAdult).getValue();
+        if(movieListResult != null){
+            return movieListResult.getData();
+        }
+        return null;
+    }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(),3);
+        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(),3);
         binding.recyclerViewNowPlaying.setLayoutManager(layoutManager);
+
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.CINEM_HUB_SHARED_PREF_FILE_NAME, Context.MODE_PRIVATE);
+        boolean checkAdult=sharedPreferences.getBoolean(Constants.ADULT_SHARED_PREF_NAME, false);
+
+
+        MovieListVerticalAdapter movieListVerticalAdapter = new MovieListVerticalAdapter(getActivity(), getMovieList(getString(R.string.API_LANGUAGE), checkAdult), new MovieListVerticalAdapter.OnItemClickListener() {
+            @Override
+            public void OnItemClick(Movie movie) {
+                Log.d(TAG, "onclick listener");
+                Navigation.findNavController(view).navigate(NowPlayingFragmentDirections.nowPlayingOpenMovieCardAction(movie.getId()));
+            }
+        });
+        binding.recyclerViewNowPlaying.setAdapter(movieListVerticalAdapter);
+
+        binding.recyclerViewNowPlaying.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                totalItemCount = layoutManager.getItemCount();
+                lastVisibleItem = layoutManager.findLastVisibleItemPosition();
+                visibleItemCount = layoutManager.getChildCount();
+
+                if(totalItemCount==visibleItemCount ||
+                        (totalItemCount <= (lastVisibleItem + threshold) && dy>0 && !mViewModel.isLoading()) &&
+                                mViewModel.getMovieLiveData().getValue() != null &&
+                                mViewModel.getCurrentResults()!=mViewModel.getMovieLiveData().getValue().getTotalResult()
+                ){
+                    Resource<List<Movie>> movieListResource=new Resource<>();
+
+                    MutableLiveData<Resource<List<Movie>>> movieListMutableLiveData = mViewModel.getMovieLiveData();
+
+                    if(movieListMutableLiveData!=null && movieListMutableLiveData.getValue() != null){
+                        mViewModel.setLoading(true);
+
+                        List<Movie> currentMovieList = movieListMutableLiveData.getValue().getData();
+                        currentMovieList.add(null);
+                        movieListResource.setData(currentMovieList);
+                        movieListResource.setStatusMessage(movieListMutableLiveData.getValue().getStatusMessage());
+                        movieListResource.setTotalResult(movieListMutableLiveData.getValue().getTotalResult());
+                        movieListResource.setStatusCode(movieListMutableLiveData.getValue().getStatusCode());
+
+                        movieListResource.setLoading(true);
+                        movieListMutableLiveData.postValue(movieListResource);
+
+                        int page=mViewModel.getPage() + 1;
+                        mViewModel.setPage(page);
+
+                        mViewModel.getMoreMovieNowPlaying(getString(R.string.API_LANGUAGE), checkAdult);
+                    }
+                }
+            }
+        });
 
         final Observer<Resource<List<Movie>>> observer_now_playing=new Observer<Resource<List<Movie>>>() {
             @Override
             public void onChanged(Resource<List<Movie>> movies) {
                 Log.d(TAG, "lista tmdb comingsoon"+movies);
 
-                if(movies!=null && movies.getData()!= null){
+                movieListVerticalAdapter.setData(movies.getData());
 
-                    MovieListVerticalAdapter movieListVerticalAdapter = new MovieListVerticalAdapter(getActivity(), movies.getData(), new MovieListVerticalAdapter.OnItemClickListener() {
-                    @Override
-                    public void OnItemClick(Movie movie) {
-                        Log.d(TAG, "onclick listener");
-                        Navigation.findNavController(view).navigate(NowPlayingFragmentDirections.nowPlayingOpenMovieCardAction(movie.getId()));
-                    }
-                });
-                binding.recyclerViewNowPlaying.setAdapter(movieListVerticalAdapter);
-                }else{
-                    if(movies!= null && movies.getStatusMessage()!=null) {
-                        Log.d(TAG, "ERROR CODE: " + movies.getStatusCode() + " ERROR MESSAGE: " + movies.getStatusMessage());
-                    }
-                    Toast toast;
-                    toast = Toast.makeText(getContext(), getString(R.string.error_message_movie)+getString(R.string.title_now_playing) , Toast.LENGTH_LONG);
-                    toast.setGravity(Gravity.CENTER, 0, 0);
-                    toast.show();
+                if(!movies.isLoading()){
+                    mViewModel.setLoading(false);
+                    mViewModel.setCurrentResults(movies.getData().size());
                 }
             }
         };
-        Movie[] now_playing_movies=NowPlayingFragmentArgs.fromBundle(getArguments()).getMovieNowPlayingArray();
-
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.CINEM_HUB_SHARED_PREF_FILE_NAME, Context.MODE_PRIVATE);
-        boolean checkAdult=sharedPreferences.getBoolean(Constants.ADULT_SHARED_PREF_NAME, false);
-        int total_result=NowPlayingFragmentArgs.fromBundle(getArguments()).getTotalResults();
-        int status_code=NowPlayingFragmentArgs.fromBundle(getArguments()).getStatusCode();
-        String status_message=NowPlayingFragmentArgs.fromBundle(getArguments()).getStatusMessage();
-        Resource<List<Movie>> resource=new Resource<>(Movie.toList(now_playing_movies, checkAdult), total_result, status_code, status_message);
-        mViewModel.getMovieNowPlaying(getString(R.string.API_LANGUAGE), 1, checkAdult, resource).observe(getViewLifecycleOwner(), observer_now_playing);
+        mViewModel.getMovieNowPlaying(getString(R.string.API_LANGUAGE),  checkAdult).observe(getViewLifecycleOwner(), observer_now_playing);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(NowPlayingViewModel.class);
-        // TODO: Use the ViewModel
     }
 
-    @Override
+    /*@Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
-    }
+    }*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){

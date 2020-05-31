@@ -40,6 +40,11 @@ public class ComingSoonFragment extends Fragment {
     private FragmentComingSoonBinding binding;
     private MovieListVerticalAdapter movieListVerticalAdapter;
 
+    private int totalItemCount;
+    private int lastVisibleItem;
+    private int visibleItemCount;
+    private int threshold=1;
+
     public static ComingSoonFragment newInstance() {
         return new ComingSoonFragment();
     }
@@ -48,6 +53,7 @@ public class ComingSoonFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mViewModel=new ViewModelProvider(getActivity()).get(ComingSoonViewModel.class);
+
     }
 
     @Override
@@ -57,6 +63,8 @@ public class ComingSoonFragment extends Fragment {
         View view = binding.getRoot();
         setHasOptionsMenu(true);
         ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.title_coming_soon));
+        ((MainActivity) getActivity()).menuColorSettings(R.id.navigation_coming_soon);
+
         return view;
     }
 
@@ -73,7 +81,7 @@ public class ComingSoonFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(),3);
+        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(),3);
         binding.ComingSoonRecyclerView.setLayoutManager(layoutManager);
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.CINEM_HUB_SHARED_PREF_FILE_NAME, Context.MODE_PRIVATE);
@@ -96,20 +104,40 @@ public class ComingSoonFragment extends Fragment {
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
 
-                Resource<List<Movie>> movieListResource=new Resource<>();
+                totalItemCount = layoutManager.getItemCount();
+                lastVisibleItem = layoutManager.findLastVisibleItemPosition();
+                visibleItemCount = layoutManager.getChildCount();
 
-                MutableLiveData<Resource<List<Movie>>> movieListMutableLiveData = mViewModel.getMovieLiveData();
+                if(totalItemCount==visibleItemCount ||
+                        (totalItemCount <= (lastVisibleItem + threshold) && dy>0 && !mViewModel.isLoading()) &&
+                                mViewModel.getMovieLiveData().getValue() != null &&
+                                mViewModel.getCurrentResults()!=mViewModel.getMovieLiveData().getValue().getTotalResult()
+                ){
+                    Resource<List<Movie>> movieListResource=new Resource<>();
 
-                if(movieListMutableLiveData!=null && movieListMutableLiveData.getValue() != null){
-                    List<Movie> currentMovieList = movieListMutableLiveData.getValue().getData();
-                    currentMovieList.add(null);
-                    movieListResource.setData(currentMovieList);
-                    movieListResource.setStatusMessage(movieListMutableLiveData.getValue().getStatusMessage());
-                    movieListResource.setTotalResult(movieListMutableLiveData.getValue().getTotalResult());
-                    movieListResource.setStatusCode(movieListMutableLiveData.getValue().getStatusCode());
+                    MutableLiveData<Resource<List<Movie>>> movieListMutableLiveData = mViewModel.getMovieLiveData();
 
-                    movieListMutableLiveData.postValue(movieListResource);
+                    if(movieListMutableLiveData!=null && movieListMutableLiveData.getValue() != null){
+                        mViewModel.setLoading(true);
+
+                        List<Movie> currentMovieList = movieListMutableLiveData.getValue().getData();
+                        currentMovieList.add(null);
+                        movieListResource.setData(currentMovieList);
+                        movieListResource.setStatusMessage(movieListMutableLiveData.getValue().getStatusMessage());
+                        movieListResource.setTotalResult(movieListMutableLiveData.getValue().getTotalResult());
+                        movieListResource.setStatusCode(movieListMutableLiveData.getValue().getStatusCode());
+
+                        movieListResource.setLoading(true);
+                        movieListMutableLiveData.postValue(movieListResource);
+
+                        int page=mViewModel.getPage() + 1;
+                        mViewModel.setPage(page);
+
+                        mViewModel.getMoreMovieComingSoon(getString(R.string.API_LANGUAGE), checkAdult);
+                    }
                 }
+
+
 
             }
         });
@@ -121,37 +149,19 @@ public class ComingSoonFragment extends Fragment {
 
                 movieListVerticalAdapter.setData(movies.getData());
 
-                /*if(movies!=null && movies.getData()!= null){
-
-
-
-                }else{
-                    if(movies!= null && movies.getStatusMessage()!=null) {
-                        Log.d(TAG, "ERROR CODE: " + movies.getStatusCode() + " ERROR MESSAGE: " + movies.getStatusMessage());
-                    }
-                    Toast toast;
-                    toast = Toast.makeText(getContext(), getString(R.string.error_message_movie)+getString(R.string.title_coming_soon) , Toast.LENGTH_LONG);
-                    toast.setGravity(Gravity.CENTER, 0, 0);
-                    toast.show();
-                }*/
+                if(!movies.isLoading()){
+                    mViewModel.setLoading(false);
+                    mViewModel.setCurrentResults(movies.getData().size());
+                }
             }
         };
 
-        /*Movie[] coming_soon_movies=ComingSoonFragmentArgs.fromBundle(getArguments()).getMovieComingSoonArray();
-
-        int total_result=ComingSoonFragmentArgs.fromBundle(getArguments()).getTotalResults();
-        int status_code=ComingSoonFragmentArgs.fromBundle(getArguments()).getStatusCode();
-        String status_message=ComingSoonFragmentArgs.fromBundle(getArguments()).getStatusMessage();
-        Resource<List<Movie>> resource=new Resource<>(Movie.toList(coming_soon_movies, checkAdult), total_result, status_code, status_message);*/
         mViewModel.getMovieComingSoon(getString(R.string.API_LANGUAGE), checkAdult).observe(getViewLifecycleOwner(), observer_coming_soon);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(ComingSoonViewModel.class);
-        ((MainActivity) getActivity()).menuColorSettings(R.id.navigation_coming_soon);
-
     }
 
     @Override

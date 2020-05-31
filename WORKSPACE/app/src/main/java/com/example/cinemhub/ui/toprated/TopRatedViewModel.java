@@ -13,16 +13,46 @@ import java.util.List;
 public class TopRatedViewModel extends ViewModel {
 
     private MutableLiveData<Resource<List<Movie>>> movieTopRated;
+    private int page=1;
+    private int currentResults;
+    private boolean isLoading;
 
-    public LiveData<Resource<List<Movie>>> getMovieTopRated(String language, int page, boolean checkAdult, Resource<List<Movie>> movies){
+    public LiveData<Resource<List<Movie>>> getMovieTopRated(String language, boolean checkAdult){
         if(movieTopRated==null){
             movieTopRated=new MutableLiveData<Resource<List<Movie>>>();
-            if(movies==null){
-                TmdbRepository.getInstance().getTopRated(movieTopRated, language, page, checkAdult);
-            }else{
-                movieTopRated.postValue(movies);
-            }
+            TmdbRepository.getInstance().getTopRated(movieTopRated, language, page, checkAdult);
         }
         return movieTopRated;
+    }
+    public LiveData<Resource<List<Movie>>> getMoreMovieTopRated(String language, boolean checkAdult){
+        TmdbRepository.getInstance().getTopRated(movieTopRated, language, page, checkAdult);
+        return movieTopRated;
+    }
+    public MutableLiveData<Resource<List<Movie>>> getMovieLiveData(){
+        return movieTopRated;
+    }
+
+    public int getPage() {
+        return page;
+    }
+
+    public void setPage(int page) {
+        this.page = page;
+    }
+
+    public int getCurrentResults() {
+        return currentResults;
+    }
+
+    public void setCurrentResults(int currentResults) {
+        this.currentResults = currentResults;
+    }
+
+    public boolean isLoading() {
+        return isLoading;
+    }
+
+    public void setLoading(boolean loading) {
+        isLoading = loading;
     }
 }

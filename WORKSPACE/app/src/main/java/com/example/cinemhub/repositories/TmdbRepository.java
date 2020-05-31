@@ -1,6 +1,7 @@
 package com.example.cinemhub.repositories;
 
 import android.util.Log;
+import android.widget.LinearLayout;
 
 import androidx.lifecycle.MutableLiveData;
 
@@ -56,33 +57,38 @@ public class TmdbRepository {
         call.enqueue(new Callback<NowPlayingApiTmdbResponse>() {
             @Override
             public void onResponse(Call<NowPlayingApiTmdbResponse> call, Response<NowPlayingApiTmdbResponse> response) {
-                Resource<List<Movie>> resource=new Resource<>();
-
-                if(response.isSuccessful() && response.body()!=null){
-
-                    List<MovieApiTmdbResponse> movies =response.body().getResults();
-                    Log.d(TAG, "callback nowplaying ok");
-                    List<Movie> res=new ArrayList<Movie>();
-                    for (int i=0;i<movies.size();i++) {
-                        if(!checkAdult||!movies.get(i).isAdult()){
-                            res.add(new Movie(movies.get(i)));
-                        }
+                if(response.isSuccessful() && response.body()!=null) {
+                    Resource<List<Movie>> resource = new Resource<>();
+                    List<Movie> results = new ArrayList<Movie>();
+                    for (int i = 0; i < response.body().getResults().size(); i++) {
+                        results.add(new Movie(response.body().getResults().get(i)));
                     }
-                    resource.setData(res);
+                    if (movieNowPlaying.getValue() != null && movieNowPlaying.getValue().getData() != null) {
+                        List<Movie> currentMovieList = movieNowPlaying.getValue().getData();
+                        currentMovieList.remove(currentMovieList.size() - 1);
+                        currentMovieList.addAll(results);
+                        resource.setData(currentMovieList);
+                    } else {
+                        resource.setData(results);
+                    }
+
+
                     resource.setTotalResult(response.body().getTotal_results());
                     resource.setStatusCode(response.code());
                     resource.setStatusMessage(response.message());
+                    resource.setLoading(false);
+                    movieNowPlaying.postValue(resource);
                 }else if (response.errorBody()!=null){
                     Log.d(TAG, "ERROR: getNowPlaying=null");
-
+                    Resource<List<Movie>> resource=new Resource<>();
                     resource.setStatusCode(response.code());
                     try {
                         resource.setStatusMessage(response.message()+" - "+response.errorBody().string());
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+                    movieNowPlaying.postValue(resource);
                 }
-                movieNowPlaying.postValue(resource);
 
             }
             @Override
@@ -98,34 +104,36 @@ public class TmdbRepository {
         call.enqueue(new Callback<TopRatedApiTmdbResponse>() {
             @Override
             public void onResponse(Call<TopRatedApiTmdbResponse> call, Response<TopRatedApiTmdbResponse> response) {
-                Resource<List<Movie>> resource=new Resource();
-                if (response.isSuccessful() && response.body() != null) {
-
-                    List<MovieApiTmdbResponse> movies = response.body().getResults();
-                    Log.d(TAG, "callback toprated ok");
-                    List<Movie> res = new ArrayList<Movie>();
-                    for (int i = 0; i < movies.size(); i++) {
-                        if(!checkAdult||!movies.get(i).isAdult()){
-                            res.add(new Movie(movies.get(i)));
-                        }
+                if(response.isSuccessful() && response.body()!=null){
+                    Resource<List<Movie>> resource=new Resource<>();
+                    List<Movie> results = new ArrayList<Movie>();
+                    for (int i = 0; i < response.body().getResults().size(); i++) {
+                        results.add(new Movie(response.body().getResults().get(i)));
                     }
-                    resource.setData(res);
+                    if (movieTopRated.getValue() != null && movieTopRated.getValue().getData() != null) {
+                        List<Movie> currentMovieList = movieTopRated.getValue().getData();
+                        currentMovieList.remove(currentMovieList.size() - 1);
+                        currentMovieList.addAll(results);
+                        resource.setData(currentMovieList);
+                    } else {
+                        resource.setData(results);
+                    }
                     resource.setTotalResult(response.body().getTotal_results());
                     resource.setStatusCode(response.code());
                     resource.setStatusMessage(response.message());
-
-
+                    resource.setLoading(false);
+                    movieTopRated.postValue(resource);
                 } else if (response.errorBody()!=null){
                     Log.d(TAG, "ERROR: getTopRated=null");
-
+                    Resource<List<Movie>> resource=new Resource<>();
                     resource.setStatusCode(response.code());
                     try {
                         resource.setStatusMessage(response.message()+" - "+response.errorBody().string());
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+                    movieTopRated.postValue(resource);
                 }
-                movieTopRated.postValue(resource);
             }
 
             @Override
@@ -140,34 +148,36 @@ public class TmdbRepository {
         call.enqueue(new Callback<ComingSoonApiTmdbResponse>() {
             @Override
             public void onResponse(Call<ComingSoonApiTmdbResponse> call, Response<ComingSoonApiTmdbResponse> response) {
-                Resource<List<Movie>> resource=new Resource();
-                if (response.isSuccessful() && response.body() != null) {
-
-                    List<MovieApiTmdbResponse> movies = response.body().getResults();
-                    Log.d(TAG, "callback comingsoon ok");
-                    List<Movie> res = new ArrayList<Movie>();
-                    for (int i = 0; i < movies.size(); i++) {
-                        if(!checkAdult||!movies.get(i).isAdult()){
-                            res.add(new Movie(movies.get(i)));
-                        }
+                if(response.isSuccessful() && response.body()!=null) {
+                    Resource<List<Movie>> resource = new Resource<>();
+                    List<Movie> results = new ArrayList<Movie>();
+                    for (int i = 0; i < response.body().getResults().size(); i++) {
+                        results.add(new Movie(response.body().getResults().get(i)));
                     }
-                    resource.setData(res);
+                    if (movieComingSoon.getValue() != null && movieComingSoon.getValue().getData() != null) {
+                        List<Movie> currentMovieList = movieComingSoon.getValue().getData();
+                        currentMovieList.remove(currentMovieList.size() - 1);
+                        currentMovieList.addAll(results);
+                        resource.setData(currentMovieList);
+                    } else {
+                        resource.setData(results);
+                    }
                     resource.setTotalResult(response.body().getTotal_results());
                     resource.setStatusCode(response.code());
                     resource.setStatusMessage(response.message());
-
-                }
-                else if (response.errorBody()!=null){
+                    resource.setLoading(false);
+                    movieComingSoon.postValue(resource);
+                }else if (response.errorBody()!=null){
                     Log.d(TAG, "ERROR: getComingSoon=null");
-
+                    Resource<List<Movie>> resource=new Resource<>();
                     resource.setStatusCode(response.code());
                     try {
                         resource.setStatusMessage(response.message()+" - "+response.errorBody().string());
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+                    movieComingSoon.postValue(resource);
                 }
-                movieComingSoon.postValue(resource);
             }
 
             @Override
