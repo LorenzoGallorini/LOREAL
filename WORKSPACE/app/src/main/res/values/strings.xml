@@ -44,7 +44,12 @@
     <string name="git_hub_text">Git Hub</string>
     <string name="credits_text">Credits</string>
     <string name="version_n_text">Version n:</string>
-    <string name="error_message_movie">"Impossible to load movies "</string>
+
     <string name="error_message_movie">"Impossible to load movies "</string>
     <string name="error_message_people">Impossible to load people</string>
+    <string name="anno_di_uscita_opzionale">Release year (Optional)</string>
+    <string name="searchError">You must compile search textBox</string>
+    <string name="view_results">View results</string>
+    <string name="Categories">Categories (Optional)</string>
+    <string name="release_year">Release year (Optional)</string>
 </resources>

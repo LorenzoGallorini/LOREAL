@@ -43,4 +43,9 @@
     <string name="version_n_text">Versione n:</string>
     <string name="error_message_movie">"Impossibile recuperare i film "</string>
     <string name="error_message_people">"Impossibile recuperare la persona "</string>
+    <string name="anno_di_uscita_opzionale">Anno di uscita(Opzionale)</string>
+    <string name="searchError">Compilare il campo cerca</string>
+    <string name="view_results">Visualizza i risultati</string>
+    <string name="Categories">Categorie (Opzionale)</string>
+    <string name="release_year">Anno di uscita (Opzionale)</string>
 </resources>
