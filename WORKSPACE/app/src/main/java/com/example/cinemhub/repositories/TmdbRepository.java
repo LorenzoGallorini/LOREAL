@@ -5,6 +5,7 @@ import android.util.Log;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.cinemhub.models.ComingSoonApiTmdbResponse;
+import com.example.cinemhub.models.GenreApiTmdbResponse;
 import com.example.cinemhub.models.GetVideosApiTmdbResponse;
 import com.example.cinemhub.models.Movie;
 import com.example.cinemhub.models.MovieApiTmdbResponse;
@@ -394,6 +395,22 @@ public class TmdbRepository {
                 Log.d(TAG, "Error:"+t.toString());
             }
         });
+    }
+
+    public void getGenres(MutableLiveData<Resource<List<GenreApiTmdbResponse>>> genres, String language){
+        Call<GenreApiTmdbResponse> call=tmdbService.getGenres(language, Constants.API_TMDB_KEY);
+        call.enqueue(new Callback<GenreApiTmdbResponse>() {
+            @Override
+            public void onResponse(Call<GenreApiTmdbResponse> call, Response<GenreApiTmdbResponse> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<GenreApiTmdbResponse> call, Throwable t) {
+
+            }
+        });
+
     }
 
 }

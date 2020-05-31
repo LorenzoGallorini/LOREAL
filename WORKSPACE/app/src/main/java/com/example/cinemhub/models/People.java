@@ -9,10 +9,7 @@ public class People {
     private int id;
     private String name;
     private String birth_date;
-
-    //private String[] role; l'array di stringhe si riferisce a come è conosciuto nel mondo(AKA)
     private String known_for_department;
-
     private String death_date;
     private int gender;
     private String biography;

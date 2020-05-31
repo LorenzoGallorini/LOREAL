@@ -14,6 +14,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
@@ -36,6 +38,7 @@ public class ComingSoonFragment extends Fragment {
     private ComingSoonViewModel mViewModel;
     private final String TAG = "ComingSoonFragment";
     private FragmentComingSoonBinding binding;
+    private MovieListVerticalAdapter movieListVerticalAdapter;
 
     public static ComingSoonFragment newInstance() {
         return new ComingSoonFragment();
@@ -57,24 +60,71 @@ public class ComingSoonFragment extends Fragment {
         return view;
     }
 
+
+    private List<Movie> getMovieList(String language, boolean checkAdult){
+        Resource<List<Movie>> movieListResult=mViewModel.getMovieComingSoon(language, checkAdult).getValue();
+        if(movieListResult != null){
+            return movieListResult.getData();
+        }
+        return null;
+    }
+
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(),3);
         binding.ComingSoonRecyclerView.setLayoutManager(layoutManager);
 
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.CINEM_HUB_SHARED_PREF_FILE_NAME, Context.MODE_PRIVATE);
+        boolean checkAdult=sharedPreferences.getBoolean(Constants.ADULT_SHARED_PREF_NAME, false);
+
+
+
+        movieListVerticalAdapter = new MovieListVerticalAdapter(getActivity(), getMovieList(getString(R.string.API_LANGUAGE), checkAdult), new MovieListVerticalAdapter.OnItemClickListener() {
+            @Override
+            public void OnItemClick(Movie movie) {
+                Navigation.findNavController(getView()).navigate(ComingSoonFragmentDirections.actionNavigationComingSoonToNavigationMovieCard(movie.getId()));
+            }
+        });
+        binding.ComingSoonRecyclerView.setAdapter(movieListVerticalAdapter);
+
+
+
+        binding.ComingSoonRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                Resource<List<Movie>> movieListResource=new Resource<>();
+
+                MutableLiveData<Resource<List<Movie>>> movieListMutableLiveData = mViewModel.getMovieLiveData();
+
+                if(movieListMutableLiveData!=null && movieListMutableLiveData.getValue() != null){
+                    List<Movie> currentMovieList = movieListMutableLiveData.getValue().getData();
+                    currentMovieList.add(null);
+                    movieListResource.setData(currentMovieList);
+                    movieListResource.setStatusMessage(movieListMutableLiveData.getValue().getStatusMessage());
+                    movieListResource.setTotalResult(movieListMutableLiveData.getValue().getTotalResult());
+                    movieListResource.setStatusCode(movieListMutableLiveData.getValue().getStatusCode());
+
+                    movieListMutableLiveData.postValue(movieListResource);
+                }
+
+            }
+        });
+
         final Observer<Resource<List<Movie>>> observer_coming_soon=new Observer<Resource<List<Movie>>>() {
             @Override
             public void onChanged(Resource<List<Movie>> movies) {
                 Log.d(TAG, "lista tmdb comingsoon"+movies);
-                if(movies!=null && movies.getData()!= null){
-                MovieListVerticalAdapter movieListVerticalAdapter = new MovieListVerticalAdapter(getActivity(), movies.getData(), new MovieListVerticalAdapter.OnItemClickListener() {
-                    @Override
-                    public void OnItemClick(Movie movie) {
-                        Navigation.findNavController(getView()).navigate(ComingSoonFragmentDirections.actionNavigationComingSoonToNavigationMovieCard(movie.getId()));
-                    }
-                });
-                binding.ComingSoonRecyclerView.setAdapter(movieListVerticalAdapter);
+
+                movieListVerticalAdapter.setData(movies.getData());
+
+                /*if(movies!=null && movies.getData()!= null){
+
+
+
                 }else{
                     if(movies!= null && movies.getStatusMessage()!=null) {
                         Log.d(TAG, "ERROR CODE: " + movies.getStatusCode() + " ERROR MESSAGE: " + movies.getStatusMessage());
@@ -83,20 +133,17 @@ public class ComingSoonFragment extends Fragment {
                     toast = Toast.makeText(getContext(), getString(R.string.error_message_movie)+getString(R.string.title_coming_soon) , Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.CENTER, 0, 0);
                     toast.show();
-                }
+                }*/
             }
         };
 
-        Movie[] coming_soon_movies=ComingSoonFragmentArgs.fromBundle(getArguments()).getMovieComingSoonArray();
-
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.CINEM_HUB_SHARED_PREF_FILE_NAME, Context.MODE_PRIVATE);
-        boolean checkAdult=sharedPreferences.getBoolean(Constants.ADULT_SHARED_PREF_NAME, false);
+        /*Movie[] coming_soon_movies=ComingSoonFragmentArgs.fromBundle(getArguments()).getMovieComingSoonArray();
 
         int total_result=ComingSoonFragmentArgs.fromBundle(getArguments()).getTotalResults();
         int status_code=ComingSoonFragmentArgs.fromBundle(getArguments()).getStatusCode();
         String status_message=ComingSoonFragmentArgs.fromBundle(getArguments()).getStatusMessage();
-        Resource<List<Movie>> resource=new Resource<>(Movie.toList(coming_soon_movies, checkAdult), total_result, status_code, status_message);
-        mViewModel.getMovieComingSoon(getString(R.string.API_LANGUAGE), 1, checkAdult, resource).observe(getViewLifecycleOwner(), observer_coming_soon);
+        Resource<List<Movie>> resource=new Resource<>(Movie.toList(coming_soon_movies, checkAdult), total_result, status_code, status_message);*/
+        mViewModel.getMovieComingSoon(getString(R.string.API_LANGUAGE), checkAdult).observe(getViewLifecycleOwner(), observer_coming_soon);
     }
 
     @Override

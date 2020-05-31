@@ -12,18 +12,48 @@ import java.util.List;
 
 public class ComingSoonViewModel extends ViewModel {
     private MutableLiveData<Resource<List<Movie>>> movieComingSoon;
+    private int page=1;
+    private int currentResults;
+    private boolean isLoading;
 
-    public LiveData<Resource<List<Movie>>> getMovieComingSoon(String language, int page, boolean checkAdult, Resource<List<Movie>> movies){
+    public LiveData<Resource<List<Movie>>> getMovieComingSoon(String language, boolean checkAdult){
         if(movieComingSoon==null){
             movieComingSoon = new MutableLiveData<Resource<List<Movie>>>();
-
-            if(movies==null) {
-                TmdbRepository.getInstance().getComingSoon(movieComingSoon, language, page, checkAdult);
-            }else{
-
-                movieComingSoon.postValue(movies);
-            }
+            TmdbRepository.getInstance().getComingSoon(movieComingSoon, language, page, checkAdult);
         }
         return movieComingSoon;
+    }
+
+    public LiveData<Resource<List<Movie>>> getMoreMovieComingSoon(String language, boolean checkAdult){
+        TmdbRepository.getInstance().getComingSoon(movieComingSoon, language, page, checkAdult);
+        return movieComingSoon;
+    }
+
+    public MutableLiveData<Resource<List<Movie>>> getMovieLiveData(){
+        return movieComingSoon;
+    }
+
+    public int getPage() {
+        return page;
+    }
+
+    public void setPage(int page) {
+        this.page = page;
+    }
+
+    public int getCurrentResults() {
+        return currentResults;
+    }
+
+    public void setCurrentResults(int currentResults) {
+        this.currentResults = currentResults;
+    }
+
+    public boolean isLoading() {
+        return isLoading;
+    }
+
+    public void setLoading(boolean loading) {
+        isLoading = loading;
     }
 }
