@@ -16,12 +16,15 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import com.example.cinemhub.MainActivity;
 import com.example.cinemhub.R;
 import com.example.cinemhub.databinding.FragmentSearchBinding;
+import com.example.cinemhub.models.GenreApiTmdbResponse;
+import com.example.cinemhub.models.Resource;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -47,40 +50,47 @@ public class SearchFragment extends Fragment {
         ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.action_search));
         ((MainActivity) getActivity()).menuColorSettings(R.id.navigation_settings);
 
-
+        mViewModel=new ViewModelProvider(this).get(SearchViewModel.class);
 
         //setAdapter(adapter);
         return view;
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(SearchViewModel.class);
-        // TODO: Use the ViewModel
-    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        List<String> categories =  new ArrayList<String>();
-        categories.add(getString(R.string.Categories));
-        categories.add("Horror");
-        categories.add("Fantasy");
-        categories.add("Thriller");
+
+        final Observer<Resource<GenreApiTmdbResponse>> observer_genre = new Observer<Resource<GenreApiTmdbResponse>>() {
+            @Override
+            public void onChanged(Resource<GenreApiTmdbResponse> genreResource) {
+                List<String> categories =  new ArrayList<String>();
+                categories.add(getString(R.string.Categories));
+                if(genreResource != null && genreResource.getData() != null && genreResource.getData().getGenres() != null)
+                for(int i = 0;i<genreResource.getData().getGenres().size();i++)
+                    categories.add(genreResource.getData().getGenres().get(i).getName());
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),R.layout.customizedspinnerelement,categories);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                binding.CategoriesSpinner.setAdapter(adapter);
+            }
+        };
+        mViewModel.getGenre(getString(R.string.API_LANGUAGE)).observe(getViewLifecycleOwner(), observer_genre);
+
+
+
+
         List<String> years =  new ArrayList<String>();
         years.add(getString(R.string.release_year));
         int year = Calendar.getInstance().get(Calendar.YEAR);
         for(int i = year+1;i>=1920;i--)
             years.add(Integer.toString(i));
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),R.layout.customizedspinnerelement,categories);
+
         ArrayAdapter<String> adapterYears = new ArrayAdapter<String>(getContext(),R.layout.customizedspinnerelement,years);
 
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
         adapterYears.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        binding.CategoriesSpinner.setAdapter(adapter);
         binding.CategoriesSpinner.getBackground().setColorFilter(getResources().getColor(R.color.titleWhite), PorterDuff.Mode.SRC_ATOP);
         binding.YearSpinner.setAdapter(adapterYears);
         binding.YearSpinner.getBackground().setColorFilter(getResources().getColor(R.color.titleWhite), PorterDuff.Mode.SRC_ATOP);
@@ -93,7 +103,8 @@ public class SearchFragment extends Fragment {
 
 
                 if(!binding.SearchBox.getText().toString().isEmpty()) {
-                    //TODO goto search2
+                    Navigation.findNavController(getView()).navigate(SearchFragmentDirections.actionNavigationSearchToNavigationSearchResult());
+
                 }else if(binding.SearchBox.getText().toString().isEmpty()){
 
                     toast = Toast.makeText(getContext(), R.string.searchError, Toast.LENGTH_SHORT);

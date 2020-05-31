@@ -1,7 +1,6 @@
 package com.example.cinemhub.repositories;
 
 import android.util.Log;
-import android.widget.LinearLayout;
 
 import androidx.lifecycle.MutableLiveData;
 
@@ -407,18 +406,41 @@ public class TmdbRepository {
         });
     }
 
-    public void getGenres(MutableLiveData<Resource<List<GenreApiTmdbResponse>>> genres, String language){
+    public void getGenres(MutableLiveData<Resource<GenreApiTmdbResponse>> genres, String language){
         Call<GenreApiTmdbResponse> call=tmdbService.getGenres(language, Constants.API_TMDB_KEY);
         call.enqueue(new Callback<GenreApiTmdbResponse>() {
             @Override
             public void onResponse(Call<GenreApiTmdbResponse> call, Response<GenreApiTmdbResponse> response) {
+                Resource<GenreApiTmdbResponse> resource=new Resource();
+                if(response.isSuccessful() && response.body()!=null) {
 
+                    resource.setData(response.body());
+                    resource.setTotalResult(1);
+                    resource.setStatusCode(response.code());
+                    resource.setStatusMessage(response.message());
+
+                    Log.d(TAG, "callback getGenre ok");
+
+                }
+                else if (response.errorBody() != null) {
+                    Log.d(TAG, "ERROR: getGenre=null");
+
+                    resource.setStatusCode(response.code());
+                    try {
+                        resource.setStatusMessage(response.message() + " - " + response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                genres.postValue(resource);
             }
 
             @Override
             public void onFailure(Call<GenreApiTmdbResponse> call, Throwable t) {
 
             }
+
+
         });
 
     }

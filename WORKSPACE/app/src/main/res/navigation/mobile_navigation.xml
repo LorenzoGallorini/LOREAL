@@ -234,6 +234,9 @@
         <action
             android:id="@+id/action_navigation_search_to_navigation_settings"
             app:destination="@id/navigation_settings" />
+        <action
+            android:id="@+id/action_navigation_search_to_navigation_search_result"
+            app:destination="@id/navigation_search_result" />
     </fragment>
 
     <fragment
@@ -250,6 +253,14 @@
         android:name="com.example.cinemhub.ui.credits.CreditsFragment"
         android:label="@string/credits_text"
         tools:layout="@layout/fragment_credits"
+        >
+
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_search_result"
+        android:name="com.example.cinemhub.ui.searchresult.SearchResultFragment"
+        android:label="@string/SearchResult"
+        tools:layout="@layout/fragment_searchresult"
         >
 
     </fragment>
