@@ -60,8 +60,9 @@ public class TmdbRepository {
                     Resource<List<Movie>> resource = new Resource<>();
                     List<Movie> results = new ArrayList<Movie>();
                     for (int i = 0; i < response.body().getResults().size(); i++) {
-                        results.add(new Movie(response.body().getResults().get(i)));
-                    }
+                        if(!checkAdult || !response.body().getResults().get(i).isAdult()){
+                            results.add(new Movie(response.body().getResults().get(i)));
+                        }                    }
                     if (movieNowPlaying.getValue() != null && movieNowPlaying.getValue().getData() != null) {
                         List<Movie> currentMovieList = movieNowPlaying.getValue().getData();
                         currentMovieList.remove(currentMovieList.size() - 1);
@@ -107,7 +108,9 @@ public class TmdbRepository {
                     Resource<List<Movie>> resource=new Resource<>();
                     List<Movie> results = new ArrayList<Movie>();
                     for (int i = 0; i < response.body().getResults().size(); i++) {
-                        results.add(new Movie(response.body().getResults().get(i)));
+                        if(!checkAdult || !response.body().getResults().get(i).isAdult()){
+                            results.add(new Movie(response.body().getResults().get(i)));
+                        }
                     }
                     if (movieTopRated.getValue() != null && movieTopRated.getValue().getData() != null) {
                         List<Movie> currentMovieList = movieTopRated.getValue().getData();
@@ -151,8 +154,9 @@ public class TmdbRepository {
                     Resource<List<Movie>> resource = new Resource<>();
                     List<Movie> results = new ArrayList<Movie>();
                     for (int i = 0; i < response.body().getResults().size(); i++) {
-                        results.add(new Movie(response.body().getResults().get(i)));
-                    }
+                        if(!checkAdult || !response.body().getResults().get(i).isAdult()){
+                            results.add(new Movie(response.body().getResults().get(i)));
+                        }                    }
                     if (movieComingSoon.getValue() != null && movieComingSoon.getValue().getData() != null) {
                         List<Movie> currentMovieList = movieComingSoon.getValue().getData();
                         currentMovieList.remove(currentMovieList.size() - 1);
