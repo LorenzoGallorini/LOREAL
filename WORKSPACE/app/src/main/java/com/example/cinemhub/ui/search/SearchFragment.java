@@ -23,6 +23,7 @@ import androidx.navigation.Navigation;
 import com.example.cinemhub.MainActivity;
 import com.example.cinemhub.R;
 import com.example.cinemhub.databinding.FragmentSearchBinding;
+import com.example.cinemhub.models.Genre;
 import com.example.cinemhub.models.GenreApiTmdbResponse;
 import com.example.cinemhub.models.Resource;
 
@@ -60,15 +61,17 @@ public class SearchFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        List<Genre> generi = new ArrayList<Genre>();
         final Observer<Resource<GenreApiTmdbResponse>> observer_genre = new Observer<Resource<GenreApiTmdbResponse>>() {
             @Override
             public void onChanged(Resource<GenreApiTmdbResponse> genreResource) {
                 List<String> categories =  new ArrayList<String>();
                 categories.add(getString(R.string.Categories));
                 if(genreResource != null && genreResource.getData() != null && genreResource.getData().getGenres() != null)
-                for(int i = 0;i<genreResource.getData().getGenres().size();i++)
+                for(int i = 0;i<genreResource.getData().getGenres().size();i++){
                     categories.add(genreResource.getData().getGenres().get(i).getName());
+                    generi.add(genreResource.getData().getGenres().get(i));
+                }
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),R.layout.customizedspinnerelement,categories);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 binding.CategoriesSpinner.setAdapter(adapter);
@@ -100,10 +103,35 @@ public class SearchFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Toast toast;
+                int year=-1,categorie=-1;
+
+                if (binding.YearSpinner.getSelectedItem().toString() != getString(R.string.release_year))
+                    year = Integer.parseInt(binding.YearSpinner.getSelectedItem().toString());
+
+                if (binding.CategoriesSpinner.getSelectedItem().toString() != getString(R.string.release_year))
+                {
+                    int i =0;
+                    boolean found=false;
+                    while(i<generi.size() && !found)
+                    {
+                        if(generi.get(i).getName().equals(binding.CategoriesSpinner.getSelectedItem().toString()))
+                        {
+                            found=true;
+                            categorie=generi.get(i).getId();
+                        }
+                        i++;
+                    }
+
+                }
+
 
 
                 if(!binding.SearchBox.getText().toString().isEmpty()) {
-                    Navigation.findNavController(getView()).navigate(SearchFragmentDirections.actionNavigationSearchToNavigationSearchResult());
+                    Navigation.findNavController(getView()).navigate(SearchFragmentDirections.actionNavigationSearchToNavigationSearchResult(
+                            binding.SearchBox.getText().toString(),
+                            year,
+                            categorie
+                    ));
 
                 }else if(binding.SearchBox.getText().toString().isEmpty()){
 

@@ -263,6 +263,18 @@
         tools:layout="@layout/fragment_searchresult"
         >
 
+        <argument
+            android:name="QueryValue"
+            app:argType="string" />
+        <argument
+            android:name="Year"
+            app:argType="integer" />
+        <argument
+            android:name="Categorie"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_navigation_search_result_to_navigation_movie_card"
+            app:destination="@id/navigation_movie_card" />
     </fragment>
 
 

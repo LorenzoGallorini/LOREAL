@@ -193,6 +193,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:paddingStart="16dp"
+            android:paddingEnd="16dp"
             android:text="@android:string/unknownName"
             android:textColor="@color/titleWhite"
             android:textSize="@dimen/paragraph_size"

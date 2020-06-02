@@ -16,6 +16,7 @@ import com.example.cinemhub.models.PeopleApiTmdbResponse;
 import com.example.cinemhub.models.PeopleCreditsApiTmdbResponse;
 import com.example.cinemhub.models.RecommendationsApiTmdbResponse;
 import com.example.cinemhub.models.Resource;
+import com.example.cinemhub.models.SearchMovieApiTmdbResponse;
 import com.example.cinemhub.models.TopRatedApiTmdbResponse;
 import com.example.cinemhub.service.TmdbService;
 import com.example.cinemhub.utils.Constants;
@@ -448,5 +449,55 @@ public class TmdbRepository {
         });
 
     }
+
+
+    public void getSearcMovie(MutableLiveData<Resource<List<Movie>>> movieSearch, String language, int page, boolean checkAdult,String query,String region,int year){
+        Call<SearchMovieApiTmdbResponse> call=tmdbService.getSearchMovie(language,Constants.API_TMDB_KEY,query,page,checkAdult,region,year);
+        call.enqueue(new Callback<SearchMovieApiTmdbResponse>() {
+            @Override
+            public void onResponse(Call<SearchMovieApiTmdbResponse> call, Response<SearchMovieApiTmdbResponse> response) {
+                if(response.isSuccessful() && response.body()!=null) {
+                    Resource<List<Movie>> resource = new Resource<>();
+                    List<Movie> results = new ArrayList<Movie>();
+                    for (int i = 0; i < response.body().getResults().length; i++) {
+                        if(!checkAdult || !response.body().getResults()[i].isAdult()){
+                            results.add(response.body().getResults()[i]);
+                        }
+                    }
+                    if (movieSearch.getValue() != null && movieSearch.getValue().getData() != null) {
+                        List<Movie> currentMovieList = movieSearch.getValue().getData();
+                        currentMovieList.remove(currentMovieList.size() - 1);
+                        currentMovieList.addAll(results);
+                        resource.setData(currentMovieList);
+                    } else {
+                        resource.setData(results);
+                    }
+                    resource.setTotalResult(response.body().getTotal_results());
+                    resource.setStatusCode(response.code());
+                    resource.setStatusMessage(response.message());
+                    resource.setLoading(false);
+                    movieSearch.postValue(resource);
+                }else if (response.errorBody()!=null){
+                    Log.d(TAG, "ERROR: getComingSoon=null");
+                    Resource<List<Movie>> resource=new Resource<>();
+                    resource.setStatusCode(response.code());
+                    try {
+                        resource.setStatusMessage(response.message()+" - "+response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    movieSearch.postValue(resource);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SearchMovieApiTmdbResponse> call, Throwable t) {
+                Log.d(TAG, "Error:"+t.toString());
+            }
+        });
+    }
+
+
+
 
 }
