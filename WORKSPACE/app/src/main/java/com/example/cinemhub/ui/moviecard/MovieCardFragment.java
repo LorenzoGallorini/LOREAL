@@ -21,12 +21,14 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cinemhub.MainActivity;
 import com.example.cinemhub.R;
 import com.example.cinemhub.adapters.CreditsListHorizontalAdapter;
+import com.example.cinemhub.adapters.CrewListVerticalAdapter;
 import com.example.cinemhub.databinding.FragmentMovieCardBinding;
 import com.example.cinemhub.models.GetVideosApiTmdbResponse;
 import com.example.cinemhub.models.Movie;
@@ -71,7 +73,7 @@ public class MovieCardFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL,false);
-        RecyclerView.LayoutManager layoutManager2 = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL,false);
+        GridLayoutManager layoutManager2 = new GridLayoutManager(getActivity(),2);
         binding.CreditsRecyclerView.setLayoutManager(layoutManager);
         binding.CreditsCrewRecyclerView.setLayoutManager(layoutManager2);
 
@@ -223,14 +225,14 @@ public class MovieCardFragment extends Fragment {
 
                     }
                 });
-                CreditsListHorizontalAdapter creditsCrewListHorizontalAdapter = new CreditsListHorizontalAdapter(getActivity(),
-                        People.toList(movieCreditsApiTmdbResponse.getCrew()), new CreditsListHorizontalAdapter.OnItemClickListener() {
+                CrewListVerticalAdapter crewListVerticalAdapter = new CrewListVerticalAdapter(getActivity(),
+                        People.toList(movieCreditsApiTmdbResponse.getCrew()), new CrewListVerticalAdapter.OnItemClickListener() {
                     @Override
                     public void OnItemClick(People people) {
                         Navigation.findNavController(view).navigate(MovieCardFragmentDirections.actionNavigationMovieCardToNavigationPeopleCard(people.getId()));
                     }
                 });
-                binding.CreditsCrewRecyclerView.setAdapter(creditsCrewListHorizontalAdapter);
+                binding.CreditsCrewRecyclerView.setAdapter(crewListVerticalAdapter);
                 binding.CreditsRecyclerView.setAdapter(creditsListHorizontalAdapter);
             }
         };
