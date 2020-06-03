@@ -24,9 +24,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cinemhub.MainActivity;
 import com.example.cinemhub.R;
+import com.example.cinemhub.adapters.CrewListVerticalAdapter;
 import com.example.cinemhub.adapters.MovieListVerticalAdapter;
 import com.example.cinemhub.databinding.FragmentSearchresultBinding;
 import com.example.cinemhub.models.Movie;
+import com.example.cinemhub.models.People;
 import com.example.cinemhub.models.Resource;
 import com.example.cinemhub.utils.Constants;
 import com.google.android.material.tabs.TabLayout;
@@ -36,7 +38,6 @@ import java.util.List;
 public class SearchResultFragment extends Fragment {
 
     private SearchresultViewModel mViewModel;
-
     private String TAG="SearchResultFragment";
     private FragmentSearchresultBinding binding;
     private MovieListVerticalAdapter movieListVerticalAdapter;
@@ -82,8 +83,15 @@ public class SearchResultFragment extends Fragment {
                 Navigation.findNavController(getView()).navigate(SearchResultFragmentDirections.actionNavigationSearchResultToNavigationMovieCard(movie.getId()));
             }
         });
-        binding.RecyclerViewSearch.setAdapter(movieListVerticalAdapter);
+        movieListVerticalAdapter = new MovieListVerticalAdapter(getActivity(), getPeopleList(getString(R.string.API_LANGUAGE), checkAdult, query,region), new CrewListVerticalAdapter.OnItemClickListener(){
 
+            @Override
+            public void OnItemClick(People people) {
+
+            }
+        };
+        binding.RecyclerViewSearch.setAdapter(movieListVerticalAdapter);
+        binding.RecyclerViewSearchPeople.setAlpha(0);
         binding.RecyclerViewSearch.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
@@ -147,10 +155,18 @@ public class SearchResultFragment extends Fragment {
             @SuppressLint("SetTextI18n")
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                   //if( tab.view.getTab().getText().equals(getString(R.string.movie)) )
-                       // binding.textView.setText(query);
-                  // else
-                     //  binding.textView.setText(year + " " + categorie);
+                   if( tab.view.getTab().getText().equals(getString(R.string.movie)) )
+                   {
+                       binding.RecyclerViewSearchPeople.setAlpha(0);
+                       binding.RecyclerViewSearch.setAlpha(1);
+
+                   }
+                   else
+                   {
+                       binding.RecyclerViewSearch.setAlpha(0);
+                       binding.RecyclerViewSearchPeople.setAlpha(1);
+
+                   }
 
             }
 
@@ -188,6 +204,13 @@ public class SearchResultFragment extends Fragment {
         Resource<List<Movie>> movieListResult=mViewModel.getMovieSearch(language, checkAdult,query,region,year).getValue();
         if(movieListResult != null){
             return movieListResult.getData();
+        }
+        return null;
+    }
+    private List<People> getPeopleList(String language, boolean checkAdult,String query, String region){
+        Resource<List<People>> peopleListResult=mViewModel.getPeopleSearch(language, checkAdult,query,region).getValue();
+        if(peopleListResult != null){
+            return peopleListResult.getData();
         }
         return null;
     }

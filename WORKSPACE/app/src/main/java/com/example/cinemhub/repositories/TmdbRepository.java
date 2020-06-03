@@ -17,6 +17,7 @@ import com.example.cinemhub.models.PeopleCreditsApiTmdbResponse;
 import com.example.cinemhub.models.RecommendationsApiTmdbResponse;
 import com.example.cinemhub.models.Resource;
 import com.example.cinemhub.models.SearchMovieApiTmdbResponse;
+import com.example.cinemhub.models.SearchPeopleApiTmdbResponse;
 import com.example.cinemhub.models.TopRatedApiTmdbResponse;
 import com.example.cinemhub.service.TmdbService;
 import com.example.cinemhub.utils.Constants;
@@ -451,7 +452,7 @@ public class TmdbRepository {
     }
 
 
-    public void getSearcMovie(MutableLiveData<Resource<List<Movie>>> movieSearch, String language, int page, boolean checkAdult,String query,String region,int year){
+    public void getSearchMovie(MutableLiveData<Resource<List<Movie>>> movieSearch, String language, int page, boolean checkAdult,String query,String region,int year){
         Call<SearchMovieApiTmdbResponse> call=tmdbService.getSearchMovie(language,Constants.API_TMDB_KEY,query,page,checkAdult,region,year);
         call.enqueue(new Callback<SearchMovieApiTmdbResponse>() {
             @Override
@@ -492,6 +493,52 @@ public class TmdbRepository {
 
             @Override
             public void onFailure(Call<SearchMovieApiTmdbResponse> call, Throwable t) {
+                Log.d(TAG, "Error:"+t.toString());
+            }
+        });
+    }
+
+    public void getSearchPeople(MutableLiveData<Resource<List<People>>> peopleSearch, String language, int page, boolean checkAdult,String query,String region){
+        Call<SearchPeopleApiTmdbResponse> call=tmdbService.getSearchPeople(language,Constants.API_TMDB_KEY,query,page,checkAdult,region);
+        call.enqueue(new Callback<SearchPeopleApiTmdbResponse>() {
+            @Override
+            public void onResponse(Call<SearchPeopleApiTmdbResponse> call, Response<SearchPeopleApiTmdbResponse> response) {
+                if(response.isSuccessful() && response.body()!=null) {
+                    Resource<List<People>> resource = new Resource<>();
+                    List<People> results = new ArrayList<People>();
+                    for (int i = 0; i < response.body().getResults().length; i++) {
+                        if(!checkAdult || !response.body().getResults()[i].isAdult()){
+                            results.add(response.body().getResults()[i]);
+                        }
+                    }
+                    if (peopleSearch.getValue() != null && peopleSearch.getValue().getData() != null) {
+                        List<People> currentMovieList = peopleSearch.getValue().getData();
+                        currentMovieList.remove(currentMovieList.size() - 1);
+                        currentMovieList.addAll(results);
+                        resource.setData(currentMovieList);
+                    } else {
+                        resource.setData(results);
+                    }
+                    resource.setTotalResult(response.body().getTotal_results());
+                    resource.setStatusCode(response.code());
+                    resource.setStatusMessage(response.message());
+                    resource.setLoading(false);
+                    peopleSearch.postValue(resource);
+                }else if (response.errorBody()!=null){
+                    Log.d(TAG, "ERROR: getComingSoon=null");
+                    Resource<List<People>> resource=new Resource<>();
+                    resource.setStatusCode(response.code());
+                    try {
+                        resource.setStatusMessage(response.message()+" - "+response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    peopleSearch.postValue(resource);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SearchPeopleApiTmdbResponse> call, Throwable t) {
                 Log.d(TAG, "Error:"+t.toString());
             }
         });
