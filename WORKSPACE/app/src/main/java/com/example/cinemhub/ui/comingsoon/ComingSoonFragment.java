@@ -65,8 +65,8 @@ public class ComingSoonFragment extends Fragment {
     }
 
 
-    private List<Movie> getMovieList(String language, boolean checkAdult){
-        Resource<List<Movie>> movieListResult=mViewModel.getMovieComingSoon(language, checkAdult).getValue();
+    private List<Movie> getMovieList(String language, boolean checkAdult, String region){
+        Resource<List<Movie>> movieListResult=mViewModel.getMovieComingSoon(language, checkAdult, region).getValue();
         if(movieListResult != null){
             return movieListResult.getData();
         }
@@ -82,10 +82,11 @@ public class ComingSoonFragment extends Fragment {
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.CINEM_HUB_SHARED_PREF_FILE_NAME, Context.MODE_PRIVATE);
         boolean checkAdult=sharedPreferences.getBoolean(Constants.ADULT_SHARED_PREF_NAME, false);
+        String region=sharedPreferences.getString(Constants.REGION_SHARED_PREF_NAME, null);
 
 
 
-        movieListVerticalAdapter = new MovieListVerticalAdapter(getActivity(), getMovieList(getString(R.string.API_LANGUAGE), checkAdult), new MovieListVerticalAdapter.OnItemClickListener() {
+        movieListVerticalAdapter = new MovieListVerticalAdapter(getActivity(), getMovieList(getString(R.string.API_LANGUAGE), checkAdult, region), new MovieListVerticalAdapter.OnItemClickListener() {
             @Override
             public void OnItemClick(Movie movie) {
                 Navigation.findNavController(getView()).navigate(ComingSoonFragmentDirections.actionNavigationComingSoonToNavigationMovieCard(movie.getId()));
@@ -129,7 +130,7 @@ public class ComingSoonFragment extends Fragment {
                         int page=mViewModel.getPage() + 1;
                         mViewModel.setPage(page);
 
-                        mViewModel.getMoreMovieComingSoon(getString(R.string.API_LANGUAGE), checkAdult);
+                        mViewModel.getMoreMovieComingSoon(getString(R.string.API_LANGUAGE), checkAdult, region);
                     }
                 }
 
@@ -152,7 +153,7 @@ public class ComingSoonFragment extends Fragment {
             }
         };
 
-        mViewModel.getMovieComingSoon(getString(R.string.API_LANGUAGE), checkAdult).observe(getViewLifecycleOwner(), observer_coming_soon);
+        mViewModel.getMovieComingSoon(getString(R.string.API_LANGUAGE), checkAdult, region).observe(getViewLifecycleOwner(), observer_coming_soon);
     }
 
     @Override

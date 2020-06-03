@@ -52,9 +52,9 @@ public class TmdbRepository {
         return instance;
     }
 
-    public void getNowPlaying(MutableLiveData<Resource<List<Movie>>> movieNowPlaying, String language, int page, boolean checkAdult){
+    public void getNowPlaying(MutableLiveData<Resource<List<Movie>>> movieNowPlaying, String language, int page, boolean checkAdult, String region){
 
-        Call<NowPlayingApiTmdbResponse> call = tmdbService.getNowPlaying(language , page, Constants.API_TMDB_KEY);
+        Call<NowPlayingApiTmdbResponse> call = tmdbService.getNowPlaying(language , page, Constants.API_TMDB_KEY, region);
         call.enqueue(new Callback<NowPlayingApiTmdbResponse>() {
             @Override
             public void onResponse(Call<NowPlayingApiTmdbResponse> call, Response<NowPlayingApiTmdbResponse> response) {
@@ -101,8 +101,8 @@ public class TmdbRepository {
         });
     }
 
-    public void getTopRated(MutableLiveData<Resource<List<Movie>>> movieTopRated, String language, int page, boolean checkAdult){
-        Call<TopRatedApiTmdbResponse> call=tmdbService.getTopRated(language, page, Constants.API_TMDB_KEY);
+    public void getTopRated(MutableLiveData<Resource<List<Movie>>> movieTopRated, String language, int page, boolean checkAdult, String region){
+        Call<TopRatedApiTmdbResponse> call=tmdbService.getTopRated(language, page, Constants.API_TMDB_KEY, region);
         call.enqueue(new Callback<TopRatedApiTmdbResponse>() {
             @Override
             public void onResponse(Call<TopRatedApiTmdbResponse> call, Response<TopRatedApiTmdbResponse> response) {
@@ -147,8 +147,8 @@ public class TmdbRepository {
         });
     }
 
-    public void getComingSoon(MutableLiveData<Resource<List<Movie>>> movieComingSoon, String language, int page, boolean checkAdult){
-        Call<ComingSoonApiTmdbResponse> call=tmdbService.getComingSoon(language, page, Constants.API_TMDB_KEY);
+    public void getComingSoon(MutableLiveData<Resource<List<Movie>>> movieComingSoon, String language, int page, boolean checkAdult, String region){
+        Call<ComingSoonApiTmdbResponse> call=tmdbService.getComingSoon(language, page, Constants.API_TMDB_KEY, region);
         call.enqueue(new Callback<ComingSoonApiTmdbResponse>() {
             @Override
             public void onResponse(Call<ComingSoonApiTmdbResponse> call, Response<ComingSoonApiTmdbResponse> response) {
@@ -465,8 +465,8 @@ public class TmdbRepository {
                             results.add(response.body().getResults()[i]);
                         }
                     }
-                    if (movieSearch.getValue() != null && movieSearch.getValue().getData() != null && movieSearch.getValue().getData().size()>0) {
-                        List<Movie> currentMovieLremoveist = movieSearch.getValue().getData();
+                    if (movieSearch.getValue() != null && movieSearch.getValue().getData() != null) {
+                        List<Movie> currentMovieList = movieSearch.getValue().getData();
                         currentMovieList.remove(currentMovieList.size() - 1);
                         currentMovieList.addAll(results);
                         resource.setData(currentMovieList);

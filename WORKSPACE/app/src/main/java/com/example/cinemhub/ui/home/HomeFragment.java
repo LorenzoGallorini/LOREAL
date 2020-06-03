@@ -69,6 +69,8 @@ public class HomeFragment extends Fragment {
         binding.ComingSoonRecyclerView.setLayoutManager(layoutManagerComingSoon);
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.CINEM_HUB_SHARED_PREF_FILE_NAME, Context.MODE_PRIVATE);
         boolean checkAdult=sharedPreferences.getBoolean(Constants.ADULT_SHARED_PREF_NAME, false);
+        String region=sharedPreferences.getString(Constants.REGION_SHARED_PREF_NAME, null);
+        int page=1;
 
         final Observer<Resource<List<Movie>>> observer_now_playing=new Observer<Resource<List<Movie>>>() {
             @Override
@@ -108,9 +110,7 @@ public class HomeFragment extends Fragment {
                 }
             }
         };
-        homeViewModel.getMovieNowPlaying(getString(R.string.API_LANGUAGE), 1, checkAdult).observe(getViewLifecycleOwner(), observer_now_playing);//TODO settare delle variabili globali per la pagina
-
-
+        homeViewModel.getMovieNowPlaying(getString(R.string.API_LANGUAGE), page, checkAdult, region).observe(getViewLifecycleOwner(), observer_now_playing);//TODO settare delle variabili globali per la pagina
 
         final Observer<Resource<List<Movie>>> observer_top_rated=new Observer<Resource<List<Movie>>>() {
             @Override
@@ -148,12 +148,7 @@ public class HomeFragment extends Fragment {
                 }
             }
         };
-        homeViewModel.getMovieTopRated(getString(R.string.API_LANGUAGE), 1, checkAdult).observe(getViewLifecycleOwner(), observer_top_rated);
-
-
-
-
-
+        homeViewModel.getMovieTopRated(getString(R.string.API_LANGUAGE), page, checkAdult, region).observe(getViewLifecycleOwner(), observer_top_rated);
 
         final Observer<Resource<List<Movie>>> observer_coming_soon=new Observer<Resource<List<Movie>>>() {
             @Override
@@ -194,7 +189,7 @@ public class HomeFragment extends Fragment {
                 }
             }
         };
-        homeViewModel.getMovieComingSoon(getString(R.string.API_LANGUAGE), 1, checkAdult).observe(getViewLifecycleOwner(), observer_coming_soon);
+        homeViewModel.getMovieComingSoon(getString(R.string.API_LANGUAGE), page, checkAdult, region).observe(getViewLifecycleOwner(), observer_coming_soon);
     }
 
     @Override

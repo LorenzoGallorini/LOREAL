@@ -64,8 +64,8 @@ public class TopRatedFragment extends Fragment {
         return view;
     }
 
-    private List<Movie> getMovieList(String language, boolean checkAdult){
-        Resource<List<Movie>> movieListResult=mViewModel.getMovieTopRated(language, checkAdult).getValue();
+    private List<Movie> getMovieList(String language, boolean checkAdult, String region){
+        Resource<List<Movie>> movieListResult=mViewModel.getMovieTopRated(language, checkAdult, region).getValue();
         if(movieListResult != null){
             return movieListResult.getData();
         }
@@ -79,11 +79,12 @@ public class TopRatedFragment extends Fragment {
         binding.TopRatedRecyclerView.setLayoutManager(layoutManager);
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.CINEM_HUB_SHARED_PREF_FILE_NAME, Context.MODE_PRIVATE);
-        boolean checkAdult=sharedPreferences.getBoolean(Constants.ADULT_SHARED_PREF_NAME, false);
+        boolean checkAdult = sharedPreferences.getBoolean(Constants.ADULT_SHARED_PREF_NAME, false);
+        String region = sharedPreferences.getString(Constants.REGION_SHARED_PREF_NAME, null);
 
 
 
-        MovieListVerticalAdapter movieListVerticalAdapter = new MovieListVerticalAdapter(getActivity(), getMovieList(getString(R.string.API_LANGUAGE), checkAdult), new MovieListVerticalAdapter.OnItemClickListener() {
+        MovieListVerticalAdapter movieListVerticalAdapter = new MovieListVerticalAdapter(getActivity(), getMovieList(getString(R.string.API_LANGUAGE), checkAdult, region), new MovieListVerticalAdapter.OnItemClickListener() {
             @Override
             public void OnItemClick(Movie movie) {
                 Navigation.findNavController(getView()).navigate(TopRatedFragmentDirections.actionNavigationTopRatedToNavigationMovieCard(movie.getId()));
@@ -125,7 +126,7 @@ public class TopRatedFragment extends Fragment {
                         int page=mViewModel.getPage() + 1;
                         mViewModel.setPage(page);
 
-                        mViewModel.getMoreMovieTopRated(getString(R.string.API_LANGUAGE), checkAdult);
+                        mViewModel.getMoreMovieTopRated(getString(R.string.API_LANGUAGE), checkAdult, region);
                     }
                 }
             }
@@ -144,7 +145,7 @@ public class TopRatedFragment extends Fragment {
                 }
             }
         };
-        mViewModel.getMovieTopRated(getString(R.string.API_LANGUAGE), checkAdult).observe(getViewLifecycleOwner(), observer_top_rated);
+        mViewModel.getMovieTopRated(getString(R.string.API_LANGUAGE), checkAdult, region).observe(getViewLifecycleOwner(), observer_top_rated);
     }
 
     @Override

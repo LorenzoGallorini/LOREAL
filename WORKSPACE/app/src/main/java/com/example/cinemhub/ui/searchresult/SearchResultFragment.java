@@ -42,10 +42,10 @@ public class SearchResultFragment extends Fragment {
     private FragmentSearchresultBinding binding;
     private MovieListVerticalAdapter movieListVerticalAdapter;
     private PeopleListVerticalAdapter peopleListVerticalAdapter;
-    private int totalItemCount;
-    private int lastVisibleItem;
-    private int visibleItemCount;
-    private int threshold=1;
+    private int movieTotalItemCount;
+    private int movieLastVisibleItem;
+    private int movieVisibleItemCount;
+    private int movieThreshold =1;
     private int peopleTotalItemCount;
     private int peopleLastVisibleItem;
     private int peopleVisibleItemCount;
@@ -73,7 +73,6 @@ public class SearchResultFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         int year= SearchResultFragmentArgs.fromBundle(getArguments()).getYear();
         int categorie = SearchResultFragmentArgs.fromBundle(getArguments()).getCategorie();
-        String region = "IT";
         String query = SearchResultFragmentArgs.fromBundle(getArguments()).getQueryValue();
 
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(),3);
@@ -83,6 +82,7 @@ public class SearchResultFragment extends Fragment {
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.CINEM_HUB_SHARED_PREF_FILE_NAME, Context.MODE_PRIVATE);
         boolean checkAdult=sharedPreferences.getBoolean(Constants.ADULT_SHARED_PREF_NAME, false);
+        String region=sharedPreferences.getString(Constants.REGION_SHARED_PREF_NAME, null);
 
         movieListVerticalAdapter = new MovieListVerticalAdapter(getActivity(), getMovieList(getString(R.string.API_LANGUAGE), checkAdult, query,region , year), new MovieListVerticalAdapter.OnItemClickListener() {
             @Override
@@ -107,21 +107,21 @@ public class SearchResultFragment extends Fragment {
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
 
-                totalItemCount = layoutManager.getItemCount();
-                lastVisibleItem = layoutManager.findLastVisibleItemPosition();
-                visibleItemCount = layoutManager.getChildCount();
+                movieTotalItemCount = layoutManager.getItemCount();
+                movieLastVisibleItem = layoutManager.findLastVisibleItemPosition();
+                movieVisibleItemCount = layoutManager.getChildCount();
 
-                if(totalItemCount==visibleItemCount ||
-                        (totalItemCount <= (lastVisibleItem + threshold) && dy>0 && !mViewModel.isLoading()) &&
+                if(movieTotalItemCount == movieVisibleItemCount ||
+                        (movieTotalItemCount <= (movieLastVisibleItem + movieThreshold) && dy>0 && !mViewModel.isMovieIsLoading()) &&
                                 mViewModel.getMovieLiveData().getValue() != null &&
-                                mViewModel.getCurrentResults()!=mViewModel.getMovieLiveData().getValue().getTotalResult()
+                                mViewModel.getMovieCurrentResults()!=mViewModel.getMovieLiveData().getValue().getTotalResult()
                 ){
                     Resource<List<Movie>> movieListResource=new Resource<>();
 
                     MutableLiveData<Resource<List<Movie>>> movieListMutableLiveData = mViewModel.getMovieLiveData();
 
                     if(movieListMutableLiveData!=null && movieListMutableLiveData.getValue() != null){
-                        mViewModel.setLoading(true);
+                        mViewModel.setMovieIsLoading(true);
 
                         List<Movie> currentMovieList = movieListMutableLiveData.getValue().getData();
                         currentMovieList.add(null);
@@ -133,8 +133,8 @@ public class SearchResultFragment extends Fragment {
                         movieListResource.setLoading(true);
                         movieListMutableLiveData.postValue(movieListResource);
 
-                        int page=mViewModel.getPage() + 1;
-                        mViewModel.setPage(page);
+                        int page=mViewModel.getMoviePage() + 1;
+                        mViewModel.setMoviePage(page);
 
                         mViewModel.getMoreMovieSearch(getString(R.string.API_LANGUAGE), checkAdult, query,region,year);
                     }
@@ -195,8 +195,8 @@ public class SearchResultFragment extends Fragment {
                 movieListVerticalAdapter.setData(movies.getData());
 
                 if(!movies.isLoading()){
-                    mViewModel.setLoading(false);
-                    mViewModel.setCurrentResults(movies.getData().size());
+                    mViewModel.setMovieIsLoading(false);
+                    mViewModel.setMovieCurrentResults(movies.getData().size());
                 }
             }
         };

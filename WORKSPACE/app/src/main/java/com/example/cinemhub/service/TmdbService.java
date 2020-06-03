@@ -22,17 +22,20 @@ public interface TmdbService {
     @GET("movie/now_playing")
     Call<NowPlayingApiTmdbResponse> getNowPlaying (@Query("language") String language,
                                                    @Query("page") int page,
-                                                   @Query("api_key") String api_key);
+                                                   @Query("api_key") String api_key,
+                                                   @Query("region") String region);
 
     @GET("movie/top_rated")
     Call<TopRatedApiTmdbResponse> getTopRated (@Query("language") String language,
                                                @Query("page") int page,
-                                               @Query("api_key") String api_key);
+                                               @Query("api_key") String api_key,
+                                               @Query("region") String region);
 
     @GET("movie/upcoming")
     Call<ComingSoonApiTmdbResponse> getComingSoon (@Query("language") String language,
                                                    @Query("page") int page,
-                                                   @Query("api_key") String api_key);
+                                                   @Query("api_key") String api_key,
+                                                   @Query("region") String region);
 
     @GET("movie/{movie_id}/recommendations")
     Call<RecommendationsApiTmdbResponse> getRecommendations (@Path("movie_id") int movie_id,

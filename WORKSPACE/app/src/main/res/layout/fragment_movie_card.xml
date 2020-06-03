@@ -12,23 +12,6 @@
         android:layout_height="match_parent"
         android:paddingBottom="10dp">
 
-        <!--<TextView
-            android:id="@+id/DirectorsValue"
-            android:layout_width="@dimen/value_text_width"
-            android:layout_height="wrap_content"
-            android:textColor="@color/titleWhite"
-            android:textSize="@dimen/paragraph_size"
-            app:layout_constraintStart_toStartOf="@+id/DirectorLabel"
-            app:layout_constraintTop_toBottomOf="@+id/DirectorLabel" />
--->
-        <!--<TextView
-            android:id="@+id/WritersValue"
-            android:layout_width="@dimen/value_text_width"
-            android:layout_height="wrap_content"
-            android:textColor="@color/titleWhite"
-            android:textSize="@dimen/paragraph_size"
-            app:layout_constraintStart_toStartOf="@+id/WritersLabel"
-            app:layout_constraintTop_toBottomOf="@+id/WritersLabel" />-->
 
         <TextView
             android:id="@+id/RuntimeValue"

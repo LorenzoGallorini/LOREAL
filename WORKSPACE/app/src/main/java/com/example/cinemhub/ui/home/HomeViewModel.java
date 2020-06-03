@@ -18,26 +18,26 @@ public class HomeViewModel extends ViewModel {
 
 
 
-    public LiveData<Resource<List<Movie>>> getMovieNowPlaying(String language, int page, boolean checkAdult){
+    public LiveData<Resource<List<Movie>>> getMovieNowPlaying(String language, int page, boolean checkAdult, String region){
         if(movieNowPlaying==null){
             movieNowPlaying=new MutableLiveData<Resource<List<Movie>>>();
-            TmdbRepository.getInstance().getNowPlaying(movieNowPlaying, language, page, checkAdult);
+            TmdbRepository.getInstance().getNowPlaying(movieNowPlaying, language, page, checkAdult, region);
         }
         return movieNowPlaying;
     }
 
-    public LiveData<Resource<List<Movie>>> getMovieTopRated(String language, int page, boolean checkAdult){
+    public LiveData<Resource<List<Movie>>> getMovieTopRated(String language, int page, boolean checkAdult, String region){
         if(movieTopRated==null){
             movieTopRated=new MutableLiveData<Resource<List<Movie>>>();
-            TmdbRepository.getInstance().getTopRated(movieTopRated, language, page, checkAdult);
+            TmdbRepository.getInstance().getTopRated(movieTopRated, language, page, checkAdult, region);
         }
         return movieTopRated;
     }
 
-    public LiveData<Resource<List<Movie>>> getMovieComingSoon(String language, int page, boolean checkAdult){
+    public LiveData<Resource<List<Movie>>> getMovieComingSoon(String language, int page, boolean checkAdult, String region){
         if(movieComingSoon==null){
             movieComingSoon=new MutableLiveData<Resource<List<Movie>>>();
-            TmdbRepository.getInstance().getComingSoon(movieComingSoon, language, page, checkAdult);
+            TmdbRepository.getInstance().getComingSoon(movieComingSoon, language, page, checkAdult, region);
         }
         return movieComingSoon;
     }

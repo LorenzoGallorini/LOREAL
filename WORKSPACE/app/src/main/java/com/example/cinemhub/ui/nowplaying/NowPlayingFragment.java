@@ -65,8 +65,8 @@ public class NowPlayingFragment extends Fragment {
         return view;
     }
 
-    private List<Movie> getMovieList(String language, boolean checkAdult){
-        Resource<List<Movie>> movieListResult=mViewModel.getMovieNowPlaying(language, checkAdult).getValue();
+    private List<Movie> getMovieList(String language, boolean checkAdult, String region){
+        Resource<List<Movie>> movieListResult=mViewModel.getMovieNowPlaying(language, checkAdult, region).getValue();
         if(movieListResult != null){
             return movieListResult.getData();
         }
@@ -81,9 +81,10 @@ public class NowPlayingFragment extends Fragment {
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.CINEM_HUB_SHARED_PREF_FILE_NAME, Context.MODE_PRIVATE);
         boolean checkAdult=sharedPreferences.getBoolean(Constants.ADULT_SHARED_PREF_NAME, false);
+        String region=sharedPreferences.getString(Constants.REGION_SHARED_PREF_NAME, null);
 
 
-        MovieListVerticalAdapter movieListVerticalAdapter = new MovieListVerticalAdapter(getActivity(), getMovieList(getString(R.string.API_LANGUAGE), checkAdult), new MovieListVerticalAdapter.OnItemClickListener() {
+        MovieListVerticalAdapter movieListVerticalAdapter = new MovieListVerticalAdapter(getActivity(), getMovieList(getString(R.string.API_LANGUAGE), checkAdult, region), new MovieListVerticalAdapter.OnItemClickListener() {
             @Override
             public void OnItemClick(Movie movie) {
                 Log.d(TAG, "onclick listener");
@@ -126,7 +127,7 @@ public class NowPlayingFragment extends Fragment {
                         int page=mViewModel.getPage() + 1;
                         mViewModel.setPage(page);
 
-                        mViewModel.getMoreMovieNowPlaying(getString(R.string.API_LANGUAGE), checkAdult);
+                        mViewModel.getMoreMovieNowPlaying(getString(R.string.API_LANGUAGE), checkAdult, region);
                     }
                 }
             }
@@ -145,7 +146,7 @@ public class NowPlayingFragment extends Fragment {
                 }
             }
         };
-        mViewModel.getMovieNowPlaying(getString(R.string.API_LANGUAGE),  checkAdult).observe(getViewLifecycleOwner(), observer_now_playing);
+        mViewModel.getMovieNowPlaying(getString(R.string.API_LANGUAGE),  checkAdult, region).observe(getViewLifecycleOwner(), observer_now_playing);
     }
 
     @Override

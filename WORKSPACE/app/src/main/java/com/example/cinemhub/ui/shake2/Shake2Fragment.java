@@ -115,16 +115,11 @@ public class Shake2Fragment extends Fragment {
                     Log.d(TAG, "onShake");
                     mViewModel.reset();
                     CallShake(preferiti,checkAdult,observer_on_shake,sharedPreferences);
-
-
                 }
 
             });
         }
-
         CallShake(preferiti,checkAdult,observer_on_shake,sharedPreferences);
-
-
         return view;
     }
 
@@ -228,12 +223,14 @@ public class Shake2Fragment extends Fragment {
                     }
 
                     boolean checkAdult=sharedPreferences.getBoolean(Constants.ADULT_SHARED_PREF_NAME, false);
-                    mViewModel.getMovieOnShake(casual_id, getString(R.string.API_LANGUAGE),1, checkAdult).observe(getViewLifecycleOwner(), observer_on_shake);//TODO settare delle variabili globali per la lingua e per la pagina
+                    mViewModel.getMovieOnShake(casual_id, getString(R.string.API_LANGUAGE),1, checkAdult).observe(getViewLifecycleOwner(), observer_on_shake);//TODO settare delle variabili globali per la pagina
+
 
                 }
             };
+            String region=sharedPreferences.getString(Constants.REGION_SHARED_PREF_NAME, null);
 
-            mViewModel.getMovieTopRated(getString(R.string.API_LANGUAGE), 1, checkAdult).observe(getViewLifecycleOwner(), observer_top_rated);
+            mViewModel.getMovieTopRated(getString(R.string.API_LANGUAGE), 1, checkAdult, region).observe(getViewLifecycleOwner(), observer_top_rated);
         }
     }
 

@@ -16,16 +16,16 @@ public class ComingSoonViewModel extends ViewModel {
     private int currentResults;
     private boolean isLoading;
 
-    public LiveData<Resource<List<Movie>>> getMovieComingSoon(String language, boolean checkAdult){
+    public LiveData<Resource<List<Movie>>> getMovieComingSoon(String language, boolean checkAdult, String region){
         if(movieComingSoon==null){
             movieComingSoon = new MutableLiveData<Resource<List<Movie>>>();
-            TmdbRepository.getInstance().getComingSoon(movieComingSoon, language, page, checkAdult);
+            TmdbRepository.getInstance().getComingSoon(movieComingSoon, language, page, checkAdult, region);
         }
         return movieComingSoon;
     }
 
-    public LiveData<Resource<List<Movie>>> getMoreMovieComingSoon(String language, boolean checkAdult){
-        TmdbRepository.getInstance().getComingSoon(movieComingSoon, language, page, checkAdult);
+    public LiveData<Resource<List<Movie>>> getMoreMovieComingSoon(String language, boolean checkAdult, String region){
+        TmdbRepository.getInstance().getComingSoon(movieComingSoon, language, page, checkAdult, region);
         return movieComingSoon;
     }
 

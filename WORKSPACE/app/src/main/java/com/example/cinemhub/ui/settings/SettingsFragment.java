@@ -102,6 +102,7 @@ public class SettingsFragment extends Fragment {
                 editor.commit();
             }
 
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 

@@ -27,10 +27,10 @@ public class Shake2ViewModel extends ViewModel {
         return movieOnShake;
     }
 
-    public LiveData<Resource<List<Movie>>> getMovieTopRated(String language, int page, boolean checkAdult){
+    public LiveData<Resource<List<Movie>>> getMovieTopRated(String language, int page, boolean checkAdult, String region){
         if(movieTopRated==null){
             movieTopRated=new MutableLiveData<Resource<List<Movie>>>();
-            TmdbRepository.getInstance().getTopRated(movieTopRated, language, page, checkAdult);
+            TmdbRepository.getInstance().getTopRated(movieTopRated, language, page, checkAdult, region);
         }
         return movieTopRated;
     }}

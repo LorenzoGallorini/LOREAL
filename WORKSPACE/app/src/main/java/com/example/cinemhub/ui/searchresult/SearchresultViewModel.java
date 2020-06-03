@@ -13,19 +13,20 @@ import java.util.List;
 
 public class SearchresultViewModel extends ViewModel {
     private MutableLiveData<Resource<List<Movie>>> movieSearch;
-    private int page=1;
-    private int currentResults;
-    private boolean isLoading;
+    private int moviePage =1;
+    private int movieCurrentResults;
+    private boolean movieIsLoading;
     private MutableLiveData<Resource<List<People>>> peopleSearch;
     private int peoplePage=1;
     private int peopleCurrentResults;
     private boolean peopleIsLoading;
+
     public  void reset()
     {
         movieSearch =null;
-        page=1;
-        currentResults=0;
-        isLoading=false;
+        moviePage =1;
+        movieCurrentResults =0;
+        movieIsLoading =false;
         peopleSearch =null;
         peoplePage=1;
         peopleCurrentResults=0;
@@ -35,7 +36,7 @@ public class SearchresultViewModel extends ViewModel {
     public LiveData<Resource<List<Movie>>> getMovieSearch(String language, boolean checkAdult,String query,String region,int year){
         if(movieSearch ==null){
             movieSearch = new MutableLiveData<Resource<List<Movie>>>();
-            TmdbRepository.getInstance().getSearchMovie(movieSearch, language, page, checkAdult,query,region,year);
+            TmdbRepository.getInstance().getSearchMovie(movieSearch, language, moviePage, checkAdult,query,region,year);
         }
         return movieSearch;
     }
@@ -49,7 +50,7 @@ public class SearchresultViewModel extends ViewModel {
     }
 
     public LiveData<Resource<List<Movie>>> getMoreMovieSearch(String language, boolean checkAdult,String query,String region,int year){
-        TmdbRepository.getInstance().getSearchMovie(movieSearch, language, page, checkAdult,query,region,year);
+        TmdbRepository.getInstance().getSearchMovie(movieSearch, language, moviePage, checkAdult,query,region,year);
         return movieSearch;
     }
     public LiveData<Resource<List<People>>> getMorePeopleSearch(String language, boolean checkAdult,String query,String region){
@@ -64,28 +65,28 @@ public class SearchresultViewModel extends ViewModel {
         return peopleSearch;
     }
 
-    public int getPage() {
-        return page;
+    public int getMoviePage() {
+        return moviePage;
     }
 
-    public void setPage(int page) {
-        this.page = page;
+    public void setMoviePage(int moviePage) {
+        this.moviePage = moviePage;
     }
 
-    public int getCurrentResults() {
-        return currentResults;
+    public int getMovieCurrentResults() {
+        return movieCurrentResults;
     }
 
-    public void setCurrentResults(int currentResults) {
-        this.currentResults = currentResults;
+    public void setMovieCurrentResults(int movieCurrentResults) {
+        this.movieCurrentResults = movieCurrentResults;
     }
 
-    public boolean isLoading() {
-        return isLoading;
+    public boolean isMovieIsLoading() {
+        return movieIsLoading;
     }
 
-    public void setLoading(boolean loading) {
-        isLoading = loading;
+    public void setMovieIsLoading(boolean movieIsLoading) {
+        this.movieIsLoading = movieIsLoading;
     }
 
     public int getPeoplePage() {
