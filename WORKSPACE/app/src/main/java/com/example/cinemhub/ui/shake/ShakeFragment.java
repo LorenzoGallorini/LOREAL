@@ -42,7 +42,7 @@ public class ShakeFragment extends Fragment {
         ShakeOptions options = new ShakeOptions()
                 .background(true)
                 .interval(1000)
-                .shakeCount(1)
+                .shakeCount(2)
                 .sensibility(1.3f);
 
         if (((MainActivity) getActivity()).shakeDetector != null){
