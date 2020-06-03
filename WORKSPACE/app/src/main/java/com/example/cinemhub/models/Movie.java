@@ -333,7 +333,6 @@ public class Movie implements Parcelable {
     public static class MoviePopularityComparator implements Comparator<Movie>{
         public int compare(Movie p1, Movie p2) {
             return Double.compare(p2.getPopularity(), p1.getPopularity());
-
         }
     }
 

@@ -60,6 +60,32 @@
                 app:layout_constraintStart_toStartOf="@+id/SecurityTitle"
                 app:layout_constraintTop_toBottomOf="@+id/SecurityTitle" />
 
+
+            <TextView
+                android:id="@+id/SelectRegionTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="@string/select_region"
+                android:textColor="@color/titleWhite"
+                android:textSize="@dimen/title_size"
+                app:layout_constraintStart_toStartOf="@+id/SecurityTitle"
+                app:layout_constraintTop_toBottomOf="@+id/parental_control_switch" />
+
+
+            <Spinner
+                android:id="@+id/RegionSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+
+
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/SelectRegionTitle"
+                app:layout_constraintTop_toBottomOf="@+id/SelectRegionTitle" />
+
             <TextView
                 android:id="@+id/InformationTitle"
                 android:layout_width="wrap_content"
@@ -68,8 +94,8 @@
                 android:text="@string/information_title"
                 android:textColor="@color/titleWhite"
                 android:textSize="@dimen/title_size"
-                app:layout_constraintStart_toStartOf="@+id/SecurityTitle"
-                app:layout_constraintTop_toBottomOf="@+id/parental_control_switch" />
+                app:layout_constraintStart_toStartOf="@+id/SelectRegionTitle"
+                app:layout_constraintTop_toBottomOf="@+id/RegionSpinner" />
 
             <TextView
                 android:id="@+id/faq_text"

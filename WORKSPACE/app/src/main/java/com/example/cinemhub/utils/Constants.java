@@ -14,6 +14,11 @@ public class Constants {
     public static final String API_TMDB_BASE_URL="https://api.themoviedb.org/3/";
     public static final String API_TMDB_KEY="711c6e104d15a00a5aff3a04d7c0ceee";
 
+    public static final String REGION_SHARED_PREF_NAME="Region";
+    public static final String REGION_ITALY="IT";
+    public static final String REGION_USA="US";
+    public static final String REGION_GB="GB";
+
     public static final String SEPARATOR="&-->&";
 
 }

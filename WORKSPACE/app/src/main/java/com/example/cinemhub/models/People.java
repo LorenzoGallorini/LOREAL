@@ -210,7 +210,7 @@ public class People {
             if(crewApiTmdbResponses[i].getDepartment().equals("Directing")|crewApiTmdbResponses[i].getDepartment().equals("Writing")){
                 int index=isInList(ris, crewApiTmdbResponses[i].getId());
                 if(index>=0){
-                    ris.get(index).setRole(ris.get(index).getRole()+" | "+crewApiTmdbResponses[i].getJob());
+                    ris.get(index).setRole(ris.get(index).getRole()+", "+crewApiTmdbResponses[i].getJob());
                 }else{
                     ris.add(new People(crewApiTmdbResponses[i]));
                 }

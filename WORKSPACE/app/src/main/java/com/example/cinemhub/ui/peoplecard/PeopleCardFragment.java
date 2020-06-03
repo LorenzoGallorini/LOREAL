@@ -25,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cinemhub.MainActivity;
 import com.example.cinemhub.R;
+import com.example.cinemhub.adapters.CreditsListHorizontalAdapter;
 import com.example.cinemhub.adapters.MovieListVerticalAdapter;
 import com.example.cinemhub.databinding.FragmentPeopleCardBinding;
 import com.example.cinemhub.models.Movie;
@@ -114,6 +115,7 @@ public class PeopleCardFragment extends Fragment {
                     final Observer<Resource<PeopleCreditsApiTmdbResponse>> observer_credits=new Observer<Resource<PeopleCreditsApiTmdbResponse>>() {
                         @Override
                         public void onChanged(Resource<PeopleCreditsApiTmdbResponse> peopleCreditsApiTmdbResponseResource) {
+                            //TODO evitare ripetizioni di film nella filmografia
                             PeopleCreditsApiTmdbResponse peopleCreditsApiTmdbResponse=peopleCreditsApiTmdbResponseResource.getData();
                             MovieApiTmdbResponse[] movies;
                             if(people.getKnown_for_department().equals(Constants.DEPARTMENT_ACTING)){

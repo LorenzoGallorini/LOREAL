@@ -51,4 +51,8 @@
     <string name="SearchResult">SearchResult</string>
     <string name="movie">Movie</string>
     <string name="people">People</string>
+    <string name="select_region">Select your region</string>
+    <string name="italy">Italia</string>
+    <string name="united_states">Stati Uniti</string>
+    <string name="united_kingdom">Regno Unito</string>
 </resources>

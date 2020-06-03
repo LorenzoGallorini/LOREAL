@@ -85,8 +85,9 @@ public class SearchFragment extends Fragment {
         List<String> years =  new ArrayList<String>();
         years.add(getString(R.string.release_year));
         int year = Calendar.getInstance().get(Calendar.YEAR);
-        for(int i = year+1;i>=1920;i--)
+        for(int i = year+1;i>=1920;i--){
             years.add(Integer.toString(i));
+        }
 
 
         ArrayAdapter<String> adapterYears = new ArrayAdapter<String>(getContext(),R.layout.customizedspinnerelement,years);
@@ -105,10 +106,10 @@ public class SearchFragment extends Fragment {
                 Toast toast;
                 int year=-1,categorie=-1;
 
-                if (binding.YearSpinner.getSelectedItem().toString() != getString(R.string.release_year))
+                if (!binding.YearSpinner.getSelectedItem().toString().equals(getString(R.string.release_year)))
                     year = Integer.parseInt(binding.YearSpinner.getSelectedItem().toString());
 
-                if (binding.CategoriesSpinner.getSelectedItem().toString() != getString(R.string.release_year))
+                if (!binding.CategoriesSpinner.getSelectedItem().toString().equals(getString(R.string.release_year)))
                 {
                     int i =0;
                     boolean found=false;

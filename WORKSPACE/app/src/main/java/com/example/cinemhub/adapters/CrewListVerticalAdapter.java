@@ -31,6 +31,7 @@ public class CrewListVerticalAdapter extends RecyclerView.Adapter<CrewListVertic
     public static class CrewListViewHolder extends RecyclerView.ViewHolder{
         TextView title;
         TextView subTitle;
+
         public CrewListViewHolder(View view){
             super(view);
             title = view.findViewById(R.id.itemTitleCrew);
@@ -41,6 +42,13 @@ public class CrewListVerticalAdapter extends RecyclerView.Adapter<CrewListVertic
             title.setText(people.getName());
 
             subTitle.setText(people.getRole());
+
+            title.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onItemClickListener.OnItemClick(people);
+                }
+            });
 
         }
     }
