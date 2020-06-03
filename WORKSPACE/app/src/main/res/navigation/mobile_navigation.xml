@@ -275,6 +275,9 @@
         <action
             android:id="@+id/action_navigation_search_result_to_navigation_movie_card"
             app:destination="@id/navigation_movie_card" />
+        <action
+            android:id="@+id/action_navigation_search_result_to_navigation_people_card"
+            app:destination="@id/navigation_people_card" />
     </fragment>
 
 

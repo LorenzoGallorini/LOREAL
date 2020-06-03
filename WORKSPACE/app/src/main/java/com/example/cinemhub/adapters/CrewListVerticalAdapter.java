@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,12 +11,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cinemhub.R;
 import com.example.cinemhub.models.People;
-import com.example.cinemhub.utils.Constants;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class CrewListVerticalAdapter extends RecyclerView.Adapter<CrewListVerticalAdapter.CrewListViewHolder>{
+
 
     public interface OnItemClickListener{
         void OnItemClick(People people);

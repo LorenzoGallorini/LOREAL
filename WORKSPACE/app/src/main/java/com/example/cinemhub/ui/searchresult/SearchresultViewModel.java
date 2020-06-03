@@ -43,7 +43,7 @@ public class SearchresultViewModel extends ViewModel {
 
         if(peopleSearch ==null){
             peopleSearch = new MutableLiveData<Resource<List<People>>>();
-            TmdbRepository.getInstance().getSearchPeople(peopleSearch, language, page, checkAdult,query,region);
+            TmdbRepository.getInstance().getSearchPeople(peopleSearch, language, peoplePage, checkAdult,query,region);
         }
         return peopleSearch;
     }
@@ -53,12 +53,15 @@ public class SearchresultViewModel extends ViewModel {
         return movieSearch;
     }
     public LiveData<Resource<List<People>>> getMorePeopleSearch(String language, boolean checkAdult,String query,String region){
-        TmdbRepository.getInstance().getSearchPeople(peopleSearch, language, page, checkAdult,query,region);
+        TmdbRepository.getInstance().getSearchPeople(peopleSearch, language, peoplePage, checkAdult,query,region);
         return peopleSearch;
     }
 
     public MutableLiveData<Resource<List<Movie>>> getMovieLiveData(){
         return movieSearch;
+    }
+    public MutableLiveData<Resource<List<People>>> getPeopleLiveData(){
+        return peopleSearch;
     }
 
     public int getPage() {

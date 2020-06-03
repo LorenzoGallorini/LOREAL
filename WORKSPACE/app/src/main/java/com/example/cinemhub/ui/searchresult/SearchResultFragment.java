@@ -24,8 +24,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cinemhub.MainActivity;
 import com.example.cinemhub.R;
-import com.example.cinemhub.adapters.CrewListVerticalAdapter;
 import com.example.cinemhub.adapters.MovieListVerticalAdapter;
+import com.example.cinemhub.adapters.PeopleListVerticalAdapter;
 import com.example.cinemhub.databinding.FragmentSearchresultBinding;
 import com.example.cinemhub.models.Movie;
 import com.example.cinemhub.models.People;
@@ -41,10 +41,15 @@ public class SearchResultFragment extends Fragment {
     private String TAG="SearchResultFragment";
     private FragmentSearchresultBinding binding;
     private MovieListVerticalAdapter movieListVerticalAdapter;
+    private PeopleListVerticalAdapter peopleListVerticalAdapter;
     private int totalItemCount;
     private int lastVisibleItem;
     private int visibleItemCount;
     private int threshold=1;
+    private int peopleTotalItemCount;
+    private int peopleLastVisibleItem;
+    private int peopleVisibleItemCount;
+    private int peopleThreshold=1;
 
     public static SearchResultFragment newInstance() {
         return new SearchResultFragment();
@@ -72,7 +77,9 @@ public class SearchResultFragment extends Fragment {
         String query = SearchResultFragmentArgs.fromBundle(getArguments()).getQueryValue();
 
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(),3);
+        GridLayoutManager layoutManagerPeople = new GridLayoutManager(getActivity(),3);
         binding.RecyclerViewSearch.setLayoutManager(layoutManager);
+        binding.RecyclerViewSearchPeople.setLayoutManager(layoutManagerPeople);
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.CINEM_HUB_SHARED_PREF_FILE_NAME, Context.MODE_PRIVATE);
         boolean checkAdult=sharedPreferences.getBoolean(Constants.ADULT_SHARED_PREF_NAME, false);
@@ -83,17 +90,20 @@ public class SearchResultFragment extends Fragment {
                 Navigation.findNavController(getView()).navigate(SearchResultFragmentDirections.actionNavigationSearchResultToNavigationMovieCard(movie.getId()));
             }
         });
-        movieListVerticalAdapter = new MovieListVerticalAdapter(getActivity(), getPeopleList(getString(R.string.API_LANGUAGE), checkAdult, query,region), new CrewListVerticalAdapter.OnItemClickListener(){
+        peopleListVerticalAdapter = new PeopleListVerticalAdapter(getActivity(), getPeopleList(getString(R.string.API_LANGUAGE), checkAdult, query,region), new PeopleListVerticalAdapter.OnItemClickListener(){
 
             @Override
             public void OnItemClick(People people) {
-
+                Navigation.findNavController(getView()).navigate(SearchResultFragmentDirections.actionNavigationSearchResultToNavigationPeopleCard(people.getId()));
             }
-        };
+        });
         binding.RecyclerViewSearch.setAdapter(movieListVerticalAdapter);
+        binding.RecyclerViewSearchPeople.setAdapter(peopleListVerticalAdapter);
+        binding.RecyclerViewSearchPeople.setVisibility(View.INVISIBLE);
         binding.RecyclerViewSearchPeople.setAlpha(0);
         binding.RecyclerViewSearch.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
+
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
 
@@ -134,8 +144,50 @@ public class SearchResultFragment extends Fragment {
 
             }
         });
+        binding.RecyclerViewSearchPeople.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
 
-        final Observer<Resource<List<Movie>>> observer_coming_search=new Observer<Resource<List<Movie>>>() {
+                peopleTotalItemCount = layoutManagerPeople.getItemCount();
+                peopleLastVisibleItem = layoutManagerPeople.findLastVisibleItemPosition();
+                peopleVisibleItemCount = layoutManagerPeople.getChildCount();
+
+                if(peopleTotalItemCount==peopleVisibleItemCount ||
+                        (peopleTotalItemCount <= (peopleLastVisibleItem + peopleThreshold) && dy>0 && !mViewModel.isPeopleIsLoading()) &&
+                                mViewModel.getPeopleLiveData().getValue() != null &&
+                                mViewModel.getPeopleCurrentResults()!=mViewModel.getPeopleLiveData().getValue().getTotalResult()
+                ){
+                    Resource<List<People>> peopleListResource=new Resource<>();
+
+                    MutableLiveData<Resource<List<People>>> peopleListMutableLiveData = mViewModel.getPeopleLiveData();
+
+                    if(peopleListMutableLiveData!=null && peopleListMutableLiveData.getValue() != null){
+                        mViewModel.setPeopleIsLoading(true);
+
+                        List<People> currentPeopleList = peopleListMutableLiveData.getValue().getData();
+                        currentPeopleList.add(null);
+                        peopleListResource.setData(currentPeopleList);
+                        peopleListResource.setStatusMessage(peopleListMutableLiveData.getValue().getStatusMessage());
+                        peopleListResource.setTotalResult(peopleListMutableLiveData.getValue().getTotalResult());
+                        peopleListResource.setStatusCode(peopleListMutableLiveData.getValue().getStatusCode());
+
+                        peopleListResource.setLoading(true);
+                        peopleListMutableLiveData.postValue(peopleListResource);
+
+                        int page=mViewModel.getPeoplePage() + 1;
+                        mViewModel.setPeoplePage(page);
+
+                        mViewModel.getMorePeopleSearch(getString(R.string.API_LANGUAGE), checkAdult, query,region);
+                    }
+                }
+
+
+
+            }
+        });
+
+        final Observer<Resource<List<Movie>>> observer_movie_search=new Observer<Resource<List<Movie>>>() {
             @Override
             public void onChanged(Resource<List<Movie>> movies) {
                 Log.d(TAG, "lista tmdb Search"+movies);
@@ -148,23 +200,41 @@ public class SearchResultFragment extends Fragment {
                 }
             }
         };
+        final Observer<Resource<List<People>>> observer_people_search=new Observer<Resource<List<People>>>() {
+            @Override
+            public void onChanged(Resource<List<People>> people) {
+                Log.d(TAG, "lista tmdb Search"+people);
 
-        mViewModel.getMoreMovieSearch(getString(R.string.API_LANGUAGE), checkAdult,query,region,year).observe(getViewLifecycleOwner(), observer_coming_search);
+                peopleListVerticalAdapter.setData(people.getData());
+
+                if(!people.isLoading()){
+                    mViewModel.setPeopleIsLoading(false);
+                    mViewModel.setPeopleCurrentResults(people.getData().size());
+                }
+            }
+        };
+
+        mViewModel.getMoreMovieSearch(getString(R.string.API_LANGUAGE), checkAdult,query,region,year).observe(getViewLifecycleOwner(), observer_movie_search);
+        mViewModel.getMorePeopleSearch(getString(R.string.API_LANGUAGE), checkAdult,query,region).observe(getViewLifecycleOwner(), observer_people_search);
 
         binding.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @SuppressLint("SetTextI18n")
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                   if( tab.view.getTab().getText().equals(getString(R.string.movie)) )
+                   if(tab.view.getTab().getText().equals(getString(R.string.movie)) )
                    {
                        binding.RecyclerViewSearchPeople.setAlpha(0);
+                       binding.RecyclerViewSearchPeople.setVisibility(View.INVISIBLE);
                        binding.RecyclerViewSearch.setAlpha(1);
-
+                       binding.RecyclerViewSearch.setVisibility(View.VISIBLE);
                    }
                    else
                    {
                        binding.RecyclerViewSearch.setAlpha(0);
+                       binding.RecyclerViewSearch.setVisibility(View.INVISIBLE);
                        binding.RecyclerViewSearchPeople.setAlpha(1);
+                       binding.RecyclerViewSearchPeople.setVisibility(View.VISIBLE);
+
 
                    }
 

@@ -465,8 +465,8 @@ public class TmdbRepository {
                             results.add(response.body().getResults()[i]);
                         }
                     }
-                    if (movieSearch.getValue() != null && movieSearch.getValue().getData() != null) {
-                        List<Movie> currentMovieList = movieSearch.getValue().getData();
+                    if (movieSearch.getValue() != null && movieSearch.getValue().getData() != null && movieSearch.getValue().getData().size()>0) {
+                        List<Movie> currentMovieLremoveist = movieSearch.getValue().getData();
                         currentMovieList.remove(currentMovieList.size() - 1);
                         currentMovieList.addAll(results);
                         resource.setData(currentMovieList);
