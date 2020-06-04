@@ -79,8 +79,6 @@ public class ShakeFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(ShakeViewModel.class);
-        // TODO: Use the ViewModel
     }
 
     @Override

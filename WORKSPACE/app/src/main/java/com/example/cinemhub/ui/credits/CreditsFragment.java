@@ -45,7 +45,6 @@ public class CreditsFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = ViewModelProviders.of(this).get(CreditsViewModel.class);
-        // TODO: Use the ViewModel
     }
 
 

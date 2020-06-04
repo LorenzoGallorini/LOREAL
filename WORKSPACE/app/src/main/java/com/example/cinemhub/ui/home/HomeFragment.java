@@ -110,7 +110,7 @@ public class HomeFragment extends Fragment {
                 }
             }
         };
-        homeViewModel.getMovieNowPlaying(getString(R.string.API_LANGUAGE), page, checkAdult, region).observe(getViewLifecycleOwner(), observer_now_playing);//TODO settare delle variabili globali per la pagina
+        homeViewModel.getMovieNowPlaying(getString(R.string.API_LANGUAGE), page, checkAdult, region).observe(getViewLifecycleOwner(), observer_now_playing);
 
         final Observer<Resource<List<Movie>>> observer_top_rated=new Observer<Resource<List<Movie>>>() {
             @Override

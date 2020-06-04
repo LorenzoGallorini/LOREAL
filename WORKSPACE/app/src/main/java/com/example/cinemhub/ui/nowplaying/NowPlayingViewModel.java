@@ -16,13 +16,15 @@ public class NowPlayingViewModel extends ViewModel {
     private int page=1;
     private int currentResults;
     private boolean isLoading;
+    private String region_called;
 
     public LiveData<Resource<List<Movie>>> getMovieNowPlaying(String language, boolean checkAdult, String region){
+        if(!region.equals(region_called)){
+            clear();
+        }
         if(movieNowPlaying==null){
             movieNowPlaying=new MutableLiveData<Resource<List<Movie>>>();
-
             TmdbRepository.getInstance().getNowPlaying(movieNowPlaying, language, page, checkAdult, region);
-
         }
         return movieNowPlaying;
     }
@@ -32,6 +34,14 @@ public class NowPlayingViewModel extends ViewModel {
     }
     public MutableLiveData<Resource<List<Movie>>> getMovieLiveData(){
         return movieNowPlaying;
+    }
+
+    private void clear(){
+        movieNowPlaying=null;
+        page=1;
+        currentResults=0;
+        isLoading=false;
+        region_called="";
     }
 
     public int getPage() {

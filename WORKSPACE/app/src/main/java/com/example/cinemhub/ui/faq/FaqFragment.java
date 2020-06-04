@@ -44,7 +44,6 @@ public class FaqFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = ViewModelProviders.of(this).get(FaqViewModel.class);
-        // TODO: Use the ViewModel
     }
 
     @Override

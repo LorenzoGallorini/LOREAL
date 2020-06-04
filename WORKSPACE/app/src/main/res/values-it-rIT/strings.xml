@@ -18,7 +18,7 @@
     <string name="title_film">Titolo film</string>
     <string name="shake_2_description">Shekera ancora il tuo telefono per farti suggerire un altro film!</string>
     <string name="title_movie_card">Scheda film</string>
-    <string name="action_search">Search</string>
+    <string name="action_search">Cerca</string>
     <string name="API_LANGUAGE">it-IT</string>
     <string name="Director">Regista:</string>
     <string name="Writers">Sceneggiatori:</string>
@@ -55,4 +55,6 @@
     <string name="italy">Italia</string>
     <string name="united_states">Stati Uniti</string>
     <string name="united_kingdom">Regno Unito</string>
+    <string name="search_hint">Cerca persone o film</string>
+    <string name="error_message_shake2">Nessun film trovato</string>
 </resources>

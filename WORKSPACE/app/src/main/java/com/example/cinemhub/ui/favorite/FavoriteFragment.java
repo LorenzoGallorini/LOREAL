@@ -67,7 +67,7 @@ public class FavoriteFragment extends Fragment {
         Set<String> preferiti;
         preferiti=sharedPreferences.getStringSet(Constants.FAVORITE_SHARED_PREF_NAME+getString(R.string.API_LANGUAGE),null);
         if (preferiti == null){
-            //TODO
+            //TODO cosa fare con preferiti vuoti
         }else {
             List<Movie> mList=new ArrayList<Movie>();
             Object[] favoriteObjArray=preferiti.toArray();
@@ -95,8 +95,6 @@ public class FavoriteFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(FavoriteViewModel.class);
-        // TODO: Use the ViewModel
     }
 
     @Override

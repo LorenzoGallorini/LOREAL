@@ -164,8 +164,6 @@ public class PeopleCardFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(PeopleCardViewModel.class);
-        // TODO: Use the ViewModel
     }
 
     @Override

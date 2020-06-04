@@ -16,8 +16,12 @@ public class TopRatedViewModel extends ViewModel {
     private int page=1;
     private int currentResults;
     private boolean isLoading;
+    private String region_called;
 
     public LiveData<Resource<List<Movie>>> getMovieTopRated(String language, boolean checkAdult, String region){
+        if(!region.equals(region_called)){
+            clear();
+        }
         if(movieTopRated==null){
             movieTopRated=new MutableLiveData<Resource<List<Movie>>>();
             TmdbRepository.getInstance().getTopRated(movieTopRated, language, page, checkAdult, region);
@@ -30,6 +34,14 @@ public class TopRatedViewModel extends ViewModel {
     }
     public MutableLiveData<Resource<List<Movie>>> getMovieLiveData(){
         return movieTopRated;
+    }
+
+    private void clear(){
+        movieTopRated=null;
+        page=1;
+        currentResults=0;
+        isLoading=false;
+        region_called="";
     }
 
     public int getPage() {

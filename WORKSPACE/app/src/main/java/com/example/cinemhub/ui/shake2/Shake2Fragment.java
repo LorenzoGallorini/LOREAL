@@ -4,10 +4,12 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -41,6 +43,7 @@ public class Shake2Fragment extends Fragment {
     private FragmentShake2Binding binding;
     private final String TAG="Shake2";
     private final int MAX_LENGHT = 14;
+    int page=1;
 
     public static Shake2Fragment newInstance() {
         return new Shake2Fragment();
@@ -72,7 +75,11 @@ public class Shake2Fragment extends Fragment {
 
                 switch (movies.size()){
                     case 0:
-                        return;//TODO bisogna presentare un errore
+                        Toast toast;
+                        toast = Toast.makeText(getContext(), getString(R.string.error_message_shake2), Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.CENTER, 0, 0);
+                        toast.show();
+                        return;
                     case 1:
                         casual=0;
                         break;
@@ -131,8 +138,6 @@ public class Shake2Fragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(Shake2ViewModel.class);
-        // TODO: Use the ViewModel
     }
 
     @Override
@@ -198,7 +203,7 @@ public class Shake2Fragment extends Fragment {
                 casual_id=intList.get(0);
             }
 
-            mViewModel.getMovieOnShake(casual_id, getString(R.string.API_LANGUAGE),1, checkAdult).observe(getViewLifecycleOwner(), observer_on_shake);//TODO settare delle variabili globali per la lingua e per la pagina
+            mViewModel.getMovieOnShake(casual_id, getString(R.string.API_LANGUAGE),page, checkAdult).observe(getViewLifecycleOwner(), observer_on_shake);
 
         }
         else{
@@ -223,14 +228,14 @@ public class Shake2Fragment extends Fragment {
                     }
 
                     boolean checkAdult=sharedPreferences.getBoolean(Constants.ADULT_SHARED_PREF_NAME, false);
-                    mViewModel.getMovieOnShake(casual_id, getString(R.string.API_LANGUAGE),1, checkAdult).observe(getViewLifecycleOwner(), observer_on_shake);//TODO settare delle variabili globali per la pagina
+                    mViewModel.getMovieOnShake(casual_id, getString(R.string.API_LANGUAGE),page, checkAdult).observe(getViewLifecycleOwner(), observer_on_shake);
 
 
                 }
             };
             String region=sharedPreferences.getString(Constants.REGION_SHARED_PREF_NAME, null);
 
-            mViewModel.getMovieTopRated(getString(R.string.API_LANGUAGE), 1, checkAdult, region).observe(getViewLifecycleOwner(), observer_top_rated);
+            mViewModel.getMovieTopRated(getString(R.string.API_LANGUAGE), page, checkAdult, region).observe(getViewLifecycleOwner(), observer_top_rated);
         }
     }
 

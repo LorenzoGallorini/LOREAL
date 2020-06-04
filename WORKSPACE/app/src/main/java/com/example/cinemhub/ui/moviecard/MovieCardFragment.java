@@ -74,8 +74,10 @@ public class MovieCardFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL,false);
         GridLayoutManager layoutManager2 = new GridLayoutManager(getActivity(),2);
+
         binding.CreditsRecyclerView.setLayoutManager(layoutManager);
         binding.CreditsCrewRecyclerView.setLayoutManager(layoutManager2);
+
 
 
         mViewModel=new ViewModelProvider(this).get(MovieCardViewModel.class);
@@ -289,8 +291,6 @@ public class MovieCardFragment extends Fragment {
             }
         };
 
-        //Bundle bundle = getArguments();
-        //int value = bundle.getInt("MovieId");
 
         int value=MovieCardFragmentArgs.fromBundle(getArguments()).getMovieId();
 
@@ -303,8 +303,6 @@ public class MovieCardFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(MovieCardViewModel.class);
-        // TODO: Use the ViewModel
     }
 
     @Override
