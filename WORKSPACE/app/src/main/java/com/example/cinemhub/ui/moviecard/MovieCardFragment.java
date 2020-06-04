@@ -278,7 +278,7 @@ public class MovieCardFragment extends Fragment {
 
                         @Override
                         public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
-
+                            //TODO gestire casistica
                         }
                     });
                     FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
