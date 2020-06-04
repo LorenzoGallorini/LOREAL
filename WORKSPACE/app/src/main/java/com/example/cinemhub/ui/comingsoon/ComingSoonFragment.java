@@ -105,9 +105,10 @@ public class ComingSoonFragment extends Fragment {
                 lastVisibleItem = layoutManager.findLastVisibleItemPosition();
                 visibleItemCount = layoutManager.getChildCount();
 
-                if(totalItemCount==visibleItemCount ||
-                        (totalItemCount <= (lastVisibleItem + threshold) && dy>0 && !mViewModel.isLoading()) &&
-                                mViewModel.getMovieLiveData().getValue() != null &&
+                if((totalItemCount <= (lastVisibleItem + threshold) && dy>0 && !mViewModel.isLoading())
+                                &&
+                                mViewModel.getMovieLiveData().getValue() != null
+                                &&
                                 mViewModel.getCurrentResults()!=mViewModel.getMovieLiveData().getValue().getTotalResult()
                 ){
                     Resource<List<Movie>> movieListResource=new Resource<>();

@@ -101,10 +101,7 @@ public class SearchResultFragment extends Fragment {
                     binding.RecyclerViewSearch.setVisibility(View.INVISIBLE);
                     binding.RecyclerViewSearchPeople.setAlpha(1);
                     binding.RecyclerViewSearchPeople.setVisibility(View.VISIBLE);
-
-
                 }
-
             }
 
             @Override
@@ -149,8 +146,7 @@ public class SearchResultFragment extends Fragment {
                 movieLastVisibleItem = layoutManager.findLastVisibleItemPosition();
                 movieVisibleItemCount = layoutManager.getChildCount();
 
-                if(movieTotalItemCount == movieVisibleItemCount ||
-                        (movieTotalItemCount <= (movieLastVisibleItem + movieThreshold) && dy>0 && !mViewModel.isMovieIsLoading()) &&
+                if((movieTotalItemCount <= (movieLastVisibleItem + movieThreshold) && dy>0 && !mViewModel.isMovieIsLoading()) &&
                                 mViewModel.getMovieLiveData().getValue() != null &&
                                 mViewModel.getMovieCurrentResults()!=mViewModel.getMovieLiveData().getValue().getTotalResult()
                 ){
@@ -208,8 +204,7 @@ public class SearchResultFragment extends Fragment {
                 peopleLastVisibleItem = layoutManagerPeople.findLastVisibleItemPosition();
                 peopleVisibleItemCount = layoutManagerPeople.getChildCount();
 
-                if(peopleTotalItemCount==peopleVisibleItemCount ||
-                        (peopleTotalItemCount <= (peopleLastVisibleItem + peopleThreshold) && dy>0 && !mViewModel.isPeopleIsLoading()) &&
+                if((peopleTotalItemCount <= (peopleLastVisibleItem + peopleThreshold) && dy>0 && !mViewModel.isPeopleIsLoading()) &&
                                 mViewModel.getPeopleLiveData().getValue() != null &&
                                 mViewModel.getPeopleCurrentResults()!=mViewModel.getPeopleLiveData().getValue().getTotalResult()
                 ){
