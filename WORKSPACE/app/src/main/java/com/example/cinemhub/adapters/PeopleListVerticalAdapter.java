@@ -29,9 +29,9 @@ public class PeopleListVerticalAdapter extends RecyclerView.Adapter<RecyclerView
 
     private List<People> people;
     private LayoutInflater layoutInflater;
-    private PeopleListVerticalAdapter.OnItemClickListener onItemClickListener;
+    private OnItemClickListener onItemClickListener;
 
-    public PeopleListVerticalAdapter(Context context, List<People> peopleList, PeopleListVerticalAdapter.OnItemClickListener onItemClickListener)
+    public PeopleListVerticalAdapter(Context context, List<People> peopleList, OnItemClickListener onItemClickListener)
     {
         this.layoutInflater = LayoutInflater.from(context);
         this.people = peopleList;
@@ -43,21 +43,21 @@ public class PeopleListVerticalAdapter extends RecyclerView.Adapter<RecyclerView
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if(viewType==MOVIE_VIEW_TYPE){
             View view = this.layoutInflater.inflate(R.layout.movie_item,parent,false);
-            return new PeopleListVerticalAdapter.PeopleListViewHolder(view);
+            return new PeopleListViewHolder(view);
         }
         else {
             View view = this.layoutInflater.inflate(R.layout.loading_item,parent,false);
-            return new PeopleListVerticalAdapter.LoadingListViewHolder(view);
+            return new LoadingListViewHolder(view);
         }
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if(holder instanceof PeopleListVerticalAdapter.PeopleListViewHolder){
-            ((PeopleListVerticalAdapter.PeopleListViewHolder) holder).bind(people.get(position), this.onItemClickListener);
+            ((PeopleListViewHolder) holder).bind(people.get(position), this.onItemClickListener);
         }
         else if(holder instanceof MovieListVerticalAdapter.LoadingListViewHolder){
-            ((PeopleListVerticalAdapter.LoadingListViewHolder) holder).progressBarLoadingMovies.setIndeterminate(true);
+            ((LoadingListViewHolder) holder).progressBarLoadingMovies.setIndeterminate(true);
         }
     }
 

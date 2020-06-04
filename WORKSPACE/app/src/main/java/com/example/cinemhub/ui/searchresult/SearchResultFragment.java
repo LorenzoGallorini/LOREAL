@@ -84,6 +84,40 @@ public class SearchResultFragment extends Fragment {
         boolean checkAdult=sharedPreferences.getBoolean(Constants.ADULT_SHARED_PREF_NAME, false);
         String region=sharedPreferences.getString(Constants.REGION_SHARED_PREF_NAME, null);
 
+        binding.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                if(tab.view.getTab().getText().equals(getString(R.string.movie)) )
+                {
+                    binding.RecyclerViewSearchPeople.setAlpha(0);
+                    binding.RecyclerViewSearchPeople.setVisibility(View.INVISIBLE);
+                    binding.RecyclerViewSearch.setAlpha(1);
+                    binding.RecyclerViewSearch.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    binding.RecyclerViewSearch.setAlpha(0);
+                    binding.RecyclerViewSearch.setVisibility(View.INVISIBLE);
+                    binding.RecyclerViewSearchPeople.setAlpha(1);
+                    binding.RecyclerViewSearchPeople.setVisibility(View.VISIBLE);
+
+
+                }
+
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }}
+        );
+
         movieListVerticalAdapter = new MovieListVerticalAdapter(getActivity(), getMovieList(getString(R.string.API_LANGUAGE), checkAdult, query,region , year), new MovieListVerticalAdapter.OnItemClickListener() {
             @Override
             public void OnItemClick(Movie movie) {
@@ -101,6 +135,10 @@ public class SearchResultFragment extends Fragment {
         binding.RecyclerViewSearchPeople.setAdapter(peopleListVerticalAdapter);
         binding.RecyclerViewSearchPeople.setVisibility(View.INVISIBLE);
         binding.RecyclerViewSearchPeople.setAlpha(0);
+
+
+
+
         binding.RecyclerViewSearch.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
 
@@ -144,6 +182,23 @@ public class SearchResultFragment extends Fragment {
 
             }
         });
+
+        final Observer<Resource<List<Movie>>> observer_movie_search=new Observer<Resource<List<Movie>>>() {
+            @Override
+            public void onChanged(Resource<List<Movie>> movies) {
+                Log.d(TAG, "lista tmdb Search"+movies);
+
+                movieListVerticalAdapter.setData(movies.getData());
+
+                if(!movies.isLoading()){
+                    mViewModel.setMovieIsLoading(false);
+                    mViewModel.setMovieCurrentResults(movies.getData().size());
+                }
+            }
+        };
+
+        mViewModel.getMoreMovieSearch(getString(R.string.API_LANGUAGE), checkAdult,query,region,year).observe(getViewLifecycleOwner(), observer_movie_search);
+
         binding.RecyclerViewSearchPeople.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
@@ -187,19 +242,7 @@ public class SearchResultFragment extends Fragment {
             }
         });
 
-        final Observer<Resource<List<Movie>>> observer_movie_search=new Observer<Resource<List<Movie>>>() {
-            @Override
-            public void onChanged(Resource<List<Movie>> movies) {
-                Log.d(TAG, "lista tmdb Search"+movies);
 
-                movieListVerticalAdapter.setData(movies.getData());
-
-                if(!movies.isLoading()){
-                    mViewModel.setMovieIsLoading(false);
-                    mViewModel.setMovieCurrentResults(movies.getData().size());
-                }
-            }
-        };
         final Observer<Resource<List<People>>> observer_people_search=new Observer<Resource<List<People>>>() {
             @Override
             public void onChanged(Resource<List<People>> people) {
@@ -214,42 +257,9 @@ public class SearchResultFragment extends Fragment {
             }
         };
 
-        mViewModel.getMoreMovieSearch(getString(R.string.API_LANGUAGE), checkAdult,query,region,year).observe(getViewLifecycleOwner(), observer_movie_search);
         mViewModel.getMorePeopleSearch(getString(R.string.API_LANGUAGE), checkAdult,query,region).observe(getViewLifecycleOwner(), observer_people_search);
 
-        binding.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @SuppressLint("SetTextI18n")
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                   if(tab.view.getTab().getText().equals(getString(R.string.movie)) )
-                   {
-                       binding.RecyclerViewSearchPeople.setAlpha(0);
-                       binding.RecyclerViewSearchPeople.setVisibility(View.INVISIBLE);
-                       binding.RecyclerViewSearch.setAlpha(1);
-                       binding.RecyclerViewSearch.setVisibility(View.VISIBLE);
-                   }
-                   else
-                   {
-                       binding.RecyclerViewSearch.setAlpha(0);
-                       binding.RecyclerViewSearch.setVisibility(View.INVISIBLE);
-                       binding.RecyclerViewSearchPeople.setAlpha(1);
-                       binding.RecyclerViewSearchPeople.setVisibility(View.VISIBLE);
 
-
-                   }
-
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }}
-        );
     }
 
     @Override
@@ -270,6 +280,7 @@ public class SearchResultFragment extends Fragment {
             default:return false;
         }
     }
+
     private List<Movie> getMovieList(String language, boolean checkAdult,String query, String region, int year){
         Resource<List<Movie>> movieListResult=mViewModel.getMovieSearch(language, checkAdult,query,region,year).getValue();
         if(movieListResult != null){
@@ -277,6 +288,7 @@ public class SearchResultFragment extends Fragment {
         }
         return null;
     }
+
     private List<People> getPeopleList(String language, boolean checkAdult,String query, String region){
         Resource<List<People>> peopleListResult=mViewModel.getPeopleSearch(language, checkAdult,query,region).getValue();
         if(peopleListResult != null){

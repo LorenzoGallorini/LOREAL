@@ -253,7 +253,11 @@ public class Movie implements Parcelable {
         String ret="";
         for (int i = 0;i< this.getGenres().size();i++)
             ret+=this.getGenres().get(i)+" | ";
-        return ret.substring(0,ret.length()-3);
+        if(ret.length()>4){
+            return ret.substring(0,ret.length()-3);
+        }else{
+            return "";
+        }
     }
     public String getRevenueFORMATTED()
     {

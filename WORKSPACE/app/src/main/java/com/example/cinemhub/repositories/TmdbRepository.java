@@ -467,7 +467,7 @@ public class TmdbRepository {
                     }
                     if (movieSearch.getValue() != null && movieSearch.getValue().getData() != null) {
                         List<Movie> currentMovieList = movieSearch.getValue().getData();
-                        currentMovieList.remove(currentMovieList.size() - 1);
+                        currentMovieList.remove(currentMovieList.size()-1);
                         currentMovieList.addAll(results);
                         resource.setData(currentMovieList);
                     } else {
@@ -479,7 +479,7 @@ public class TmdbRepository {
                     resource.setLoading(false);
                     movieSearch.postValue(resource);
                 }else if (response.errorBody()!=null){
-                    Log.d(TAG, "ERROR: getComingSoon=null");
+                    Log.d(TAG, "ERROR: getSearchMovie=null");
                     Resource<List<Movie>> resource=new Resource<>();
                     resource.setStatusCode(response.code());
                     try {
