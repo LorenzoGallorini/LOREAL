@@ -318,8 +318,17 @@ public class Movie implements Parcelable {
     public static List<Movie> toList(MovieApiTmdbResponse[] movies, boolean checkAdult){
         List<Movie> ris=new ArrayList<Movie>();
         for (MovieApiTmdbResponse movie : movies) {
-            if(!checkAdult || !movie.isAdult()){
-                ris.add(new Movie(movie));
+            Movie new_movie=new Movie(movie);
+            boolean found=false;
+            int i=0;
+            while (i<ris.size() && !found){
+                if(ris.get(i).getId()==new_movie.getId()){
+                    found=true;
+                }
+                i++;
+            }
+            if((!checkAdult || !movie.isAdult() )&& !found){
+                ris.add(new_movie);
             }
         }
         return ris;
@@ -327,6 +336,7 @@ public class Movie implements Parcelable {
     public static List<Movie> toList(Movie[] movies, boolean checkAdult){
         List<Movie> ris= new ArrayList<>();
         for (Movie movie : movies) {
+
             if(!checkAdult || !movie.isAdult()){
                 ris.add(movie);
             }

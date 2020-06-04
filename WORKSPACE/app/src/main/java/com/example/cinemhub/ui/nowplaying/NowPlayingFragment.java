@@ -44,6 +44,9 @@ public class NowPlayingFragment extends Fragment {
     private int visibleItemCount;
     private int threshold=1;
 
+    int nowPlayingRVSpanCount=3;
+
+
     public static NowPlayingFragment newInstance() {
         return new NowPlayingFragment();
     }
@@ -76,7 +79,7 @@ public class NowPlayingFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(),3);
+        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(),nowPlayingRVSpanCount);
         binding.recyclerViewNowPlaying.setLayoutManager(layoutManager);
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.CINEM_HUB_SHARED_PREF_FILE_NAME, Context.MODE_PRIVATE);

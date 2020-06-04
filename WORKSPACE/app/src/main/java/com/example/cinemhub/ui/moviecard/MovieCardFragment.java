@@ -52,6 +52,7 @@ public class MovieCardFragment extends Fragment {
     private MovieCardViewModel mViewModel;
     private FragmentMovieCardBinding binding;
     private final String TAG="MovieCard";
+    int crewRVSpanCount=2;
 
     public static MovieCardFragment newInstance() {
         return new MovieCardFragment();
@@ -73,7 +74,7 @@ public class MovieCardFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL,false);
-        GridLayoutManager layoutManager2 = new GridLayoutManager(getActivity(),2);
+        GridLayoutManager layoutManager2 = new GridLayoutManager(getActivity(),crewRVSpanCount);
 
         binding.CreditsRecyclerView.setLayoutManager(layoutManager);
         binding.CreditsCrewRecyclerView.setLayoutManager(layoutManager2);
@@ -278,7 +279,10 @@ public class MovieCardFragment extends Fragment {
 
                         @Override
                         public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
-                            //TODO gestire casistica
+                            Toast toast;
+                            toast = Toast.makeText(getContext(), R.string.error_message_trailer , Toast.LENGTH_LONG);
+                            toast.setGravity(Gravity.CENTER, 0, 0);
+                            toast.show();
                         }
                     });
                     FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
@@ -286,8 +290,10 @@ public class MovieCardFragment extends Fragment {
                     transaction.commit();
                 }
                 else {
-                    //TODO cosa visualizzare in assenza di trailer
-                }
+                    Toast toast;
+                    toast = Toast.makeText(getContext(), R.string.error_message_trailer , Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();                }
             }
         };
 

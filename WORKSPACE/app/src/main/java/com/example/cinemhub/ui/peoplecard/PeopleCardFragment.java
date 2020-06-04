@@ -115,7 +115,6 @@ public class PeopleCardFragment extends Fragment {
                     final Observer<Resource<PeopleCreditsApiTmdbResponse>> observer_credits=new Observer<Resource<PeopleCreditsApiTmdbResponse>>() {
                         @Override
                         public void onChanged(Resource<PeopleCreditsApiTmdbResponse> peopleCreditsApiTmdbResponseResource) {
-                            //TODO evitare ripetizioni di film nella filmografia
                             PeopleCreditsApiTmdbResponse peopleCreditsApiTmdbResponse=peopleCreditsApiTmdbResponseResource.getData();
                             MovieApiTmdbResponse[] movies;
                             if(people.getKnown_for_department().equals(Constants.DEPARTMENT_ACTING)){

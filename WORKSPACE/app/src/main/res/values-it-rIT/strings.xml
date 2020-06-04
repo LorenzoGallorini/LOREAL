@@ -57,4 +57,6 @@
     <string name="united_kingdom">Regno Unito</string>
     <string name="search_hint">Cerca persone o film</string>
     <string name="error_message_shake2">Nessun film trovato</string>
+    <string name="empty_favorite">Prova ad aggiungere film clickando sulla stella nella Scheda Film</string>
+    <string name="error_message_trailer">Trailer non disponibile</string>
 </resources>

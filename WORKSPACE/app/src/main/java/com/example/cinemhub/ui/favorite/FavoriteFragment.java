@@ -35,6 +35,9 @@ public class FavoriteFragment extends Fragment {
     private final String TAG = "FavoriteFragment";
     private FragmentFavoriteBinding binding;
 
+    int favoriteRVSpanCount=3;
+
+
     public static FavoriteFragment newInstance() {
         return new FavoriteFragment();
     }
@@ -59,21 +62,23 @@ public class FavoriteFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(),3);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(),favoriteRVSpanCount);
         binding.FavoriteRecyclerView.setLayoutManager(layoutManager);
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(
                 Constants.CINEM_HUB_SHARED_PREF_FILE_NAME, Context.MODE_PRIVATE);
         Set<String> preferiti;
         preferiti=sharedPreferences.getStringSet(Constants.FAVORITE_SHARED_PREF_NAME+getString(R.string.API_LANGUAGE),null);
-        if (preferiti == null){
-            //TODO cosa fare con preferiti vuoti
+        if (preferiti==null || preferiti.isEmpty()){
+            binding.emptyTextView.setVisibility(View.VISIBLE);
         }else {
+            binding.emptyTextView.setVisibility(View.INVISIBLE);
+
             List<Movie> mList=new ArrayList<Movie>();
             Object[] favoriteObjArray=preferiti.toArray();
-            for (int i=0;i<favoriteObjArray.length;i++){
-                String[] app=favoriteObjArray[i].toString().split(Constants.SEPARATOR);
-                if(app.length==3){
+            for (Object o : favoriteObjArray) {
+                String[] app = o.toString().split(Constants.SEPARATOR);
+                if (app.length == 3) {
                     mList.add(new Movie(app[0], app[1], app[2]));
                 }
             }
