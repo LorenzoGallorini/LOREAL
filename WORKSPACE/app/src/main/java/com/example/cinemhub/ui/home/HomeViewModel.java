@@ -21,7 +21,7 @@ public class HomeViewModel extends ViewModel {
 
 
     public LiveData<Resource<List<Movie>>> getMovieNowPlaying(String language, int page, boolean checkAdult, String region){
-        if(!region.equals(region_called)){
+        if(region!=null && !region.equals(region_called)){
             clear();
         }
         if(movieNowPlaying==null){
@@ -32,7 +32,7 @@ public class HomeViewModel extends ViewModel {
     }
 
     public LiveData<Resource<List<Movie>>> getMovieTopRated(String language, int page, boolean checkAdult, String region){
-        if(!region.equals(region_called)){
+        if(region!=null && !region.equals(region_called)){
             clear();
         }
         if(movieTopRated==null){
@@ -43,7 +43,7 @@ public class HomeViewModel extends ViewModel {
     }
 
     public LiveData<Resource<List<Movie>>> getMovieComingSoon(String language, int page, boolean checkAdult, String region){
-        if(!region.equals(region_called)){
+        if(region!=null && !region.equals(region_called)){
             clear();
         }
         if(movieComingSoon==null){

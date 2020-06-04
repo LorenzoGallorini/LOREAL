@@ -1,5 +1,7 @@
 package com.example.cinemhub;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +15,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.example.cinemhub.utils.Constants;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import safety.com.br.android_shake_detector.core.ShakeDetector;
@@ -34,6 +37,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         BottomNavigationView navView = findViewById(R.id.nav_view);
+
+        SharedPreferences sharedPreferences = this.getSharedPreferences(Constants.CINEM_HUB_SHARED_PREF_FILE_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(Constants.REGION_SHARED_PREF_NAME, Constants.REGION_ITALY);
+        editor.apply();
+
 
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
