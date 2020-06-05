@@ -59,6 +59,7 @@
     <string name="united_kingdom">United Kingdom</string>
     <string name="search_hint">Search for people or movies</string>
     <string name="error_message_shake2">None movie founded</string>
-    <string name="empty_favorite">Try to add movie clicking on the star in the Movie Card</string>
+    <string name="empty_favorite">To add movie to \"Your\'s Favorite\" click on the button</string>
     <string name="error_message_trailer">Trailer not available</string>
+    <string name="empty_favorite_2">in the Movie Card</string>
 </resources>
