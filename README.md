@@ -37,6 +37,8 @@ https://developers.google.com/youtube/v3/quickstart/android
 https://it.wikipedia.org/api/rest_v1/#/Mobile/getSections
 
 https://it.wikipedia.org/api/rest_v1/page/mobile-sections-remaining/Quentin_Tarantino?redirect=false
+
+https://stackoverflow.com/questions/52577000/youtube-player-support-fragment-no-longer-working-on-android-studio-3-2-android
 # Modalità d'esame
 
 a) Documento di design 
