@@ -1,6 +1,5 @@
 package com.example.cinemhub.ui.credits;
 
-import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
 
@@ -19,11 +18,12 @@ import com.example.cinemhub.MainActivity;
 import com.example.cinemhub.R;
 import com.example.cinemhub.databinding.FragmentCreditsBinding;
 
+import org.jetbrains.annotations.NotNull;
+
+
 public class CreditsFragment extends Fragment {
 
-    private CreditsViewModel mViewModel;
-
-    private FragmentCreditsBinding binding;
+    private FragmentCreditsBinding binding;//Questa variabile verrà utilizzata nel momento in cui verrà implementata la pagina
     private String TAG="CreditsFragment";
 
     public static CreditsFragment newInstance() {
@@ -36,22 +36,13 @@ public class CreditsFragment extends Fragment {
         binding = FragmentCreditsBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
         setHasOptionsMenu(true);
-        ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.credits_text));
-        ((MainActivity) getActivity()).menuColorSettings(R.id.navigation_settings);
+        ((MainActivity) requireActivity()).setActionBarTitle(getString(R.string.credits_text));
+        ((MainActivity) requireActivity()).menuColorSettings(R.id.navigation_settings);
         return view;
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(CreditsViewModel.class);
-    }
-
-
-
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(@NotNull Menu menu, @NotNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         menu.findItem(R.id.search).setEnabled(false);
         menu.findItem(R.id.search).setVisible(false);
@@ -62,7 +53,7 @@ public class CreditsFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         if (item.getItemId() == android.R.id.home) {
-            getActivity().onBackPressed();
+            requireActivity().onBackPressed();
             return true;
         }
         return false;

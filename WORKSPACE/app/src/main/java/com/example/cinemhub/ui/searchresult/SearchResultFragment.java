@@ -79,6 +79,8 @@ public class SearchResultFragment extends Fragment {
         GridLayoutManager layoutManagerPeople = new GridLayoutManager(getActivity(),3);
         binding.RecyclerViewSearch.setLayoutManager(layoutManager);
         binding.RecyclerViewSearchPeople.setLayoutManager(layoutManagerPeople);
+        binding.tabLayout.setTabMode(TabLayout.MODE_AUTO);
+
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.CINEM_HUB_SHARED_PREF_FILE_NAME, Context.MODE_PRIVATE);
         boolean checkAdult=sharedPreferences.getBoolean(Constants.ADULT_SHARED_PREF_NAME, false);
@@ -90,16 +92,16 @@ public class SearchResultFragment extends Fragment {
             public void onTabSelected(TabLayout.Tab tab) {
                 if(tab.view.getTab().getText().equals(getString(R.string.movie)) )
                 {
-                    binding.RecyclerViewSearchPeople.setAlpha(0);
+                    //binding.RecyclerViewSearchPeople.setAlpha(0);
                     binding.RecyclerViewSearchPeople.setVisibility(View.INVISIBLE);
-                    binding.RecyclerViewSearch.setAlpha(1);
+                    //binding.RecyclerViewSearch.setAlpha(1);
                     binding.RecyclerViewSearch.setVisibility(View.VISIBLE);
                 }
                 else
                 {
-                    binding.RecyclerViewSearch.setAlpha(0);
+                    //binding.RecyclerViewSearch.setAlpha(0);
                     binding.RecyclerViewSearch.setVisibility(View.INVISIBLE);
-                    binding.RecyclerViewSearchPeople.setAlpha(1);
+                    //binding.RecyclerViewSearchPeople.setAlpha(1);
                     binding.RecyclerViewSearchPeople.setVisibility(View.VISIBLE);
                 }
             }
@@ -131,7 +133,7 @@ public class SearchResultFragment extends Fragment {
         binding.RecyclerViewSearch.setAdapter(movieListVerticalAdapter);
         binding.RecyclerViewSearchPeople.setAdapter(peopleListVerticalAdapter);
         binding.RecyclerViewSearchPeople.setVisibility(View.INVISIBLE);
-        binding.RecyclerViewSearchPeople.setAlpha(0);
+        //binding.RecyclerViewSearchPeople.setAlpha(0);
 
 
 

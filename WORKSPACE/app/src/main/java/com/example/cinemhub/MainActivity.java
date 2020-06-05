@@ -38,10 +38,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         BottomNavigationView navView = findViewById(R.id.nav_view);
 
+
         SharedPreferences sharedPreferences = this.getSharedPreferences(Constants.CINEM_HUB_SHARED_PREF_FILE_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(Constants.REGION_SHARED_PREF_NAME, Constants.REGION_ITALY);
-        editor.apply();
+        String regionSelected=sharedPreferences.getString(Constants.REGION_SHARED_PREF_NAME, null);
+
+        if(regionSelected==null || regionSelected.length()==0){
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString(Constants.REGION_SHARED_PREF_NAME, Constants.REGION_ITALY);
+            editor.apply();
+        }
+
+
+
 
 
         // Passing each menu ID as a set of Ids because each

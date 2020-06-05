@@ -13,7 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -31,11 +30,9 @@ import java.util.Set;
 
 public class FavoriteFragment extends Fragment {
 
-    private FavoriteViewModel mViewModel;
+    private FavoriteViewModel favoriteViewModel;
     private final String TAG = "FavoriteFragment";
     private FragmentFavoriteBinding binding;
-
-    int favoriteRVSpanCount=3;
 
 
     public static FavoriteFragment newInstance() {
@@ -45,7 +42,7 @@ public class FavoriteFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mViewModel=new ViewModelProvider(getActivity()).get(FavoriteViewModel.class);
+        favoriteViewModel =new ViewModelProvider(requireActivity()).get(FavoriteViewModel.class);
     }
 
     @Override
@@ -54,27 +51,32 @@ public class FavoriteFragment extends Fragment {
         binding = FragmentFavoriteBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
         setHasOptionsMenu(true);
-        ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.title_favorite));
-        ((MainActivity) getActivity()).menuColorSettings(R.id.navigation_favorite);
+        ((MainActivity) requireActivity()).setActionBarTitle(getString(R.string.title_favorite));
+        ((MainActivity) requireActivity()).menuColorSettings(R.id.navigation_favorite);
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(),favoriteRVSpanCount);
+        final int favoriteRVSpanCount = 3;
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(), favoriteRVSpanCount);
         binding.FavoriteRecyclerView.setLayoutManager(layoutManager);
 
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(
                 Constants.CINEM_HUB_SHARED_PREF_FILE_NAME, Context.MODE_PRIVATE);
         Set<String> preferiti;
         preferiti=sharedPreferences.getStringSet(Constants.FAVORITE_SHARED_PREF_NAME+getString(R.string.API_LANGUAGE),null);
         if (preferiti==null || preferiti.isEmpty()){
             binding.emptyTextView.setVisibility(View.VISIBLE);
+            binding.imageViewStar.setVisibility(View.VISIBLE);
+            binding.emptyTextView2.setVisibility(View.VISIBLE);
         }else {
             binding.emptyTextView.setVisibility(View.INVISIBLE);
+            binding.imageViewStar.setVisibility(View.INVISIBLE);
+            binding.emptyTextView2.setVisibility(View.INVISIBLE);
 
-            List<Movie> mList=new ArrayList<Movie>();
+            List<Movie> mList=new ArrayList<>();
             Object[] favoriteObjArray=preferiti.toArray();
             for (Object o : favoriteObjArray) {
                 String[] app = o.toString().split(Constants.SEPARATOR);
@@ -83,13 +85,7 @@ public class FavoriteFragment extends Fragment {
                 }
             }
 
-            MovieListVerticalAdapter movieListVerticalAdapter = new MovieListVerticalAdapter(getActivity(), mList, new MovieListVerticalAdapter.OnItemClickListener() {
-                @Override
-                public void OnItemClick(Movie movie) {
-                    Navigation.findNavController(getView()).navigate(FavoriteFragmentDirections.actionNavigationFavoriteToNavigationMovieCard(movie.getId()));
-
-                }
-            });
+            MovieListVerticalAdapter movieListVerticalAdapter = new MovieListVerticalAdapter(getActivity(), mList, movie -> Navigation.findNavController(requireView()).navigate(FavoriteFragmentDirections.actionNavigationFavoriteToNavigationMovieCard(movie.getId())));
             binding.FavoriteRecyclerView.setAdapter(movieListVerticalAdapter);
         }
 
@@ -107,11 +103,11 @@ public class FavoriteFragment extends Fragment {
         switch (item.getItemId()){
             case R.id.search:
                 Log.d(TAG, "onClick: SearchClick");
-                Navigation.findNavController(getView()).navigate(FavoriteFragmentDirections.actionNavigationFavoriteToNavigationSearch());
+                Navigation.findNavController(requireView()).navigate(FavoriteFragmentDirections.actionNavigationFavoriteToNavigationSearch());
                 return true;
             case R.id.settings:
                 Log.d(TAG, "onClick: SettingsClick");
-                Navigation.findNavController(getView()).navigate(FavoriteFragmentDirections.actionNavigationFavoriteToNavigationSettings());
+                Navigation.findNavController(requireView()).navigate(FavoriteFragmentDirections.actionNavigationFavoriteToNavigationSettings());
                 return true;
             default:return false;
         }

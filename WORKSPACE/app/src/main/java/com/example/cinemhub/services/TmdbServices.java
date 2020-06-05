@@ -1,4 +1,4 @@
-package com.example.cinemhub.service;
+package com.example.cinemhub.services;
 
 import com.example.cinemhub.models.ComingSoonApiTmdbResponse;
 import com.example.cinemhub.models.GenreApiTmdbResponse;
@@ -18,7 +18,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
-public interface TmdbService {
+public interface TmdbServices {
     @GET("movie/now_playing")
     Call<NowPlayingApiTmdbResponse> getNowPlaying (@Query("language") String language,
                                                    @Query("page") int page,

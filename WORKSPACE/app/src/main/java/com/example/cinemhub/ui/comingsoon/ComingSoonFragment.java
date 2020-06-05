@@ -31,17 +31,14 @@ import java.util.List;
 
 public class ComingSoonFragment extends Fragment {
 
-    private ComingSoonViewModel mViewModel;
+    private ComingSoonViewModel comingSoonViewModel;
     private final String TAG = "ComingSoonFragment";
     private FragmentComingSoonBinding binding;
     private MovieListVerticalAdapter movieListVerticalAdapter;
 
     private int totalItemCount;
     private int lastVisibleItem;
-    private int visibleItemCount;
     private int threshold=1;
-
-    int comingSoonRVSpanCount=3;
 
     public static ComingSoonFragment newInstance() {
         return new ComingSoonFragment();
@@ -50,7 +47,7 @@ public class ComingSoonFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mViewModel=new ViewModelProvider(getActivity()).get(ComingSoonViewModel.class);
+        comingSoonViewModel =new ViewModelProvider(requireActivity()).get(ComingSoonViewModel.class);
 
     }
 
@@ -60,15 +57,15 @@ public class ComingSoonFragment extends Fragment {
         binding = FragmentComingSoonBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
         setHasOptionsMenu(true);
-        ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.title_coming_soon));
-        ((MainActivity) getActivity()).menuColorSettings(R.id.navigation_coming_soon);
+        ((MainActivity) requireActivity()).setActionBarTitle(getString(R.string.title_coming_soon));
+        ((MainActivity) requireActivity()).menuColorSettings(R.id.navigation_coming_soon);
 
         return view;
     }
 
 
     private List<Movie> getMovieList(String language, boolean checkAdult, String region){
-        Resource<List<Movie>> movieListResult=mViewModel.getMovieComingSoon(language, checkAdult, region).getValue();
+        Resource<List<Movie>> movieListResult= comingSoonViewModel.getMovieComingSoon(language, checkAdult, region).getValue();
         if(movieListResult != null){
             return movieListResult.getData();
         }
@@ -79,21 +76,17 @@ public class ComingSoonFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(),comingSoonRVSpanCount);
+        final int comingSoonRVSpanCount = 3;
+        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), comingSoonRVSpanCount);
         binding.ComingSoonRecyclerView.setLayoutManager(layoutManager);
 
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.CINEM_HUB_SHARED_PREF_FILE_NAME, Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(Constants.CINEM_HUB_SHARED_PREF_FILE_NAME, Context.MODE_PRIVATE);
         boolean checkAdult=sharedPreferences.getBoolean(Constants.ADULT_SHARED_PREF_NAME, false);
         String region=sharedPreferences.getString(Constants.REGION_SHARED_PREF_NAME, null);
 
 
 
-        movieListVerticalAdapter = new MovieListVerticalAdapter(getActivity(), getMovieList(getString(R.string.API_LANGUAGE), checkAdult, region), new MovieListVerticalAdapter.OnItemClickListener() {
-            @Override
-            public void OnItemClick(Movie movie) {
-                Navigation.findNavController(getView()).navigate(ComingSoonFragmentDirections.actionNavigationComingSoonToNavigationMovieCard(movie.getId()));
-            }
-        });
+        movieListVerticalAdapter = new MovieListVerticalAdapter(getActivity(), getMovieList(getString(R.string.API_LANGUAGE), checkAdult, region), movie -> Navigation.findNavController(requireView()).navigate(ComingSoonFragmentDirections.actionNavigationComingSoonToNavigationMovieCard(movie.getId())));
         binding.ComingSoonRecyclerView.setAdapter(movieListVerticalAdapter);
 
 
@@ -105,20 +98,19 @@ public class ComingSoonFragment extends Fragment {
 
                 totalItemCount = layoutManager.getItemCount();
                 lastVisibleItem = layoutManager.findLastVisibleItemPosition();
-                visibleItemCount = layoutManager.getChildCount();
 
-                if((totalItemCount <= (lastVisibleItem + threshold) && dy>0 && !mViewModel.isLoading())
+                if((totalItemCount <= (lastVisibleItem + threshold) && dy>0 && !comingSoonViewModel.isLoading())
                                 &&
-                                mViewModel.getMovieLiveData().getValue() != null
+                                comingSoonViewModel.getMovieLiveData().getValue() != null
                                 &&
-                                mViewModel.getCurrentResults()!=mViewModel.getMovieLiveData().getValue().getTotalResult()
+                                comingSoonViewModel.getCurrentResults()!= comingSoonViewModel.getMovieLiveData().getValue().getTotalResult()
                 ){
                     Resource<List<Movie>> movieListResource=new Resource<>();
 
-                    MutableLiveData<Resource<List<Movie>>> movieListMutableLiveData = mViewModel.getMovieLiveData();
+                    MutableLiveData<Resource<List<Movie>>> movieListMutableLiveData = comingSoonViewModel.getMovieLiveData();
 
                     if(movieListMutableLiveData!=null && movieListMutableLiveData.getValue() != null){
-                        mViewModel.setLoading(true);
+                        comingSoonViewModel.setLoading(true);
 
                         List<Movie> currentMovieList = movieListMutableLiveData.getValue().getData();
                         currentMovieList.add(null);
@@ -130,10 +122,10 @@ public class ComingSoonFragment extends Fragment {
                         movieListResource.setLoading(true);
                         movieListMutableLiveData.postValue(movieListResource);
 
-                        int page=mViewModel.getPage() + 1;
-                        mViewModel.setPage(page);
+                        int page= comingSoonViewModel.getPage() + 1;
+                        comingSoonViewModel.setPage(page);
 
-                        mViewModel.getMoreMovieComingSoon(getString(R.string.API_LANGUAGE), checkAdult, region);
+                        comingSoonViewModel.getMoreMovieComingSoon(getString(R.string.API_LANGUAGE), checkAdult, region);
                     }
                 }
 
@@ -142,21 +134,22 @@ public class ComingSoonFragment extends Fragment {
             }
         });
 
-        final Observer<Resource<List<Movie>>> observer_coming_soon=new Observer<Resource<List<Movie>>>() {
-            @Override
-            public void onChanged(Resource<List<Movie>> movies) {
-                Log.d(TAG, "lista tmdb comingsoon"+movies);
+        final Observer<Resource<List<Movie>>> observer_coming_soon= movies -> {
+            Log.d(TAG, "lista tmdb comingsoon"+movies);
 
-                movieListVerticalAdapter.setData(movies.getData());
+            movieListVerticalAdapter.setData(movies.getData());
 
-                if(!movies.isLoading()){
-                    mViewModel.setLoading(false);
-                    mViewModel.setCurrentResults(movies.getData().size());
-                }
+            if(!movies.isLoading()){
+                comingSoonViewModel.setLoading(false);
+                comingSoonViewModel.setCurrentResults(movies.getData().size());
             }
         };
-
-        mViewModel.getMovieComingSoon(getString(R.string.API_LANGUAGE), checkAdult, region).observe(getViewLifecycleOwner(), observer_coming_soon);
+        if(region!=null){
+            comingSoonViewModel.getMovieComingSoon(getString(R.string.API_LANGUAGE), checkAdult, region).observe(getViewLifecycleOwner(), observer_coming_soon);
+        }
+        else {
+            Log.d(TAG, "ERROR:region cannot be null");
+        }
     }
 
     @Override
@@ -169,14 +162,14 @@ public class ComingSoonFragment extends Fragment {
         switch (item.getItemId()){
             case R.id.search:
                 Log.d(TAG, "onClick: SearchClick");
-                Navigation.findNavController(getView()).navigate(ComingSoonFragmentDirections.actionNavigationComingSoonToNavigationSearch());
+                Navigation.findNavController(requireView()).navigate(ComingSoonFragmentDirections.actionNavigationComingSoonToNavigationSearch());
                 return true;
             case R.id.settings:
                 Log.d(TAG, "onClick: SettingsClick");
-                Navigation.findNavController(getView()).navigate(ComingSoonFragmentDirections.actionNavigationComingSoonToNavigationSettings());
+                Navigation.findNavController(requireView()).navigate(ComingSoonFragmentDirections.actionNavigationComingSoonToNavigationSettings());
                 return true;
             case android.R.id.home:
-                getActivity().onBackPressed();
+                requireActivity().onBackPressed();
                 return true;
             default:return false;
         }

@@ -18,24 +18,23 @@ public class ComingSoonViewModel extends ViewModel {
     private String region_called;
 
 
-    public LiveData<Resource<List<Movie>>> getMovieComingSoon(String language, boolean checkAdult, String region){
+    LiveData<Resource<List<Movie>>> getMovieComingSoon(String language, boolean checkAdult, String region){
         if(!(region.equals(region_called))){
             clear();
         }
         if(movieComingSoon==null ){
-            movieComingSoon = new MutableLiveData<Resource<List<Movie>>>();
+            movieComingSoon = new MutableLiveData<>();
             TmdbRepository.getInstance().getComingSoon(movieComingSoon, language, page, checkAdult, region);
             region_called=region;
         }
         return movieComingSoon;
     }
 
-    public LiveData<Resource<List<Movie>>> getMoreMovieComingSoon(String language, boolean checkAdult, String region){
+    void getMoreMovieComingSoon(String language, boolean checkAdult, String region){
         TmdbRepository.getInstance().getComingSoon(movieComingSoon, language, page, checkAdult, region);
-        return movieComingSoon;
     }
 
-    public MutableLiveData<Resource<List<Movie>>> getMovieLiveData(){
+    MutableLiveData<Resource<List<Movie>>> getMovieLiveData(){
         return movieComingSoon;
     }
 
@@ -55,19 +54,19 @@ public class ComingSoonViewModel extends ViewModel {
         this.page = page;
     }
 
-    public int getCurrentResults() {
+    int getCurrentResults() {
         return currentResults;
     }
 
-    public void setCurrentResults(int currentResults) {
+    void setCurrentResults(int currentResults) {
         this.currentResults = currentResults;
     }
 
-    public boolean isLoading() {
+    boolean isLoading() {
         return isLoading;
     }
 
-    public void setLoading(boolean loading) {
+    void setLoading(boolean loading) {
         isLoading = loading;
     }
 }
