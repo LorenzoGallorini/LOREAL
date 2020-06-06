@@ -21,15 +21,19 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import com.example.cinemhub.MainActivity;
 import com.example.cinemhub.R;
 import com.example.cinemhub.adapters.MovieListVerticalAdapter;
 import com.example.cinemhub.adapters.PeopleListVerticalAdapter;
+import com.example.cinemhub.adapters.ViewPageAdapter;
 import com.example.cinemhub.databinding.FragmentSearchresultBinding;
 import com.example.cinemhub.models.Movie;
 import com.example.cinemhub.models.People;
 import com.example.cinemhub.models.Resource;
+import com.example.cinemhub.ui.searchresult.searchmovieresult.SearchMovieResultFragment;
+import com.example.cinemhub.ui.searchresult.searchpeopleresult.SearchPeopleResultFragment;
 import com.example.cinemhub.utils.Constants;
 import com.google.android.material.tabs.TabLayout;
 
@@ -50,6 +54,10 @@ public class SearchResultFragment extends Fragment {
     private int peopleLastVisibleItem;
     private int peopleVisibleItemCount;
     private int peopleThreshold=1;
+
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
+    private ViewPageAdapter viewPageAdapter;
 
     public static SearchResultFragment newInstance() {
         return new SearchResultFragment();
@@ -75,11 +83,25 @@ public class SearchResultFragment extends Fragment {
         int categorie = SearchResultFragmentArgs.fromBundle(getArguments()).getCategorie();
         String query = SearchResultFragmentArgs.fromBundle(getArguments()).getQueryValue();
 
-        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(),3);
+
+
+
+
+        viewPageAdapter=new ViewPageAdapter(getFragmentManager());
+
+        viewPageAdapter.addFragment(new SearchMovieResultFragment(), "Movie");
+        viewPageAdapter.addFragment(new SearchPeopleResultFragment(), "People");
+
+        binding.viewPager.setAdapter(viewPageAdapter);
+        binding.tabLayout.setupWithViewPager(binding.viewPager);
+
+
+
+
         GridLayoutManager layoutManagerPeople = new GridLayoutManager(getActivity(),3);
-        binding.RecyclerViewSearch.setLayoutManager(layoutManager);
+
         binding.RecyclerViewSearchPeople.setLayoutManager(layoutManagerPeople);
-        binding.tabLayout.setTabMode(TabLayout.MODE_AUTO);
+        binding.tabLayout.setTabMode(TabLayout.MODE_FIXED);
 
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.CINEM_HUB_SHARED_PREF_FILE_NAME, Context.MODE_PRIVATE);
@@ -133,7 +155,7 @@ public class SearchResultFragment extends Fragment {
         binding.RecyclerViewSearch.setAdapter(movieListVerticalAdapter);
         binding.RecyclerViewSearchPeople.setAdapter(peopleListVerticalAdapter);
         binding.RecyclerViewSearchPeople.setVisibility(View.INVISIBLE);
-        //binding.RecyclerViewSearchPeople.setAlpha(0);
+        binding.RecyclerViewSearchPeople.setAlpha(0);
 
 
 
@@ -195,7 +217,6 @@ public class SearchResultFragment extends Fragment {
             }
         };
 
-        mViewModel.getMoreMovieSearch(getString(R.string.API_LANGUAGE), checkAdult,query,region,year).observe(getViewLifecycleOwner(), observer_movie_search);
 
         binding.RecyclerViewSearchPeople.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -253,10 +274,6 @@ public class SearchResultFragment extends Fragment {
                 }
             }
         };
-
-        mViewModel.getMorePeopleSearch(getString(R.string.API_LANGUAGE), checkAdult,query,region).observe(getViewLifecycleOwner(), observer_people_search);
-
-
     }
 
     @Override

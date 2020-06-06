@@ -1,17 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<LinearLayout
 
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/ScrollView"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     tools:context=".ui.searchresult.SearchResultFragment"
-    android:fillViewport="true">
-<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
     android:id="@+id/constraintLayout">
 
 
@@ -19,43 +15,20 @@
 
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tabTextColor="@color/titleWhite">
-
-        <com.google.android.material.tabs.TabItem
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/movie" />
-
-        <com.google.android.material.tabs.TabItem
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/people" />
+        android:layout_height="wrap_content"
+        app:tabGravity="fill"
+        app:tabMode="fixed"
+        app:tabTextColor="@color/titleWhite"
 
 
-    </com.google.android.material.tabs.TabLayout>
+        app:tabIndicatorColor="@color/titleWhite" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/RecyclerViewSearch"
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="50dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tabLayout" />
+    />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/RecyclerViewSearchPeople"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingTop="50dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tabLayout"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
 
 
-</ScrollView>
