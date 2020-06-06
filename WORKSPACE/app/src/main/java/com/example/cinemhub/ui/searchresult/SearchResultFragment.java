@@ -1,10 +1,6 @@
 package com.example.cinemhub.ui.searchresult;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -15,13 +11,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
 
 import com.example.cinemhub.MainActivity;
 import com.example.cinemhub.R;
@@ -29,13 +19,10 @@ import com.example.cinemhub.adapters.MovieListVerticalAdapter;
 import com.example.cinemhub.adapters.PeopleListVerticalAdapter;
 import com.example.cinemhub.adapters.ViewPageAdapter;
 import com.example.cinemhub.databinding.FragmentSearchresultBinding;
-import com.example.cinemhub.models.Movie;
 import com.example.cinemhub.models.People;
 import com.example.cinemhub.models.Resource;
 import com.example.cinemhub.ui.searchresult.searchmovieresult.SearchMovieResultFragment;
 import com.example.cinemhub.ui.searchresult.searchpeopleresult.SearchPeopleResultFragment;
-import com.example.cinemhub.utils.Constants;
-import com.google.android.material.tabs.TabLayout;
 
 import java.util.List;
 
@@ -46,17 +33,7 @@ public class SearchResultFragment extends Fragment {
     private FragmentSearchresultBinding binding;
     private MovieListVerticalAdapter movieListVerticalAdapter;
     private PeopleListVerticalAdapter peopleListVerticalAdapter;
-    private int movieTotalItemCount;
-    private int movieLastVisibleItem;
-    private int movieVisibleItemCount;
-    private int movieThreshold =1;
-    private int peopleTotalItemCount;
-    private int peopleLastVisibleItem;
-    private int peopleVisibleItemCount;
-    private int peopleThreshold=1;
 
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
     private ViewPageAdapter viewPageAdapter;
 
     public static SearchResultFragment newInstance() {
@@ -89,14 +66,14 @@ public class SearchResultFragment extends Fragment {
 
         viewPageAdapter=new ViewPageAdapter(getFragmentManager());
 
-        viewPageAdapter.addFragment(new SearchMovieResultFragment(), "Movie");
+        viewPageAdapter.addFragment(new SearchMovieResultFragment(year,query), "Movie");
         viewPageAdapter.addFragment(new SearchPeopleResultFragment(), "People");
-
+        
         binding.viewPager.setAdapter(viewPageAdapter);
         binding.tabLayout.setupWithViewPager(binding.viewPager);
 
 
-
+/*
 
         GridLayoutManager layoutManagerPeople = new GridLayoutManager(getActivity(),3);
 
@@ -104,47 +81,15 @@ public class SearchResultFragment extends Fragment {
         binding.tabLayout.setTabMode(TabLayout.MODE_FIXED);
 
 
+
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.CINEM_HUB_SHARED_PREF_FILE_NAME, Context.MODE_PRIVATE);
         boolean checkAdult=sharedPreferences.getBoolean(Constants.ADULT_SHARED_PREF_NAME, false);
         String region=sharedPreferences.getString(Constants.REGION_SHARED_PREF_NAME, null);
 
-        binding.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @SuppressLint("SetTextI18n")
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                if(tab.view.getTab().getText().equals(getString(R.string.movie)) )
-                {
-                    //binding.RecyclerViewSearchPeople.setAlpha(0);
-                    binding.RecyclerViewSearchPeople.setVisibility(View.INVISIBLE);
-                    //binding.RecyclerViewSearch.setAlpha(1);
-                    binding.RecyclerViewSearch.setVisibility(View.VISIBLE);
-                }
-                else
-                {
-                    //binding.RecyclerViewSearch.setAlpha(0);
-                    binding.RecyclerViewSearch.setVisibility(View.INVISIBLE);
-                    //binding.RecyclerViewSearchPeople.setAlpha(1);
-                    binding.RecyclerViewSearchPeople.setVisibility(View.VISIBLE);
-                }
-            }
 
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
 
-            }
 
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
 
-            }}
-        );
-
-        movieListVerticalAdapter = new MovieListVerticalAdapter(getActivity(), getMovieList(getString(R.string.API_LANGUAGE), checkAdult, query,region , year), new MovieListVerticalAdapter.OnItemClickListener() {
-            @Override
-            public void OnItemClick(Movie movie) {
-                Navigation.findNavController(getView()).navigate(SearchResultFragmentDirections.actionNavigationSearchResultToNavigationMovieCard(movie.getId()));
-            }
-        });
         peopleListVerticalAdapter = new PeopleListVerticalAdapter(getActivity(), getPeopleList(getString(R.string.API_LANGUAGE), checkAdult, query,region), new PeopleListVerticalAdapter.OnItemClickListener(){
 
             @Override
@@ -152,70 +97,15 @@ public class SearchResultFragment extends Fragment {
                 Navigation.findNavController(getView()).navigate(SearchResultFragmentDirections.actionNavigationSearchResultToNavigationPeopleCard(people.getId()));
             }
         });
-        binding.RecyclerViewSearch.setAdapter(movieListVerticalAdapter);
+
         binding.RecyclerViewSearchPeople.setAdapter(peopleListVerticalAdapter);
-        binding.RecyclerViewSearchPeople.setVisibility(View.INVISIBLE);
-        binding.RecyclerViewSearchPeople.setAlpha(0);
 
 
 
 
-        binding.RecyclerViewSearch.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-
-                movieTotalItemCount = layoutManager.getItemCount();
-                movieLastVisibleItem = layoutManager.findLastVisibleItemPosition();
-                movieVisibleItemCount = layoutManager.getChildCount();
-
-                if((movieTotalItemCount <= (movieLastVisibleItem + movieThreshold) && dy>0 && !mViewModel.isMovieIsLoading()) &&
-                                mViewModel.getMovieLiveData().getValue() != null &&
-                                mViewModel.getMovieCurrentResults()!=mViewModel.getMovieLiveData().getValue().getTotalResult()
-                ){
-                    Resource<List<Movie>> movieListResource=new Resource<>();
-
-                    MutableLiveData<Resource<List<Movie>>> movieListMutableLiveData = mViewModel.getMovieLiveData();
-
-                    if(movieListMutableLiveData!=null && movieListMutableLiveData.getValue() != null){
-                        mViewModel.setMovieIsLoading(true);
-
-                        List<Movie> currentMovieList = movieListMutableLiveData.getValue().getData();
-                        currentMovieList.add(null);
-                        movieListResource.setData(currentMovieList);
-                        movieListResource.setStatusMessage(movieListMutableLiveData.getValue().getStatusMessage());
-                        movieListResource.setTotalResult(movieListMutableLiveData.getValue().getTotalResult());
-                        movieListResource.setStatusCode(movieListMutableLiveData.getValue().getStatusCode());
-
-                        movieListResource.setLoading(true);
-                        movieListMutableLiveData.postValue(movieListResource);
-
-                        int page=mViewModel.getMoviePage() + 1;
-                        mViewModel.setMoviePage(page);
-
-                        mViewModel.getMoreMovieSearch(getString(R.string.API_LANGUAGE), checkAdult, query,region,year);
-                    }
-                }
 
 
 
-            }
-        });
-
-        final Observer<Resource<List<Movie>>> observer_movie_search=new Observer<Resource<List<Movie>>>() {
-            @Override
-            public void onChanged(Resource<List<Movie>> movies) {
-                Log.d(TAG, "lista tmdb Search"+movies);
-
-                movieListVerticalAdapter.setData(movies.getData());
-
-                if(!movies.isLoading()){
-                    mViewModel.setMovieIsLoading(false);
-                    mViewModel.setMovieCurrentResults(movies.getData().size());
-                }
-            }
-        };
 
 
         binding.RecyclerViewSearchPeople.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -273,7 +163,7 @@ public class SearchResultFragment extends Fragment {
                     mViewModel.setPeopleCurrentResults(people.getData().size());
                 }
             }
-        };
+        };*/
     }
 
     @Override
@@ -295,13 +185,7 @@ public class SearchResultFragment extends Fragment {
         }
     }
 
-    private List<Movie> getMovieList(String language, boolean checkAdult,String query, String region, int year){
-        Resource<List<Movie>> movieListResult=mViewModel.getMovieSearch(language, checkAdult,query,region,year).getValue();
-        if(movieListResult != null){
-            return movieListResult.getData();
-        }
-        return null;
-    }
+
 
     private List<People> getPeopleList(String language, boolean checkAdult,String query, String region){
         Resource<List<People>> peopleListResult=mViewModel.getPeopleSearch(language, checkAdult,query,region).getValue();
@@ -312,14 +196,7 @@ public class SearchResultFragment extends Fragment {
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        mViewModel.reset();
-    }
-
-    @Override
     public void onDestroyView() {
         super.onDestroyView();
-
     }
 }

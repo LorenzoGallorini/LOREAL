@@ -10,15 +10,6 @@ xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_height="match_parent"
         android:id="@+id/constraintLayout">
 
-     <TextView
-         android:id="@+id/textView"
-         android:layout_width="275dp"
-         android:layout_height="310dp"
-         android:layout_marginTop="172dp"
-         android:text="Moviee"
-         app:layout_constraintStart_toStartOf="parent"
-         app:layout_constraintTop_toTopOf="parent" />
-
      <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/RecyclerViewSearch"
             android:layout_width="match_parent"
