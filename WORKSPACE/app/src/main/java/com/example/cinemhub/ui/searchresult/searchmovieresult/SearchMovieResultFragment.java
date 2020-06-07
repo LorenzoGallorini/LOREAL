@@ -66,6 +66,7 @@ public class SearchMovieResultFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+
     }
 
     @Override
@@ -152,9 +153,6 @@ public class SearchMovieResultFragment extends Fragment {
         }
         return null;
     }
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-    }
+
 
 }

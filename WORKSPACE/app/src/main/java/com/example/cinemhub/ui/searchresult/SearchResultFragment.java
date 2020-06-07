@@ -19,12 +19,9 @@ import com.example.cinemhub.adapters.MovieListVerticalAdapter;
 import com.example.cinemhub.adapters.PeopleListVerticalAdapter;
 import com.example.cinemhub.adapters.ViewPageAdapter;
 import com.example.cinemhub.databinding.FragmentSearchresultBinding;
-import com.example.cinemhub.models.People;
-import com.example.cinemhub.models.Resource;
 import com.example.cinemhub.ui.searchresult.searchmovieresult.SearchMovieResultFragment;
 import com.example.cinemhub.ui.searchresult.searchpeopleresult.SearchPeopleResultFragment;
-
-import java.util.List;
+import com.google.android.material.tabs.TabLayout;
 
 public class SearchResultFragment extends Fragment {
 
@@ -33,6 +30,7 @@ public class SearchResultFragment extends Fragment {
     private FragmentSearchresultBinding binding;
     private MovieListVerticalAdapter movieListVerticalAdapter;
     private PeopleListVerticalAdapter peopleListVerticalAdapter;
+
 
     private ViewPageAdapter viewPageAdapter;
 
@@ -61,109 +59,24 @@ public class SearchResultFragment extends Fragment {
         String query = SearchResultFragmentArgs.fromBundle(getArguments()).getQueryValue();
 
 
-
-
-
-        viewPageAdapter=new ViewPageAdapter(getFragmentManager());
+        viewPageAdapter=new ViewPageAdapter(getChildFragmentManager());
 
         viewPageAdapter.addFragment(new SearchMovieResultFragment(year,query), "Movie");
-        viewPageAdapter.addFragment(new SearchPeopleResultFragment(), "People");
-        
+        viewPageAdapter.addFragment(new SearchPeopleResultFragment(query), "People");
+
+
         binding.viewPager.setAdapter(viewPageAdapter);
+
         binding.tabLayout.setupWithViewPager(binding.viewPager);
-
-
-/*
-
-        GridLayoutManager layoutManagerPeople = new GridLayoutManager(getActivity(),3);
-
-        binding.RecyclerViewSearchPeople.setLayoutManager(layoutManagerPeople);
         binding.tabLayout.setTabMode(TabLayout.MODE_FIXED);
 
 
 
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.CINEM_HUB_SHARED_PREF_FILE_NAME, Context.MODE_PRIVATE);
-        boolean checkAdult=sharedPreferences.getBoolean(Constants.ADULT_SHARED_PREF_NAME, false);
-        String region=sharedPreferences.getString(Constants.REGION_SHARED_PREF_NAME, null);
 
 
 
 
 
-        peopleListVerticalAdapter = new PeopleListVerticalAdapter(getActivity(), getPeopleList(getString(R.string.API_LANGUAGE), checkAdult, query,region), new PeopleListVerticalAdapter.OnItemClickListener(){
-
-            @Override
-            public void OnItemClick(People people) {
-                Navigation.findNavController(getView()).navigate(SearchResultFragmentDirections.actionNavigationSearchResultToNavigationPeopleCard(people.getId()));
-            }
-        });
-
-        binding.RecyclerViewSearchPeople.setAdapter(peopleListVerticalAdapter);
-
-
-
-
-
-
-
-
-
-        binding.RecyclerViewSearchPeople.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-
-                peopleTotalItemCount = layoutManagerPeople.getItemCount();
-                peopleLastVisibleItem = layoutManagerPeople.findLastVisibleItemPosition();
-                peopleVisibleItemCount = layoutManagerPeople.getChildCount();
-
-                if((peopleTotalItemCount <= (peopleLastVisibleItem + peopleThreshold) && dy>0 && !mViewModel.isPeopleIsLoading()) &&
-                                mViewModel.getPeopleLiveData().getValue() != null &&
-                                mViewModel.getPeopleCurrentResults()!=mViewModel.getPeopleLiveData().getValue().getTotalResult()
-                ){
-                    Resource<List<People>> peopleListResource=new Resource<>();
-
-                    MutableLiveData<Resource<List<People>>> peopleListMutableLiveData = mViewModel.getPeopleLiveData();
-
-                    if(peopleListMutableLiveData!=null && peopleListMutableLiveData.getValue() != null){
-                        mViewModel.setPeopleIsLoading(true);
-
-                        List<People> currentPeopleList = peopleListMutableLiveData.getValue().getData();
-                        currentPeopleList.add(null);
-                        peopleListResource.setData(currentPeopleList);
-                        peopleListResource.setStatusMessage(peopleListMutableLiveData.getValue().getStatusMessage());
-                        peopleListResource.setTotalResult(peopleListMutableLiveData.getValue().getTotalResult());
-                        peopleListResource.setStatusCode(peopleListMutableLiveData.getValue().getStatusCode());
-
-                        peopleListResource.setLoading(true);
-                        peopleListMutableLiveData.postValue(peopleListResource);
-
-                        int page=mViewModel.getPeoplePage() + 1;
-                        mViewModel.setPeoplePage(page);
-
-                        mViewModel.getMorePeopleSearch(getString(R.string.API_LANGUAGE), checkAdult, query,region);
-                    }
-                }
-
-
-
-            }
-        });
-
-
-        final Observer<Resource<List<People>>> observer_people_search=new Observer<Resource<List<People>>>() {
-            @Override
-            public void onChanged(Resource<List<People>> people) {
-                Log.d(TAG, "lista tmdb Search"+people);
-
-                peopleListVerticalAdapter.setData(people.getData());
-
-                if(!people.isLoading()){
-                    mViewModel.setPeopleIsLoading(false);
-                    mViewModel.setPeopleCurrentResults(people.getData().size());
-                }
-            }
-        };*/
     }
 
     @Override
@@ -178,7 +91,11 @@ public class SearchResultFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
             case android.R.id.home:
-                mViewModel.reset();
+                viewPageAdapter.clear();
+                binding.viewPager.setAdapter(null);
+                binding.tabLayout.removeAllTabs();
+
+
                 getActivity().onBackPressed();
                 return true;
             default:return false;
@@ -187,16 +104,6 @@ public class SearchResultFragment extends Fragment {
 
 
 
-    private List<People> getPeopleList(String language, boolean checkAdult,String query, String region){
-        Resource<List<People>> peopleListResult=mViewModel.getPeopleSearch(language, checkAdult,query,region).getValue();
-        if(peopleListResult != null){
-            return peopleListResult.getData();
-        }
-        return null;
-    }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-    }
+
 }

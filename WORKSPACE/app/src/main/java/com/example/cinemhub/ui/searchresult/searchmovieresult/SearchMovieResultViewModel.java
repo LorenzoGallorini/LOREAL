@@ -15,6 +15,7 @@ public class SearchMovieResultViewModel extends ViewModel {
     private int moviePage =1;
     private int movieCurrentResults;
     private boolean movieIsLoading;
+    private String lastQuery;
 
     public  void reset() {
         movieSearch = null;
@@ -24,9 +25,13 @@ public class SearchMovieResultViewModel extends ViewModel {
     }
 
     public LiveData<Resource<List<Movie>>> getMovieSearch(String language, boolean checkAdult, String query, String region, int year){
+        if(query != null && !query.equals(lastQuery)){
+            movieSearch = null;
+        }
         if(movieSearch ==null){
             movieSearch = new MutableLiveData<Resource<List<Movie>>>();
             TmdbRepository.getInstance().getSearchMovie(movieSearch, language, moviePage, checkAdult,query,region,year);
+            lastQuery=query;
         }
         return movieSearch;
     }
