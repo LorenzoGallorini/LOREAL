@@ -68,3 +68,9 @@ All’esame:
 Mostrate le due slide (punto b) che non occorre consegnare (2 minuti)
 Fate la demo live (10 minuti al massimo, quindi pensatela bene)
 A campione su Git guardiamo il codice (a cui quindi potete lavorare fino a 5 minuti dall’esame)
+
+
+La documentazione dovra' descrivere:
+- le funzionalità da sviluppare (potete scriverle in italiano, oppure usare degli use case)
+- l'architettura complessiva che specifica i componenti da voi sviluppati e le loro relazioni e modalità di comunicazione con eventuali componenti esterni utilizzati. Mi immagino un solo componente che e' la vostra app, eventuali esterni che sono quelli le cui API utilizzate per popolare i contenuti della app. Se l'avete sviluppata, mi immagino anche ed eventualmente una base di dati interna che avete sviluppato. Fate un diagramma con scatolotti (componenti) e linee (connessioni fra componenti). Nelle linee specificate anche il protocollo di comunicazione. Fate anche emergere il deployment dei componenti. Soprattutto quelli sviluppati da voi. Quindi and esempio, mi aspetto un rettangolo che identifica il dispositivo e all'interno di questo avete inserito lo scatolotto che e' la vostra app ed eventualmente il db. 
+- il design della soluzione che include i componenti che avete sviluppato (inteso come Fragment, Activity, etc. e le loro modalità di interazione). Anche qui va bene un diagramma tipo quello del punto sopra. Eventuali descrizioni di soluzioni implementative che avete realizzato. Nessun codice (a meno che sia importante).
