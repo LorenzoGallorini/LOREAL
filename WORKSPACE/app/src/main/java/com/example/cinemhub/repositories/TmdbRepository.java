@@ -453,7 +453,7 @@ public class TmdbRepository {
 
 
     public void getSearchMovie(MutableLiveData<Resource<List<Movie>>> movieSearch, String language, int page, boolean checkAdult,String query,String region,int year,int categorie){
-        Call<SearchMovieApiTmdbResponse> call= tmdbServices.getSearchMovie(language,Constants.API_TMDB_KEY,query,page,checkAdult,region,year);
+        Call<SearchMovieApiTmdbResponse> call= tmdbServices.getSearchMovie(language,Constants.API_TMDB_KEY,query,page,!checkAdult,region,year);
         call.enqueue(new Callback<SearchMovieApiTmdbResponse>() {
             @Override
             public void onResponse(Call<SearchMovieApiTmdbResponse> call, Response<SearchMovieApiTmdbResponse> response) {
@@ -512,7 +512,7 @@ public class TmdbRepository {
     }
 
     public void getSearchPeople(MutableLiveData<Resource<List<People>>> peopleSearch, String language, int page, boolean checkAdult,String query,String region){
-        Call<SearchPeopleApiTmdbResponse> call= tmdbServices.getSearchPeople(language,Constants.API_TMDB_KEY,query,page,checkAdult,region);
+        Call<SearchPeopleApiTmdbResponse> call= tmdbServices.getSearchPeople(language,Constants.API_TMDB_KEY,query,page,!checkAdult,region);
         call.enqueue(new Callback<SearchPeopleApiTmdbResponse>() {
             @Override
             public void onResponse(Call<SearchPeopleApiTmdbResponse> call, Response<SearchPeopleApiTmdbResponse> response) {
