@@ -61,7 +61,7 @@ public class SearchResultFragment extends Fragment {
 
         viewPageAdapter=new ViewPageAdapter(getChildFragmentManager());
 
-        viewPageAdapter.addFragment(new SearchMovieResultFragment(year,query), "Movie");
+        viewPageAdapter.addFragment(new SearchMovieResultFragment(year,query,categorie), "Movie");
         viewPageAdapter.addFragment(new SearchPeopleResultFragment(query), "People");
 
 

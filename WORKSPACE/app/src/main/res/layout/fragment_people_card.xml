@@ -106,10 +106,12 @@
 
         <TextView
             android:id="@+id/people_description"
-            android:layout_width="376dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:gravity="start|right|fill_horizontal|left|fill_vertical|end"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
             android:textColor="@color/paragraph_color"
             android:textSize="@dimen/paragraph_size"
             app:layout_constraintStart_toStartOf="@+id/people_image"

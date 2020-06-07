@@ -452,7 +452,7 @@ public class TmdbRepository {
     }
 
 
-    public void getSearchMovie(MutableLiveData<Resource<List<Movie>>> movieSearch, String language, int page, boolean checkAdult,String query,String region,int year){
+    public void getSearchMovie(MutableLiveData<Resource<List<Movie>>> movieSearch, String language, int page, boolean checkAdult,String query,String region,int year,int categorie){
         Call<SearchMovieApiTmdbResponse> call= tmdbServices.getSearchMovie(language,Constants.API_TMDB_KEY,query,page,checkAdult,region,year);
         call.enqueue(new Callback<SearchMovieApiTmdbResponse>() {
             @Override
@@ -460,9 +460,22 @@ public class TmdbRepository {
                 if(response.isSuccessful() && response.body()!=null) {
                     Resource<List<Movie>> resource = new Resource<>();
                     List<Movie> results = new ArrayList<Movie>();
+
                     for (int i = 0; i < response.body().getResults().length; i++) {
-                        if(!checkAdult || !response.body().getResults()[i].isAdult()){
+                        if (categorie == -1) {
                             results.add(response.body().getResults()[i]);
+                        }
+                        else
+                        {
+                            int y = 0;
+                            boolean found = false;
+                            while (y<response.body().getResults()[i].getGenre_ids().length && !found) {
+                                if (response.body().getResults()[i].getGenre_ids()[y] == categorie) {
+                                    results.add(response.body().getResults()[i]);
+                                    found = true;
+                                }
+                                y++;
+                            }
                         }
                     }
                     if (movieSearch.getValue() != null && movieSearch.getValue().getData() != null) {

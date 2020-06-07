@@ -37,12 +37,14 @@ public class SearchMovieResultFragment extends Fragment {
     private int movieVisibleItemCount;
     private int movieThreshold =1;
     private int year;
+    private int categorie;
     private String query;
     private final String TAG = "SearchMovieFragment";
 
-    public SearchMovieResultFragment(int year, String query) {
+    public SearchMovieResultFragment(int year, String query, int categorie) {
         this.year = year;
         this.query = query;
+        this.categorie=categorie;
     }
 
     public SearchMovieResultFragment() {
@@ -120,7 +122,7 @@ public class SearchMovieResultFragment extends Fragment {
                         int page=searchMovieResultViewModel.getMoviePage() + 1;
                         searchMovieResultViewModel.setMoviePage(page);
 
-                        searchMovieResultViewModel.getMoreMovieSearch(getString(R.string.API_LANGUAGE), checkAdult, query,region,year);
+                        searchMovieResultViewModel.getMoreMovieSearch(getString(R.string.API_LANGUAGE), checkAdult, query,region,year,categorie);
                     }
                 }
 
@@ -140,14 +142,14 @@ public class SearchMovieResultFragment extends Fragment {
                 }
             }
         };
-        searchMovieResultViewModel.getMovieSearch(getString(R.string.API_LANGUAGE), checkAdult, query ,region, year).observe(getViewLifecycleOwner(), observer_movie_search);
+        searchMovieResultViewModel.getMovieSearch(getString(R.string.API_LANGUAGE), checkAdult, query ,region, year,categorie).observe(getViewLifecycleOwner(), observer_movie_search);
 
 
     }
 
 
     private List<Movie> getMovieList(String language, boolean checkAdult, String query, String region, int year){
-        Resource<List<Movie>> movieListResult=searchMovieResultViewModel.getMovieSearch(language, checkAdult,query,region,year).getValue();
+        Resource<List<Movie>> movieListResult=searchMovieResultViewModel.getMovieSearch(language, checkAdult,query,region,year,categorie).getValue();
         if(movieListResult != null){
             return movieListResult.getData();
         }

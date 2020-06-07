@@ -16,6 +16,8 @@ public class SearchMovieResultViewModel extends ViewModel {
     private int movieCurrentResults;
     private boolean movieIsLoading;
     private String lastQuery;
+    private int lastYear;
+    private int lastCategorie;
 
     public  void reset() {
         movieSearch = null;
@@ -24,19 +26,21 @@ public class SearchMovieResultViewModel extends ViewModel {
         movieIsLoading = false;
     }
 
-    public LiveData<Resource<List<Movie>>> getMovieSearch(String language, boolean checkAdult, String query, String region, int year){
-        if(query != null && !query.equals(lastQuery)){
+    public LiveData<Resource<List<Movie>>> getMovieSearch(String language, boolean checkAdult, String query, String region, int year,int categorie){
+        if(query != null && !query.equals(lastQuery) || (lastYear != year) || (lastCategorie != categorie)){
             movieSearch = null;
         }
         if(movieSearch ==null){
             movieSearch = new MutableLiveData<Resource<List<Movie>>>();
-            TmdbRepository.getInstance().getSearchMovie(movieSearch, language, moviePage, checkAdult,query,region,year);
+            TmdbRepository.getInstance().getSearchMovie(movieSearch, language, moviePage, checkAdult,query,region,year,categorie);
             lastQuery=query;
+            lastYear = year;
+            lastCategorie = categorie;
         }
         return movieSearch;
     }
-    public LiveData<Resource<List<Movie>>> getMoreMovieSearch(String language, boolean checkAdult,String query,String region,int year){
-        TmdbRepository.getInstance().getSearchMovie(movieSearch, language, moviePage, checkAdult,query,region,year);
+    public LiveData<Resource<List<Movie>>> getMoreMovieSearch(String language, boolean checkAdult,String query,String region,int year, int categorie){
+        TmdbRepository.getInstance().getSearchMovie(movieSearch, language, moviePage, checkAdult,query,region,year,categorie);
         return movieSearch;
     }
     public MutableLiveData<Resource<List<Movie>>> getMovieLiveData(){

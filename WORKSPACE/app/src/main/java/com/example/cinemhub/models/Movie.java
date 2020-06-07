@@ -1,12 +1,8 @@
 package com.example.cinemhub.models;
 
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Parcel;
 import android.os.Parcelable;
-
-import com.example.cinemhub.utils.Constants;
 
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
@@ -16,12 +12,13 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
-public class Movie implements Parcelable {
+public class Movie<integer> implements Parcelable {
     private int id;
     private String title;
     private boolean adult;
     private int runtime;
     private List<String> genres;
+    private int[] genre_ids;
     private String release_date;
     private double vote_average;
     private String poster_path;
@@ -74,7 +71,7 @@ public class Movie implements Parcelable {
         }
     }
 
-    public Movie(int id, String title, boolean adult, int runtime, List<String> genres, String release_date, double vote_average, String poster_path, CrewApiTmdbResponse[] directors, CastApiTmdbResponse[] actors, String description, int budget, String original_language, String original_title, double popularity, String status, int vote_count, String home_page, int revenue) {
+    public Movie(int id, String title, boolean adult, int runtime, List<String> genres, String release_date, double vote_average, String poster_path, CrewApiTmdbResponse[] directors, CastApiTmdbResponse[] actors, String description, int budget, String original_language, String original_title, double popularity, String status, int vote_count, String home_page, int revenue, int[] genres_ids) {
         this.id = id;
         this.title = title;
         this.adult = adult;
@@ -94,6 +91,7 @@ public class Movie implements Parcelable {
         this.vote_count = vote_count;
         this.home_page = home_page;
         this.revenue = revenue;
+        this.genre_ids = genres_ids;
     }
 
     public int getId() {
@@ -246,6 +244,15 @@ public class Movie implements Parcelable {
 
     public void setVote_count(int vote_count) {
         this.vote_count = vote_count;
+    }
+
+
+    public int[] getGenre_ids() {
+        return genre_ids;
+    }
+
+    public void setGenre_ids(int[] genre_ids) {
+        this.genre_ids = genre_ids;
     }
 
     public String getGenresTostring()
