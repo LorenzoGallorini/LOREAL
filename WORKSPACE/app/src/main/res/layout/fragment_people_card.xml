@@ -36,7 +36,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="32dp"
-            android:text="@string/name_surname"
             android:textColor="@color/titleWhite"
             android:textSize="@dimen/title_size"
             android:textStyle="bold"

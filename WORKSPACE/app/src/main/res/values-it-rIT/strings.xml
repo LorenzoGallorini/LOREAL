@@ -6,14 +6,13 @@
     <string name="title_show_all"><u>Vedi tutti</u></string>
     <string name="title_director_card">Scheda regista</string>
     <string name="title_actor_card">Scheda attore</string>
-    <string name="title_favorite">I miei preferiti</string>
-    <string name="name_surname">Name Surname</string>
+    <string name="title_favorite">I tuoi preferiti</string>
     <string name="birth_date">Data di nascita:</string>
     <string name="place_of_birth">Luogo di nascita:</string>
     <string name="day_of_death">Giorno di morte:</string>
     <string name="gender">Genere:</string>
     <string name="known_for">Conosciuto per:</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Impostazioni</string>
     <string name="shake_description">Shakera il tuo telefono per farti suggerire un film!</string>
     <string name="title_film">Titolo film</string>
     <string name="shake_2_description">Shekera ancora il tuo telefono per farti suggerire un altro film!</string>
@@ -22,7 +21,7 @@
     <string name="API_LANGUAGE">it-IT</string>
     <string name="Director">Regista:</string>
     <string name="Writers">Sceneggiatori:</string>
-    <string name="Runtime">Durata</string>
+    <string name="Runtime">Durata:</string>
     <string name="Adult">Film per solo adulti</string>
     <string name="ReleaseDate">Data di uscita:</string>
     <string name="Rating">Valutazione:</string>
@@ -32,10 +31,10 @@
     <string name="gender_female">Femmina</string>
     <string name="people_card">Scheda persona</string>
     <string name="actors_title">Attori</string>
-    <string name="displayTitleSettings">Display</string>
-    <string name="security_title">Security</string>
-    <string name="information_title">Information</string>
-    <string name="dark_theme_label">Dark Theme</string>
+    <string name="displayTitleSettings">Schermo</string>
+    <string name="security_title">Sicurezza</string>
+    <string name="information_title">Informazioni</string>
+    <string name="dark_theme_label">Tema Dark</string>
     <string name="parental_control_label">Parental Control</string>
     <string name="faq_text">F.A.Q.</string>
     <string name="git_hub_text">Git Hub</string>
@@ -43,15 +42,15 @@
     <string name="version_n_text">Versione n:</string>
     <string name="error_message_movie">"Impossibile recuperare i film "</string>
     <string name="error_message_people">"Impossibile recuperare la persona "</string>
-    <string name="anno_di_uscita_opzionale">Anno di uscita(Opzionale)</string>
+    <string name="anno_di_uscita_opzionale">Anno di uscita (Opzionale)</string>
     <string name="searchError">Compilare il campo cerca</string>
     <string name="view_results">Visualizza i risultati</string>
     <string name="Categories">Categorie (Opzionale)</string>
     <string name="release_year">Anno di uscita (Opzionale)</string>
-    <string name="SearchResult">SearchResult</string>
-    <string name="movie">Movie</string>
-    <string name="people">People</string>
-    <string name="select_region">Select your region</string>
+    <string name="SearchResult">Risultati di ricerca</string>
+    <string name="movie">Film</string>
+    <string name="people">Persone</string>
+    <string name="select_region">Seleziona il tuo paese</string>
     <string name="italy">Italia</string>
     <string name="united_states">Stati Uniti</string>
     <string name="united_kingdom">Regno Unito</string>
@@ -60,4 +59,5 @@
     <string name="empty_favorite">Per aggiungere film a \"I miei preferiti\" premi sul pulsante</string>
     <string name="error_message_trailer">Trailer non disponibile</string>
     <string name="empty_favorite_2">nella Scheda Film</string>
+    <string name="crew">Crew</string>
 </resources>

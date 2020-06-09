@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name" translatable="false">CinemHub</string>
-    <string name="title_home" translatable="false">CinemHub</string>
+    <string name="app_name" translatable="false">CineHub</string>
+    <string name="title_home" translatable="false">CineHub</string>
     <string name="title_now_playing">Now playing</string>
     <string name="title_favorite">Your\'s Favorite</string>
     <string name="title_coming_soon">Coming Soon</string>
@@ -9,16 +9,15 @@
     <string name="title_show_all"><u>Show all</u></string>
     <string name="title_actor_card">Actor card</string>
     <string name="title_director_card">Director card</string>
-    <string name="name_surname">Name Surname</string>
     <string name="birth_date">Birth date:</string>
     <string name="place_of_birth">Place of birth:</string>
     <string name="day_of_death">Day of death:</string>
     <string name="gender">Gender:</string>
     <string name="known_for">Known for:</string>
     <string name="action_settings">Settings</string>
-    <string name="shake_description">Shake your phone and we will sugget you a movie</string>
-    <string name="title_film">Film title</string>
-    <string name="shake_2_description">Shekera ancora il tuo telefono per farti suggerire un altro film!</string>
+    <string name="shake_description">Shake your phone and we will sugget you a movie!</string>
+    <string name="title_film">Movie title</string>
+    <string name="shake_2_description">Shake your phone again to make you suggest another movie!</string>
     <string name="title_movie_card">Movie card</string>
     <string name="action_search">Search</string>
     <string name="API_LANGUAGE">en-EN</string>
@@ -53,7 +52,7 @@
     <string name="SearchResult">SearchResult</string>
     <string name="movie">Movie</string>
     <string name="people">People</string>
-    <string name="select_region">Select your region</string>
+    <string name="select_region">Select your country</string>
     <string name="italy">Italy</string>
     <string name="united_states">United States</string>
     <string name="united_kingdom">United Kingdom</string>
@@ -62,4 +61,5 @@
     <string name="empty_favorite">To add movie to \"Your\'s Favorite\" click on the button</string>
     <string name="error_message_trailer">Trailer not available</string>
     <string name="empty_favorite_2">in the Movie Card</string>
+    <string name="crew">Crew</string>
 </resources>

@@ -12,8 +12,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:foregroundGravity="center_horizontal"
-        android:gravity="center"
         android:textColor="@color/titleWhite"
         android:textSize="@dimen/paragraph_size"
         android:textStyle="bold"
@@ -28,7 +26,6 @@
         android:textSize="@dimen/paragraph_size"
         app:layout_constraintStart_toStartOf="@id/itemTitleCrew"
         app:layout_constraintTop_toBottomOf="@id/itemTitleCrew"
-        android:gravity="center_horizontal"
 
         />
 
