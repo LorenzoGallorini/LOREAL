@@ -90,7 +90,7 @@ public class MovieListVerticalAdapter extends RecyclerView.Adapter<RecyclerView.
         }
     }
     /**
-     * override del metodo getItemCount che restituisce in numero di film contenuti nella recyclerview
+     * override del metodo getItemCount che restituisce il numero di oggetti di tipo Movie contenuti nella recyclerview
      * @return
      */
     @Override

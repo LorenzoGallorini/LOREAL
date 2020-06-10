@@ -15,7 +15,7 @@
 
     <item
         android:id="@+id/navigation_shake"
-        android:icon="@drawable/shake_finish"
+        android:icon="@drawable/shake_prova_1"
         android:title="" />
     <item
         android:id="@+id/navigation_favorite"

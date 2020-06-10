@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
         switch (FromWho) {
             case R.id.navigation_home:
                 menu.findItem(R.id.navigation_home).setIcon(R.drawable.home_full);
-                menu.findItem(R.id.navigation_shake).setIcon(R.drawable.shake_finish);
+                menu.findItem(R.id.navigation_shake).setIcon(R.drawable.shake_prova_1);
                 menu.findItem(R.id.navigation_favorite).setIcon(R.drawable.prefer);
 
                 menu.findItem(R.id.navigation_home).setEnabled(false);
@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.navigation_shake:
                 menu.findItem(R.id.navigation_home).setIcon(R.drawable.ic_home_black);
-                menu.findItem(R.id.navigation_shake).setIcon(R.drawable.shake_finish);
+                menu.findItem(R.id.navigation_shake).setIcon(R.drawable.shake_prova_1);
                 menu.findItem(R.id.navigation_favorite).setIcon(R.drawable.prefer);
 
                 menu.findItem(R.id.navigation_home).setEnabled(true);
@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.navigation_favorite:
                 menu.findItem(R.id.navigation_home).setIcon(R.drawable.ic_home_black);
-                menu.findItem(R.id.navigation_shake).setIcon(R.drawable.shake_finish);
+                menu.findItem(R.id.navigation_shake).setIcon(R.drawable.shake_prova_1);
                 menu.findItem(R.id.navigation_favorite).setIcon(R.drawable.prefer_full);
 
                 menu.findItem(R.id.navigation_home).setEnabled(true);
@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
             default:
                 menu.findItem(R.id.navigation_home).setIcon(R.drawable.ic_home_black);
-                menu.findItem(R.id.navigation_shake).setIcon(R.drawable.shake_finish);
+                menu.findItem(R.id.navigation_shake).setIcon(R.drawable.shake_prova_1);
                 menu.findItem(R.id.navigation_favorite).setIcon(R.drawable.prefer);
 
                 menu.findItem(R.id.navigation_home).setEnabled(true);

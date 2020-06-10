@@ -31,27 +31,43 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
+/**
+ * Repository layer per ottenere film e personaggi del cinema
+ * In questa classe andiamo a gestire i risultati delle chiamate all'API TMDB
+ * Questo è uno strato di intermezzo tra il Service e il ViewModel
+ */
 public class TmdbRepository {
     private static TmdbRepository instance;
     private TmdbServices tmdbServices;
-
-
     private final String TAG="TmdbRepository";
 
+    /**
+     * Costruttore privato per permettere di istanziare al di fuori della classe.
+     */
     private TmdbRepository(){
         Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.API_TMDB_BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
-
         tmdbServices = retrofit.create(TmdbServices.class);
     }
 
-    public static TmdbRepository getInstance(){
+    /**
+     * Metodo per ottenere l'istanza
+     * @return l'istanza dell'oggetto
+     */
+    public static synchronized TmdbRepository getInstance(){
         if(instance==null){
             instance=new TmdbRepository();
         }
         return instance;
     }
 
+    /**
+     * Metodo per ottenere la lista di film attualmente al cinema
+     * @param movieNowPlaying l'oggetto LiveData associato alla Resource che contiene la lista di Movie
+     * @param language attributo per la lingua
+     * @param page numero della pagina della quale si vuole la lista di Movie
+     * @param checkAdult valore booleano utilizzato per il Parental Control
+     * @param region stringa contenente il paese scelto
+     */
     public void getNowPlaying(MutableLiveData<Resource<List<Movie>>> movieNowPlaying, String language, int page, boolean checkAdult, String region){
 
         Call<NowPlayingApiTmdbResponse> call = tmdbServices.getNowPlaying(language , page, Constants.API_TMDB_KEY, region);
@@ -73,8 +89,6 @@ public class TmdbRepository {
                     } else {
                         resource.setData(results);
                     }
-
-
                     resource.setTotalResult(response.body().getTotal_results());
                     resource.setStatusCode(response.code());
                     resource.setStatusMessage(response.message());
@@ -91,16 +105,22 @@ public class TmdbRepository {
                     }
                     movieNowPlaying.postValue(resource);
                 }
-
             }
             @Override
             public void onFailure(Call<NowPlayingApiTmdbResponse> call, Throwable t) {
                 Log.d(TAG, "Error:"+t.toString());
-
             }
         });
     }
 
+    /**
+     * Metodo per ottenere la lista di film considerati i migliori
+     * @param movieTopRated l'oggetto LiveData associato alla Resource che contiene la lista di Movie
+     * @param language attributo per la lingua
+     * @param page numero della pagina della quale si vuole la lista di Movie
+     * @param checkAdult valore booleano utilizzato per il Parental Control
+     * @param region stringa contenente il paese scelto
+     */
     public void getTopRated(MutableLiveData<Resource<List<Movie>>> movieTopRated, String language, int page, boolean checkAdult, String region){
         Call<TopRatedApiTmdbResponse> call= tmdbServices.getTopRated(language, page, Constants.API_TMDB_KEY, region);
         call.enqueue(new Callback<TopRatedApiTmdbResponse>() {
@@ -147,6 +167,14 @@ public class TmdbRepository {
         });
     }
 
+    /**
+     * Metodo per ottenere la lista di film che dovranno uscire al cinema
+     * @param movieComingSoon l'oggetto LiveData associato alla Resource che contiene la lista di Movie
+     * @param language attributo per la lingua
+     * @param page numero della pagina della quale si vuole la lista di Movie
+     * @param checkAdult valore booleano utilizzato per il Parental Control
+     * @param region stringa contenente il paese scelto
+     */
     public void getComingSoon(MutableLiveData<Resource<List<Movie>>> movieComingSoon, String language, int page, boolean checkAdult, String region){
         Call<ComingSoonApiTmdbResponse> call= tmdbServices.getComingSoon(language, page, Constants.API_TMDB_KEY, region);
         call.enqueue(new Callback<ComingSoonApiTmdbResponse>() {
@@ -192,6 +220,14 @@ public class TmdbRepository {
         });
     }
 
+    /**
+     * Metodo per ottenere la lista di film consigliati
+     * @param movieRecommendations  l'oggetto LiveData associato alla Resource che contiene la lista di Movie
+     * @param movie_id ID del film del quale si vogliono avere i film consigliati
+     * @param language attributo per la lingua
+     * @param page numero della pagina della quale si vuole la lista di Movie
+     * @param checkAdult valore booleano utilizzato per il Parental Control
+     */
     public void getRecommendations(MutableLiveData<Resource<List<Movie>>> movieRecommendations, int movie_id,String language, int page, boolean checkAdult){
         Call<RecommendationsApiTmdbResponse> call= tmdbServices.getRecommendations(movie_id, language, page, Constants.API_TMDB_KEY);
         call.enqueue(new Callback<RecommendationsApiTmdbResponse>() {
@@ -234,6 +270,12 @@ public class TmdbRepository {
         });
     }
 
+    /**
+     * metodo per ottenere i dettagli di un film
+     * @param movieDetails l'oggetto LiveData associato alla Resource che contiene il Movie
+     * @param movie_id ID del film del quale si vuole sapere i dettagli
+     * @param language attributo per la lingua
+     */
     public void getMovieDetails(MutableLiveData<Resource<Movie>> movieDetails, int movie_id, String language){
         Call<MovieApiTmdbResponse> call= tmdbServices.getMovieDetails(movie_id, language, Constants.API_TMDB_KEY);
         call.enqueue(new Callback<MovieApiTmdbResponse>() {

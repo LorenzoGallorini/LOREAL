@@ -37,6 +37,8 @@ import safety.com.br.android_shake_detector.core.ShakeCallback;
 import safety.com.br.android_shake_detector.core.ShakeDetector;
 import safety.com.br.android_shake_detector.core.ShakeOptions;
 
+//TODO lo shaker non prende dai preferitit
+
 public class Shake2Fragment extends Fragment {
 
     private Shake2ViewModel mViewModel;
