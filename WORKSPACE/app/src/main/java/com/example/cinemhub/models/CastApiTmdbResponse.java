@@ -1,5 +1,9 @@
 package com.example.cinemhub.models;
 
+/**
+ * Classe CastApiTmdbResponse
+ * Classe custom creata ad-hoc per l'utilizzo nelle API di TMDB
+ */
 public class CastApiTmdbResponse {
     private int cast_id;
     private String character;
@@ -10,6 +14,17 @@ public class CastApiTmdbResponse {
     private int order;
     private String profile_path;
 
+    /**
+     * Metodo costruttore per creare la classe
+     * @param cast_id di tipo int che identifica univocamente il membro del cast
+     * @param character di tipo string che dice il nomo del personaggio che interpreta
+     * @param credit_id
+     * @param gender di tipo int per identificare il genere
+     * @param id di tipo int che identifica univocamente il membro del cast nel db
+     * @param name di tipo string e rappresemnta il nome della persona
+     * @param order di tipo int che serve per tenere l'ordine con cui l'API ha restituito i membri del cast
+     * @param profile_path di tipo string indirizzo dell'immagine
+     */
     public CastApiTmdbResponse(int cast_id, String character, String credit_id, int gender, int id, String name, int order, String profile_path) {
         this.cast_id = cast_id;
         this.character = character;
@@ -17,10 +32,14 @@ public class CastApiTmdbResponse {
         this.gender = gender;
         this.id = id;
         this.name = name;
-        this.order = order;
+        this.order =  order;
         this.profile_path = profile_path;
     }
 
+    /**
+     * Costruttore di copia partendo da un oggetto dello stesso tipo
+     * @param castApiTmdbResponse
+     */
     public CastApiTmdbResponse(CastApiTmdbResponse castApiTmdbResponse) {
         this.cast_id = castApiTmdbResponse.getCast_id();
         this.character = castApiTmdbResponse.getCharacter();
@@ -31,6 +50,8 @@ public class CastApiTmdbResponse {
         this.order = castApiTmdbResponse.getOrder();
         this.profile_path = castApiTmdbResponse.getProfile_path();
     }
+
+    /**SEZIONE GETTER & SETTER*/
 
     public int getCast_id() {
         return cast_id;
