@@ -42,8 +42,10 @@ public class CrewListVerticalAdapter extends RecyclerView.Adapter<CrewListVertic
      * questa classe statica serve per creare gli elementi della RecyclerView
      */
     public static class CrewListViewHolder extends RecyclerView.ViewHolder{
+
         TextView title; /**< variabile per salvare il nome della persona */
         TextView subTitle; /**< variabile per salvare il ruolo della persona nel film */
+
         /**
          * costruttorre del CrewListViewHolder
          * @param view

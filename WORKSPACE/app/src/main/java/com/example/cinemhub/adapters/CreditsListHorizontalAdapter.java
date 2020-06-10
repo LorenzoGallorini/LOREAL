@@ -19,7 +19,7 @@ import java.util.List;
 
 /**
  * public class CreditsListHorizontalAdapter
- * Questa classe appartiene al package adapter
+ * Questa classe appartiene al package adapters
  * la classe estende RecyclerView.Adapter<CreditsListHorizontalAdapter.CreditsListViewHolder>
  * questa classe serve per visualizzare nel moviecard la recycler view relativa al cast
  */
