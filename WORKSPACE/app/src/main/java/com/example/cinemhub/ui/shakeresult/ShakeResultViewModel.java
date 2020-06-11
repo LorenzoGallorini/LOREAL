@@ -1,4 +1,4 @@
-package com.example.cinemhub.ui.shake2;
+package com.example.cinemhub.ui.shakeresult;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -10,7 +10,7 @@ import com.example.cinemhub.repositories.TmdbRepository;
 
 import java.util.List;
 
-public class Shake2ViewModel extends ViewModel {
+public class ShakeResultViewModel extends ViewModel {
 
     private MutableLiveData<Resource<List<Movie>>> movieOnShake;
     private MutableLiveData<Resource<List<Movie>>> movieTopRated;

@@ -12,6 +12,9 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * classe che rappresenta un film scaricato da https://developers.themoviedb.org/3/
+ */
 public class Movie<integer> implements Parcelable {
     private int id;
     private String title;
@@ -35,12 +38,18 @@ public class Movie<integer> implements Parcelable {
     private String home_page;
     private int revenue;
 
+    /**
+     * costruttore che istanzia solo gli attributi utili per la visualizzazione del film nel FavoriteFragmnet
+     */
     public Movie(String id, String title, String poster_path){
         this.id=Integer.parseInt(id);
         this.title=title;
         this.poster_path=poster_path;
     }
 
+    /**
+     * Costruttore della classe Movie che prende in input un oggetto di tipo MovieApiTmdbResponse
+     */
     public Movie(MovieApiTmdbResponse movieApiTmdbResponse){
         this.id=movieApiTmdbResponse.getId();
         this.poster_path = movieApiTmdbResponse.getPoster_path();
@@ -61,7 +70,6 @@ public class Movie<integer> implements Parcelable {
         this.status = movieApiTmdbResponse.getStatus();
         this.home_page = movieApiTmdbResponse.getHome_page();
         this.revenue = movieApiTmdbResponse.getRevenue();
-
         Genre[] gen=movieApiTmdbResponse.getGenres();
         genres=new ArrayList<String>();
         if(gen!=null) {
@@ -71,6 +79,9 @@ public class Movie<integer> implements Parcelable {
         }
     }
 
+    /**
+     * costruttore della classe Movie
+     */
     public Movie(int id, String title, boolean adult, int runtime, List<String> genres, String release_date, double vote_average, String poster_path, CrewApiTmdbResponse[] directors, CastApiTmdbResponse[] actors, String description, int budget, String original_language, String original_title, double popularity, String status, int vote_count, String home_page, int revenue, int[] genres_ids) {
         this.id = id;
         this.title = title;
@@ -255,41 +266,6 @@ public class Movie<integer> implements Parcelable {
         this.genre_ids = genre_ids;
     }
 
-    public String getGenresTostring()
-    {
-        String ret="";
-        for (int i = 0;i< this.getGenres().size();i++)
-            ret+=this.getGenres().get(i)+" | ";
-        if(ret.length()>4){
-            return ret.substring(0,ret.length()-3);
-        }else{
-            return "";
-        }
-    }
-    public String getRevenueFORMATTED()
-    {
-        return NumberFormat.getInstance().format(this.revenue);
-
-    }
-    public String getReleaseDateFORMATTED()
-    {
-        String date=getRelease_date();
-        SimpleDateFormat spf=new SimpleDateFormat("yyyy-MM-dd");
-        try
-        {
-            Date newDate=spf.parse(date);
-            spf= new SimpleDateFormat("dd/MM/yyyy");
-            date = spf.format(newDate);
-            return date;
-        }
-        catch (Exception e)
-        {
-            return getRelease_date();
-        }
-
-
-
-    }
     @Override
     public String toString() {
         return "Movie{" +
@@ -315,6 +291,56 @@ public class Movie<integer> implements Parcelable {
                 '}';
     }
 
+    /**
+     * metodo che trasforma i generi in un'unica stringa che andrà settata nelle informazioni del film //TODO controllare
+     * @return String contenente tutti i generi
+     */
+    public String getGenresTostring()
+    {
+        String ret="";
+        for (int i = 0;i< this.getGenres().size();i++){
+            ret+=this.getGenres().get(i)+" | ";
+        }
+        if(ret.length()>4){
+            return ret.substring(0,ret.length()-3);
+        }else{
+            return "";
+        }
+    }
+
+    /**
+     * formatta l'attributo revenue nel Movie Card
+     */
+    public String getRevenueFORMATTED()
+    {
+        return NumberFormat.getInstance().format(this.revenue);
+    }
+
+    /**
+     * formatta la data nella MovieCard
+     */
+    public String getReleaseDateFORMATTED()
+    {
+        String date=getRelease_date();
+        SimpleDateFormat spf=new SimpleDateFormat("yyyy-MM-dd");
+        try
+        {
+            Date newDate=spf.parse(date);
+            spf= new SimpleDateFormat("dd/MM/yyyy");
+            date = spf.format(newDate);
+            return date;
+        }
+        catch (Exception e)
+        {
+            return getRelease_date();
+        }
+    }
+
+    /**
+     * trasforma una lista di movie in un array di movie
+     * @param movies List di Movie
+     * @return Array di Movie
+     */
     public static Movie[] fromListToArray(List<Movie> movies){
         Movie[] ris=new Movie[movies.size()];
         for (int i=0;i<movies.size();i++){
@@ -322,6 +348,13 @@ public class Movie<integer> implements Parcelable {
         }
         return ris;
     }
+
+    /**
+     * trasforma un Array di MovieApiTmdbResponse in una List di Movie filtrando in base al Parental Control
+     * @param movies Array di MovieApiTmdbResponse
+     * @param checkAdult valore per controllare se il Parental Control è attivo
+     * @return List di Movie
+     */
     public static List<Movie> toList(MovieApiTmdbResponse[] movies, boolean checkAdult){
         List<Movie> ris=new ArrayList<Movie>();
         for (MovieApiTmdbResponse movie : movies) {
@@ -340,6 +373,13 @@ public class Movie<integer> implements Parcelable {
         }
         return ris;
     }
+
+    /**
+     * trasforma un Array di Movie in una List di Movie filtrando in base al Parental Control
+     * @param movies Array di Movie
+     * @param checkAdult valore per controllare se il Parental Control è attivo
+     * @return List di Movie
+     */
     public static List<Movie> toList(Movie[] movies, boolean checkAdult){
         List<Movie> ris= new ArrayList<>();
         for (Movie movie : movies) {
@@ -351,12 +391,18 @@ public class Movie<integer> implements Parcelable {
         return ris;
     }
 
+    /**
+     * Metodo che ordina i film da visualizzare nella filmografia in base alla popolarità
+     */
     public static class MoviePopularityComparator implements Comparator<Movie>{
         public int compare(Movie p1, Movie p2) {
             return Double.compare(p2.getPopularity(), p1.getPopularity());
         }
     }
 
+    /**
+     * I seguenti metodi sono richiesti per l'interfaccia Parcelable
+     */
     protected Movie(Parcel in) {
         id = in.readInt();
         title = in.readString();

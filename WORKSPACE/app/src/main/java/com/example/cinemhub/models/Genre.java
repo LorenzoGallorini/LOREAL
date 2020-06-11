@@ -1,9 +1,15 @@
 package com.example.cinemhub.models;
 
+/**
+ * classe per la gestione dei Generi
+ */
 public class Genre {
     private int id;
     private String name;
 
+    /**
+     * costruttore della classe Genre
+     */
     public Genre(int id, String name) {
         this.id = id;
         this.name = name;

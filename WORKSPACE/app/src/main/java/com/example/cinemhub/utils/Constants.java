@@ -1,5 +1,8 @@
 package com.example.cinemhub.utils;
 
+/**
+ * Classe che contiene le costanti che utilizziamo all'interno del sistema
+ */
 public class Constants {
     public static final String CINEM_HUB_SHARED_PREF_FILE_NAME = "CinemHubSharedPref";
     public static final String FAVORITE_SHARED_PREF_NAME = "Favorite";

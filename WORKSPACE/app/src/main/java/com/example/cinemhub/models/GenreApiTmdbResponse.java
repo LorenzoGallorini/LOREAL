@@ -1,7 +1,10 @@
 package com.example.cinemhub.models;
 
 import java.util.List;
-
+/**
+ * Classe CastApiTmdbResponse
+ * Classe custom creata ad-hoc per l'utilizzo nelle API di TMDB
+ */
 public class GenreApiTmdbResponse {
     private List<Genre> genres;
 

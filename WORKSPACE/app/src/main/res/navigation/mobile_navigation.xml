@@ -122,7 +122,7 @@
 
     <fragment
         android:id="@+id/navigation_shake2"
-        android:name="com.example.cinemhub.ui.shake2.Shake2Fragment"
+        android:name="com.example.cinemhub.ui.shakeresult.ShakeResultFragment"
         android:label="@string/title_shake"
         tools:layout="@layout/fragment_shake2">
         <action

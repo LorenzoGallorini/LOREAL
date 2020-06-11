@@ -1,5 +1,9 @@
 package com.example.cinemhub.models;
 
+/**
+ * Classe VideoApiTmdbResponse
+ * Classe custom creata ad-hoc per l'utilizzo nelle API di TMDB
+ */
 public class VideoApiTmdbResponse {
     private String id;
     private String iso_639_1;
@@ -10,6 +14,9 @@ public class VideoApiTmdbResponse {
     private int size;
     private String type;
 
+    /**
+     * costruttore della classe VideoApiTmdbResponse
+     */
     public VideoApiTmdbResponse(String id, String iso_639_1, String iso_3166_1, String key, String name, String site, int size, String type) {
         this.id = id;
         this.iso_639_1 = iso_639_1;

@@ -312,6 +312,11 @@ public class TmdbRepository {
         });
     }
 
+    /**
+     * metodo per ottenere i credits di un film
+     * @param credits l'oggetto LiveData associato alla Resource che contiene il MovieCreditsApiTmdbResponse
+     * @param movie_id ID del film del quale si vogliono sapere i credits
+     */
     public void getMovieCredits(MutableLiveData<Resource<MovieCreditsApiTmdbResponse>> credits, int movie_id){
         Call<MovieCreditsApiTmdbResponse> call= tmdbServices.getMovieCredits(movie_id, Constants.API_TMDB_KEY);
         call.enqueue(new Callback<MovieCreditsApiTmdbResponse>() {
@@ -347,6 +352,12 @@ public class TmdbRepository {
         });
     }
 
+    /**
+     * metodo per ottenere le informazioni di una persona
+     * @param peopleDetails l'oggetto LiveData associato alla Resource che contiene il People
+     * @param person_id ID della persona della quale si vuole avere le informazioni
+     * @param language attributo per la lingua
+     */
     public void getPeopleDetails (MutableLiveData<Resource<People>> peopleDetails, int person_id, String language){
         Call<PeopleApiTmdbResponse> call= tmdbServices.getPeopleDetails(person_id, language, Constants.API_TMDB_KEY);
         call.enqueue(new Callback<PeopleApiTmdbResponse>() {
@@ -383,6 +394,12 @@ public class TmdbRepository {
         });
     }
 
+    /**
+     * metodo per i credits di un film del quale fa parte la persona che passiamo in input
+     * @param credits l'oggetto LiveData associato alla Resource che contiene il PeopleCreditsApiTmdbResponse
+     * @param person_id ID della persona della quale si vogliono sapere i credits del film di cui fa parte
+     * @param language attributo per la lingua
+     */
     public void getPeopleCredits(MutableLiveData<Resource<PeopleCreditsApiTmdbResponse>> credits, int person_id, String language){
         Call<PeopleCreditsApiTmdbResponse> call= tmdbServices.getPeopleCredits(person_id, language,  Constants.API_TMDB_KEY);
         call.enqueue(new Callback<PeopleCreditsApiTmdbResponse>() {
@@ -417,6 +434,12 @@ public class TmdbRepository {
         });
     }
 
+    /**
+     * metodo per ottenere il video trailer di un film
+     * @param videos l'oggetto LiveData associato alla Resource che contiene il GetVideosApiTmdbResponse
+     * @param movie_id ID del film del quale si vuole ottenere il video
+     * @param language attributo per la lingua
+     */
     public void getVideos(MutableLiveData<Resource<GetVideosApiTmdbResponse>> videos, int movie_id, String language)
     {
         Call<GetVideosApiTmdbResponse> call= tmdbServices.getVideos(movie_id,language, Constants.API_TMDB_KEY);
@@ -454,6 +477,11 @@ public class TmdbRepository {
         });
     }
 
+    /**
+     * metodo per ottenere la lista completa dei generi per un film
+     * @param genres l'oggetto LiveData associato alla Resource che contiene il GenreApiTmdbResponse
+     * @param language attributo per la lingua
+     */
     public void getGenres(MutableLiveData<Resource<GenreApiTmdbResponse>> genres, String language){
         Call<GenreApiTmdbResponse> call= tmdbServices.getGenres(language, Constants.API_TMDB_KEY);
         call.enqueue(new Callback<GenreApiTmdbResponse>() {
@@ -461,14 +489,11 @@ public class TmdbRepository {
             public void onResponse(Call<GenreApiTmdbResponse> call, Response<GenreApiTmdbResponse> response) {
                 Resource<GenreApiTmdbResponse> resource=new Resource();
                 if(response.isSuccessful() && response.body()!=null) {
-
                     resource.setData(response.body());
                     resource.setTotalResult(1);
                     resource.setStatusCode(response.code());
                     resource.setStatusMessage(response.message());
-
                     Log.d(TAG, "callback getGenre ok");
-
                 }
                 else if (response.errorBody() != null) {
                     Log.d(TAG, "ERROR: getGenre=null");
@@ -482,18 +507,23 @@ public class TmdbRepository {
                 }
                 genres.postValue(resource);
             }
-
             @Override
             public void onFailure(Call<GenreApiTmdbResponse> call, Throwable t) {
-
             }
-
-
         });
-
     }
 
-
+    /**
+     * metodoche che permette la ricerca di un film
+     * @param movieSearch l'oggetto LiveData associato alla Resource che contiene una List di Movie
+     * @param language attributo per la lingua
+     * @param page numero della pagina della quale si vuole la lista di Movie
+     * @param checkAdult valore booleano utilizzato per il Parental Control
+     * @param query stringa utilizzata per la ricerca
+     * @param region stringa contenente il paese scelto
+     * @param year filtra l'anno da cercare
+     * @param categorie filtra la categoria da cercare
+     */
     public void getSearchMovie(MutableLiveData<Resource<List<Movie>>> movieSearch, String language, int page, boolean checkAdult,String query,String region,int year,int categorie){
         Call<SearchMovieApiTmdbResponse> call= tmdbServices.getSearchMovie(language,Constants.API_TMDB_KEY,query,page,!checkAdult,region,year);
         call.enqueue(new Callback<SearchMovieApiTmdbResponse>() {
@@ -553,6 +583,15 @@ public class TmdbRepository {
         });
     }
 
+    /**
+     * metodoche che permette la ricerca di una persona
+     * @param peopleSearch l'oggetto LiveData associato alla Resource che contiene una List di People
+     * @param language attributo per la lingua
+     * @param page numero della pagina della quale si vuole la lista di Movie
+     * @param checkAdult valore booleano utilizzato per il Parental Control
+     * @param query stringa utilizzata per la ricerca
+     * @param region stringa contenente il paese scelto
+     */
     public void getSearchPeople(MutableLiveData<Resource<List<People>>> peopleSearch, String language, int page, boolean checkAdult,String query,String region){
         Call<SearchPeopleApiTmdbResponse> call= tmdbServices.getSearchPeople(language,Constants.API_TMDB_KEY,query,page,!checkAdult,region);
         call.enqueue(new Callback<SearchPeopleApiTmdbResponse>() {
@@ -591,15 +630,10 @@ public class TmdbRepository {
                     peopleSearch.postValue(resource);
                 }
             }
-
             @Override
             public void onFailure(Call<SearchPeopleApiTmdbResponse> call, Throwable t) {
                 Log.d(TAG, "Error:"+t.toString());
             }
         });
     }
-
-
-
-
 }

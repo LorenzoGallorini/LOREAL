@@ -1,5 +1,8 @@
 package com.example.cinemhub.models;
-
+/**
+ * Classe CastApiTmdbResponse
+ * Classe custom creata ad-hoc per l'utilizzo nelle API di TMDB
+ */
 public class CrewApiTmdbResponse {
     private String credit_id;
     private String department;

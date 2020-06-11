@@ -1,13 +1,19 @@
 package com.example.cinemhub.models;
 
 import java.util.List;
-
+/**
+ * Classe TopRatedApiTmdbResponse
+ * Classe custom creata ad-hoc per l'utilizzo nelle API di TMDB
+ */
 public class TopRatedApiTmdbResponse {
     private int page;
     private List<MovieApiTmdbResponse> results;
     private int total_results;
     private int total_pages;
 
+    /**
+     * costruttore della classe TopRatedApiTmdbResponse
+     */
     public TopRatedApiTmdbResponse(int page, List<MovieApiTmdbResponse> results, int total_results,
                                    int total_pages) {
         this.page = page;

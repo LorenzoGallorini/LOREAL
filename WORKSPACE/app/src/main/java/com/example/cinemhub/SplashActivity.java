@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
-
+/**
+ * L'Activity si occupa di mostrare lo Splash Screen all'avvio dell'app
+ */
 public class SplashActivity extends AppCompatActivity {
 
     @Override

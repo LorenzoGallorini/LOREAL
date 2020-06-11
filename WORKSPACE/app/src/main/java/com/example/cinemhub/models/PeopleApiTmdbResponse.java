@@ -1,5 +1,8 @@
 package com.example.cinemhub.models;
-
+/**
+ * Classe PeopleApiTmdbResponse
+ * Classe custom creata ad-hoc per l'utilizzo nelle API di TMDB
+ */
 public class PeopleApiTmdbResponse {
     private String birthday;
     private String known_for_department;
@@ -16,6 +19,9 @@ public class PeopleApiTmdbResponse {
     private String imdb_id;
     private String homepage;
 
+    /**
+     * costruttore della classe PeopleApiTmdbResponse
+     */
     public PeopleApiTmdbResponse(String birthday, String known_for_department, String deathday, int id, String name, String[] also_known_as, int gender, String biography, double popularity, String place_of_birth, String profile_path, boolean adult, String imdb_id, String homepage) {
         this.birthday = birthday;
         this.known_for_department = known_for_department;

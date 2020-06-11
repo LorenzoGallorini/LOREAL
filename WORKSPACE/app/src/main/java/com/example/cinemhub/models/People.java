@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-
+/**
+ * classe che rappresenta una persona scaricata da https://developers.themoviedb.org/3/
+ */
 public class People {
     private int id;
     private String name;
@@ -20,17 +22,19 @@ public class People {
     private int[] filmography;
     private String role;
 
+    /**
+     * costruttore della classe People che prende in input un pggetto di tipo CastApiTmdbResponse
+     */
     public People(CastApiTmdbResponse castApiTmdbResponse){
-        //this.cast_id = castApiTmdbResponse.getCast_id();
         this.role = castApiTmdbResponse.getCharacter();
-        //this.credit_id = castApiTmdbResponse.getCredit_id();
         this.gender = castApiTmdbResponse.getGender();
         this.id = castApiTmdbResponse.getId();
         this.name = castApiTmdbResponse.getName();
-        //this.order = castApiTmdbResponse.getOrder();
         this.profile_path = castApiTmdbResponse.getProfile_path();
     }
-
+    /**
+     * costruttore della classe People che prende in input un pggetto di tipo CrewApiTmdbResponse
+     */
     public People(CrewApiTmdbResponse crewApiTmdbResponse){
         //this.credit_id = crewApiTmdbResponse.getCredit_id();
         this.known_for_department = crewApiTmdbResponse.getDepartment();
@@ -40,7 +44,9 @@ public class People {
         this.name = crewApiTmdbResponse.getName();
         this.profile_path = crewApiTmdbResponse.getProfile_path();
     }
-
+    /**
+     * costruttore della classe People che prende in input un pggetto di tipo PeopleApiTmdbResponse
+     */
     public People(PeopleApiTmdbResponse peopleApiTmdbResponse){
         this.birth_date = peopleApiTmdbResponse.getBirthday();
         this.death_date = peopleApiTmdbResponse.getDeathday();
@@ -53,13 +59,11 @@ public class People {
         this.adult = peopleApiTmdbResponse.isAdult();
         this.place_of_birth = peopleApiTmdbResponse.getPlace_of_birth();
         this.known_for_department = peopleApiTmdbResponse.getKnown_for_department();
-
-
-        //this.imdb_id = peopleApiTmdbResponse.getImdb_id();
-        //this.homepage = peopleApiTmdbResponse.getHomepage();
-        //this.also_known_as = peopleApiTmdbResponse.getAlso_known_as();
     }
 
+    /**
+     * costruttore della classe People
+     */
     public People(int id, String name, String birth_date, String known_for_department, String death_date, int gender, String biography, double popularity, String place_of_birth, String profile_path, boolean adult, int[] filmography, String role) {
         this.id = id;
         this.name = name;
@@ -181,14 +185,25 @@ public class People {
         this.role = role;
     }
 
+    /**
+     * metodo che trasforma un Array di CastApiTmdbResponse in una List di People
+     * @param castApiTmdbResponse Array di CastApiTmdbResponse
+     * @return List di People
+     */
     public static List<People> toList(CastApiTmdbResponse[] castApiTmdbResponse){
-        List<People> ris= new ArrayList<People>();
-        for(int i=0; i<castApiTmdbResponse.length;i++){
-            ris.add(new People(castApiTmdbResponse[i]));
+        List<People> ris= new ArrayList<>();
+        for (CastApiTmdbResponse apiTmdbResponse : castApiTmdbResponse) {
+            ris.add(new People(apiTmdbResponse));
         }
         return ris;
     }
 
+    /**
+     * metodo che controlla se un ID di una persona è presente già nella lista
+     * @param peoples List di People dove controllare seè prensente l'ID
+     * @param id ID della persona da cercare
+     * @return la posizione in cui si trova l'ID, -1 se non è presente
+     */
     public static int isInList(List<People> peoples, int id){
         boolean found=false;
         int i=0;
@@ -204,6 +219,11 @@ public class People {
         return -1;
     }
 
+    /**
+     * trasforma un Array di CrewApiTmdbResponse in una List di People
+     * @param crewApiTmdbResponses Array da trasformare
+     * @return List di People
+     */
     public static List<People> toList(CrewApiTmdbResponse[] crewApiTmdbResponses){
         List<People> ris= new ArrayList<People>();
         for(int i=0; i<crewApiTmdbResponses.length;i++){

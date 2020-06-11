@@ -1,5 +1,8 @@
 package com.example.cinemhub.models;
-
+/**
+ * Classe GetVideosApiTmdbResponse
+ * Classe custom creata ad-hoc per l'utilizzo nelle API di TMDB
+ */
 public class GetVideosApiTmdbResponse {
     private int id;
     private VideoApiTmdbResponse[] results;

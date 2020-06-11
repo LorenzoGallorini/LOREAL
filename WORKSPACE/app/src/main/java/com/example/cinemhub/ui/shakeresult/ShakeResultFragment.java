@@ -1,4 +1,4 @@
-package com.example.cinemhub.ui.shake2;
+package com.example.cinemhub.ui.shakeresult;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -16,7 +16,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
 import com.example.cinemhub.MainActivity;
@@ -39,16 +38,16 @@ import safety.com.br.android_shake_detector.core.ShakeOptions;
 
 //TODO lo shaker non prende dai preferitit
 
-public class Shake2Fragment extends Fragment {
+public class ShakeResultFragment extends Fragment {
 
-    private Shake2ViewModel mViewModel;
+    private ShakeResultViewModel mViewModel;
     private FragmentShake2Binding binding;
     private final String TAG="Shake2";
     private final int MAX_LENGHT = 14;
     int page=1;
 
-    public static Shake2Fragment newInstance() {
-        return new Shake2Fragment();
+    public static ShakeResultFragment newInstance() {
+        return new ShakeResultFragment();
     }
 
     @Override
@@ -59,7 +58,7 @@ public class Shake2Fragment extends Fragment {
         setHasOptionsMenu(true);
         ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.title_shake));
         ((MainActivity) getActivity()).menuColorSettings(R.id.navigation_shake);
-        mViewModel=new ViewModelProvider(getActivity()).get(Shake2ViewModel.class);
+        mViewModel=new ViewModelProvider(getActivity()).get(ShakeResultViewModel.class);
 
 
         final Observer<Resource<List<Movie>>> observer_on_shake=new Observer<Resource<List<Movie>>>() {
@@ -97,7 +96,7 @@ public class Shake2Fragment extends Fragment {
                 binding.filmImageButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Navigation.findNavController(getView()).navigate(Shake2FragmentDirections.actionNavigationShake2ToNavigationMovieCard(movie.getId()));
+                        Navigation.findNavController(getView()).navigate(ShakeResultFragmentDirections.actionNavigationShake2ToNavigationMovieCard(movie.getId()));
                     }
                 });
 
@@ -114,11 +113,11 @@ public class Shake2Fragment extends Fragment {
                 .shakeCount(1)
                 .sensibility(1.3f);
 
-        if (((MainActivity) getActivity()).shakeDetector2 != null){
-            if(!((MainActivity) getActivity()).shakeDetector2.isRunning())
-                ((MainActivity) getActivity()).shakeDetector2.start(getContext());
+        if (((MainActivity) getActivity()).shakeResultDetector != null){
+            if(!((MainActivity) getActivity()).shakeResultDetector.isRunning())
+                ((MainActivity) getActivity()).shakeResultDetector.start(getContext());
         }else{
-            ((MainActivity) getActivity()).shakeDetector2 = new ShakeDetector(options).start(getContext(), new ShakeCallback() {
+            ((MainActivity) getActivity()).shakeResultDetector = new ShakeDetector(options).start(getContext(), new ShakeCallback() {
                 @Override
                 public void onShake() {
                     Log.d(TAG, "onShake");
@@ -161,9 +160,9 @@ public class Shake2Fragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        ((MainActivity) getActivity()).shakeDetector2.stopShakeDetector(getContext());
-        ((MainActivity) requireActivity()).shakeDetector2.destroy(getContext());
-        ((MainActivity) requireActivity()).shakeDetector2=null;
+        ((MainActivity) getActivity()).shakeResultDetector.stopShakeDetector(getContext());
+        ((MainActivity) requireActivity()).shakeResultDetector.destroy(getContext());
+        ((MainActivity) requireActivity()).shakeResultDetector =null;
 
     }
 
@@ -172,14 +171,14 @@ public class Shake2Fragment extends Fragment {
         switch (item.getItemId()){
             case R.id.search:
                 Log.d(TAG, "onClick: SearchClick");
-                Navigation.findNavController(getView()).navigate(Shake2FragmentDirections.actionNavigationShake2ToNavigationSearch());
+                Navigation.findNavController(getView()).navigate(ShakeResultFragmentDirections.actionNavigationShake2ToNavigationSearch());
                 return true;
             case R.id.settings:
                 Log.d(TAG, "onClick: SettingsClick");
-                Navigation.findNavController(getView()).navigate(Shake2FragmentDirections.actionNavigationShake2ToNavigationSettings());
+                Navigation.findNavController(getView()).navigate(ShakeResultFragmentDirections.actionNavigationShake2ToNavigationSettings());
                 return true;
             case android.R.id.home:
-                Navigation.findNavController(getView()).navigate(Shake2FragmentDirections.actionNavigationShake2ToNavigationShake());
+                Navigation.findNavController(getView()).navigate(ShakeResultFragmentDirections.actionNavigationShake2ToNavigationShake());
                 return true;
             default:return false;
         }
@@ -214,7 +213,7 @@ public class Shake2Fragment extends Fragment {
                 public void onChanged(Resource<List<Movie>> moviesResource) {
                     List<Movie> movies=moviesResource.getData();
                     int casual_id;
-                    Log.d(TAG, "shake2 no favorite");
+                    Log.d(TAG, "shakeresult no favorite");
                     Random random=new Random();
 
                     switch (movies.size()){

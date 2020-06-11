@@ -2,7 +2,6 @@ package com.example.cinemhub;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -20,16 +19,15 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import safety.com.br.android_shake_detector.core.ShakeDetector;
 
-
+/**
+ * Activity principale per gestire l'intera applicazione
+ * All'interno sono contenuti la Bottom Navigation Menu e un contenitore dove gestiamo i vari Fragment
+ */
 public class MainActivity extends AppCompatActivity {
 
     private final String TAG = "MainActivity";
-    private SensorManager mSensorManager;
-    public float mAccel; // acceleration apart from gravity
-    private float mAccelCurrent; // current acceleration including gravity
-    private float mAccelLast; // last acceleration including gravity
-    public ShakeDetector shakeDetector;
-    public ShakeDetector shakeDetector2;
+    public ShakeDetector shakeDetector;/**< attributo che serve per rilevare la shekerata del telefono nello ShakeFragment*/
+    public ShakeDetector shakeResultDetector;/**< attributo che serve per rilevare la shekerata del telefono nello ShakeResultFragment*/
 
 
     @Override
@@ -38,19 +36,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         BottomNavigationView navView = findViewById(R.id.nav_view);
 
-
         SharedPreferences sharedPreferences = this.getSharedPreferences(Constants.CINEM_HUB_SHARED_PREF_FILE_NAME, Context.MODE_PRIVATE);
         String regionSelected=sharedPreferences.getString(Constants.REGION_SHARED_PREF_NAME, null);
 
+
+        // in caso di primo utilizzo dell'app andiamo a settare il valore ragion nelle SharedPreferences con un valore di default
         if(regionSelected==null || regionSelected.length()==0){
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString(Constants.REGION_SHARED_PREF_NAME, Constants.REGION_ITALY);
             editor.apply();
         }
-
-
-
-
 
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -59,39 +54,49 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
 
+
         navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Log.d(TAG,"onNavigationItemSelected");
-
                 return false;
             }
         });
+        // andiamo a creare la bottom navigation menu
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
-
-
-
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.search_menu, menu);
-
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
+    /**
+     * impostiamo il titolo della schermata in base al Fragment in cui ci troviamo
+     * @param title titolo del Fragment
+     */
     public void setActionBarTitle(String title) {
         getSupportActionBar().setTitle(title);
     }
-    public void menuColorSettings(int FromWho)
+
+    /**
+     * metodo per gestire le icone presenti nel bottom navigation menu tenendo conto della schermata
+     * in cui ci troviamo
+     * @param fromWho ID della schermata in cui ci troviamo
+     */
+    public void menuColorSettings(int fromWho)
     {
         BottomNavigationView navView = findViewById(R.id.nav_view);
         Menu menu = navView.getMenu();
-        switch (FromWho) {
+        /*!
+         * nello switchCase andiamo a controllare l'ID e disabilitiamo e cambiamo l'icona del Fragment
+         * in cui ci troviamo (Abbiamo preso spunto da Instagram)
+         */
+        switch (fromWho) {
             case R.id.navigation_home:
                 menu.findItem(R.id.navigation_home).setIcon(R.drawable.home_full);
                 menu.findItem(R.id.navigation_shake).setIcon(R.drawable.shake_prova_1);
@@ -100,7 +105,6 @@ public class MainActivity extends AppCompatActivity {
                 menu.findItem(R.id.navigation_home).setEnabled(false);
                 menu.findItem(R.id.navigation_shake).setEnabled(true);
                 menu.findItem(R.id.navigation_favorite).setEnabled(true);
-
                 break;
             case R.id.navigation_shake:
                 menu.findItem(R.id.navigation_home).setIcon(R.drawable.ic_home_black);
@@ -131,5 +135,4 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
     }
-
 }

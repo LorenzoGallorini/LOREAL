@@ -1,10 +1,16 @@
 package com.example.cinemhub.models;
-
+/**
+ * Classe PeopleCreditsApiTmdbResponse
+ * Classe custom creata ad-hoc per l'utilizzo nelle API di TMDB
+ */
 public class PeopleCreditsApiTmdbResponse {
     private int movie_id;
     private MovieApiTmdbResponse[] cast;
     private MovieApiTmdbResponse[] crew;
 
+    /**
+     * costruttore della classe PeopleCreditsApiTmdbResponse
+     */
     public PeopleCreditsApiTmdbResponse(int movie_id, MovieApiTmdbResponse[] cast, MovieApiTmdbResponse[] crew) {
         this.movie_id = movie_id;
         this.cast = cast;

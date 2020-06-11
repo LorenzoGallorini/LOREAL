@@ -1,11 +1,17 @@
 package com.example.cinemhub.models;
-
+/**
+ * Classe SearchPeopleApiTmdbResponse
+ * Classe custom creata ad-hoc per l'utilizzo nelle API di TMDB
+ */
 public class SearchPeopleApiTmdbResponse {
     private int page;
     private People[] results;
     private int total_results;
     private int total_pages;
 
+    /**
+     * Costruttore della classe SearchPeopleApiTmdbResponse
+     */
     public SearchPeopleApiTmdbResponse(int page, People[] results, int total_results, int total_pages) {
         this.page = page;
         this.results = results;
