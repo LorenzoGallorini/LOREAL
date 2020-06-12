@@ -8,6 +8,12 @@ public class MovieCreditsApiTmdbResponse {
     private CastApiTmdbResponse[] cast;
     private CrewApiTmdbResponse[] crew;
 
+    /**
+     * costruttore della classe MovieCreditsApiTmdbResponse
+     * @param movie_id intero che indica in maniera univoca l'ID del film
+     * @param cast Array di CastApiTmdbResponse che contiene i membri del cast
+     * @param crew Array di CrewApiTmdbResponse che contiene i membri della crew
+     */
     public MovieCreditsApiTmdbResponse(int movie_id, CastApiTmdbResponse[] cast, CrewApiTmdbResponse[] crew) {
         this.movie_id = movie_id;
         this.cast = cast;

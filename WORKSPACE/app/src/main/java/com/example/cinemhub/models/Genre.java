@@ -8,7 +8,9 @@ public class Genre {
     private String name;
 
     /**
-     * costruttore della classe Genre
+     * Costruttore della classe Genre
+     * @param id intero che indica in maniera univoca l'ID del genere dei film
+     * @param name stringa che indica il nome del genere dei film
      */
     public Genre(int id, String name) {
         this.id = id;

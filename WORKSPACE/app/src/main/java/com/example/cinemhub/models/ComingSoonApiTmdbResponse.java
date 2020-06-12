@@ -11,6 +11,13 @@ public class ComingSoonApiTmdbResponse {
     private int total_pages;
     private int total_results;
 
+    /**
+     * costruttore della classe CastApiTmdbResponse
+     * @param page intero che indica il numero della pagina dei risultati della quale si vogliono i dati
+     * @param results List di MovieApiTmdbResponse che contiene i risultati della chiamata
+     * @param total_pages intero che indica le pagine totali di risultato
+     * @param total_results intero che indica il totale dei risultati
+     */
     public ComingSoonApiTmdbResponse(int page, List<MovieApiTmdbResponse> results, int total_pages,
                                      int total_results) {
         this.page = page;

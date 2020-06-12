@@ -8,6 +8,10 @@ import java.util.List;
 public class GenreApiTmdbResponse {
     private List<Genre> genres;
 
+    /**
+     * Costruttore della classe GenreApiTmdbResponse
+     * @param genres lista di oggetti di tipo Genre
+     */
     public GenreApiTmdbResponse(List<Genre> genres) {
         this.genres = genres;
     }

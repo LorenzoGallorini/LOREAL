@@ -10,6 +10,9 @@ public class PeopleCreditsApiTmdbResponse {
 
     /**
      * costruttore della classe PeopleCreditsApiTmdbResponse
+     * @param movie_id intero che indica in maniera univoca l'ID della persona
+     * @param cast Array di MovieApiTmdbResponse
+     * @param crew Array di MovieApiTmdbResponse
      */
     public PeopleCreditsApiTmdbResponse(int movie_id, MovieApiTmdbResponse[] cast, MovieApiTmdbResponse[] crew) {
         this.movie_id = movie_id;

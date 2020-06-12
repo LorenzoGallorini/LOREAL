@@ -1,7 +1,4 @@
 package com.example.cinemhub.models;
-
-import android.os.Parcel;
-import android.os.Parcelable;
 /**
  * Classe generica che può essere per contenere i dati e gli stati della richiesta.
  *
@@ -21,6 +18,11 @@ public class Resource<T> /*implements Parcelable*/{
 
     /**
      * costruttore della classe Resource
+     * @param data  template della Resource
+     * @param totalResult intero per indicare il numero totale dei risultati
+     * @param statusCode intero che indica lo stato del codice
+     * @param statusMessage stringa che contiene il messagio dello stato
+     * @param isLoading booleano che indica che sta caricando
      */
     public Resource(T data, int totalResult, int statusCode, String statusMessage, boolean isLoading) {
         this.data = data;
@@ -28,7 +30,6 @@ public class Resource<T> /*implements Parcelable*/{
         this.statusCode = statusCode;
         this.statusMessage = statusMessage;
         this.isLoading=isLoading;
-
     }
 
     public T getData() {

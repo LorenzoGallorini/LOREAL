@@ -11,6 +11,10 @@ public class SearchPeopleApiTmdbResponse {
 
     /**
      * Costruttore della classe SearchPeopleApiTmdbResponse
+     * @param page intero che indica il numero della pagina della quale si vogliono avere i risultati
+     * @param results List di MovieApiTmdbResponse che contiene i risultati della chiamata
+     * @param total_pages intero per il numero totale delle pagine che contengono risultati
+     * @param total_results intero che indica il numero totale dei risultati
      */
     public SearchPeopleApiTmdbResponse(int page, People[] results, int total_results, int total_pages) {
         this.page = page;

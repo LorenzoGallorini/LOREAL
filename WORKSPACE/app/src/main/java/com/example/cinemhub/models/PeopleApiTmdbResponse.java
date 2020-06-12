@@ -21,8 +21,25 @@ public class PeopleApiTmdbResponse {
 
     /**
      * costruttore della classe PeopleApiTmdbResponse
+     * @param birthday stringa che contiene la data di nascita
+     * @param known_for_department stringa che contiene il dipartimento per il quale la persona è conosciuta
+     * @param deathday stringa che contiene la data di morte della persona
+     * @param id intero che indica in maniera univoca l'ID della persona
+     * @param name stringa che contiene il nome della persona
+     * @param also_known_as array di stringhe che contiene gli altri nomi con i quali è conosciuta la persona nel mondo
+     * @param gender intero che indica il sesso della persona
+     * @param biography stringa che contiene la biografia della persona
+     * @param popularity di tipo double che indica la popolarità della persona
+     * @param place_of_birth stringa che contiene il luogo di nascita
+     * @param profile_path stringa che contiene parte dell'URL per la foto profilo
+     * @param adult booleano per il Parental Control
+     * @param imdb_id string che contiene l'ID del film per il DB IMDB
+     * @param homepage stringa che contiene l'homepage della persona
      */
-    public PeopleApiTmdbResponse(String birthday, String known_for_department, String deathday, int id, String name, String[] also_known_as, int gender, String biography, double popularity, String place_of_birth, String profile_path, boolean adult, String imdb_id, String homepage) {
+    public PeopleApiTmdbResponse(String birthday, String known_for_department, String deathday, int id,
+                                 String name, String[] also_known_as, int gender, String biography,
+                                 double popularity, String place_of_birth, String profile_path, boolean adult,
+                                 String imdb_id, String homepage) {
         this.birthday = birthday;
         this.known_for_department = known_for_department;
         this.deathday = deathday;

@@ -36,8 +36,37 @@ public class MovieApiTmdbResponse {
     private String home_page;
     private int revenue;
 
-
-    public MovieApiTmdbResponse(String poster_path, boolean adult, String overview, String release_date, int[] genre_id, Genre[] genres, int id, String original_title, String original_language, String title, String backdrop_path, double popularity, int vote_count, boolean video, double vote_average, int runtime, CrewApiTmdbResponse[] directors, CastApiTmdbResponse[] actors, String description, int budget, String status, String home_page, int revenue) {
+    /**
+     * costruttore della classe MovieApiTmdbResponse
+     * @param poster_path stringa che contiene parte dell'URL dove trovare la locandina del film
+     * @param adult booleano per il Parental Control
+     * @param overview stringa che contiene la descrizione del film
+     * @param release_date stringa che contiene la data di rilascio del film
+     * @param genre_id array che contiente gli ID che indicano i generi del film
+     * @param genres lista di string che contiene i generi
+     * @param id intero che indica in maniera univoca l'ID del film
+     * @param original_title stringa che contiene il titolo originale del film
+     * @param original_language stringa che contiene la lingua originale del film
+     * @param title stringa che contiene il titolo del film
+     * @param backdrop_path stringa che contiene parte dell'URL dove trovare un'immagine del film
+     * @param popularity di tipo double che indica la popolarità del film
+     * @param vote_count intero che indica il numero di voti che ha ricevuto il film
+     * @param video booleano che indica se il video è presente
+     * @param vote_average di tipo double utilizzato per la valutazione del film
+     * @param runtime runtime intero che indica la durata del film
+     * @param directors Array di CrewApiTmdbResponse che contiene i registi di un film
+     * @param actors Array di CastApiTmdbResponse che contiene gli attori di un film
+     * @param description stringa che contiene la descrizione del film
+     * @param budget intero che indica il budget del film
+     * @param status stringa che indica in che stato della produziona si trova il film
+     * @param home_page stringa che contiene l'homepage del film
+     * @param revenue intero che indica l'incasso del film
+     */
+    public MovieApiTmdbResponse(String poster_path, boolean adult, String overview, String release_date,
+                                int[] genre_id, Genre[] genres, int id, String original_title, String original_language,
+                                String title, String backdrop_path, double popularity, int vote_count,
+                                boolean video, double vote_average, int runtime, CrewApiTmdbResponse[] directors,
+                                CastApiTmdbResponse[] actors, String description, int budget, String status, String home_page, int revenue) {
         this.poster_path = poster_path;
         this.adult = adult;
         this.overview = overview;

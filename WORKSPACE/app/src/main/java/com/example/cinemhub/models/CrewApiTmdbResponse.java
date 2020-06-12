@@ -12,6 +12,16 @@ public class CrewApiTmdbResponse {
     private String name;
     private String profile_path;
 
+    /**
+     * costruttore della classe CrewApiTmdbResponse
+     * @param credit_id
+     * @param department stringa che identifica il dipartimento del quale fa parte il membro della Crew
+     * @param gender intero che indica il sesso del membro della Crew
+     * @param id intero che indica univocamente l'ID del membro della Crew
+     * @param job stringaa che indica il lavore del membro della Crew
+     * @param name stringa indica il nome del membro della Crew
+     * @param profile_path stringa per visualizzare il poster della persona
+     */
     public CrewApiTmdbResponse(String credit_id, String department, int gender, int id, String job, String name, String profile_path) {
         this.credit_id = credit_id;
         this.department = department;
@@ -22,6 +32,10 @@ public class CrewApiTmdbResponse {
         this.profile_path = profile_path;
     }
 
+    /**
+     * Costruttore della classe CrewApiTmdbResponse che prende in input un oggetto CrewApiTmdbResponse
+     * @param crewApiTmdbResponse oggetto CrewApiTmdbResponse
+     */
     public CrewApiTmdbResponse(CrewApiTmdbResponse crewApiTmdbResponse) {
         this.credit_id = crewApiTmdbResponse.getCredit_id();
         this.department = crewApiTmdbResponse.getDepartment();

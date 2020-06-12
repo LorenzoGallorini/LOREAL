@@ -16,6 +16,14 @@ public class VideoApiTmdbResponse {
 
     /**
      * costruttore della classe VideoApiTmdbResponse
+     * @param id intero che indica in maniera univoca l'ID del film
+     * @param iso_639_1 string
+     * @param iso_3166_1 string
+     * @param key string
+     * @param name stringa che contiene il nome del video
+     * @param site strina che indica il sito dove viene preso il video
+     * @param size intero per la qualità del video
+     * @param type stringa per indicare di che tipo di video si tratta
      */
     public VideoApiTmdbResponse(String id, String iso_639_1, String iso_3166_1, String key, String name, String site, int size, String type) {
         this.id = id;

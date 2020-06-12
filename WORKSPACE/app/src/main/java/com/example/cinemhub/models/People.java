@@ -24,6 +24,7 @@ public class People {
 
     /**
      * costruttore della classe People che prende in input un pggetto di tipo CastApiTmdbResponse
+     * @param castApiTmdbResponse oggetto CastApiTmdbResponse
      */
     public People(CastApiTmdbResponse castApiTmdbResponse){
         this.role = castApiTmdbResponse.getCharacter();
@@ -32,8 +33,10 @@ public class People {
         this.name = castApiTmdbResponse.getName();
         this.profile_path = castApiTmdbResponse.getProfile_path();
     }
+
     /**
      * costruttore della classe People che prende in input un pggetto di tipo CrewApiTmdbResponse
+     * @param crewApiTmdbResponse oggetto CrewApiTmdbResponse
      */
     public People(CrewApiTmdbResponse crewApiTmdbResponse){
         //this.credit_id = crewApiTmdbResponse.getCredit_id();
@@ -44,8 +47,10 @@ public class People {
         this.name = crewApiTmdbResponse.getName();
         this.profile_path = crewApiTmdbResponse.getProfile_path();
     }
+
     /**
      * costruttore della classe People che prende in input un pggetto di tipo PeopleApiTmdbResponse
+     * @param peopleApiTmdbResponse oggetto PeopleApiTmdbResponse
      */
     public People(PeopleApiTmdbResponse peopleApiTmdbResponse){
         this.birth_date = peopleApiTmdbResponse.getBirthday();
@@ -63,8 +68,23 @@ public class People {
 
     /**
      * costruttore della classe People
+     * @param id intero che indica in maniera univoca l'ID della persona
+     * @param name stringa che contiene il nome della persona
+     * @param birth_date stringa che contiene la data di nascita della persona
+     * @param known_for_department stringa che contiene il dipartimento per il quale la persona è conosciuta
+     * @param death_date stringa che contiene la data di morte della persona
+     * @param gender intero che indica il sesso della persona
+     * @param biography stringa che contiene la biografia della persona
+     * @param popularity di tipo double indica la popolarità della persona
+     * @param place_of_birth stringa che contiene il luogo di nascita
+     * @param profile_path stringa che contiene parte dell'URL che contiene la foto profilo della persona
+     * @param adult booleano per il Parental Control
+     * @param filmography array di tipo int che contiene gli ID dei film che fanno parte della filmografia della persona
+     * @param role stringa che contiene il ruolo della persona
      */
-    public People(int id, String name, String birth_date, String known_for_department, String death_date, int gender, String biography, double popularity, String place_of_birth, String profile_path, boolean adult, int[] filmography, String role) {
+    public People(int id, String name, String birth_date, String known_for_department, String death_date,
+                  int gender, String biography, double popularity, String place_of_birth, String profile_path,
+                  boolean adult, int[] filmography, String role) {
         this.id = id;
         this.name = name;
         this.birth_date = birth_date;

@@ -40,6 +40,9 @@ public class Movie<integer> implements Parcelable {
 
     /**
      * costruttore che istanzia solo gli attributi utili per la visualizzazione del film nel FavoriteFragmnet
+     * @param id stringa che indica in maniera univoca l'ID del film da visualizzare
+     * @param title stringa che contiene il titolo del film da visualizzare
+     * @param poster_path stringa che contiene parte dell'URL per la visualizzazione del poster del film
      */
     public Movie(String id, String title, String poster_path){
         this.id=Integer.parseInt(id);
@@ -49,13 +52,13 @@ public class Movie<integer> implements Parcelable {
 
     /**
      * Costruttore della classe Movie che prende in input un oggetto di tipo MovieApiTmdbResponse
+     * @param movieApiTmdbResponse oggetto di tipo MovieApiTmdbResponse
      */
     public Movie(MovieApiTmdbResponse movieApiTmdbResponse){
         this.id=movieApiTmdbResponse.getId();
         this.poster_path = movieApiTmdbResponse.getPoster_path();
         this.adult = movieApiTmdbResponse.isAdult();
         this.release_date = movieApiTmdbResponse.getRelease_date();
-
         this.original_title = movieApiTmdbResponse.getOriginal_title();
         this.original_language = movieApiTmdbResponse.getOriginal_language();
         this.title = movieApiTmdbResponse.getTitle();
@@ -73,16 +76,38 @@ public class Movie<integer> implements Parcelable {
         Genre[] gen=movieApiTmdbResponse.getGenres();
         genres=new ArrayList<String>();
         if(gen!=null) {
-            for (int i = 0; i < gen.length; i++){
-                this.genres.add(gen[i].getName());
+            for (Genre genre : gen) {
+                this.genres.add(genre.getName());
             }
         }
     }
-
     /**
      * costruttore della classe Movie
+     * @param id intero che indica in maniera univoca l'ID del film
+     * @param title stringa che contiene il titolo del film
+     * @param adult booleano per il Parental Control
+     * @param runtime intero che indica la durata del film
+     * @param genres lista di string che contiene i generi
+     * @param release_date stringa che contiene la data di rilascio del film
+     * @param vote_average di tipo double utilizzato per la valutazione del film
+     * @param poster_path stringa che contiene parte dell'URL dove trovare la locandina del film
+     * @param directors Array di CrewApiTmdbResponse che contiene i registi di un film
+     * @param actors Array di CastApiTmdbResponse che contiene gli attori di un film
+     * @param description stringa che contiene la descrizione del film
+     * @param budget intero che indica il budget del film
+     * @param original_language stringa che contiene la lingua originale del film
+     * @param original_title stringa che contiene il titolo originale del film
+     * @param popularity di tipo double che indica la popolarità del film
+     * @param status stringa che indica in che stato della produziona si trova il film
+     * @param vote_count intero che indica il numero di voti che ha ricevuto il film
+     * @param home_page stringa che contiene l'homepage del film
+     * @param revenue intero che indica l'incasso del film
+     * @param genres_ids array che contiente gli ID che indicano i generi del film
      */
-    public Movie(int id, String title, boolean adult, int runtime, List<String> genres, String release_date, double vote_average, String poster_path, CrewApiTmdbResponse[] directors, CastApiTmdbResponse[] actors, String description, int budget, String original_language, String original_title, double popularity, String status, int vote_count, String home_page, int revenue, int[] genres_ids) {
+    public Movie(int id, String title, boolean adult, int runtime, List<String> genres,
+                 String release_date, double vote_average, String poster_path, CrewApiTmdbResponse[] directors,
+                 CastApiTmdbResponse[] actors, String description, int budget, String original_language,
+                 String original_title, double popularity, String status, int vote_count, String home_page, int revenue, int[] genres_ids) {
         this.id = id;
         this.title = title;
         this.adult = adult;
