@@ -183,7 +183,7 @@ public class ComingSoonFragment extends Fragment {
      * @param language stringa che contiene la lingua del dispositivo
      * @param checkAdult booleano per il Parental Control
      * @param region stringa che contiene il paese selezionato
-     * @return
+     * @return List di Movie contenente i risultati della chiamata
      */
     private List<Movie> getMovieList(String language, boolean checkAdult, String region){
         Resource<List<Movie>> movieListResult= comingSoonViewModel.getMovieComingSoon(language, checkAdult, region).getValue();
