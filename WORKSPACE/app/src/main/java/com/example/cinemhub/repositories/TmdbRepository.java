@@ -35,6 +35,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Repository layer per ottenere film e personaggi del cinema
  * In questa classe andiamo a gestire i risultati delle chiamate all'API TMDB
  * Questo è uno strato di intermezzo tra il Service e il ViewModel
+ * i singoli metodi delle chiamate hanno tutti più o meno lo stesso funzionamento, è stato
+ * stato commentato dettagliatamente solo il metodo getNowPlaying
  */
 public class TmdbRepository {
     private static TmdbRepository instance;
@@ -68,19 +70,35 @@ public class TmdbRepository {
      * @param checkAdult valore booleano utilizzato per il Parental Control
      * @param region stringa contenente il paese scelto
      */
-    public void getNowPlaying(MutableLiveData<Resource<List<Movie>>> movieNowPlaying, String language, int page, boolean checkAdult, String region){
-
-        Call<NowPlayingApiTmdbResponse> call = tmdbServices.getNowPlaying(language , page, Constants.API_TMDB_KEY, region);
+    public void getNowPlaying(MutableLiveData<Resource<List<Movie>>> movieNowPlaying, String language, int page, boolean checkAdult, String region) {
+        //Definiamo i parametri della chiamata
+        Call<NowPlayingApiTmdbResponse> call = tmdbServices.getNowPlaying(language, page, Constants.API_TMDB_KEY, region);
+        //Andiamo ad aggiungere in coda la chiamata in modo che venga eseguita in maniera asincrona
         call.enqueue(new Callback<NowPlayingApiTmdbResponse>() {
+            /**
+             * Questo metodo viene chiamato quando la risposta viene completata con successo
+             *
+             * @param call
+             * @param response
+             */
             @Override
             public void onResponse(Call<NowPlayingApiTmdbResponse> call, Response<NowPlayingApiTmdbResponse> response) {
-                if(response.isSuccessful() && response.body()!=null) {
+                // controlliamo che la chiamata sia effettivamente avvenuta con successo
+                if (response.isSuccessful() && response.body() != null) {
                     Resource<List<Movie>> resource = new Resource<>();
                     List<Movie> results = new ArrayList<Movie>();
+                    // il get now playing non dispone di un filtro da parte delle API per i film per
+                    // adulti e li andiamo a filtrare noi manualmente
+                    // nel frattempo andiamo a convertire anche il risultato in un tipo più generico
+                    // movie, questo perchè nei fragment abbiamo deciso di utilizzare delle classe
+                    // più generiche rispetto a quelle delle API per facilitare la possibiltà di
+                    // aggiungere delle altre api
                     for (int i = 0; i < response.body().getResults().size(); i++) {
-                        if(!checkAdult || !response.body().getResults().get(i).isAdult()){
+                        if (!checkAdult || !response.body().getResults().get(i).isAdult()) {
                             results.add(new Movie(response.body().getResults().get(i)));
-                        }                    }
+                        }
+                    }
+                    // andiamo ad inserire la lista nella classe resource
                     if (movieNowPlaying.getValue() != null && movieNowPlaying.getValue().getData() != null) {
                         List<Movie> currentMovieList = movieNowPlaying.getValue().getData();
                         currentMovieList.remove(currentMovieList.size() - 1);
@@ -93,22 +111,29 @@ public class TmdbRepository {
                     resource.setStatusCode(response.code());
                     resource.setStatusMessage(response.message());
                     resource.setLoading(false);
+                    // con questa operazione andiamo a inserire la resosource nel variabile passata
+                    // dal view model
                     movieNowPlaying.postValue(resource);
-                }else if (response.errorBody()!=null){
+                } else {
+                    // qua siamo nel caso di errore e andiamo a riempire la resource con dei valori
+                    // che ci fanno capire che siamo in un errore
                     Log.d(TAG, "ERROR: getNowPlaying=null");
-                    Resource<List<Movie>> resource=new Resource<>();
+                    Resource<List<Movie>> resource = new Resource<>();
                     resource.setStatusCode(response.code());
-                    try {
-                        resource.setStatusMessage(response.message()+" - "+response.errorBody().string());
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                    if (response.errorBody() != null) {
+                        try {
+                            resource.setStatusMessage(response.message() + " - " + response.errorBody().string());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
                     movieNowPlaying.postValue(resource);
                 }
             }
+
             @Override
             public void onFailure(Call<NowPlayingApiTmdbResponse> call, Throwable t) {
-                Log.d(TAG, "Error:"+t.toString());
+                Log.d(TAG, "Error:" + t.toString());
             }
         });
     }
