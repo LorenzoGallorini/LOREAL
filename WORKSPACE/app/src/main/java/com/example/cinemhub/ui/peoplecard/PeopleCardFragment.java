@@ -41,6 +41,8 @@ import java.util.List;
 
 public class PeopleCardFragment extends Fragment {
 
+    //TODO formattare date
+
     private PeopleCardViewModel mViewModel;
     private final String TAG = "PeopleCardFragment";
     private FragmentPeopleCardBinding binding;
