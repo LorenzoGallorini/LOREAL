@@ -15,8 +15,7 @@ public class Constants {
     public static final String PLATFORM_VIDEO="YouTube";
     public static final String TYPE_VIDEO="Trailer";
     public static final String API_TMDB_BASE_URL="https://api.themoviedb.org/3/";
-    public static final String API_TMDB_KEY="711c6e104d15a00a5aff3a04d7c0ceee";
-
+    public static final String API_TMDB_KEY="Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3MTFjNmUxMDRkMTVhMDBhNWFmZjNhMDRkN2MwY2VlZSIsInN1YiI6IjVlOTJkZWE3N2E5N2FiMDAxMjBjYzc4OCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.FhD5hx0WYKbMZMO-LPM3n4_lVDm9YaRXJpigkgO2R5E";
     public static final String REGION_SHARED_PREF_NAME="Region";
     public static final String REGION_ITALY="IT";
     public static final String REGION_USA="US";
