@@ -21,7 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cinemhub.MainActivity;
 import com.example.cinemhub.R;
-import com.example.cinemhub.adapters.MovieListVerticalAdapter;
+import com.example.cinemhub.adapters.MovieListAdapter;
 import com.example.cinemhub.databinding.FragmentTopRatedBinding;
 import com.example.cinemhub.models.Movie;
 import com.example.cinemhub.models.Resource;
@@ -39,7 +39,7 @@ public class TopRatedFragment extends Fragment {
     private TopRatedViewModel mViewModel;/**< attributo per la gestione del NowPlayingFragment*/
     private final String TAG = "TopRatedFragment";
     private FragmentTopRatedBinding binding;/**< attributo per poter gestire gli oggetti all'interno del Fragment*/
-    private MovieListVerticalAdapter movieListVerticalAdapter;/**< attributo per contenere l'Adapter per la RecyclerView*/
+    private MovieListAdapter movieListAdapter;/**< attributo per contenere l'Adapter per la RecyclerView*/
     int topRatedRVSpanCount=3;/**< attributo per il numero massimo delle colonne della RecyclerView*/
 
     private int totalItemCount;/**< attributo per il numero totale di oggetti nella RecyclerView*/
@@ -89,13 +89,13 @@ public class TopRatedFragment extends Fragment {
         String region = sharedPreferences.getString(Constants.REGION_SHARED_PREF_NAME, null);
 
         //creiamo l'Adapter per gestire la RecyclerView
-        movieListVerticalAdapter = new MovieListVerticalAdapter(getActivity(), getMovieList(getString(R.string.API_LANGUAGE), checkAdult, region), new MovieListVerticalAdapter.OnItemClickListener() {
+        movieListAdapter = new MovieListAdapter(getActivity(), getMovieList(getString(R.string.API_LANGUAGE), checkAdult, region), new MovieListAdapter.OnItemClickListener() {
             @Override
             public void OnItemClick(Movie movie) {
                 Navigation.findNavController(getView()).navigate(TopRatedFragmentDirections.actionNavigationTopRatedToNavigationMovieCard(movie.getId()));
             }
         });
-        binding.TopRatedRecyclerView.setAdapter(movieListVerticalAdapter);
+        binding.TopRatedRecyclerView.setAdapter(movieListAdapter);
 
         //andiamo ad intercettare l'evento di scroll della RecyclerView
         binding.TopRatedRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -147,7 +147,7 @@ public class TopRatedFragment extends Fragment {
                 Log.d(TAG, "lista tmdb comingsoon"+movies);
 
                 //inseriamo nell'Adapter i dati
-                movieListVerticalAdapter.setData(movies.getData());
+                movieListAdapter.setData(movies.getData());
 
                 //controlliamo che movies non stia ancora caricando i risultati
                 if(!movies.isLoading()){

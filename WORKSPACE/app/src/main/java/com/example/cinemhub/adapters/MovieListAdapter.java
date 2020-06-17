@@ -12,46 +12,48 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cinemhub.R;
-import com.example.cinemhub.models.People;
+import com.example.cinemhub.models.Movie;
 import com.example.cinemhub.utils.Constants;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 /**
- * public class PeopleListVerticalAdapter
+ * public class MovieListAdapter
  * Questa classe appartiene al package adapter
  * la classe estende RecyclerView.Adapter<RecyclerView.ViewHolder>, la classe che estende è più generica possibile per poter permettere il lazy loading
- * questa classe serve per visualizzare nella sezione People del SearchResult la recycler view popolata da oggetti di tipo People
+ * questa classe serve per visualizzare nel NowPlaying, nel TopRated, nel ComingSoon e nella sezione Movie del SearchResult la recycler view popolata dai vari film
  */
-public class PeopleListVerticalAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
-{
-    private static final int PEOPLE_VIEW_TYPE =0;/**< il valore di PEOPLE_VIEW_TYPE è un codice univoco che serve per riconoscerlo*/
+public class MovieListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
+    private static final int MOVIE_VIEW_TYPE=0; /**< il valore di MOVIE_VIEW_TYPE è un codice univoco che serve per riconoscerlo*/
     private static final int LOADING_VIEW_TYPE=1;/**< il valore di LOADING_VIEW_TYPE è un codice univoco che serve per riconoscerlo*/
+
     /**
      * public interface OnItemClickListener
-     * questa interfaccia serve per intercettare il click dell'utente sulla locandina della persona
+     * questa interfaccia serve per intercettare il click dell'utente sulla locandina del film
      */
-    public interface OnItemClickListener {
+    public interface OnItemClickListener{
         /**
-         *
-         * @param people
+         * OnItemClick
+         * @param movie
          */
-        void OnItemClick(People people);
+        void OnItemClick(Movie movie);
     }
 
-    private List<People> people; /**< people memorizza la lista delle persone*/
+    private List<Movie> movies; /**< movies memorizza la lista dei film*/
     private LayoutInflater layoutInflater; /**< Variabile per memorizzare il layout inflater*/
-    private OnItemClickListener onItemClickListener;/**< variabile per salvare l'item click listener*/
+    private OnItemClickListener onItemClickListener; /**< variabile per salvare l'item click listener*/
+
     /**
-     * costruttore della classe MovieListVerticalAdapter
+     * costruttore della classe MovieListAdapter
      * @param context
-     * @param peopleList
+     * @param movieList
      * @param onItemClickListener
      */
-    public PeopleListVerticalAdapter(Context context, List<People> peopleList, OnItemClickListener onItemClickListener)
+    public MovieListAdapter(Context context, List<Movie> movieList, OnItemClickListener onItemClickListener)
     {
         this.layoutInflater = LayoutInflater.from(context);
-        this.people = peopleList;
+        this.movies = movieList;
         this.onItemClickListener=onItemClickListener;
     }
     /**
@@ -63,9 +65,9 @@ public class PeopleListVerticalAdapter extends RecyclerView.Adapter<RecyclerView
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        if(viewType== PEOPLE_VIEW_TYPE){
+        if(viewType==MOVIE_VIEW_TYPE){
             View view = this.layoutInflater.inflate(R.layout.movie_item,parent,false);
-            return new PeopleListViewHolder(view);
+            return new MovieListViewHolder(view);
         }
         else {
             View view = this.layoutInflater.inflate(R.layout.loading_item,parent,false);
@@ -80,76 +82,80 @@ public class PeopleListVerticalAdapter extends RecyclerView.Adapter<RecyclerView
      */
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        if(holder instanceof PeopleListVerticalAdapter.PeopleListViewHolder){
-            ((PeopleListViewHolder) holder).bind(people.get(position), this.onItemClickListener);
+        if(holder instanceof MovieListViewHolder){
+            ((MovieListViewHolder) holder).bind(movies.get(position), this.onItemClickListener);
         }
-        else if(holder instanceof MovieListVerticalAdapter.LoadingListViewHolder){
+        else if(holder instanceof LoadingListViewHolder){
             ((LoadingListViewHolder) holder).progressBarLoadingMovies.setIndeterminate(true);
         }
     }
     /**
-     * override del metodo getItemCount che restituisce il numero di oggetti di tipo People contenuti nella recyclerview
+     * override del metodo getItemCount che restituisce il numero di oggetti di tipo Movie contenuti nella recyclerview
      * @return
      */
     @Override
     public int getItemCount() {
-        if(people !=null){
-            return people.size();
+        if(movies!=null){
+            return movies.size();
         }
         return 0;
     }
+
     /**
-     * metodo per riconoscere se l'oggetto è di tipo People o un loading //TODO trovare nome più adatto
+     * metodo per riconoscere se l'oggetto è un film o un loading //TODO trovare nome più adatto
      * @param position
      * @return
      */
     @Override
     public int getItemViewType(int position) {
-        if(people.get(position) == null){
+        if(movies.get(position) == null){
             return LOADING_VIEW_TYPE;
         } else {
-            return PEOPLE_VIEW_TYPE;
+            return MOVIE_VIEW_TYPE;
         }
     }
+
     /**
      * metodo che prende in input una lista di Movie e la setta nella variabile movies
-     * @param people
+     * @param movies
      */
-    public void setData(List<People> people){
-        if(people!=null){
-            this.people =people;
+    public void setData(List<Movie> movies){
+        if(movies!=null){
+            this.movies=movies;
             notifyDataSetChanged();
         }
     }
+
     /**
-     * public static class PeopleListViewHolder extends RecyclerView.ViewHolder
+     * public static class MovieListViewHolder extends RecyclerView.ViewHolder
      * questa classe statica serve per creare gli elementi della RecyclerView
      */
-    public static class PeopleListViewHolder extends RecyclerView.ViewHolder{
-        TextView title;/**< variabile per salvare il nome della persona */
-        ImageButton photo;/**< variabile per salvare la locandina della persona */
+    public static class MovieListViewHolder extends RecyclerView.ViewHolder{
+        TextView title;/**< variabile per salvare il nome del film */
+        ImageButton photo; /**< variabile per salvare la locandina del film */
         /**
-         * costruttorre del PeopleListViewHolder
+         * costruttorre del MovieListViewHolder
          * @param view
          */
-        public PeopleListViewHolder(View view){
+        public MovieListViewHolder(View view){
             super(view);
             title = view.findViewById(R.id.TitleTextViewItem);
             photo = view.findViewById(R.id.ImageButtonItem);
         }
+
         /**
          * public void bind
          * classe bind per settare le variabili dell'oggetto contenuto nel viewholder
-         * @param people
+         * @param movie
          * @param onItemClickListener
          */
-        public void bind(People people, PeopleListVerticalAdapter.OnItemClickListener onItemClickListener){
-            if(people.getName().length() > Constants.MAX_LENGHT)
-                title.setText(people.getName().substring(0,Constants.MAX_LENGHT-1)+" ...");
+        public void bind(Movie movie, OnItemClickListener onItemClickListener){
+            if(movie.getTitle().length() > Constants.MAX_LENGHT)
+                title.setText(movie.getTitle().substring(0,Constants.MAX_LENGHT-1)+" ...");
             else
-                title.setText(people.getName());
-            if(people.getProfile_path()!=null && !people.getProfile_path().equals("")){
-                Picasso.get().load(Constants.IMAGE_BASE_URL + people.getProfile_path()).into(photo);
+                title.setText(movie.getTitle());
+            if(movie.getPoster_path()!=null && !movie.getPoster_path().equals("")){
+                Picasso.get().load(Constants.IMAGE_BASE_URL + movie.getPoster_path()).into(photo);
             }else {
                 photo.setImageResource(R.drawable.no_image_avaiable);
             }
@@ -157,11 +163,12 @@ public class PeopleListVerticalAdapter extends RecyclerView.Adapter<RecyclerView
             photo.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onItemClickListener.OnItemClick(people);
+                    onItemClickListener.OnItemClick(movie);
                 }
             });
         }
     }
+
     /**
      * public static class LoadingListViewHolder extends RecyclerView.ViewHolder
      * questa classe statica serve per creare gli elementi della RecyclerView
@@ -174,4 +181,5 @@ public class PeopleListVerticalAdapter extends RecyclerView.Adapter<RecyclerView
             progressBarLoadingMovies = view.findViewById(R.id.progressBarLoadingMovie);
         }
     }
+
 }

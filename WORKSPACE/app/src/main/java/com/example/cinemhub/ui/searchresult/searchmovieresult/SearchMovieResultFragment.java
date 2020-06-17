@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cinemhub.R;
-import com.example.cinemhub.adapters.MovieListVerticalAdapter;
+import com.example.cinemhub.adapters.MovieListAdapter;
 import com.example.cinemhub.databinding.FragmentSearchMovieResultBinding;
 import com.example.cinemhub.models.Movie;
 import com.example.cinemhub.models.Resource;
@@ -29,7 +29,7 @@ import com.example.cinemhub.utils.Constants;
 import java.util.List;
 
 public class SearchMovieResultFragment extends Fragment {
-    private MovieListVerticalAdapter movieListVerticalAdapter;
+    private MovieListAdapter movieListAdapter;
     private SearchMovieResultViewModel searchMovieResultViewModel;
     private FragmentSearchMovieResultBinding binding;
     private int movieTotalItemCount;
@@ -80,13 +80,13 @@ public class SearchMovieResultFragment extends Fragment {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.CINEM_HUB_SHARED_PREF_FILE_NAME, Context.MODE_PRIVATE);
         boolean checkAdult=sharedPreferences.getBoolean(Constants.ADULT_SHARED_PREF_NAME, false);
         String region=sharedPreferences.getString(Constants.REGION_SHARED_PREF_NAME, null);
-        movieListVerticalAdapter = new MovieListVerticalAdapter(getActivity(), getMovieList(getString(R.string.API_LANGUAGE), checkAdult, query,region , year), new MovieListVerticalAdapter.OnItemClickListener() {
+        movieListAdapter = new MovieListAdapter(getActivity(), getMovieList(getString(R.string.API_LANGUAGE), checkAdult, query,region , year), new MovieListAdapter.OnItemClickListener() {
             @Override
             public void OnItemClick(Movie movie) {
                 Navigation.findNavController(getView()).navigate(SearchResultFragmentDirections.actionNavigationSearchResultToNavigationMovieCard(movie.getId()));
             }
         });
-        binding.RecyclerViewSearch.setAdapter(movieListVerticalAdapter);
+        binding.RecyclerViewSearch.setAdapter(movieListAdapter);
 
         binding.RecyclerViewSearch.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -134,7 +134,7 @@ public class SearchMovieResultFragment extends Fragment {
             public void onChanged(Resource<List<Movie>> movies) {
                 Log.d(TAG, "lista tmdb Search"+movies);
 
-                movieListVerticalAdapter.setData(movies.getData());
+                movieListAdapter.setData(movies.getData());
 
                 if(!movies.isLoading()){
                     searchMovieResultViewModel.setMovieIsLoading(false);

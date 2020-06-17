@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cinemhub.R;
-import com.example.cinemhub.adapters.PeopleListVerticalAdapter;
+import com.example.cinemhub.adapters.PeopleListAdapter;
 import com.example.cinemhub.databinding.FragmentSearchMovieResultBinding;
 import com.example.cinemhub.models.People;
 import com.example.cinemhub.models.Resource;
@@ -39,7 +39,7 @@ public class SearchPeopleResultFragment extends Fragment {
     private int peopleLastVisibleItem;
     private int peopleVisibleItemCount;
     private int peopleThreshold =1;
-    private PeopleListVerticalAdapter peopleListVerticalAdapter;
+    private PeopleListAdapter peopleListAdapter;
     public static SearchPeopleResultFragment newInstance() {
         return new SearchPeopleResultFragment();
     }
@@ -72,7 +72,7 @@ public class SearchPeopleResultFragment extends Fragment {
         boolean checkAdult=sharedPreferences.getBoolean(Constants.ADULT_SHARED_PREF_NAME, false);
         String region=sharedPreferences.getString(Constants.REGION_SHARED_PREF_NAME, null);
 
-        peopleListVerticalAdapter = new PeopleListVerticalAdapter(getActivity(), getPeopleList(getString(R.string.API_LANGUAGE), checkAdult, query,region), new PeopleListVerticalAdapter.OnItemClickListener(){
+        peopleListAdapter = new PeopleListAdapter(getActivity(), getPeopleList(getString(R.string.API_LANGUAGE), checkAdult, query,region), new PeopleListAdapter.OnItemClickListener(){
 
             @Override
             public void OnItemClick(People people) {
@@ -80,7 +80,7 @@ public class SearchPeopleResultFragment extends Fragment {
             }
         });
 
-        binding.RecyclerViewSearch.setAdapter(peopleListVerticalAdapter);
+        binding.RecyclerViewSearch.setAdapter(peopleListAdapter);
 
         binding.RecyclerViewSearch.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -130,7 +130,7 @@ public class SearchPeopleResultFragment extends Fragment {
             public void onChanged(Resource<List<People>> people) {
                 Log.d(TAG, "lista tmdb Search"+people);
 
-                peopleListVerticalAdapter.setData(people.getData());
+                peopleListAdapter.setData(people.getData());
 
                 if(!people.isLoading()){
                     searchPeopleResultViewModel.setPeopleIsLoading(false);

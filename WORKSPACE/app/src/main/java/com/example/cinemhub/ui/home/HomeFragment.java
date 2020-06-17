@@ -9,8 +9,6 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -24,14 +22,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cinemhub.MainActivity;
 import com.example.cinemhub.R;
-import com.example.cinemhub.adapters.MovieListVerticalAdapter;
+import com.example.cinemhub.adapters.MovieListAdapter;
 import com.example.cinemhub.databinding.FragmentHomeBinding;
 import com.example.cinemhub.models.Movie;
 import com.example.cinemhub.models.Resource;
-import com.example.cinemhub.ui.moviecard.MovieCardFragmentDirections;
-import com.example.cinemhub.ui.toprated.TopRatedFragment;
 import com.example.cinemhub.utils.Constants;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -82,15 +77,15 @@ public class HomeFragment extends Fragment {
                     if (appMovies.size()>12){
                         appMovies=appMovies.subList(0,12);
                     }
-                    MovieListVerticalAdapter movieListVerticalAdapter=new MovieListVerticalAdapter(
-                            getActivity(), appMovies, new MovieListVerticalAdapter.OnItemClickListener() {
+                    MovieListAdapter movieListAdapter =new MovieListAdapter(
+                            getActivity(), appMovies, new MovieListAdapter.OnItemClickListener() {
                         @Override
                         public void OnItemClick(Movie movie) {
                             Navigation.findNavController(view).navigate(
                                     HomeFragmentDirections.actionNavigationHomeToNavigationMovieCard(movie.getId()));
                         }
                     });
-                    binding.NowPlayingRecyclerView.setAdapter(movieListVerticalAdapter);
+                    binding.NowPlayingRecyclerView.setAdapter(movieListAdapter);
                     binding.textViewShowAllNowPlaying.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -122,13 +117,13 @@ public class HomeFragment extends Fragment {
                     if(appMovies.size()>12){
                         appMovies=appMovies.subList(0, 12);
                     }
-                    MovieListVerticalAdapter movieListVerticalAdapter=new MovieListVerticalAdapter(getActivity(), appMovies, new MovieListVerticalAdapter.OnItemClickListener() {
+                    MovieListAdapter movieListAdapter =new MovieListAdapter(getActivity(), appMovies, new MovieListAdapter.OnItemClickListener() {
                         @Override
                         public void OnItemClick(Movie movie) {
                             Navigation.findNavController(view).navigate(HomeFragmentDirections.actionNavigationHomeToNavigationMovieCard(movie.getId()));
                         }
                     });
-                    binding.TopRatedRecyclerView.setAdapter(movieListVerticalAdapter);
+                    binding.TopRatedRecyclerView.setAdapter(movieListAdapter);
 
                     binding.textView2ShowAllTopRated.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -160,8 +155,8 @@ public class HomeFragment extends Fragment {
                     if(appMovies.size()>12){
                         appMovies=appMovies.subList(0,12);
                     }
-                    MovieListVerticalAdapter movieListVerticalAdapter=new MovieListVerticalAdapter(
-                            getActivity(), appMovies, new MovieListVerticalAdapter.OnItemClickListener() {
+                    MovieListAdapter movieListAdapter =new MovieListAdapter(
+                            getActivity(), appMovies, new MovieListAdapter.OnItemClickListener() {
                         @Override
                         public void OnItemClick(Movie movie) {
                             Navigation.findNavController(view).navigate(
@@ -169,7 +164,7 @@ public class HomeFragment extends Fragment {
 
                         }
                     });
-                    binding.ComingSoonRecyclerView.setAdapter(movieListVerticalAdapter);
+                    binding.ComingSoonRecyclerView.setAdapter(movieListAdapter);
 
                     binding.textViewShowAllComingSoon.setOnClickListener(new View.OnClickListener() {
                         @Override

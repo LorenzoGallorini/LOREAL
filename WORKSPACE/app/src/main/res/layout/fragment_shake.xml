@@ -30,7 +30,7 @@
             android:id="@+id/image_view_shake"
             android:layout_width="250sp"
             android:layout_height="250sp"
-            android:src="@drawable/shake_prova_1"
+            android:src="@drawable/shake_image_in_fragment"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

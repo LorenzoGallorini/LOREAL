@@ -21,7 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cinemhub.MainActivity;
 import com.example.cinemhub.R;
-import com.example.cinemhub.adapters.MovieListVerticalAdapter;
+import com.example.cinemhub.adapters.MovieListAdapter;
 import com.example.cinemhub.databinding.FragmentComingSoonBinding;
 import com.example.cinemhub.models.Movie;
 import com.example.cinemhub.models.Resource;
@@ -38,7 +38,7 @@ public class ComingSoonFragment extends Fragment {
     private ComingSoonViewModel comingSoonViewModel;/**< attributo per la gestione del ComingSoonViewModel*/
     private final String TAG = "ComingSoonFragment";
     private FragmentComingSoonBinding binding;/**< attributo per poter gestire gli oggetti all'interno del Fragment*/
-    private MovieListVerticalAdapter movieListVerticalAdapter;/**< attributo per contenere l'Adapter per la RecyclerView*/
+    private MovieListAdapter movieListAdapter;/**< attributo per contenere l'Adapter per la RecyclerView*/
     private final int comingSoonRVSpanCount = 3;/**< attributo per il numero massimo delle colonne della RecyclerView*/
 
 
@@ -88,8 +88,8 @@ public class ComingSoonFragment extends Fragment {
         String region=sharedPreferences.getString(Constants.REGION_SHARED_PREF_NAME, null);
 
         //creiamo l'Adapter per gestire la RecyclerView
-        movieListVerticalAdapter = new MovieListVerticalAdapter(getActivity(), getMovieList(getString(R.string.API_LANGUAGE), checkAdult, region), movie -> Navigation.findNavController(requireView()).navigate(ComingSoonFragmentDirections.actionNavigationComingSoonToNavigationMovieCard(movie.getId())));
-        binding.ComingSoonRecyclerView.setAdapter(movieListVerticalAdapter);
+        movieListAdapter = new MovieListAdapter(getActivity(), getMovieList(getString(R.string.API_LANGUAGE), checkAdult, region), movie -> Navigation.findNavController(requireView()).navigate(ComingSoonFragmentDirections.actionNavigationComingSoonToNavigationMovieCard(movie.getId())));
+        binding.ComingSoonRecyclerView.setAdapter(movieListAdapter);
 
         //andiamo ad intercettare l'evento di scroll della RecyclerView
         binding.ComingSoonRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -141,7 +141,7 @@ public class ComingSoonFragment extends Fragment {
             Log.d(TAG, "lista tmdb comingsoon"+movies);
 
             //inseriamo nell'Adapter i dati
-            movieListVerticalAdapter.setData(movies.getData());
+            movieListAdapter.setData(movies.getData());
 
             //controlliamo che movies non stia ancora caricando i risultati
             if(!movies.isLoading()){

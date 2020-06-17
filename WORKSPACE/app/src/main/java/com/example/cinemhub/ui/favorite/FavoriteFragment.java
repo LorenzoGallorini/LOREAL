@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cinemhub.MainActivity;
 import com.example.cinemhub.R;
-import com.example.cinemhub.adapters.MovieListVerticalAdapter;
+import com.example.cinemhub.adapters.MovieListAdapter;
 import com.example.cinemhub.databinding.FragmentFavoriteBinding;
 import com.example.cinemhub.models.Movie;
 import com.example.cinemhub.utils.Constants;
@@ -85,8 +85,8 @@ public class FavoriteFragment extends Fragment {
                 }
             }
 
-            MovieListVerticalAdapter movieListVerticalAdapter = new MovieListVerticalAdapter(getActivity(), mList, movie -> Navigation.findNavController(requireView()).navigate(FavoriteFragmentDirections.actionNavigationFavoriteToNavigationMovieCard(movie.getId())));
-            binding.FavoriteRecyclerView.setAdapter(movieListVerticalAdapter);
+            MovieListAdapter movieListAdapter = new MovieListAdapter(getActivity(), mList, movie -> Navigation.findNavController(requireView()).navigate(FavoriteFragmentDirections.actionNavigationFavoriteToNavigationMovieCard(movie.getId())));
+            binding.FavoriteRecyclerView.setAdapter(movieListAdapter);
         }
 
 

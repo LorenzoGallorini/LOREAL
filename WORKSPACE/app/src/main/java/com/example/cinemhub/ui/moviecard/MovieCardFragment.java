@@ -26,8 +26,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cinemhub.MainActivity;
 import com.example.cinemhub.R;
-import com.example.cinemhub.adapters.CreditsListHorizontalAdapter;
-import com.example.cinemhub.adapters.CrewListVerticalAdapter;
+import com.example.cinemhub.adapters.CreditsListAdapter;
+import com.example.cinemhub.adapters.CrewListAdapter;
 import com.example.cinemhub.databinding.FragmentMovieCardBinding;
 import com.example.cinemhub.models.GetVideosApiTmdbResponse;
 import com.example.cinemhub.models.Movie;
@@ -219,23 +219,23 @@ public class MovieCardFragment extends Fragment {
             public void onChanged(Resource<MovieCreditsApiTmdbResponse> movieCreditsApiTmdbResponseResource) {
                 MovieCreditsApiTmdbResponse movieCreditsApiTmdbResponse=movieCreditsApiTmdbResponseResource.getData();
 
-                CreditsListHorizontalAdapter creditsListHorizontalAdapter = new CreditsListHorizontalAdapter(getActivity(),
-                        People.toList(movieCreditsApiTmdbResponse.getCast()), new CreditsListHorizontalAdapter.OnItemClickListener() {
+                CreditsListAdapter creditsListAdapter = new CreditsListAdapter(getActivity(),
+                        People.toList(movieCreditsApiTmdbResponse.getCast()), new CreditsListAdapter.OnItemClickListener() {
                     @Override
                     public void OnItemClick(People people) {
                         Navigation.findNavController(view).navigate(MovieCardFragmentDirections.actionNavigationMovieCardToNavigationPeopleCard(people.getId()));
 
                     }
                 });
-                CrewListVerticalAdapter crewListVerticalAdapter = new CrewListVerticalAdapter(getActivity(),
-                        People.toList(movieCreditsApiTmdbResponse.getCrew()), new CrewListVerticalAdapter.OnItemClickListener() {
+                CrewListAdapter crewListAdapter = new CrewListAdapter(getActivity(),
+                        People.toList(movieCreditsApiTmdbResponse.getCrew()), new CrewListAdapter.OnItemClickListener() {
                     @Override
                     public void OnItemClick(People people) {
                         Navigation.findNavController(view).navigate(MovieCardFragmentDirections.actionNavigationMovieCardToNavigationPeopleCard(people.getId()));
                     }
                 });
-                binding.CreditsCrewRecyclerView.setAdapter(crewListVerticalAdapter);
-                binding.CreditsRecyclerView.setAdapter(creditsListHorizontalAdapter);
+                binding.CreditsCrewRecyclerView.setAdapter(crewListAdapter);
+                binding.CreditsRecyclerView.setAdapter(creditsListAdapter);
             }
         };
 

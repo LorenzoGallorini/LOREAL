@@ -14,12 +14,12 @@ import com.example.cinemhub.models.People;
 
 import java.util.List;
 /**
- * public class CrewListVerticalAdapter
+ * public class CrewListAdapter
  * Questa classe appartiene al package adapter
- * la classe estende RecyclerView.Adapter<CrewListVerticalAdapter.CrewListViewHolder>
+ * la classe estende RecyclerView.Adapter<CrewListAdapter.CrewListViewHolder>
  * questa classe serve per visualizzare nel MovieCard la recycler view relativa alla crew
  */
-public class CrewListVerticalAdapter extends RecyclerView.Adapter<CrewListVerticalAdapter.CrewListViewHolder>{
+public class CrewListAdapter extends RecyclerView.Adapter<CrewListAdapter.CrewListViewHolder>{
 
     /**
      * public interface OnItemClickListener
@@ -35,7 +35,7 @@ public class CrewListVerticalAdapter extends RecyclerView.Adapter<CrewListVertic
 
     private List<People> people;  /**< people list memorizza la list delle persone appartenenti alla crew*/
     private LayoutInflater layoutInflater; /**< Variabile per memorizzare il layout inflater*/
-    private CrewListVerticalAdapter.OnItemClickListener onItemClickListener; /**< variabile per salvare l'item click listener*/
+    private CrewListAdapter.OnItemClickListener onItemClickListener; /**< variabile per salvare l'item click listener*/
 
     /**
      * public static class CrewListViewHolder extends RecyclerView.ViewHolder
@@ -62,7 +62,7 @@ public class CrewListVerticalAdapter extends RecyclerView.Adapter<CrewListVertic
          * @param people
          * @param onItemClickListener
          */
-        public void bind(People people, CrewListVerticalAdapter.OnItemClickListener onItemClickListener){
+        public void bind(People people, CrewListAdapter.OnItemClickListener onItemClickListener){
             title.setText(people.getName());
 
             subTitle.setText(people.getRole());
@@ -78,12 +78,12 @@ public class CrewListVerticalAdapter extends RecyclerView.Adapter<CrewListVertic
     }
 
     /**
-     * costruttore della classe CrewListVerticalAdapter
+     * costruttore della classe CrewListAdapter
      * @param context
      * @param peopleList
      * @param onItemClickListener
      */
-    public CrewListVerticalAdapter(Context context, List<People> peopleList, CrewListVerticalAdapter.OnItemClickListener onItemClickListener)
+    public CrewListAdapter(Context context, List<People> peopleList, CrewListAdapter.OnItemClickListener onItemClickListener)
     {
         this.layoutInflater = LayoutInflater.from(context);
         this.people = peopleList;
@@ -98,9 +98,9 @@ public class CrewListVerticalAdapter extends RecyclerView.Adapter<CrewListVertic
      */
     @NonNull
     @Override
-    public CrewListVerticalAdapter.CrewListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public CrewListAdapter.CrewListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = this.layoutInflater.inflate(R.layout.crew_item,parent,false);
-        return new CrewListVerticalAdapter.CrewListViewHolder(view);
+        return new CrewListAdapter.CrewListViewHolder(view);
     }
 
     /***
@@ -110,7 +110,7 @@ public class CrewListVerticalAdapter extends RecyclerView.Adapter<CrewListVertic
      * @param position
      */
     @Override
-    public void onBindViewHolder(@NonNull CrewListVerticalAdapter.CrewListViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CrewListAdapter.CrewListViewHolder holder, int position) {
         holder.bind(people.get(position), this.onItemClickListener);
 
     }

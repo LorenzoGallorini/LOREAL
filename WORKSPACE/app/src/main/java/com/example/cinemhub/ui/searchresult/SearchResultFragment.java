@@ -15,8 +15,8 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.cinemhub.MainActivity;
 import com.example.cinemhub.R;
-import com.example.cinemhub.adapters.MovieListVerticalAdapter;
-import com.example.cinemhub.adapters.PeopleListVerticalAdapter;
+import com.example.cinemhub.adapters.MovieListAdapter;
+import com.example.cinemhub.adapters.PeopleListAdapter;
 import com.example.cinemhub.adapters.ViewPageAdapter;
 import com.example.cinemhub.databinding.FragmentSearchresultBinding;
 import com.example.cinemhub.ui.searchresult.searchmovieresult.SearchMovieResultFragment;
@@ -28,8 +28,8 @@ public class SearchResultFragment extends Fragment {
     private SearchresultViewModel mViewModel;
     private String TAG="SearchResultFragment";
     private FragmentSearchresultBinding binding;
-    private MovieListVerticalAdapter movieListVerticalAdapter;
-    private PeopleListVerticalAdapter peopleListVerticalAdapter;
+    private MovieListAdapter movieListAdapter;
+    private PeopleListAdapter peopleListAdapter;
 
 
     private ViewPageAdapter viewPageAdapter;

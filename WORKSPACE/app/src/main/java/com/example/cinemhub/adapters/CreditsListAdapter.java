@@ -18,12 +18,12 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 /**
- * public class CreditsListHorizontalAdapter
+ * public class CreditsListAdapter
  * Questa classe appartiene al package adapters
- * la classe estende RecyclerView.Adapter<CreditsListHorizontalAdapter.CreditsListViewHolder>
+ * la classe estende RecyclerView.Adapter<CreditsListAdapter.CreditsListViewHolder>
  * questa classe serve per visualizzare nel moviecard la recycler view relativa al cast
  */
-public class CreditsListHorizontalAdapter extends RecyclerView.Adapter<CreditsListHorizontalAdapter.CreditsListViewHolder> {
+public class CreditsListAdapter extends RecyclerView.Adapter<CreditsListAdapter.CreditsListViewHolder> {
 
     /**
      * public interface OnItemClickListener
@@ -40,7 +40,7 @@ public class CreditsListHorizontalAdapter extends RecyclerView.Adapter<CreditsLi
 
     private List<People> people; /**< people list memorizza la list del cast*/
     private LayoutInflater layoutInflater; /**< Variabile per memorizzare il layout inflater*/
-    private CreditsListHorizontalAdapter.OnItemClickListener onItemClickListener; /**< variabile per salvare l'item click listener*/
+    private CreditsListAdapter.OnItemClickListener onItemClickListener; /**< variabile per salvare l'item click listener*/
 
     /**
      * public static class CreditsListViewHolder extends RecyclerView.ViewHolder
@@ -68,7 +68,7 @@ public class CreditsListHorizontalAdapter extends RecyclerView.Adapter<CreditsLi
          * @param people
          * @param onItemClickListener
          */
-        public void bind(People people, CreditsListHorizontalAdapter.OnItemClickListener onItemClickListener){
+        public void bind(People people, CreditsListAdapter.OnItemClickListener onItemClickListener){
             if(people.getName().length() > Constants.MAX_LENGHT)
                 title.setText(people.getName().substring(0,Constants.MAX_LENGHT-1)+" ...");
             else
@@ -95,13 +95,13 @@ public class CreditsListHorizontalAdapter extends RecyclerView.Adapter<CreditsLi
     }
 
     /**
-     * public CreditsListHorizontalAdapter
-     * costruttore della classe CreditsListHorizontalAdapter
+     * public CreditsListAdapter
+     * costruttore della classe CreditsListAdapter
      * @param context
      * @param peopleList
      * @param onItemClickListener
      */
-    public CreditsListHorizontalAdapter(Context context, List<People> peopleList, CreditsListHorizontalAdapter.OnItemClickListener onItemClickListener)
+    public CreditsListAdapter(Context context, List<People> peopleList, CreditsListAdapter.OnItemClickListener onItemClickListener)
     {
         this.layoutInflater = LayoutInflater.from(context);
         this.people = peopleList;
@@ -117,9 +117,9 @@ public class CreditsListHorizontalAdapter extends RecyclerView.Adapter<CreditsLi
      */
     @NonNull
     @Override
-    public CreditsListHorizontalAdapter.CreditsListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public CreditsListAdapter.CreditsListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = this.layoutInflater.inflate(R.layout.credits_item,parent,false);
-        return new CreditsListHorizontalAdapter.CreditsListViewHolder(view);
+        return new CreditsListAdapter.CreditsListViewHolder(view);
     }
 
     /**
@@ -129,7 +129,7 @@ public class CreditsListHorizontalAdapter extends RecyclerView.Adapter<CreditsLi
      * @param position
      */
     @Override
-    public void onBindViewHolder(@NonNull CreditsListHorizontalAdapter.CreditsListViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CreditsListAdapter.CreditsListViewHolder holder, int position) {
         holder.bind(people.get(position), this.onItemClickListener);
     }
 
