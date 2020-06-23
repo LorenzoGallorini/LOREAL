@@ -77,7 +77,7 @@ public class PeopleCardFragment extends Fragment {
                     if(people.getProfile_path()!=null&&!people.getProfile_path().equals("")){
                         Picasso.get().load(Constants.IMAGE_BASE_URL + people.getProfile_path()).into(binding.peopleImage);
                     }else{
-                        binding.peopleImage.setImageResource(R.drawable.no_image_avaiable);
+                        binding.peopleImage.setImageResource(R.drawable.no_phot_available_grey);
                     }
 
                     binding.peopleNameTitle.setText(people.getName());

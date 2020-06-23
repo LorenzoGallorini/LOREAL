@@ -94,7 +94,7 @@ public class MovieCardFragment extends Fragment {
                 if(movie.getPoster_path()!=null&&!movie.getPoster_path().equals("")){
                     Picasso.get().load(Constants.IMAGE_BASE_URL + movie.getPoster_path()).into(binding.filmImage);
                 }else{
-                    binding.filmImage.setImageResource(R.drawable.no_image_avaiable);
+                    binding.filmImage.setImageResource(R.drawable.no_phot_available_grey);
                 }
 
                 binding.filmTextTitle.setText(movie.getTitle());

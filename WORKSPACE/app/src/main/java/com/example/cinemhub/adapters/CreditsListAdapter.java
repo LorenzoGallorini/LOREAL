@@ -82,7 +82,7 @@ public class CreditsListAdapter extends RecyclerView.Adapter<CreditsListAdapter.
             if(people.getProfile_path()!=null && !people.getProfile_path().equals("")){
                 Picasso.get().load(Constants.IMAGE_BASE_URL + people.getProfile_path()).into(photo);
             }else {
-                photo.setImageResource(R.drawable.no_image_avaiable);
+                photo.setImageResource(R.drawable.no_phot_available_grey);
             }
 
             photo.setOnClickListener(new View.OnClickListener() {

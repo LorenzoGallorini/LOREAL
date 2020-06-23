@@ -157,7 +157,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             if(movie.getPoster_path()!=null && !movie.getPoster_path().equals("")){
                 Picasso.get().load(Constants.IMAGE_BASE_URL + movie.getPoster_path()).into(photo);
             }else {
-                photo.setImageResource(R.drawable.no_image_avaiable);
+                photo.setImageResource(R.drawable.no_phot_available_grey);
             }
 
             photo.setOnClickListener(new View.OnClickListener() {
