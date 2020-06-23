@@ -107,6 +107,7 @@ public class MovieCardFragment extends Fragment {
                     binding.AdultValue.setText((getString(R.string.Adult)));
                 else
                     binding.AdultValue.setVisibility(View.INVISIBLE);
+
                 binding.RuntimeValue.setText(Integer.toString(movie.getRuntime())+"'");
                 binding.ReleaseDateValue.setText(movie.getReleaseDateFORMATTED());
                 binding.RevenueValue.setText(movie.getRevenueFORMATTED()+" €");

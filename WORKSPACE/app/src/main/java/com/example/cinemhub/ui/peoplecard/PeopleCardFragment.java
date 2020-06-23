@@ -37,7 +37,6 @@ import java.util.List;
 
 public class PeopleCardFragment extends Fragment {
 
-    //TODO formattare date
 
     private PeopleCardViewModel mViewModel;
     private final String TAG = "PeopleCardFragment";
@@ -90,9 +89,9 @@ public class PeopleCardFragment extends Fragment {
                     }else{
                         binding.genderValue.setText(getResources().getString(android.R.string.unknownName));
                     }
-                    binding.birthDateValue.setText(people.getBirth_date());
+                    binding.birthDateValue.setText(people.getBirthDateFORMATTED());
                     if(people.getDeath_date()!=null&& !people.getDeath_date().equals("")){
-                        binding.dayOfDeathValue.setText(people.getDeath_date());
+                        binding.dayOfDeathValue.setText(people.getDeathDateFORMATTED());
                     }
                     else{
                         binding.dayOfDeathValue.setVisibility(View.INVISIBLE);

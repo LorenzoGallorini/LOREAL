@@ -1,5 +1,6 @@
 package com.example.cinemhub.models;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -257,5 +258,44 @@ public class People {
             }
         }
         return ris;
+    }
+
+    /**
+     * formatta la data di nascita nella PeopleCard
+     */
+    public String getBirthDateFORMATTED()
+    {
+        String date=getBirth_date();
+        SimpleDateFormat spf=new SimpleDateFormat("yyyy-MM-dd");
+        try
+        {
+            Date newDate=spf.parse(date);
+            spf= new SimpleDateFormat("dd/MM/yyyy");
+            date = spf.format(newDate);
+            return date;
+        }
+        catch (Exception e)
+        {
+            return getBirth_date();
+        }
+    }
+    /**
+     * formatta la data di morte nella PeopleCard
+     */
+    public String getDeathDateFORMATTED()
+    {
+        String date=getDeath_date();
+        SimpleDateFormat spf=new SimpleDateFormat("yyyy-MM-dd");
+        try
+        {
+            Date newDate=spf.parse(date);
+            spf= new SimpleDateFormat("dd/MM/yyyy");
+            date = spf.format(newDate);
+            return date;
+        }
+        catch (Exception e)
+        {
+            return getDeath_date();
+        }
     }
 }

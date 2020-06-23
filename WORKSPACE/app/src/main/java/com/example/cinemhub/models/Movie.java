@@ -317,12 +317,16 @@ public class Movie<integer> implements Parcelable {
     }
 
     /**
-     * metodo che trasforma i generi in un'unica stringa che andrà settata nelle informazioni del film //TODO controllare
+     * metodo che trasforma i generi in un'unica stringa che andrà settata nelle informazioni del film
      * @return String contenente tutti i generi
      */
     public String getGenresTostring()
     {
+
         String ret="";
+        if(this.getGenres()==null){
+            return ret;
+        }
         for (int i = 0;i< this.getGenres().size();i++){
             ret+=this.getGenres().get(i)+" | ";
         }
