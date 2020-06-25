@@ -62,4 +62,5 @@
     <string name="error_message_trailer">Trailer not available</string>
     <string name="empty_favorite_2">in the Movie Card</string>
     <string name="crew">Crew</string>
+    <string name="filmography">Filmography</string>
 </resources>

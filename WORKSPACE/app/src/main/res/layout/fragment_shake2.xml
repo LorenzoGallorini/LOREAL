@@ -33,7 +33,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="@string/title_film"
             android:textColor="@color/titleWhite"
             android:textSize="@dimen/title_size"
             android:textStyle="bold"
